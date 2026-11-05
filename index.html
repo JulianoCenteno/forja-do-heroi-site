@@ -331,6 +331,9 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
 .pc .pel{position:absolute;top:10px;right:10px;font-size:10px;font-weight:800;letter-spacing:.1em;padding:2px 6px;border-radius:4px;border:1px solid #ffd27a;color:#ffd27a}
 @media(max-width:900px){.alq-wrap{grid-template-columns:1fr;gap:26px}.pgrid{grid-template-columns:1fr 1fr}}
 </style>
+<!-- Meta Pixel: Forjo do Heroes -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1141320428608400');fbq('track','PageView');fbq('track','ViewContent',{content_name:'Forja do Heroi',value:9.90,currency:'BRL'});</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1141320428608400&ev=PageView&noscript=1" alt=""></noscript>
 </head>
 <body>
 
@@ -666,16 +669,18 @@ const CHECKOUT = {
   elite: 'https://appdigitalhub.com.br/c/1C7E51FE',       // Caçador Elite R$ 19,90
   elitePopup: 'https://appdigitalhub.com.br/c/1D6785B5'   // Caçador Elite R$ 14,90 (oferta do pop-up, só aparece aqui)
 };
-const go=u=>{if(u){location.href=u}else{alert_('Link de pagamento ainda não configurado.')}};
+const withQs=u=>{try{const q=location.search;if(!q||!u)return u;const x=new URL(u);new URLSearchParams(q).forEach((v,k)=>{if(!x.searchParams.has(k))x.searchParams.set(k,v)});return x.toString()}catch(e){return u}};
+const ic=(v,n)=>{try{fbq('track','InitiateCheckout',{value:v,currency:'BRL',content_name:n})}catch(e){}};
+const go=(u,v,n)=>{if(u){ic(v||9.9,n||'Forja do Heroi');location.href=withQs(u)}else{alert_('Link de pagamento ainda não configurado.')}};
 function alert_(m){const t=document.createElement('div');t.textContent=m;t.style.cssText='position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:200;background:#0c1830;border:1px solid #9fe0ff;color:#fff;padding:12px 18px;font-weight:700';document.body.appendChild(t);setTimeout(()=>t.remove(),2600)}
-document.querySelectorAll('[data-plan="elite"]').forEach(a=>{if(CHECKOUT.elite)a.href=CHECKOUT.elite});
+document.querySelectorAll('[data-plan="elite"]').forEach(a=>{if(CHECKOUT.elite)a.href=withQs(CHECKOUT.elite);a.addEventListener('click',()=>ic(19.9,'Cacador Elite'))});
 /* pop-up ao escolher o plano básico */
 const pop=document.getElementById('pop');let lastFocus=null;
 function openPop(){lastFocus=document.activeElement;pop.hidden=false;document.body.style.overflow='hidden';document.getElementById('popYes').focus()}
 function closePop(){pop.hidden=true;document.body.style.overflow='';lastFocus&&lastFocus.focus()}
 document.querySelectorAll('[data-plan="recruta"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();openPop()}));
-document.getElementById('popYes').addEventListener('click',e=>{e.preventDefault();go(CHECKOUT.elitePopup||CHECKOUT.elite)});
-document.getElementById('popNo').addEventListener('click',e=>{e.preventDefault();go(CHECKOUT.recruta)});
+document.getElementById('popYes').addEventListener('click',e=>{e.preventDefault();go(CHECKOUT.elitePopup||CHECKOUT.elite,14.9,'Cacador Elite popup')});
+document.getElementById('popNo').addEventListener('click',e=>{e.preventDefault();go(CHECKOUT.recruta,9.9,'Recruta')});
 document.getElementById('popX').addEventListener('click',closePop);
 pop.addEventListener('click',e=>{if(e.target===pop)closePop()});
 addEventListener('keydown',e=>{if(e.key==='Escape'&&!pop.hidden)closePop()});
