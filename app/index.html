@@ -1589,7 +1589,7 @@ function sfx(kind){
 }
 /* ---- música ambiente: Dungeon e Taverna ---- */
 const MUS={on:(()=>{try{return localStorage.getItem('fh_music')!=='0'}catch(e){return true}})(),cur:null,src:null,gain:null,buf:{},vol:.42,
-  tracks:{dungeon:{f:'dungeon_loop',len:40},taverna:{f:'tavern_loop',len:38.4}}};
+  tracks:{dungeon:{f:'dungeon_loop',len:40},taverna:{f:'tavern_loop',len:53.3333}}};
 function musicLoad(k){
   const t=MUS.tracks[k];if(MUS.buf[k])return Promise.resolve(MUS.buf[k]);
   if(!MUS['p'+k])MUS['p'+k]=fetch(AUD+t.f+'.mp3').then(r=>r.arrayBuffer()).then(a=>new Promise((ok,no)=>SFX.ctx.decodeAudioData(a,ok,no))).then(b=>(MUS.buf[k]=b));
