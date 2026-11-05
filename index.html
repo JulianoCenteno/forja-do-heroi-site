@@ -182,6 +182,39 @@ section{position:relative}
 .guar img{width:260px;height:260px;object-fit:contain;flex:none;margin:-30px -10px -30px -20px;filter:drop-shadow(0 0 24px rgba(255,198,90,.35));-webkit-mask-image:radial-gradient(circle at 50% 50%,#000 62%,transparent 72%);mask-image:radial-gradient(circle at 50% 50%,#000 62%,transparent 72%)}
 .guar>div{flex:1 1 300px;min-width:0}
 
+
+/* pop-up do básico */
+.pop{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(2,4,10,.82);backdrop-filter:blur(4px)}
+.pop[hidden]{display:none}
+.pop-box{position:relative;width:100%;max-width:520px;max-height:94vh;overflow:auto;padding:0;border-color:rgba(255,210,122,.7);box-shadow:0 0 40px rgba(255,198,90,.35);animation:popin .35s cubic-bezier(.2,1.3,.4,1)}
+@keyframes popin{from{transform:scale(.85);opacity:0}}
+.pop-x{position:absolute;top:10px;right:10px;z-index:2;width:40px;height:40px;background:rgba(4,10,22,.8);border:1px solid var(--line);color:#fff;font-size:18px;cursor:pointer}
+.pop-art{position:relative;height:170px;overflow:hidden}
+.pop-art img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.pop-art:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,#060a14)}
+.pop-tag{position:absolute;left:16px;bottom:10px;z-index:1;font-size:11px;font-weight:700;letter-spacing:.16em;color:#1a1006;background:linear-gradient(90deg,#ffd27a,#ffb238);padding:4px 10px}
+.pop-body{padding:18px 24px 24px;text-align:center}
+.pop-body h3{font-size:30px;margin-bottom:6px}
+.pop-sub{color:var(--mute);font-size:17px}
+.pop-price{display:flex;align-items:center;justify-content:center;gap:16px;margin:14px 0 6px}
+.pp-old{color:var(--dim);text-decoration:line-through;font-weight:700;font-size:20px}
+.pp-new{font-family:Jost,system-ui,sans-serif;font-weight:800;font-size:60px;line-height:1;color:#ffd27a;text-shadow:0 0 20px rgba(255,198,90,.6)}
+.pp-new small{font-size:20px;vertical-align:28px;margin-right:2px}.pp-new em{font-style:normal;font-size:26px}
+.pop-list{list-style:none;text-align:left;display:grid;gap:8px;margin:14px auto 18px;max-width:380px}
+.pop-list li{padding-left:28px;position:relative;font-weight:600;font-size:16px}
+.pop-list li:before{content:"✓";position:absolute;left:4px;color:#ffd27a;font-weight:800}
+.pbtn{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;min-height:64px;padding:10px 14px;text-decoration:none;color:#fff;border-radius:6px;transition:.15s;font-family:Rajdhani,system-ui,sans-serif}
+.pbtn b{font-size:19px;letter-spacing:.04em}
+.pbtn small{font-size:14px;font-weight:600;opacity:.92}
+.pbtn:active{transform:scale(.98)}
+.pop-yes{background:linear-gradient(180deg,#2fd06a,#119447);border:1px solid #7dffab;box-shadow:0 0 24px rgba(47,208,106,.55),0 4px 0 #0b5e2d;animation:pulse 1.6s ease-in-out infinite}
+.pop-yes:hover{filter:brightness(1.08)}
+.pop-no{margin-top:12px;min-height:56px;background:linear-gradient(180deg,#d8443a,#a3231b);border:1px solid #ff8c84;box-shadow:0 4px 0 #6b1510}
+.pop-no b{font-size:16px}.pop-no small{font-size:13px}
+.pop-no:hover{filter:brightness(1.08)}
+@keyframes pulse{50%{box-shadow:0 0 38px rgba(47,208,106,.85),0 4px 0 #0b5e2d}}
+@media (max-width:700px){.pop-art{height:130px}.pop-body{padding:14px 18px 20px}.pop-body h3{font-size:26px}.pp-new{font-size:52px}}
+
 /* FAQ */
 .faq{max-width:860px;margin:40px auto 0;display:grid;gap:12px}
 .faq details{border:1px solid rgba(159,224,255,.35);background:rgba(4,10,22,.7);padding:0 22px}
@@ -553,6 +586,26 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
   </div>
 </section>
 
+<div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="popT" hidden>
+  <div class="pop-box panel">
+    <button class="pop-x" id="popX" aria-label="Fechar">✕</button>
+    <div class="pop-art"><img src="img/keyart.webp" alt="" width="1916" height="821"><span class="pop-tag">[ SISTEMA ] · OFERTA ÚNICA</span></div>
+    <div class="pop-body">
+      <h3 id="popT" class="glow">Espera, herói!</h3>
+      <p class="pop-sub">Só nesta tela: leve o <b style="color:#ffd27a">Caçador Elite</b> completo por apenas <b style="color:#fff">R$ 5 a mais</b>.</p>
+      <div class="pop-price"><span class="pp-old">R$ 19,90</span><span class="pp-new"><small>R$</small>14<em>,90</em></span></div>
+      <ul class="pop-list">
+        <li>Dungeon de 30 Dias: treino guiado todo dia</li>
+        <li>Guia de Progressão e Planilha do Guerreiro</li>
+        <li>Temporadas com ranking e Taverna VIP</li>
+        <li>Título exclusivo “Fundador da Forja”</li>
+      </ul>
+      <a class="pbtn pop-yes" id="popYes" href="#planos"><b>✓ SIM, QUERO O ELITE</b><small>por R$ 14,90 · economize R$ 5</small></a>
+      <a class="pbtn pop-no" id="popNo" href="#planos"><b>✕ NÃO, QUERO SÓ O RECRUTA</b><small>por R$ 9,90 · sem Dungeon e bônus</small></a>
+    </div>
+  </div>
+</div>
+
 <footer>
   <div class="wrap">
     <span class="logo" style="font-size:15px">FORJA DO HERÓI</span>
@@ -563,10 +616,23 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
 <script>
 /* ====== LINKS DE PAGAMENTO: cole aqui os links do seu checkout ====== */
 const CHECKOUT = {
-  recruta: '',  // ex.: 'https://pay.kiwify.com.br/xxxx'
-  elite: ''     // ex.: 'https://pay.kiwify.com.br/yyyy'
+  recruta: '',     // Recruta R$ 9,90      ex.: 'https://pay.kiwify.com.br/xxxx'
+  elite: '',       // Caçador Elite R$ 19,90
+  elitePopup: ''   // Caçador Elite R$ 14,90 (oferta do pop-up, só aparece aqui)
 };
-document.querySelectorAll('[data-plan]').forEach(a=>{const u=CHECKOUT[a.dataset.plan];if(u){a.href=u;a.target='_blank';a.rel='noopener'}});
+const go=u=>{if(u){location.href=u}else{alert_('Link de pagamento ainda não configurado.')}};
+function alert_(m){const t=document.createElement('div');t.textContent=m;t.style.cssText='position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:200;background:#0c1830;border:1px solid #9fe0ff;color:#fff;padding:12px 18px;font-weight:700';document.body.appendChild(t);setTimeout(()=>t.remove(),2600)}
+document.querySelectorAll('[data-plan="elite"]').forEach(a=>{if(CHECKOUT.elite)a.href=CHECKOUT.elite});
+/* pop-up ao escolher o plano básico */
+const pop=document.getElementById('pop');let lastFocus=null;
+function openPop(){lastFocus=document.activeElement;pop.hidden=false;document.body.style.overflow='hidden';document.getElementById('popYes').focus()}
+function closePop(){pop.hidden=true;document.body.style.overflow='';lastFocus&&lastFocus.focus()}
+document.querySelectorAll('[data-plan="recruta"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();openPop()}));
+document.getElementById('popYes').addEventListener('click',e=>{e.preventDefault();go(CHECKOUT.elitePopup||CHECKOUT.elite)});
+document.getElementById('popNo').addEventListener('click',e=>{e.preventDefault();go(CHECKOUT.recruta)});
+document.getElementById('popX').addEventListener('click',closePop);
+pop.addEventListener('click',e=>{if(e.target===pop)closePop()});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&!pop.hidden)closePop()});
 
 /* nav */
 const nav=document.getElementById('nav');
