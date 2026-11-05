@@ -1587,29 +1587,53 @@ function sfx(kind){
   const src=c.createBufferSource(),g=c.createGain();g.gain.value=.85;src.buffer=b;src.connect(g);g.connect(c.destination);src.start();
   musicDuck(Math.min(b.duration,6));
 }
-/* ---- música ambiente: Dungeon e Taverna ---- */
-const MUS={on:(()=>{try{return localStorage.getItem('fh_music')!=='0'}catch(e){return true}})(),cur:null,src:null,gain:null,buf:{},vol:.42,
-  tracks:{dungeon:{f:'dungeon_loop',len:40},taverna:{f:'tavern_loop',len:53.3333}}};
-function musicLoad(k){
-  const t=MUS.tracks[k];if(MUS.buf[k])return Promise.resolve(MUS.buf[k]);
-  if(!MUS['p'+k])MUS['p'+k]=fetch(AUD+t.f+'.mp3').then(r=>r.arrayBuffer()).then(a=>new Promise((ok,no)=>SFX.ctx.decodeAudioData(a,ok,no))).then(b=>(MUS.buf[k]=b));
-  return MUS['p'+k];
+/* ---- música ambiente: Dungeon (trilha própria) e Taverna (gravações reais CC0) ---- */
+const AUD_CDN='https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh-audio/';
+const MUS={on:(()=>{try{return localStorage.getItem('fh_music')!=='0'}catch(e){return true}})(),cur:null,gain:null,layers:[],buf:{},vol:1,
+  tracks:{
+    dungeon:[{u:AUD+'dungeon_loop.mp3',v:.42,len:40}],
+    taverna:[{u:AUD_CDN+'old_tower_inn.mp3',v:.34,xf:4},   // "The Old Tower Inn" — RandomMind (CC0, OpenGameArt)
+             {u:AUD_CDN+'tavern_crowd.mp3',v:.55,xf:3},    // gravação real de taverna — ivolipa (CC0, Freesound)
+             {u:AUD_CDN+'fireplace.mp3',v:.16,xf:3}]       // lareira — HECKFRICKER (CC0, Freesound)
+  }};
+function musicLoad(u){
+  if(!MUS.buf[u])MUS.buf[u]=fetch(u).then(r=>r.ok?r.arrayBuffer():Promise.reject()).then(a=>new Promise((ok,no)=>SFX.ctx.decodeAudioData(a,ok,no))).catch(e=>{delete MUS.buf[u];throw e});
+  return MUS.buf[u];
+}
+/* toca um buffer em loop: emenda nativa (len) ou com crossfade (xf segundos) */
+function loopLayer(b,L,dest){
+  const c=SFX.ctx,ctl={alive:true,srcs:[],timer:null};
+  const g0=c.createGain();g0.gain.value=L.v;g0.connect(dest);
+  if(!L.xf){const s=c.createBufferSource();s.buffer=b;s.loop=true;s.loopEnd=Math.min(b.duration,L.len||b.duration);s.connect(g0);s.start();ctl.srcs.push(s);}
+  else{
+    const xf=Math.min(L.xf,b.duration/3),step=b.duration-xf;
+    const play=(t,first)=>{
+      if(!ctl.alive)return;
+      const s=c.createBufferSource(),g=c.createGain();s.buffer=b;s.connect(g);g.connect(g0);
+      g.gain.setValueAtTime(first?1:0,t);if(!first)g.gain.linearRampToValueAtTime(1,t+xf);
+      g.gain.setValueAtTime(1,t+step);g.gain.linearRampToValueAtTime(0,t+b.duration);
+      s.start(t);s.stop(t+b.duration+.05);
+      ctl.srcs=ctl.srcs.filter(x=>x.__end>c.currentTime);s.__end=t+b.duration;ctl.srcs.push(s);
+      const next=t+step;
+      ctl.timer=setTimeout(()=>play(next,false),Math.max(0,(next-c.currentTime-2)*1000));
+    };
+    play(c.currentTime+.05,true);
+  }
+  ctl.stop=t=>{ctl.alive=false;clearTimeout(ctl.timer);ctl.srcs.forEach(s=>{try{s.stop(t)}catch(e){}})};
+  return ctl;
 }
 function musicStop(){
-  if(!MUS.src)return;const c=SFX.ctx,s=MUS.src,g=MUS.gain;MUS.src=null;MUS.gain=null;
-  try{g.gain.cancelScheduledValues(c.currentTime);g.gain.setValueAtTime(g.gain.value,c.currentTime);g.gain.linearRampToValueAtTime(0,c.currentTime+.8);s.stop(c.currentTime+.85)}catch(e){}
+  if(!MUS.gain)return;const c=SFX.ctx,g=MUS.gain,ls=MUS.layers;MUS.gain=null;MUS.layers=[];
+  try{const t=c.currentTime;g.gain.cancelScheduledValues(t);g.gain.setValueAtTime(g.gain.value,t);g.gain.linearRampToValueAtTime(0,t+.9)}catch(e){}
+  ls.forEach(l=>l.stop(c.currentTime+1));
 }
 function musicSync(){
   const want=(SFX.on&&MUS.on&&!document.hidden&&MUS.tracks[tab])?tab:null;
   if(want===MUS.cur)return;
   MUS.cur=want;musicStop();
   if(!want)return;const c=sfxCtx();if(!c)return;
-  musicLoad(want).then(b=>{
-    if(MUS.cur!==want||MUS.src)return;
-    const s=c.createBufferSource(),g=c.createGain();s.buffer=b;s.loop=true;s.loopStart=0;s.loopEnd=Math.min(b.duration,MUS.tracks[want].len);
-    g.gain.setValueAtTime(0,c.currentTime);g.gain.linearRampToValueAtTime(MUS.vol,c.currentTime+1.5);
-    s.connect(g);g.connect(c.destination);s.start();MUS.src=s;MUS.gain=g;
-  }).catch(()=>{});
+  const g=c.createGain();g.gain.setValueAtTime(0,c.currentTime);g.gain.linearRampToValueAtTime(MUS.vol,c.currentTime+2);g.connect(c.destination);MUS.gain=g;
+  MUS.tracks[want].forEach(L=>musicLoad(L.u).then(b=>{if(MUS.cur!==want||MUS.gain!==g)return;MUS.layers.push(loopLayer(b,L,g))}).catch(()=>{}));
 }
 function musicDuck(sec){
   if(!MUS.gain)return;const c=SFX.ctx,g=MUS.gain.gain,t=c.currentTime;
