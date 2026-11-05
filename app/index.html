@@ -352,6 +352,7 @@ h2 .sub{font-family:Rajdhani;font-size:13px;color:var(--mute);letter-spacing:0;f
 .isteps li:before{content:counter(i);position:absolute;left:0;top:9px;width:30px;height:30px;display:grid;place-items:center;border:1px solid var(--gold);color:var(--gold);font-weight:700;box-shadow:0 0 10px rgba(79,195,255,.4)}
 .isteps .k{display:inline-flex;align-items:center;gap:4px;padding:1px 7px;border:1px solid rgba(200,235,255,.45);background:rgba(79,195,255,.12);font-weight:700;white-space:nowrap}
 .inote{margin-top:12px;padding:10px 12px;border-left:3px solid #ffd27a;background:rgba(255,198,90,.08);font-size:13.5px;color:var(--mute)}
+.musbtn{display:block;width:fit-content;margin:0 0 10px auto;padding:5px 10px;border:1px solid rgba(200,235,255,.4);background:rgba(4,10,22,.8);font-size:13px;font-weight:700;color:var(--mute)}
 .instl{display:block;margin:14px auto 0;color:var(--gold);font-size:14px;text-decoration:underline}
 </style>
 </head>
@@ -757,9 +758,10 @@ function render(){
   const head=`<div class="top"><div class="brand">FORJA DO HERÓI<small>TREINO RPG</small></div>
     <div class="topr">${isElite()?'<span class="pill elite">👑 ELITE</span>':'<button class="pill up" data-a="elite">RECRUTA ↑</button>'}<span class="pill">🪙 ${fmt(g)}</span><button class="iconbtn" data-a="sound" title="${SFX.on?'Desligar sons':'Ligar sons'}">${SFX.on?'🔊':'🔇'}</button><button class="iconbtn" data-a="settings" title="Ficha">⚙️</button></div></div>`;
   const views={heroi:viewHero,treinar:viewTrain,dungeon:viewDungeon,missoes:viewQuests,chefes:viewBosses,taverna:viewTaverna,mais:viewMais,loja:viewShop,diario:viewLog,temporada:viewSeason,progressao:viewProgress,planilha:viewSheet,alquimia:viewAlquimia};
-  $('#app').innerHTML=head+(tab==='heroi'?installBanner():'')+views[tab]()+`<div class="sync" id="sync">${syncLabel()}</div>`;
+  $('#app').innerHTML=head+(tab==='heroi'?installBanner():'')+(MUS.tracks[tab]?musicBtn():'')+views[tab]()+`<div class="sync" id="sync">${syncLabel()}</div>`;
   renderNav();
   if(tab==='treinar') tickTimer();
+  try{musicSync()}catch(e){}
 }
 function renderNav(){
   const es=todayEntries();
@@ -1323,6 +1325,7 @@ document.addEventListener('click',ev=>{
       S.goldBonus=50;save();tab='heroi';render();toast('⚒️','Bem-vindo, '+name+'!','Você recebeu 50 ouro para começar');break}
     case 'settings': settingsSheet(); break;
     case 'sound': toggleSound(); break;
+    case 'music': toggleMusic(); break;
     case 'install': installSheet(b.dataset.v); break;
     case 'installNow': installNow(); break;
     case 'installHide': try{localStorage.setItem('fh_install_hide','1')}catch(e){} render(); break;
@@ -1527,9 +1530,11 @@ function noise(t0,d,{vol=.25,freq=900,q=.8}={}){
 const N=n=>440*Math.pow(2,(n-69)/12); // nota MIDI -> Hz
 function chord(ns,t,d,o){ns.forEach(n=>tone(N(n),t,d,o))}
 function horn(n,t,d,vol=.12){tone(N(n),t,d,{type:'sawtooth',vol,attack:.03});tone(N(n),t,d,{type:'square',vol:vol*.5,attack:.03});tone(N(n-12),t,d,{type:'triangle',vol:vol*1.2,attack:.03})}
-function sfx(kind){
-  if(!SFX.on)return;const c=sfxCtx();if(!c)return;
+function sfxBus(c){
   if(!SFX.bus){const comp=c.createDynamicsCompressor(),lp=c.createBiquadFilter(),m=c.createGain();lp.type='lowpass';lp.frequency.value=6500;m.gain.value=.9;lp.connect(comp);comp.connect(m);m.connect(c.destination);SFX.bus=lp;}
+}
+function sfxSynth(kind){
+  const c=SFX.ctx;sfxBus(c);
   const t=c.currentTime+.02;
   switch(kind){
     case 'xp': // série registrada: moeda brilhante
@@ -1566,6 +1571,54 @@ function sfx(kind){
       chord([60,67,72],t,.4,{type:'sawtooth',vol:.04});[72,76,79,84,88,91].forEach((n,i)=>tone(N(n),t+.1+i*.07,.3,{type:'square',vol:.06}));chord([72,79,84,88],t+.55,1.4,{vol:.07});break;
   }
 }
+
+/* ---- trilha orquestral (arquivos em /app/audio, composições próprias) ---- */
+const AUD='/app/audio/';
+const SFX_FILES=['xp','coin','quest','allquests','alquimia','achievement','levelup','dungeon','dungeonfinal','boss','timer','elite'];
+SFX.buf={};SFX.loading=false;
+function sfxPreload(){
+  if(SFX.loading||!SFX.ctx)return;SFX.loading=true;
+  SFX_FILES.forEach(k=>fetch(AUD+k+'.mp3').then(r=>r.ok?r.arrayBuffer():Promise.reject()).then(a=>new Promise((ok,no)=>SFX.ctx.decodeAudioData(a,ok,no))).then(b=>{SFX.buf[k]=b}).catch(()=>{}));
+}
+function sfx(kind){
+  if(!SFX.on)return;const c=sfxCtx();if(!c)return;sfxPreload();
+  const b=SFX.buf[kind];
+  if(!b){try{sfxSynth(kind)}catch(e){}return}
+  const src=c.createBufferSource(),g=c.createGain();g.gain.value=.85;src.buffer=b;src.connect(g);g.connect(c.destination);src.start();
+  musicDuck(Math.min(b.duration,6));
+}
+/* ---- música ambiente: Dungeon e Taverna ---- */
+const MUS={on:(()=>{try{return localStorage.getItem('fh_music')!=='0'}catch(e){return true}})(),cur:null,src:null,gain:null,buf:{},vol:.42,
+  tracks:{dungeon:{f:'dungeon_loop',len:40},taverna:{f:'tavern_loop',len:38.4}}};
+function musicLoad(k){
+  const t=MUS.tracks[k];if(MUS.buf[k])return Promise.resolve(MUS.buf[k]);
+  if(!MUS['p'+k])MUS['p'+k]=fetch(AUD+t.f+'.mp3').then(r=>r.arrayBuffer()).then(a=>new Promise((ok,no)=>SFX.ctx.decodeAudioData(a,ok,no))).then(b=>(MUS.buf[k]=b));
+  return MUS['p'+k];
+}
+function musicStop(){
+  if(!MUS.src)return;const c=SFX.ctx,s=MUS.src,g=MUS.gain;MUS.src=null;MUS.gain=null;
+  try{g.gain.cancelScheduledValues(c.currentTime);g.gain.setValueAtTime(g.gain.value,c.currentTime);g.gain.linearRampToValueAtTime(0,c.currentTime+.8);s.stop(c.currentTime+.85)}catch(e){}
+}
+function musicSync(){
+  const want=(SFX.on&&MUS.on&&!document.hidden&&MUS.tracks[tab])?tab:null;
+  if(want===MUS.cur)return;
+  MUS.cur=want;musicStop();
+  if(!want)return;const c=sfxCtx();if(!c)return;
+  musicLoad(want).then(b=>{
+    if(MUS.cur!==want||MUS.src)return;
+    const s=c.createBufferSource(),g=c.createGain();s.buffer=b;s.loop=true;s.loopStart=0;s.loopEnd=Math.min(b.duration,MUS.tracks[want].len);
+    g.gain.setValueAtTime(0,c.currentTime);g.gain.linearRampToValueAtTime(MUS.vol,c.currentTime+1.5);
+    s.connect(g);g.connect(c.destination);s.start();MUS.src=s;MUS.gain=g;
+  }).catch(()=>{});
+}
+function musicDuck(sec){
+  if(!MUS.gain)return;const c=SFX.ctx,g=MUS.gain.gain,t=c.currentTime;
+  try{g.cancelScheduledValues(t);g.setValueAtTime(g.value,t);g.linearRampToValueAtTime(MUS.vol*.25,t+.15);g.setValueAtTime(MUS.vol*.25,t+sec*.8);g.linearRampToValueAtTime(MUS.vol,t+sec+.8)}catch(e){}
+}
+function toggleMusic(){MUS.on=!MUS.on;try{localStorage.setItem('fh_music',MUS.on?'1':'0')}catch(e){}if(MUS.on&&!SFX.on){SFX.on=true;try{localStorage.setItem('fh_sound','1')}catch(e){}}render();}
+function musicBtn(){return `<button class="musbtn" data-a="music">${MUS.on&&SFX.on?'🎵 Música ligada':'🔇 Música desligada'}</button>`}
+document.addEventListener('visibilitychange',()=>{if(SFX.ctx){if(document.hidden)SFX.ctx.suspend&&SFX.ctx.suspend();else SFX.ctx.resume&&SFX.ctx.resume()}});
+
 function toggleSound(){SFX.on=!SFX.on;try{localStorage.setItem('fh_sound',SFX.on?'1':'0')}catch(e){}if(SFX.on)sfx('coin');render();toast(SFX.on?'🔊':'🔇',SFX.on?'Sons ligados':'Sons desligados');}
 </script>
 </body>
