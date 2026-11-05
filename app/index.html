@@ -328,6 +328,10 @@ h2 .sub{font-family:Rajdhani;font-size:13px;color:var(--mute);letter-spacing:0;f
 @keyframes drop{from{transform:translateY(-20px);opacity:0}}
 @keyframes glow{50%{text-shadow:0 0 50px rgba(79,195,255,.9)}}
 @keyframes pulse{50%{opacity:.5}}
+.alqgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.alq{position:relative;text-align:left;padding:12px;border-radius:12px;border:1px solid color-mix(in srgb,var(--rc) 55%,transparent);background:linear-gradient(160deg,color-mix(in srgb,var(--rc) 16%,#0a1224),#070c18);color:var(--text);display:flex;flex-direction:column;gap:3px;box-shadow:0 0 14px color-mix(in srgb,var(--rc) 22%,transparent)}
+.alq .ae{font-size:28px;line-height:1}.alq small{font-size:10px;font-weight:700;letter-spacing:.1em}.alq b{font-size:14px;line-height:1.2}.alq .am{font-size:11.5px;color:var(--mute)}
+.alq.lk{opacity:.55;filter:saturate(.5)}.alq.dn{border-color:#7dff9b}.alq .ad{font-size:10px;font-weight:800;color:#7dff9b;letter-spacing:.08em}
 </style>
 </head>
 <body>
@@ -344,7 +348,7 @@ const ART={keyart:'img/keyart.webp',chefe:'img/chefe.webp',
 const CLS_COLOR={monge:{acc:'#4fe3c8',bg:'linear-gradient(135deg,#0d3b3a,#06201f)',w:'MONGE'},paladino:{acc:'#ffc65a',bg:'linear-gradient(135deg,#3a2a0c,#1a1206)',w:'PALADINO'},guerreiro:{acc:'#ff6a5a',bg:'linear-gradient(135deg,#3d1010,#1c0707)',w:'GUERREIRO'}};
 /* ===== LINK DE PAGAMENTO DO PLANO CAÇADOR ELITE (cole aqui) ===== */
 const CHECKOUT_ELITE='https://appdigitalhub.com.br/c/1C7E51FE';
-const ELITE_PERKS=[['🗺️','Dungeon de 30 Dias: um treino guiado por dia para a sua classe'],['🌳','Guia de Progressão: da primeira flexão ao muscle-up'],['📊','Planilha do Guerreiro: cargas, recordes e sugestão de carga'],['🏆','Temporada mensal com ranking entre heróis Elite'],['🍺','Taverna VIP e coroa dourada nos seus posts'],['👑','Título exclusivo “Fundador da Forja” + 300 de ouro']];
+const ELITE_PERKS=[['🎁','BÔNUS · Alquimia do Herói: 12 bebidas e alimentos anabólicos'],['🗺️','Dungeon de 30 Dias: um treino guiado por dia para a sua classe'],['🌳','Guia de Progressão: da primeira flexão ao muscle-up'],['📊','Planilha do Guerreiro: cargas, recordes e sugestão de carga'],['🏆','Temporada mensal com ranking entre heróis Elite'],['🍺','Taverna VIP e coroa dourada nos seus posts'],['👑','Título exclusivo “Fundador da Forja” + 300 de ouro']];
 
 const CLASSES = {
   monge:    {n:'Monge das Barras',  e:'✊', d:'Mestre da calistenia. +20% XP em exercícios com peso corporal.', cal:1.2, mus:1.0},
@@ -729,7 +733,7 @@ function render(){
   const g=gold();
   const head=`<div class="top"><div class="brand">FORJA DO HERÓI<small>TREINO RPG</small></div>
     <div class="topr">${isElite()?'<span class="pill elite">👑 ELITE</span>':'<button class="pill up" data-a="elite">RECRUTA ↑</button>'}<span class="pill">🪙 ${fmt(g)}</span><button class="iconbtn" data-a="settings" title="Ficha">⚙️</button></div></div>`;
-  const views={heroi:viewHero,treinar:viewTrain,dungeon:viewDungeon,missoes:viewQuests,chefes:viewBosses,taverna:viewTaverna,mais:viewMais,loja:viewShop,diario:viewLog,temporada:viewSeason,progressao:viewProgress,planilha:viewSheet};
+  const views={heroi:viewHero,treinar:viewTrain,dungeon:viewDungeon,missoes:viewQuests,chefes:viewBosses,taverna:viewTaverna,mais:viewMais,loja:viewShop,diario:viewLog,temporada:viewSeason,progressao:viewProgress,planilha:viewSheet,alquimia:viewAlquimia};
   $('#app').innerHTML=head+views[tab]()+`<div class="sync" id="sync">${syncLabel()}</div>`;
   renderNav();
   if(tab==='treinar') tickTimer();
@@ -738,7 +742,7 @@ function renderNav(){
   const es=todayEntries();
   const qReady=S.q.ids.some(id=>{const q=QUESTS.find(x=>x.id===id);return q&&!S.q.claimed.includes(id)&&q.f(es)>=q.goal});
   const items=[['heroi','🧙','Herói'],['treinar','⚔️','Treinar'],['dungeon','🗺️','Dungeon'],['missoes','📜','Missões'],['chefes','🐉','Chefes'],['taverna','🍺','Taverna'],['mais','☰','Mais']];
-  const navTab=['loja','diario','temporada','progressao','planilha'].includes(tab)?'mais':tab;
+  const navTab=['loja','diario','temporada','progressao','planilha','alquimia'].includes(tab)?'mais':tab;
   $('#nav').innerHTML='<div class="in">'+items.map(([k,e,n])=>`<button class="${navTab===k?'on':''}" data-tab="${k}"><span class="e">${e}</span>${n}${k==='missoes'&&qReady?'<span class="dot"></span>':''}${k==='dungeon'&&!isElite()?'<span class="lockdot">🔒</span>':''}</button>`).join('')+'</div>';
 }
 
@@ -1154,13 +1158,73 @@ function viewSheet(){
      <div class="sgrid"><div><small>RECORDE</small><b>${fmt(best)} kg</b></div><div><small>1RM ESTIMADO</small><b>${fmt(rm)} kg</b></div><div><small>ÚLTIMO</small><b>${last.s}×${last.r} · ${last.kg||0} kg</b></div><div><small>PRÓXIMO TREINO</small><b class="${sug>(last.kg||0)?'up':''}">${sug} kg ${sug>(last.kg||0)?'↑':''}</b></div></div></div>`}).join('');
 }
 
+
+/* ================== ALQUIMIA (poções e rações anabólicas) ================== */
+const RAR={c:['COMUM','#9fb3d1'],r:['RARO','#4fc3ff'],e:['ÉPICO','#b67dff'],l:['LENDÁRIO','#ffc65a']};
+const ALQ=[
+ {id:'despertar',e:'🧪',n:'Poção do Despertar',k:'Poção',rar:'c',p:18,kcal:420,q:'Café da manhã ou pré-treino',
+  ing:['300 ml de leite','1 banana','3 colheres (sopa) de aveia','1 colher (sopa) de pasta de amendoim','Canela a gosto'],prep:'Bata tudo no liquidificador por 30 segundos. Gelada fica melhor: use a banana congelada.'},
+ {id:'panqueca',e:'🥞',n:'Panqueca Anabólica do Paladino',k:'Ração',rar:'c',p:16,kcal:330,q:'Café da manhã ou lanche',
+  ing:['2 ovos','1 banana madura','2 colheres (sopa) de aveia','Canela a gosto','Opcional: 1 scoop de whey (+24 g de proteína)'],prep:'Amasse a banana, misture os ovos e a aveia. Doure em frigideira antiaderente untada, 2 minutos de cada lado.'},
+ {id:'recuperacao',e:'💧',n:'Elixir de Recuperação',k:'Poção',rar:'r',p:30,kcal:290,q:'Até 1 hora depois do treino',
+  ing:['1 pote de iogurte natural (170 g)','1 scoop de whey','1 xícara de frutas vermelhas ou morango','150 ml de água gelada'],prep:'Bata tudo até ficar cremoso. Sem whey? Troque por 200 ml de leite em pó reconstituído (fica com 18 g).'},
+ {id:'mousse',e:'🍫',n:'Mousse Anabólico de Chocolate',k:'Ração',rar:'r',p:32,kcal:280,q:'Sobremesa ou lanche da noite',
+  ing:['1 pote de iogurte grego natural','1 scoop de whey de chocolate','1 colher (chá) de cacau em pó','Adoçante a gosto'],prep:'Misture bem com um garfo até ficar liso. Leve à geladeira por 20 minutos.'},
+ {id:'fogo',e:'🔥',n:'Poção de Fogo Pré-Treino',k:'Poção',rar:'r',p:10,kcal:260,q:'30 a 40 min antes do treino',
+  ing:['1 xícara de café coado frio','150 ml de leite','1 banana','1 colher (sopa) de mel','Canela'],prep:'Bata tudo com gelo. Energia rápida da banana e do mel com a cafeína do café.'},
+ {id:'guerreiro',e:'🍗',n:'Ração do Guerreiro',k:'Ração',rar:'e',p:45,kcal:620,q:'Almoço ou jantar',
+  ing:['150 g de frango desfiado temperado','4 colheres (sopa) de arroz','1 concha de feijão','Salada à vontade','1 fio de azeite'],prep:'O clássico que constrói heróis. Cozinhe 1 kg de frango no domingo, desfie e congele em porções para a semana.'},
+ {id:'omelete',e:'🍳',n:'Omelete do Monge',k:'Ração',rar:'c',p:25,kcal:310,q:'Qualquer refeição',
+  ing:['3 ovos','1 punhado de espinafre ou couve','30 g de queijo branco','Tomate e cebola picados','Sal e orégano'],prep:'Bata os ovos, junte o resto e cozinhe em fogo baixo com tampa por 4 minutos.'},
+ {id:'noturno',e:'🌙',n:'Pudim Proteico Noturno',k:'Ração',rar:'e',p:28,kcal:380,q:'Antes de dormir',
+  ing:['4 colheres (sopa) de aveia','1 colher (sopa) de chia','1 scoop de whey','200 ml de leite','Fruta picada por cima'],prep:'Misture tudo num pote, tampe e deixe na geladeira de um dia para o outro. Proteína lenta durante o sono.'},
+ {id:'crepioca',e:'🌯',n:'Crepioca do Caçador',k:'Ração',rar:'r',p:28,kcal:360,q:'Café da manhã ou lanche',
+  ing:['2 ovos','2 colheres (sopa) de goma de tapioca','80 g de frango desfiado','1 colher (sopa) de requeijão light'],prep:'Bata os ovos com a tapioca e faça como uma panqueca. Recheie com frango e requeijão e dobre.'},
+ {id:'tita',e:'⚗️',n:'Shake Hipercalórico do Titã',k:'Poção',rar:'l',p:45,kcal:780,q:'Para quem quer ganhar massa',
+  ing:['400 ml de leite integral','1 scoop de whey','1 banana','4 colheres (sopa) de aveia','2 colheres (sopa) de pasta de amendoim','1 colher (sopa) de mel'],prep:'Bata tudo por 40 segundos. Para quem não consegue comer muito: 780 kcal num copo, sem empanturrar.'},
+ {id:'sorvete',e:'🍨',n:'Sorvete Anabólico de Banana',k:'Ração',rar:'e',p:26,kcal:300,q:'Sobremesa',
+  ing:['2 bananas congeladas em rodelas','1 scoop de whey de baunilha ou chocolate','50 ml de leite'],prep:'Bata no processador ou liquidificador potente até virar sorvete cremoso. Sirva na hora.'},
+ {id:'burger',e:'🍔',n:'Hambúrguer Caseiro do Herói',k:'Ração',rar:'l',p:38,kcal:520,q:'Almoço, jantar ou refeição livre',
+  ing:['150 g de patinho moído','Sal, alho e cebola','1 pão de hambúrguer integral','Alface, tomate e queijo'],prep:'Tempere a carne, modele o disco e grelhe 3 a 4 minutos de cada lado. Monte o lanche. Dá para congelar os discos crus.'}
+];
+const ALQ_MAX=2, ALQ_XP=40, ALQ_GOLD=10;
+function alqToday(){if(!S.alq||S.alq.d!==ymd())S.alq={d:ymd(),done:[]};return S.alq}
+function alqOpen(r){return isElite()||r.free}
+function viewAlquimia(){
+  const a=alqToday();const left=ALQ_MAX-a.done.length;
+  const pTot=sum(a.done.map(id=>ALQ.find(r=>r.id===id)).filter(Boolean),r=>r.p);
+  return backMais()+`<h2>🧪 Alquimia do Herói</h2>${isElite()?'<span class="crown" style="display:inline-block;margin:-6px 0 10px">🎁 BÔNUS CAÇADOR ELITE</span>':''}
+  <p class="muted" style="font-size:14px;margin:-4px 0 12px">Bebidas e alimentos anabólicos: receitas ricas em proteína, com comida de mercado. Preparou? Registre e ganhe <b style="color:var(--gold)">+${ALQ_XP} XP</b> (até ${ALQ_MAX} por dia).</p>
+  <div class="card row between" style="gap:10px"><div><small class="dim">ALQUIMIAS HOJE</small><div class="glow" style="font-weight:800;font-size:20px">${a.done.length}/${ALQ_MAX}</div></div><div style="text-align:right"><small class="dim">PROTEÍNA DAS RECEITAS</small><div style="font-weight:800;font-size:20px;color:#7dff9b">${pTot} g</div></div></div>
+  ${isElite()?'':`<button class="promo" data-a="elite" style="margin:10px 0"><img src="${ART.keyart}" alt=""><span class="promo-t"><span class="crown">🎁 BÔNUS DO CAÇADOR ELITE</span><b>Libere as 12 bebidas e alimentos anabólicos</b><small>Toque para ver o plano Elite</small></span></button>`}
+  <div class="alqgrid">${ALQ.map(r=>{const op=alqOpen(r),dn=a.done.includes(r.id),[rn,rc]=RAR[r.rar];
+   return `<button class="alq ${op?'':'lk'} ${dn?'dn':''}" style="--rc:${rc}" data-a="${op?'alq':'elite'}" data-id="${r.id}"><span class="ae">${op?r.e:'🔒'}</span><small style="color:${rc}">${rn} · ${r.k.toUpperCase()}</small><b>${esc(r.n)}</b><span class="am">${r.p} g proteína · ${r.kcal} kcal</span>${dn?'<span class="ad">✓ FEITA HOJE</span>':''}</button>`}).join('')}</div>`;
+}
+function alqSheet(id){
+  const r=ALQ.find(x=>x.id===id);if(!r)return;const a=alqToday();const dn=a.done.includes(id);const [rn,rc]=RAR[r.rar];
+  openModal(`<div class="row between"><div><small style="color:${rc};font-weight:700;letter-spacing:.1em">${rn} · ${r.k.toUpperCase()}</small><h3>${r.e} ${esc(r.n)}</h3></div><button class="iconbtn" data-a="close">✕</button></div>
+   <div class="sgrid" style="margin:10px 0"><div><small>PROTEÍNA</small><b style="color:#7dff9b">${r.p} g</b></div><div><small>CALORIAS</small><b>${r.kcal} kcal</b></div></div>
+   <p class="muted" style="font-size:13px">⏱️ Quando: ${esc(r.q)}</p>
+   <h4 style="margin:12px 0 6px">Ingredientes</h4><ul class="elist">${r.ing.map(i=>`<li><span>✦</span>${esc(i)}</li>`).join('')}</ul>
+   <h4 style="margin:12px 0 6px">Modo de preparo</h4><p class="muted" style="font-size:14px">${esc(r.prep)}</p>
+   <p class="dim" style="font-size:11.5px;margin-top:10px">Valores aproximados. Tem alguma restrição alimentar ou condição de saúde? Fale com um nutricionista.</p>
+   ${dn?'<button class="btn ghost full" style="margin-top:14px" data-a="close">✓ Já preparada hoje</button>':a.done.length>=ALQ_MAX?'<button class="btn ghost full" style="margin-top:14px" data-a="close">Limite de hoje atingido · volte amanhã</button>':`<button class="btn full" style="margin-top:14px" data-a="alqDone" data-id="${r.id}">⚗️ Preparei! +${ALQ_XP} XP</button>`}`);
+}
+function alqDone(id){
+  const r=ALQ.find(x=>x.id===id);const a=alqToday();
+  if(!r||!alqOpen(r)||a.done.includes(id)||a.done.length>=ALQ_MAX)return;
+  const prev=levelInfo().L;a.done.push(id);S.bonusXP+=ALQ_XP;S.goldBonus+=ALQ_GOLD;
+  toast(r.e,'Alquimia concluída!',r.n+' · +'+ALQ_XP+' XP · +'+ALQ_GOLD+' ouro');
+  afterProgress(prev);save();render();
+}
+
 /* ================== MAIS ================== */
 function backMais(){return `<button class="back" data-tab="mais">← Mais</button>`}
 function viewMais(){
   const t=(k,e,n,d,el)=>`<button class="tile ${el&&!isElite()?'lk':''}" data-tab="${k}"><span class="te2">${e}</span><b>${n}</b><small>${d}</small>${el?'<span class="crown sm">👑</span>':''}</button>`;
   return `<h2>Mais</h2>${elitePromo()}<div class="tiles">
    ${t('temporada','🏆','Temporada','Ranking do mês',1)}${t('progressao','🌳','Progressão','Árvores de habilidade',1)}
-   ${t('planilha','📊','Planilha','Cargas e recordes',1)}${t('loja','🪙','Loja','Elixires e títulos')}
+   ${t('alquimia','🧪','Alquimia','Bônus: receitas anabólicas',1)}${t('planilha','📊','Planilha','Cargas e recordes',1)}${t('loja','🪙','Loja','Elixires e títulos')}
    ${t('diario','📖','Diário','Histórico de treinos')}<button class="tile" data-a="settings"><span class="te2">⚙️</span><b>Ficha</b><small>Nome, classe e plano</small></button>
   </div>`;
 }
@@ -1218,6 +1282,8 @@ document.addEventListener('click',ev=>{
     case 'type': trainType=b.dataset.v;trainGroup='Todos';render();break;
     case 'group': trainGroup=b.dataset.v;render();break;
     case 'ex': exerciseSheet(b.dataset.id);break;
+    case 'alq': alqSheet(b.dataset.id);break;
+    case 'alqDone': closeModal();alqDone(b.dataset.id);break;
     case 'step':{const inp=$('#'+b.dataset.t);const d=+b.dataset.d;inp.value=Math.max(0,Math.round(((+inp.value||0)+d)*100)/100);updatePreview();break}
     case 'log':{
       const {ex,s,r,kg}=readSheet();if(!s||!r){toast('⚠️','Informe séries e repetições');return}
