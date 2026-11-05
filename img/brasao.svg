@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+<defs>
+<radialGradient id="aura" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#4fc3ff" stop-opacity=".55"/><stop offset="1" stop-color="#05070d" stop-opacity="0"/></radialGradient>
+<linearGradient id="sh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16305e"/><stop offset="1" stop-color="#060c1c"/></linearGradient>
+<filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<circle cx="200" cy="200" r="196" fill="url(#aura)"/>
+<g fill="none" stroke="#9fe0ff" filter="url(#glow)">
+<circle cx="200" cy="200" r="170" stroke-width="2" stroke-opacity=".8"/>
+<circle cx="200" cy="200" r="152" stroke-width="1.5" stroke-dasharray="4 8" stroke-opacity=".7"/>
+<path d="M200 22V48M200 352V378M22 200H48M352 200H378" stroke-width="3"/>
+</g>
+<path d="M200 70L300 106V196Q300 276 200 326Q100 276 100 196V106Z" fill="url(#sh)" stroke="#dff4ff" stroke-width="4" filter="url(#glow)"/>
+<g stroke="#dff4ff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none" filter="url(#glow)">
+<path d="M150 130L250 250M168 238L150 256M250 130L150 250"/>
+<path d="M232 238L250 256"/>
+</g>
+<g stroke="#4fc3ff" stroke-width="10" stroke-linecap="round" filter="url(#glow)">
+<path d="M164 190H236M156 176V204M244 176V204M146 182V198M254 182V198"/>
+</g>
+<path d="M90 318H310L296 338L310 358H90L104 338Z" fill="#0a1a38" stroke="#dff4ff" stroke-width="3" filter="url(#glow)"/>
+<text x="200" y="346" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="18" letter-spacing="2" fill="#ffffff">SUBA DE NÍVEL</text>
+</svg>
