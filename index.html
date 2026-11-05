@@ -99,6 +99,7 @@ section{position:relative}
 .d-word{position:absolute;right:-2%;top:40px;font-family:Jost,system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:800;font-size:clamp(120px,19vw,300px);line-height:.82;letter-spacing:-.02em;color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.22);text-transform:uppercase;white-space:nowrap;pointer-events:none;user-select:none}
 .d-grid{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:20px;align-items:center}
 .d-info{position:relative;z-index:2}
+.cls-hint{color:#dce8ff;font-size:16.5px;max-width:470px;margin:-4px 0 14px;padding:10px 14px;border:1px solid rgba(255,255,255,.22);background:rgba(0,0,0,.25)}
 .d-info .nm{display:inline-block;background:#fff;color:#05070d;font-family:Jost,system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:800;font-size:20px;padding:4px 12px;letter-spacing:.04em;margin-top:6px}
 .d-info .role{font-weight:700;letter-spacing:.14em;font-size:14px;margin-top:14px;color:var(--acc);text-shadow:0 0 10px currentColor}
 .d-info p{color:#dce8ff;max-width:470px;margin-top:14px}
@@ -163,6 +164,7 @@ section{position:relative}
 .plan .price b{font-size:72px;line-height:1;font-weight:800;text-shadow:0 0 20px rgba(150,215,255,.6)}
 .plan .price em{font-style:normal;font-size:30px;margin-top:8px}
 .was{color:var(--gr);font-weight:700;font-size:12px;letter-spacing:.16em;margin-bottom:-8px;text-shadow:0 0 8px rgba(125,255,155,.5)}
+.plan .for{color:#dce8ff;font-size:16px;margin:-4px 0 4px;min-height:44px}
 .plan .once{color:var(--mute);font-weight:600;margin-top:-6px}
 .plan ul{list-style:none;display:grid;gap:9px;margin:6px 0 10px}
 .plan li{display:flex;gap:10px;align-items:flex-start}
@@ -177,6 +179,12 @@ section{position:relative}
 .feat3 span{color:var(--mute);font-size:16px}
 .ticks{list-style:none;display:grid;gap:10px}
 .ticks li{padding-left:30px;position:relative;font-weight:600}
+.ticks li.gold{color:#ffd27a}
+.ticks li.gold:before{border-color:#ffd27a;box-shadow:0 0 8px rgba(255,198,90,.7)}
+.vphone{width:300px;max-width:78vw;margin:0 auto;border-radius:44px;padding:10px;background:linear-gradient(135deg,#d8dce2,#8d939c 35%,#e6e9ed 65%,#7c828b);box-shadow:0 40px 80px rgba(0,0,0,.65),0 0 60px rgba(79,195,255,.25)}
+.vphone video{display:block;width:100%;aspect-ratio:390/844;object-fit:cover;border-radius:35px;border:7px solid #050505;background:#05070d}
+.vcap{text-align:center;color:var(--dim);font-size:13.5px;margin-top:14px}
+.h1x{font-size:clamp(42px,6.6vw,92px)!important}
 .ticks li:before{content:"";position:absolute;left:4px;top:7px;width:12px;height:12px;border:2px solid var(--cy2);transform:rotate(45deg);box-shadow:0 0 8px var(--cy)}
 .guar{display:flex;flex-wrap:wrap;gap:26px;align-items:center;max-width:900px;margin:44px auto 0;padding:24px 28px;border-color:rgba(255,210,122,.55);box-shadow:0 0 24px rgba(255,198,90,.2)}
 .guar img{width:260px;height:260px;object-fit:contain;flex:none;margin:-30px -10px -30px -20px;filter:drop-shadow(0 0 24px rgba(255,198,90,.35));-webkit-mask-image:radial-gradient(circle at 50% 50%,#000 62%,transparent 72%);mask-image:radial-gradient(circle at 50% 50%,#000 62%,transparent 72%)}
@@ -341,9 +349,9 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
 <section class="hero" id="topo">
   <div class="art" role="img" aria-label="Os três heróis das classes Monge, Paladino e Guerreiro com auras de energia"></div>
   <div class="wrap">
-    <span class="tag">[ SISTEMA ] · O APP DE TREINO RPG</span>
-    <h1>Forja do Herói</h1>
-    <p class="sub">Você não desiste do treino por preguiça. Desiste porque ele não te recompensa. Aqui, cada série vira XP, nível e poder, na hora.</p>
+    <span class="tag">FORJA DO HERÓI · O APP DE TREINO RPG</span>
+    <h1 class="h1x">Seu treino virou um RPG</h1>
+    <p class="sub"><b style="color:#fff">Cada série dá XP. Cada recorde derrota um chefe.</b> Escolha sua classe, cumpra missões diárias e veja seu herói evoluir junto com você, na academia, em casa ou no parque.</p>
     <div class="ctas">
       <a class="btn big" href="#planos">Despertar meu herói</a>
       <a class="btn big ghost" href="#classes">Escolher minha classe</a>
@@ -352,7 +360,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
       <span class="chip"><b>3</b>classes</span>
       <span class="chip"><b>45</b>exercícios</span>
       <span class="chip"><b>9</b>chefes</span>
-      <span class="chip"><b>∞</b>missões diárias</span>
+      <span class="chip">a partir de <b style="margin:0 0 0 5px">R$ 9,90</b></span>
     </div>
   </div>
   <div class="scroll-hint" aria-hidden="true">ROLE ▾</div>
@@ -368,6 +376,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
       <div class="d-info reveal">
         <span class="tag">DOSSIÊS DE CLASSE</span>
         <h2 style="margin-top:18px">Escolha quem você vai se tornar</h2>
+        <p class="cls-hint">Na dúvida? <b>Treina em casa ou no parque:</b> Monge. <b>Treina na academia:</b> Guerreiro. <b>Faz os dois:</b> Paladino. Dá para trocar de classe quando quiser.</p>
         <div class="nm" id="dName">Monge das Barras</div>
         <div class="role" id="dRole">MESTRE DA CALISTENIA · +20% XP NO PESO DO CORPO</div>
         <p id="dDesc">Treina onde estiver: na barra do parque, nas argolas, no chão de casa. Evolui da primeira flexão até o muscle-up, o L-sit e o front lever, liberando exercícios mais difíceis a cada nível.</p>
@@ -393,7 +402,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
         <span class="tag" style="color:#ffb3b3">O VERDADEIRO PROBLEMA</span>
         <h2>A Lacuna da Recompensa</h2>
         <p class="lead" style="margin-bottom:14px">Você começa a segunda-feira motivado, treina pesado por duas semanas, olha no espelho e parece que nada mudou. A motivação acaba, você pula um dia, depois três, e para de novo.</p>
-        <p class="lead">Não é falta de força de vontade. É o tempo entre o esforço de hoje e o resultado que você consegue ver. O jogo no celular te recompensa em segundos; o treino, em semanas. Seu cérebro escolhe o jogo.</p>
+        <p class="lead">Na maioria das vezes, não é falta de força de vontade. É o tempo entre o esforço de hoje e o resultado que você consegue ver. O jogo no celular te recompensa em segundos; o treino, em semanas. Seu cérebro escolhe o jogo.</p>
       </div>
       <div class="reveal">
         <img class="frame" src="img/problema.webp" alt="Jovem desanimado no sofá à noite jogando no celular, com halteres empoeirados no canto" style="width:100%;height:300px;object-fit:cover">
@@ -416,16 +425,17 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
       <div class="panel card reveal"><span class="corner c1"></span><span class="corner c4"></span><div class="n">III</div><h3>Recompensa épica</h3><p>Seus recordes pessoais viram chefes. Supino com seu peso derrota o Golem; o primeiro muscle-up bane o Espectro. Patentes de Recruta a Deus do Ferro.</p></div>
     </div>
     <div class="split" style="margin-top:90px">
-      <div class="reveal"><img class="duo" src="img/mock-duo.webp" alt="Dois celulares com as telas de Status e da Dungeon de 30 dias" width="1100" height="1027" loading="lazy" style="width:100%;max-width:500px;height:auto;margin:0 auto;filter:drop-shadow(0 30px 60px rgba(0,0,0,.6))"></div>
+      <div class="reveal"><div class="vphone"><video src="img/demo.mp4" poster="img/demo-poster.webp" autoplay muted loop playsinline preload="metadata" aria-label="Demonstração do app: registrando uma série de flexões, ganhando XP, derrotando um chefe e subindo de nível"></video></div><p class="vcap">Gravação real do app · registrar uma série → XP → chefe derrotado → nível novo</p></div>
       <div class="reveal">
-        <span class="tag">NO SEU BOLSO</span>
-        <h2>Abra, treine, suba de nível</h2>
-        <p class="lead" style="margin-bottom:18px">O Sistema mostra o que treinar hoje, conta cada série e transforma seu esforço em progresso que você enxerga. Sem planilha, sem caderno, sem desculpa.</p>
+        <span class="tag">VEJA FUNCIONANDO</span>
+        <h2>Você treina na vida real. Seu herói evolui no jogo.</h2>
+        <p class="lead" style="margin-bottom:18px">Terminou a série? Registre em 2 toques. O XP cai na hora, a barra sobe, as conquistas aparecem e, quando você bate um recorde, o chefe cai. Sem planilha, sem caderno, sem desculpa.</p>
         <ul class="ticks">
-          <li>Treino do dia pronto na Dungeon de 30 dias</li>
+          <li>Registro de série em 2 toques, com XP na hora</li>
           <li>Timer de descanso que começa sozinho</li>
-          <li>Funciona no celular e no computador</li>
-          <li>Progresso salvo na sua conta</li>
+          <li>Funciona no celular e no computador, com login</li>
+          <li>Progresso salvo na sua conta, em qualquer aparelho</li>
+          <li class="gold">No Caçador Elite: o treino do dia já vem pronto na Dungeon de 30 Dias</li>
         </ul>
         <a class="btn" href="#planos" style="margin-top:24px">Quero meu acesso</a>
       </div>
@@ -527,27 +537,30 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
     <div class="plans" style="text-align:left">
       <div class="panel plan reveal">
         <div class="pn glow">Recruta</div>
+        <p class="for">Para quem <b>já sabe treinar</b> e quer transformar a rotina em um jogo.</p>
         <div class="was">PREÇO DE LANÇAMENTO</div>
         <div class="price"><small>R$</small><b>9</b><em>,90</em></div>
         <div class="once">pagamento único</div>
         <ul>
-          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7dff9b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>App completo: 3 classes e 45 exercícios</li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7dff9b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>App com 3 classes e 45 exercícios</li>
           <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7dff9b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Missões diárias, sequências e loja</li>
           <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7dff9b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>9 chefes e 16 conquistas</li>
           <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7dff9b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Taverna da comunidade</li>
-          <li class="off"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7389ab" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>Baú do Caçador Elite</li>
+          <li class="off"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7389ab" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>Dungeon de 30 Dias (treino pronto)</li>
+          <li class="off"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7389ab" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>Guia, Planilha, Ranking e Taverna VIP</li>
         </ul>
         <a class="btn ghost" data-plan="recruta" href="#planos">Quero ser Recruta</a>
       </div>
       <div class="panel plan best reveal">
-        <div class="badge">MAIS ESCOLHIDO</div>
+        <div class="badge">RECOMENDADO</div>
         <div class="pn" style="color:#ffd27a;text-shadow:0 0 12px rgba(255,198,90,.7)">Caçador Elite</div>
+        <p class="for">Para quem quer entrar no jogo com <b>os próximos 30 dias de treino prontos</b>.</p>
         <div class="was">PREÇO DE LANÇAMENTO</div>
         <div class="price"><small>R$</small><b>19</b><em>,90</em></div>
         <div class="once">pagamento único</div>
         <ul>
           <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7dff9b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Tudo do plano Recruta</li>
-          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffd27a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Dungeon de 30 Dias para a sua classe</li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffd27a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg><span><b>Dungeon de 30 Dias:</b> o treino de cada dia pronto para a sua classe</span></li>
           <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffd27a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Guia de Progressão e Planilha do Guerreiro</li>
           <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffd27a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Temporadas mensais com ranking</li>
           <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffd27a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Taverna VIP e títulos de fundador</li>
@@ -557,7 +570,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
     </div>
     <div class="panel guar reveal" style="text-align:left">
       <img src="img/garantia.webp" alt="Paladino segurando um selo de garantia de 7 dias" width="640" height="640" loading="lazy">
-      <div><span class="tag" style="color:#ffd27a">RISCO ZERO</span><h3 class="glow" style="font-size:26px;margin:12px 0 8px">Garantia incondicional de 7 dias</h3><p style="color:var(--mute)">Entre, crie seu herói e treine por uma semana. Se não sentir que o treino ficou mais divertido, peça o reembolso em até 7 dias e devolvemos 100% do valor, sem perguntas. Pagamento seguro por Pix ou cartão.</p></div>
+      <div><span class="tag" style="color:#ffd27a">RISCO ZERO</span><h3 class="glow" style="font-size:26px;margin:12px 0 8px">Garantia incondicional de 7 dias</h3><p style="color:var(--mute)">Entre, crie seu herói e treine por uma semana. Se não gostar, peça o reembolso em até 7 dias depois da compra e devolvemos 100% do valor, sem perguntas. <b style="color:#dce8ff">Como pedir:</b> fale com o suporte pelo contato no rodapé desta página informando o e-mail da compra. Pagamento seguro por Pix ou cartão.</p></div>
     </div>
     </div>
   </div>
@@ -570,9 +583,12 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
     <div class="faq" style="text-align:left">
       <details><summary>Preciso ir à academia?<span>+</span></summary><p>Não. A classe Monge treina só com o peso do corpo, em casa ou no parque. Se você treina na academia, o Guerreiro registra carga e ganha mais XP por peso levantado. O Paladino mistura os dois.</p></details>
       <details><summary>Serve para iniciantes?<span>+</span></summary><p>Sim. Os exercícios têm níveis de dificuldade de I a V: você começa com flexão e barra australiana e vai liberando os mais difíceis no seu ritmo.</p></details>
-      <details><summary>Como recebo o acesso?<span>+</span></summary><p>Logo após a confirmação do pagamento você recebe o link do app no seu e-mail. É só abrir no celular e criar o seu herói.</p></details>
+      <details><summary>Como recebo o acesso?<span>+</span></summary><p>Logo após a confirmação do pagamento você recebe o link do app no seu e-mail. É só abrir, fazer o primeiro acesso com o e-mail da compra no celular e criar o seu herói.</p></details>
       <details><summary>Tem mensalidade?<span>+</span></summary><p>Não. Você paga uma única vez e o app é seu, com as atualizações incluídas.</p></details>
-      <details><summary>Qual a diferença entre Recruta e Caçador Elite?<span>+</span></summary><p>O Recruta tem o app completo. O Caçador Elite inclui também o Baú: o programa Dungeon de 30 Dias, o Guia de Progressão, a Planilha do Guerreiro, as Temporadas mensais e a Taverna VIP.</p></details>
+      <details><summary>Qual a diferença entre Recruta e Caçador Elite?<span>+</span></summary><p>O Recruta é para quem já sabe montar o próprio treino: você registra as séries e o app transforma tudo em XP, missões, chefes e conquistas. O Caçador Elite inclui tudo isso e mais a Dungeon de 30 Dias (o treino de cada dia já pronto para a sua classe), o Guia de Progressão, a Planilha do Guerreiro, as Temporadas com ranking e a Taverna VIP.</p></details>
+      <details><summary>Nunca treinei. Consigo começar do zero?<span>+</span></summary><p>Sim. Escolha a classe Monge (treino em casa, sem equipamento) e comece pelos exercícios de nível I, como flexão com apoio, agachamento e prancha. Se quiser o caminho pronto dia a dia, o Caçador Elite traz a Dungeon de 30 Dias, que começa leve e vai subindo toda semana.</p></details>
+      <details><summary>Como instalo e entro no app?<span>+</span></summary><p>Depois da compra você recebe o link no e-mail. Abra, toque em "Primeiro acesso", use o mesmo e-mail da compra e crie uma senha. No celular, adicione à tela inicial: no iPhone, Compartilhar → Adicionar à Tela de Início; no Android, menu ⋮ → Instalar app. Seu progresso fica salvo na sua conta e aparece em qualquer aparelho.</p></details>
+      <details><summary>Como peço o reembolso?<span>+</span></summary><p>Em até 7 dias após a compra, fale com o suporte pelo contato no rodapé informando o e-mail usado na compra. Devolvemos 100% do valor.</p></details>
     </div>
   </div>
 </section>
@@ -609,7 +625,8 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
 <footer>
   <div class="wrap">
     <span class="logo" style="font-size:15px">FORJA DO HERÓI</span>
-    <span>© 2026 Forja do Herói · [SEU NOME OU EMPRESA] · [CNPJ/CPF] · [E-MAIL DE CONTATO]</span>
+    <span id="footInfo">© 2026 Forja do Herói</span>
+    <span><a href="https://appdigitalhub.com.br/termos" target="_blank" rel="noopener" style="color:var(--dim)">Termos de uso</a> · <a href="https://appdigitalhub.com.br/privacidade" target="_blank" rel="noopener" style="color:var(--dim)">Privacidade</a></span>
   </div>
 </footer>
 
@@ -633,6 +650,10 @@ document.getElementById('popNo').addEventListener('click',e=>{e.preventDefault()
 document.getElementById('popX').addEventListener('click',closePop);
 pop.addEventListener('click',e=>{if(e.target===pop)closePop()});
 addEventListener('keydown',e=>{if(e.key==='Escape'&&!pop.hidden)closePop()});
+
+/* ====== DADOS DO RODAPÉ (preencha) ====== */
+const EMPRESA = { nome: '', documento: '', suporte: '' };   // ex.: nome:'Fulano ME', documento:'CNPJ 00.000.000/0001-00', suporte:'suporte@forjadoheroi.com.br'
+(()=>{const p=[EMPRESA.nome,EMPRESA.documento,EMPRESA.suporte&&('Suporte: '+EMPRESA.suporte)].filter(Boolean);if(p.length)document.getElementById('footInfo').textContent='© 2026 Forja do Herói · '+p.join(' · ')})();
 
 /* nav */
 const nav=document.getElementById('nav');
