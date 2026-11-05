@@ -233,11 +233,14 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
   .scroll-hint{display:none}
   .dossier .top-band{height:30px}
   .d-inner{display:flex;flex-direction:column;padding:24px 20px 56px;min-height:0}
-  .d-thumbs{position:static;transform:none;order:-1;justify-content:center;gap:34px;margin:22px auto 6px}
+  .d-grid{display:contents}
+  .d-art{order:1}
+  .d-thumbs{position:static;transform:none;order:2;justify-content:center;gap:34px;margin:-6px auto 34px;z-index:3}
+  .d-info{order:3}
   .thumb{width:68px;height:68px}
   .d-word{top:150px;bottom:auto;right:-4%;font-size:30vw;opacity:.8}
   .d-grid{gap:0}
-  .d-art{height:430px;order:-1}
+  .d-art{height:430px}
   .d-info h2{font-size:28px}
   .d-info .btn{width:100%}
   .d-stats,.d-list,.d-info p{max-width:none}
