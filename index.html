@@ -10,6 +10,8 @@
 <meta property="og:image" content="img/keyart.webp">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#05070d">
+<link rel="preload" as="image" href="img/keyart-mobile.webp" media="(max-width:700px)">
+<link rel="preload" as="image" href="img/keyart.webp" media="(min-width:701px)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M12 2.5l7.5 3v6.2c0 4.6-3.1 8-7.5 9.8-4.4-1.8-7.5-5.2-7.5-9.8V5.5z%27 fill=%27%2305070d%27 stroke=%27%234fc3ff%27 stroke-width=%271.8%27/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
@@ -218,11 +220,10 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
   .btn{font-size:16px;min-height:52px;padding:0 18px;letter-spacing:.04em}
   .btn.big{font-size:17px;min-height:56px;width:100%;padding:0 16px}
   .hero{min-height:auto;display:block;padding-top:64px}
-  .hero .art{display:none}
-  .hero{background:radial-gradient(120% 60% at 50% 28%,#12285a 0%,#08102a 45%,#05070d 75%)}
-  .hero:after{background:linear-gradient(180deg,rgba(5,7,13,0) 60%,#05070d 100%)}
-  .hero-m{display:block;position:relative;z-index:1;width:116%;max-width:none;height:auto;margin:0 -8%}
-  .hero .wrap{padding-top:0;padding-bottom:56px;margin-top:-70px}
+  .hero{background:#05070d}
+  .hero .art{background:url(img/keyart-mobile.webp) center top/100% auto no-repeat;animation:none;transform:none;inset:0}
+  .hero:after{background:linear-gradient(180deg,rgba(5,7,13,.35) 0,rgba(5,7,13,0) 90px,rgba(5,7,13,0) 62vw,rgba(5,7,13,.55) 95vw,#05070d 150vw)}
+  .hero .wrap{padding-top:calc(78vw - 64px);padding-bottom:56px;margin-top:0}
   .hero h1{font-size:42px;letter-spacing:.04em;margin:12px 0 8px}
   .hero .sub{font-size:17px}
   .hero .ctas{flex-direction:column;gap:12px;margin-top:22px}
@@ -302,7 +303,6 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
 <!-- HERO -->
 <section class="hero" id="topo">
   <div class="art" role="img" aria-label="Os três heróis das classes Monge, Paladino e Guerreiro com auras de energia"></div>
-  <img class="hero-m" src="img/hero-mobile.webp" alt="Os três heróis: Monge das Barras, Paladino Híbrido e Guerreiro do Ferro" width="1200" height="1080">
   <div class="wrap">
     <span class="tag">[ SISTEMA ] · O APP DE TREINO RPG</span>
     <h1>Forja do Herói</h1>
