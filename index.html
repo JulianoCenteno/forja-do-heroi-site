@@ -616,9 +616,9 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
 <script>
 /* ====== LINKS DE PAGAMENTO: cole aqui os links do seu checkout ====== */
 const CHECKOUT = {
-  recruta: '',     // Recruta R$ 9,90      ex.: 'https://pay.kiwify.com.br/xxxx'
-  elite: '',       // Caçador Elite R$ 19,90
-  elitePopup: ''   // Caçador Elite R$ 14,90 (oferta do pop-up, só aparece aqui)
+  recruta: 'https://appdigitalhub.com.br/c/43752C6D',     // Recruta R$ 9,90      ex.: 'https://pay.kiwify.com.br/xxxx'
+  elite: 'https://appdigitalhub.com.br/c/1C7E51FE',       // Caçador Elite R$ 19,90
+  elitePopup: 'https://appdigitalhub.com.br/c/1D6785B5'   // Caçador Elite R$ 14,90 (oferta do pop-up, só aparece aqui)
 };
 const go=u=>{if(u){location.href=u}else{alert_('Link de pagamento ainda não configurado.')}};
 function alert_(m){const t=document.createElement('div');t.textContent=m;t.style.cssText='position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:200;background:#0c1830;border:1px solid #9fe0ff;color:#fff;padding:12px 18px;font-weight:700';document.body.appendChild(t);setTimeout(()=>t.remove(),2600)}
