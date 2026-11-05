@@ -18,6 +18,19 @@
      "value": "noindex"
     }
    ]
+  },
+  {
+   "source": "/up-3b451ad6ea28f2ac095e1aa2/(.*)",
+   "headers": [
+    {
+     "key": "Access-Control-Allow-Origin",
+     "value": "https://acesso.appdigitalhub.com.br"
+    },
+    {
+     "key": "X-Robots-Tag",
+     "value": "noindex"
+    }
+   ]
   }
  ]
 }
