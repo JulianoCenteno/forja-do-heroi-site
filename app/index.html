@@ -8,6 +8,7 @@
 <meta name="theme-color" content="#05070d">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="supabase.js"></script>
 <style>
 :root{
   --bg:#05070d;--panel:#0b1222;--panel2:#101a30;--line:#1b2b4d;--line2:#24406f;
@@ -711,7 +712,8 @@ function settingsSheet(){
    <p class="muted" style="font-size:13px">Copie seu progresso para guardar, ou cole um backup para restaurar.</p>
    <textarea id="s_bk" rows="3" placeholder="Cole aqui um backup para restaurar" style="margin-top:8px;font-size:12px"></textarea>
    <div class="grid2" style="margin-top:8px"><button class="btn ghost sm" data-a="copyBk">📋 Copiar backup</button><button class="btn ghost sm" data-a="loadBk">⤵️ Restaurar</button></div>
-   <button class="btn danger full sm" style="margin-top:18px" data-a="reset">Apagar herói e recomeçar</button>`);
+   <button class="btn ghost full sm" style="margin-top:18px" data-a="fhLogout">🚪 Sair da conta${window.__FH_EMAIL?' ('+esc(window.__FH_EMAIL)+')':''}</button>
+   <button class="btn danger full sm" style="margin-top:10px" data-a="reset">Apagar herói e recomeçar</button>`);
   window.__clsPick=S.cls;
 }
 function classCards(sel){return Object.entries(CLASSES).map(([k,c])=>`<button class="cls ${k===sel?'on':''}" data-a="pickCls" data-c="${k}"><span class="ce" style="overflow:hidden;padding:0">${face(k)}</span><span><div class="cn">${c.n}</div><div class="cd">${c.d}</div></span></button>`).join('')}
@@ -1031,8 +1033,8 @@ function eliteModal(feature){
    <p class="muted" style="font-size:14px">Libere o arsenal completo do Sistema e evolua mais rápido.</p>
    <ul class="elist">${ELITE_PERKS.map(p=>`<li><span>${p[0]}</span>${p[1]}</li>`).join('')}</ul>
    ${CHECKOUT_ELITE?`<a class="btn gold full" href="${CHECKOUT_ELITE}" target="_blank" rel="noopener">Liberar Caçador Elite · R$ 19,90</a>`:`<button class="btn gold full" disabled>Liberar Caçador Elite · R$ 19,90</button><p class="dim" style="font-size:12px;text-align:center;margin-top:6px">Link de compra em breve</p>`}
-   <div class="field"><label>Já comprou? Digite o código de ativação que chegou no seu e-mail</label>
-   <div class="row"><input id="e_code" placeholder="ELITE-XXXXXX" autocapitalize="characters" style="text-transform:uppercase"><button class="btn sm" data-a="activate">Ativar</button></div></div>
+   <p class="dim" style="font-size:12.5px;text-align:center;margin-top:10px">Use o mesmo e-mail da sua conta na compra. O Elite libera sozinho em até 2 minutos: depois é só tocar em “Já comprei, atualizar”.</p>
+   <button class="btn ghost full sm" style="margin-top:8px" data-a="fhRefresh">🔄 Já comprei, atualizar</button>
    <button class="btn ghost full sm" style="margin-top:12px" data-a="close">Agora não</button>`);
 }
 function lockedView(title,desc,art,bullets){
@@ -1247,8 +1249,79 @@ document.addEventListener('input',ev=>{if(ev.target.closest('.stepper'))updatePr
 setInterval(()=>{if(tab==='taverna')paintFeed()},60000);
 setInterval(()=>{ if(S.created&&S.q.d&&S.q.d!==ymd()){render()} },60000);
 
-render();
-initCloud();
+/* ================== CONTA (Supabase) ================== */
+const FH_URL='https://lpdicrpetxqnoxceozfa.supabase.co';
+const FH_KEY='sb_publishable_ceGy_dHSjG3cngC8mVAPLg_R4sxr5kA';
+const FH_SITE='https://forja-do-heroi.vercel.app/#planos';
+const FH=window.supabase.createClient(FH_URL,FH_KEY,{auth:{persistSession:true,autoRefreshToken:true,storageKey:'fh-auth'}});
+let FH_TAB='login',FH_BUSY=false,FH_MSG='';
+function fhShim(uid,admin){
+  const tavSnap=async()=>{const {data,error}=await FH.from('fh_taverna').select('user_id,doc');if(error)throw error;
+    return {docs:(data||[]).map(r=>({id:r.user_id,exists:true,data:()=>r.doc||{}})),metadata:{fromCache:false,hasPendingWrites:false}}};
+  const db={
+    collection(path){return {onSnapshot(next,err){let alive=true;const pull=()=>tavSnap().then(s=>alive&&next(s)).catch(e=>alive&&err&&err({code:'unavailable',message:String(e.message||e)}));pull();
+      const ch=FH.channel('fh-tav').on('postgres_changes',{event:'*',schema:'public',table:'fh_taverna'},()=>pull()).subscribe();
+      const iv=setInterval(pull,30000);return ()=>{alive=false;clearInterval(iv);FH.removeChannel(ch)}}}},
+    doc(path){const parts=path.split('/');
+      if(parts[0]==='taverna'){const id=parts[1];return {async set(d){const {error}=await FH.from('fh_taverna').upsert({user_id:id,doc:d,updated_at:new Date().toISOString()});if(error)throw {code:/row-level|permission/i.test(error.message)?'invalid_argument':'unavailable',message:error.message}}}}
+      return {async get(){const {data,error}=await FH.from('fh_saves').select('data').eq('user_id',uid).maybeSingle();if(error)throw error;return {exists:!!data,data:()=>data?data.data:undefined}},
+              async set(d){const {error}=await FH.from('fh_saves').upsert({user_id:uid,data:d,updated_at:new Date().toISOString()});if(error)throw error}}}
+  };
+  const user={id:async()=>uid,isOwner:()=>admin};
+  window.claude={use:async(n)=>n==='db'?db:n==='user'?user:null};
+}
+function fhView(){
+  const btn=(t,k)=>`<button class="${FH_TAB===k?'on':''}" data-a="fhTab" data-v="${k}">${t}</button>`;
+  return `<div class="cbanner"><img src="${ART.keyart}" alt="Os três heróis: Monge, Paladino e Guerreiro"><div class="cb-t"><span class="tag">[ SISTEMA ] · IDENTIFIQUE-SE, JOGADOR</span><h1>FORJA DO HERÓI</h1><p>Entre para continuar a sua jornada de onde parou.</p></div></div>
+  <div class="card" style="margin-top:12px">
+   <div class="seg" style="margin-bottom:6px">${btn('Entrar','login')}${btn('Primeiro acesso','signup')}</div>
+   <p class="muted" style="font-size:13.5px;margin:8px 0 0">${FH_TAB==='signup'?'Comprou agora? Use o <b>mesmo e-mail da compra</b> e crie uma senha. Seu acesso é liberado na hora.':'Use o e-mail da compra e a senha que você criou no primeiro acesso.'}</p>
+   <form id="fhForm">
+    <div class="field"><label for="fh_e">E-mail da compra</label><input id="fh_e" type="email" autocomplete="email" required placeholder="voce@email.com" value="${esc(window.__fhE||'')}"></div>
+    <div class="field"><label for="fh_p">${FH_TAB==='signup'?'Crie uma senha (mínimo 6 caracteres)':'Senha'}</label><input id="fh_p" type="password" autocomplete="${FH_TAB==='signup'?'new-password':'current-password'}" required minlength="6"></div>
+    ${FH_MSG?`<p class="warn glow" style="margin-top:12px;font-size:14px">${FH_MSG}</p>`:''}
+    <button class="btn full" style="margin-top:14px" type="submit" ${FH_BUSY?'disabled':''}>${FH_BUSY?'Aguarde…':FH_TAB==='signup'?'⚔️ Criar meu acesso':'⚔️ Entrar'}</button>
+   </form>
+   ${FH_TAB==='login'?`<p class="dim" style="font-size:12.5px;text-align:center;margin-top:12px">Esqueceu a senha? Fale com o suporte pelo e-mail informado na sua compra.</p>`:''}
+  </div>
+  <p class="muted" style="font-size:13px;text-align:center;margin-top:16px">Ainda não tem o app? <a href="${FH_SITE}" style="color:var(--gold)">Conheça o Forja do Herói</a></p>`;
+}
+function fhRenderLogin(){$('#nav').hidden=true;$('#app').innerHTML=fhView();const f=$('#fhForm');if(f)f.onsubmit=fhSubmit;}
+async function fhSubmit(ev){
+  ev.preventDefault();if(FH_BUSY)return;
+  const email=$('#fh_e').value.trim().toLowerCase(),pass=$('#fh_p').value;window.__fhE=email;
+  FH_BUSY=true;FH_MSG='';fhRenderLogin();
+  try{
+    if(FH_TAB==='signup'){
+      const r=await fetch(FH_URL+'/functions/v1/fh-signup',{method:'POST',headers:{'Content-Type':'application/json',apikey:FH_KEY},body:JSON.stringify({email,password:pass})});
+      const j=await r.json().catch(()=>({}));
+      if(!r.ok){if(j.code==='exists')FH_TAB='login';throw new Error(j.error||'Não foi possível criar o acesso')}
+    }
+    const {error}=await FH.auth.signInWithPassword({email,password:pass});
+    if(error)throw new Error(/invalid/i.test(error.message)?'E-mail ou senha incorretos.':error.message);
+    FH_BUSY=false;await fhAfterLogin();
+  }catch(e){FH_BUSY=false;FH_MSG=esc(e.message||String(e));fhRenderLogin();}
+}
+async function fhAfterLogin(){
+  const {data:{session}}=await FH.auth.getSession();if(!session)return fhRenderLogin();
+  const {data:me,error}=await FH.rpc('fh_me');
+  if(error){FH_MSG='Não foi possível conferir o seu acesso. Verifique a internet e tente de novo.';return fhRenderLogin();}
+  if(!me||!me.plan){await FH.auth.signOut();FH_MSG='Não encontramos uma compra aprovada com este e-mail. Se pagou por Pix agora, aguarde 1 ou 2 minutos e tente de novo.';return fhRenderLogin();}
+  const uid=session.user.id;window.__FH_EMAIL=session.user.email;window.__FH_PLAN=me.plan;
+  if(S.ownerUid&&S.ownerUid!==uid){S=blank();}
+  S.ownerUid=uid;
+  fhShim(uid,!!me.admin);
+  render();initCloud();
+}
+const _fhRender=render;
+render=function(){if(!window.__FH_PLAN)return fhRenderLogin();if(S.plan!==window.__FH_PLAN){S.plan=window.__FH_PLAN;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}return _fhRender();};
+document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-a]');if(!b)return;const a=b.dataset.a;
+  if(a==='fhTab'){FH_TAB=b.dataset.v;FH_MSG='';fhRenderLogin();}
+  if(a==='fhLogout'){closeModal();await FH.auth.signOut();try{localStorage.removeItem(KEY)}catch(e){}location.reload();}
+  if(a==='fhRefresh'){const {data:me}=await FH.rpc('fh_me');if(me&&me.plan){window.__FH_PLAN=me.plan;closeModal();render();toast(me.plan==='elite'?'👑':'⚔️',me.plan==='elite'?'Caçador Elite liberado!':'Ainda não encontramos a compra do Elite',me.plan==='elite'?'Todos os recursos foram desbloqueados':'Aguarde 1 ou 2 minutos e tente de novo')}}
+});
+(async()=>{const {data:{session}}=await FH.auth.getSession();if(session)fhAfterLogin();else fhRenderLogin();})();
+
 </script>
 </body>
 </html>
