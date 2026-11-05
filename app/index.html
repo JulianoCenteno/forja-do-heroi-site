@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Forja do Herói — Treino RPG</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#05070d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#05070d;--panel:#0b1222;--panel2:#101a30;--line:#1b2b4d;--line2:#24406f;
+  --gold:#4fc3ff;--gold2:#2f7fd6;--text:#e6f1ff;--mute:#8ea3c4;--dim:#5e7192;
+  --red:#9d4dff;--green:#69b874;--blue:#5a9be0;--purple:#a77de8;--teal:#4fc1b0;
+  --r:0px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--text);font-family:Rajdhani,system-ui,sans-serif;font-size:16px;font-weight:500}
+body{min-height:100vh;background:
+  radial-gradient(1200px 500px at 50% -200px,#0f2147 0%,transparent 70%),
+  linear-gradient(rgba(79,195,255,.035) 1px,transparent 1px) 0 0/100% 40px,
+  linear-gradient(90deg,rgba(79,195,255,.035) 1px,transparent 1px) 0 0/40px 100%,var(--bg);background-attachment:fixed}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input,select,textarea{font:inherit;color:var(--text);background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:10px 12px;width:100%;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--gold2)}
+.app{max-width:560px;margin:0 auto;padding:0 14px 96px}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:12px 2px;background:linear-gradient(var(--bg) 70%,transparent)}
+.brand{font-family:Jost,sans-serif;font-weight:900;letter-spacing:.12em;font-size:14px;color:var(--gold);text-shadow:0 0 12px rgba(79,195,255,.6)}
+.brand small{display:block;font-family:Rajdhani;font-weight:600;letter-spacing:.2em;color:var(--dim);font-size:10px}
+.topr{display:flex;gap:8px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:99px;background:var(--panel);border:1px solid var(--line);font-weight:700;font-size:14px}
+.iconbtn{width:36px;height:36px;border-radius:6px;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;font-size:17px}
+h2{font-family:Jost,sans-serif;font-weight:600;font-size:17px;letter-spacing:.14em;text-transform:uppercase;color:#fff;text-shadow:0 0 10px rgba(150,215,255,.85);margin:24px 0 10px}
+h2 .sub{font-family:Rajdhani;font-size:13px;color:var(--mute);letter-spacing:0;font-weight:600;margin-left:6px}
+.card{position:relative;background:rgba(4,10,22,.78);border:1px solid rgba(200,235,255,.6);border-radius:0;padding:14px;box-shadow:0 0 10px rgba(79,195,255,.35),inset 0 0 18px rgba(79,195,255,.12)}
+.card+.card{margin-top:10px}
+.muted{color:var(--mute)}.dim{color:var(--dim)}
+.row{display:flex;gap:10px;align-items:center}
+.between{justify-content:space-between}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding:18px}
+.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(400px 160px at 15% 0,rgba(79,195,255,.16),transparent 70%);pointer-events:none}
+.crest{width:78px;height:78px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:36px;
+  background:radial-gradient(circle at 35% 30%,#0f2147,#060a14);border:2px solid var(--gold);box-shadow:0 0 0 4px #060a14,0 0 0 5px var(--gold2),0 0 24px rgba(79,195,255,.25)}
+.hname{font-family:Jost,sans-serif;font-weight:900;font-size:22px;line-height:1.1}
+.htitle{color:var(--gold);font-weight:700;font-size:14px}
+.hclass{color:var(--mute);font-size:14px}
+.lvl{margin-left:auto;text-align:center;flex:none}
+.lvl b{display:block;font-family:Jost,sans-serif;font-size:34px;line-height:1;color:var(--gold);text-shadow:0 0 16px rgba(79,195,255,.35)}
+.lvl span{font-size:11px;letter-spacing:.2em;color:var(--mute)}
+.rank{display:inline-block;margin-top:6px;padding:2px 8px;border-radius:6px;border:1px solid var(--gold2);color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.bar{height:12px;border-radius:99px;background:#04060c;border:1px solid var(--line);overflow:hidden;position:relative}
+.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--gold2),var(--gold));box-shadow:0 0 12px rgba(79,195,255,.5);transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.bar.red i{background:linear-gradient(90deg,#5b2a9e,var(--red));box-shadow:0 0 12px rgba(157,77,255,.5)}
+.bar.thin{height:8px}
+.xpline{display:flex;justify-content:space-between;font-size:13px;color:var(--mute);margin-top:5px}
+.stat{padding:10px;text-align:center;border-radius:6px;background:var(--panel);border:1px solid var(--line)}
+.stat b{display:block;font-size:20px;font-weight:700}
+.stat span{font-size:11px;color:var(--mute);letter-spacing:.08em;text-transform:uppercase}
+.attr{display:grid;grid-template-columns:44px 1fr 34px;gap:10px;align-items:center;padding:7px 0}
+.attr .k{font-family:Jost,sans-serif;font-weight:700;font-size:14px}
+.attr .v{text-align:right;font-weight:700;font-size:18px}
+.attr small{grid-column:2/4;margin-top:-6px;font-size:12px;color:var(--dim)}
+.week{display:flex;gap:6px;align-items:flex-end;height:70px;margin-top:8px}
+.week div{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end}
+.week i{display:block;width:100%;border-radius:5px 5px 2px 2px;background:linear-gradient(180deg,var(--gold),var(--gold2));min-height:3px}
+.week i.zero{background:var(--line)}
+.week span{font-size:11px;color:var(--dim)}
+.buffs{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.buff{font-size:12px;font-weight:700;padding:3px 8px;border-radius:6px;background:#1e2a1f;color:#9fd8a6;border:1px solid #2f4a33}
+.buff.p{background:#261d33;color:#cdb3f5;border-color:#3f2f57}
+
+/* achievements */
+.ach{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.badge{aspect-ratio:1;border-radius:6px;border:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center;padding:4px}
+.badge .e{font-size:24px;filter:grayscale(1) brightness(.5)}
+.badge .t{font-size:10.5px;line-height:1.1;color:var(--dim);font-weight:600}
+.badge.on{border-color:var(--gold2);background:radial-gradient(circle at 50% 30%,#0f2147,var(--panel))}
+.badge.on .e{filter:none}.badge.on .t{color:var(--text)}
+
+/* train */
+.seg{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:4px;gap:4px}
+.seg button{flex:1;padding:9px;border-radius:9px;font-weight:700;color:var(--mute)}
+.seg button.on{background:linear-gradient(180deg,#0f2147,#0f2147);color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold2)}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:10px 0 4px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;padding:6px 12px;border-radius:99px;border:1px solid var(--line);background:var(--panel);font-size:14px;font-weight:600;color:var(--mute)}
+.chip.on{border-color:var(--gold2);color:var(--gold)}
+.exlist{display:grid;gap:8px;margin-top:8px}
+.ex{display:flex;align-items:center;gap:12px;padding:12px;border-radius:6px;background:var(--panel);border:1px solid var(--line);text-align:left;width:100%}
+.ex:active{transform:scale(.99)}
+.ex .ic{width:38px;height:38px;border-radius:6px;display:grid;place-items:center;background:#060a14;border:1px solid var(--line);font-size:18px;flex:none}
+.ex .n{font-weight:700;font-size:16px}
+.ex .d{font-size:12.5px;color:var(--mute)}
+.ex .m{margin-left:auto;font-size:12px;font-weight:700;color:var(--gold);white-space:nowrap}
+.tier{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:2px}
+.t1{background:#22301f;color:#9fd8a6}.t2{background:#1d2a3a;color:#9cc6f2}.t3{background:#2e2140;color:#cdb3f5}.t4{background:#0f2a4a;color:#8bdcff}.t5{background:#24124a;color:#d6a1ff}
+.timer{display:flex;align-items:center;gap:8px}
+.timer .clock{font-family:Jost,sans-serif;font-weight:700;font-size:22px;min-width:70px;color:var(--gold)}
+.timer .clock.done{color:var(--green);animation:pulse 1s infinite}
+.tbtn{padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);font-weight:700;font-size:13px}
+.entry{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.entry:last-child{border-bottom:0}
+.entry .n{font-weight:700}
+.entry .d{font-size:13px;color:var(--mute)}
+.entry .x{margin-left:auto;font-weight:700;color:var(--gold);white-space:nowrap}
+.del{width:28px;height:28px;border-radius:8px;color:var(--dim);font-size:16px;flex:none}
+.del:hover{color:var(--red);background:#1c1036}
+
+/* quests / bosses */
+.quest{position:relative}
+.quest .qt{font-family:Jost,sans-serif;font-weight:700;font-size:16px}
+.quest .qd{color:var(--mute);font-size:14px;margin:2px 0 10px}
+.reward{font-size:13px;font-weight:700;color:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:11px 16px;border-radius:0;font-weight:700;font-size:15px;letter-spacing:.04em;background:rgba(79,195,255,.2);border:1px solid #dff4ff;color:#fff;text-shadow:0 0 8px #9fdcff;box-shadow:0 0 16px rgba(79,195,255,.45),inset 0 0 12px rgba(79,195,255,.25)}
+.btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:var(--panel);color:var(--text);border:1px solid var(--line);box-shadow:none}
+.btn.danger{background:linear-gradient(180deg,#e0664e,#9b3322);color:#fff;box-shadow:0 2px 0 #5c1c12}
+.btn.full{width:100%}
+.btn.sm{padding:7px 12px;font-size:13px}
+.done-tag{font-size:12px;font-weight:700;color:var(--green);letter-spacing:.08em}
+.boss{display:flex;gap:12px;align-items:center}
+.boss .face{width:58px;height:58px;flex:none;border-radius:6px;display:grid;place-items:center;font-size:32px;background:radial-gradient(circle at 50% 35%,#24124a,#0a0616);border:1px solid #3d2470}
+.boss.dead .face{filter:grayscale(1);opacity:.6;border-color:var(--line)}
+.boss .bn{font-family:Jost,sans-serif;font-weight:700;font-size:16px}
+.boss .bd{font-size:13.5px;color:var(--mute)}
+.boss .hp{font-size:12px;color:var(--mute);margin-top:6px;display:flex;justify-content:space-between}
+.slain{font-family:Jost,sans-serif;font-weight:900;color:var(--green);font-size:12px;letter-spacing:.14em;border:1px solid #2f4a33;padding:2px 6px;border-radius:5px;transform:rotate(-4deg);display:inline-block}
+.shop{display:flex;align-items:center;gap:12px}
+.shop .si{font-size:28px;width:48px;text-align:center}
+.shop .sn{font-weight:700;font-size:16px}
+.shop .sd{font-size:13px;color:var(--mute)}
+.shop .btn{margin-left:auto;flex:none}
+.dayh{display:flex;justify-content:space-between;font-family:Jost,sans-serif;font-weight:700;color:var(--gold);font-size:14px;margin:16px 0 4px}
+
+
+/* janelas do sistema */
+.glow{color:#fff;text-shadow:0 0 10px rgba(150,215,255,.85)}
+.win{position:relative;border:1px solid rgba(200,235,255,.6);background:rgba(4,10,22,.8);box-shadow:0 0 10px rgba(79,195,255,.35),inset 0 0 18px rgba(79,195,255,.12);padding:16px}
+.win+.win{margin-top:12px}
+.wtitle{display:table;margin:2px auto 16px;padding:8px 46px;border:1px solid rgba(200,235,255,.6);box-shadow:0 0 10px rgba(79,195,255,.35),inset 0 0 12px rgba(79,195,255,.12);font-family:Jost,sans-serif;font-weight:500;font-size:22px;letter-spacing:.18em;color:#fff;text-shadow:0 0 10px rgba(150,215,255,.85)}
+.st-top{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.st-lv{text-align:center;line-height:1}
+.st-lv b{display:block;font-family:Jost,sans-serif;font-weight:600;font-size:72px;color:#fff;text-shadow:0 0 20px rgba(150,215,255,.95)}
+.st-lv span{font-size:13px;letter-spacing:.22em}
+.st-info{display:grid;gap:6px;font-size:15px;line-height:1.2;font-weight:700}
+.st-info small{font-size:11px;color:var(--mute);letter-spacing:.08em;font-weight:600}
+.barrow{display:flex;align-items:center;gap:10px}
+.barrow .lb{width:40px;font-weight:700;font-size:12px;letter-spacing:.06em;text-align:center}
+.track{flex:1;height:14px;border-radius:99px;border:1.5px solid rgba(220,242,255,.85);padding:2px;box-shadow:0 0 8px rgba(79,195,255,.6)}
+.track i{display:block;height:100%;border-radius:99px;background:#e6f6ff;box-shadow:0 0 8px #9fdcff;transition:width .6s}
+.track.v i{background:#d8c2ff;box-shadow:0 0 8px #a77de8}
+.mini{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:14px;text-align:center}
+.mini b{display:block;font-family:Jost,sans-serif;font-weight:600;font-size:20px}
+.mini span{font-size:10.5px;color:var(--mute);letter-spacing:.08em}
+.stgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px 14px}
+.stc{display:flex;align-items:center;gap:8px}
+.stc svg{flex:none;filter:drop-shadow(0 0 4px rgba(79,195,255,.9))}
+.stc .k{font-weight:600;font-size:15px;letter-spacing:.06em}
+.stc .v{font-family:Jost,sans-serif;font-weight:600;font-size:28px;margin-left:auto;padding-right:6px}
+.corner{position:absolute;width:24px;height:24px;filter:drop-shadow(0 0 6px rgba(79,195,255,.9));pointer-events:none}
+.c1{top:-2px;left:-2px;border-top:2px solid #9fe0ff;border-left:2px solid #9fe0ff}
+.c2{top:-2px;right:-2px;border-top:2px solid #9fe0ff;border-right:2px solid #9fe0ff}
+.c3{bottom:-2px;left:-2px;border-bottom:2px solid #9fe0ff;border-left:2px solid #9fe0ff}
+.c4{bottom:-2px;right:-2px;border-bottom:2px solid #9fe0ff;border-right:2px solid #9fe0ff}
+.qwin{background:linear-gradient(180deg,rgba(10,30,70,.94),rgba(5,14,32,.94));text-align:center;padding:26px 18px 22px}
+.qhead{display:flex;align-items:center;justify-content:center;gap:10px;padding-bottom:12px;border-bottom:1px solid rgba(159,224,255,.5);font-family:Jost,sans-serif;font-weight:600;font-size:22px;letter-spacing:.1em}
+.qbang{width:28px;height:28px;border-radius:50%;border:2px solid #fff;display:grid;place-items:center;font-size:15px;font-weight:700;box-shadow:0 0 8px rgba(150,215,255,.8)}
+.qgoal{font-family:Jost,sans-serif;font-weight:600;font-size:20px;letter-spacing:.12em;color:#7dff9b;text-shadow:0 0 10px rgba(125,255,155,.7);margin:16px 0 8px}
+.qrow{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;text-align:left;padding:9px 0;border-bottom:1px dashed rgba(159,224,255,.15)}
+.qrow .qn{font-weight:700;font-size:15.5px;letter-spacing:.02em}
+.qrow small{display:block;font-size:12.5px;color:var(--mute);font-weight:500;margin-top:2px}
+.qrow .qv{font-family:Jost,sans-serif;font-weight:500;font-size:16px;white-space:nowrap}
+.qrow.done .glow{color:#7dff9b;text-shadow:0 0 10px rgba(125,255,155,.7)}
+.qrow .btn{margin-top:6px}
+.warn{margin-top:16px;font-weight:700;font-size:15px;line-height:1.4}
+.warn b{color:#ff5a5a;text-shadow:0 0 10px rgba(255,90,90,.7)}
+.qtimer{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;color:#bfe9ff;font-family:Jost,sans-serif;font-size:17px;letter-spacing:.1em}
+
+
+.facei{width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block}
+._old_hbanner{position:relative;height:190px;margin-bottom:12px;border:1px solid rgba(200,235,255,.6);box-shadow:0 0 14px rgba(79,195,255,.4);overflow:hidden;background:#04060c}
+.hbanner img{width:100%;height:100%;object-fit:cover;object-position:50% 18%;display:block}
+.hbanner:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,7,14,0) 40%,rgba(4,7,14,.9))}
+.hbanner span{position:absolute;left:14px;bottom:10px;z-index:1;font-family:Jost,sans-serif;font-weight:600;letter-spacing:.16em;font-size:13px;color:#fff;text-shadow:0 0 10px rgba(150,215,255,.9)}
+.st-face{width:84px;height:84px;border-radius:50%;overflow:hidden;border:2px solid #dff4ff;box-shadow:0 0 16px rgba(79,195,255,.7);flex:none}
+
+/* artes e planos */
+.stage{position:relative;overflow:hidden;height:260px;border:1px solid rgba(200,235,255,.5);box-shadow:0 0 16px rgba(79,195,255,.25);margin-bottom:12px}
+.stage.sm{height:210px}
+.stage-word{position:absolute;right:-6px;top:4px;font-family:Jost,sans-serif;font-weight:800;font-size:86px;line-height:.85;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.2);white-space:nowrap;pointer-events:none}
+.stage.sm .stage-word{font-size:70px}
+.stage-art{position:absolute;right:0;top:6px;height:calc(100% + 20px);width:auto;max-width:none;filter:drop-shadow(0 0 22px var(--acc));-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 92%,transparent),linear-gradient(180deg,#000 78%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 92%,transparent),linear-gradient(180deg,#000 78%,transparent);mask-composite:intersect}
+.stage-info{position:relative;z-index:1;padding:16px;max-width:62%;display:flex;flex-direction:column;gap:6px;justify-content:flex-end;height:100%}
+.stage .tag{align-self:flex-start;padding:4px 10px;border:1px solid rgba(200,235,255,.6);background:rgba(4,10,22,.6);font-size:10.5px;font-weight:700;letter-spacing:.16em;color:#fff}
+.stage-name{display:inline-block;align-self:flex-start;background:#fff;color:#05070d;font-family:Jost,sans-serif;font-weight:800;font-size:20px;padding:2px 10px;line-height:1.3}
+.stage-cls{font-weight:700;font-size:13.5px;color:var(--acc);text-shadow:0 0 10px currentColor;letter-spacing:.04em}
+.stage-title{font-size:13px;color:#fff;opacity:.9}
+.crown{display:inline-block;align-self:flex-start;font-size:11px;font-weight:800;letter-spacing:.14em;color:#1a1006;background:linear-gradient(90deg,#ffd27a,#ffb238);padding:3px 9px;box-shadow:0 0 12px rgba(255,198,90,.55)}
+.crown.big{font-size:13px;padding:5px 12px}
+.crown.sm{position:absolute;top:6px;right:6px;padding:1px 5px;font-size:11px}
+.btn.gold{background:linear-gradient(180deg,rgba(255,210,122,.35),rgba(255,178,56,.25));border-color:#ffe2a3;text-shadow:0 0 10px rgba(255,210,122,.9);box-shadow:0 0 22px rgba(255,198,90,.5),inset 0 0 14px rgba(255,198,90,.3)}
+.pill.elite{color:#1a1006;background:linear-gradient(90deg,#ffd27a,#ffb238);border-color:#ffd27a;font-size:12px}
+.pill.up{color:#ffd27a;border-color:#a8801f;font-size:12px;cursor:pointer}
+.ebanner{position:relative;height:150px;overflow:hidden;margin:-18px -16px 0;border-bottom:1px solid rgba(255,210,122,.5)}
+.ebanner img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.ebanner .crown{position:absolute;left:14px;bottom:12px}
+.elist{list-style:none;display:grid;gap:8px;margin:12px 0 14px}
+.elist li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px}
+.elist li span{flex:none;width:22px;text-align:center}
+.locked{padding:0;overflow:hidden;border-color:rgba(255,210,122,.55);box-shadow:0 0 16px rgba(255,198,90,.25)}
+.lk-art{position:relative;height:200px;overflow:hidden;background:radial-gradient(circle at 50% 60%,#2a1d08,#05070d)}
+.lk-art img{width:100%;height:100%;object-fit:cover;object-position:50% 15%;filter:saturate(.8) brightness(.75)}
+.lk-art .crown{position:absolute;left:12px;bottom:12px}
+.lk-body{padding:16px}
+.lk-body h3{font-family:Jost,sans-serif;font-size:20px;text-transform:uppercase;margin-bottom:6px}
+.promo{display:flex;align-items:stretch;width:100%;text-align:left;margin:12px 0;border:1px solid rgba(255,210,122,.6);background:rgba(20,14,4,.85);box-shadow:0 0 16px rgba(255,198,90,.25);overflow:hidden;padding:0}
+.promo img{width:42%;object-fit:cover;object-position:50% 20%;min-height:96px}
+.promo-t{display:flex;flex-direction:column;gap:5px;padding:12px;justify-content:center}
+.promo-t b{font-size:15px;line-height:1.2}
+.promo-t small{font-size:12px;color:var(--mute)}
+.cbanner{position:relative;height:300px;margin:0 -14px;overflow:hidden}
+.cbanner img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}
+.cbanner:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,13,0) 35%,#05070d 96%)}
+.cb-t{position:absolute;left:0;right:0;bottom:8px;z-index:1;text-align:center;padding:0 14px}
+.cb-t .tag{display:inline-block;padding:4px 10px;border:1px solid rgba(200,235,255,.6);background:rgba(4,10,22,.6);font-size:10.5px;font-weight:700;letter-spacing:.16em}
+.cb-t h1{font-family:Jost,sans-serif;font-weight:800;font-size:34px;letter-spacing:.06em;color:#fff;text-shadow:0 0 22px rgba(79,195,255,.85);margin-top:6px}
+.cb-t p{color:#dbe8ff;font-weight:600;font-size:15px}
+.bossban{position:relative;height:190px;overflow:hidden;margin:8px 0 14px;border:1px solid rgba(199,125,255,.6);box-shadow:0 0 18px rgba(157,77,255,.35)}
+.bossban img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.bossban>div{position:absolute;left:0;right:0;bottom:0;padding:14px;background:linear-gradient(180deg,transparent,rgba(5,7,13,.92))}
+.bossban .tag{display:inline-block;padding:3px 9px;border:1px solid rgba(199,125,255,.6);background:rgba(17,12,34,.7);font-size:10.5px;font-weight:700;letter-spacing:.16em}
+.lv-art{height:170px;width:auto;margin:-6px auto 6px;filter:drop-shadow(0 0 20px rgba(79,195,255,.7))}
+.dggrid{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}
+.dgc{aspect-ratio:1;display:grid;place-items:center;font-size:12px;font-weight:700;border:1px solid rgba(159,224,255,.25);color:var(--dim)}
+.dgc.ok{border-color:#7dff9b;color:#7dff9b;box-shadow:0 0 8px rgba(125,255,155,.4)}
+.dgc.cur{border-color:#fff;color:#fff;box-shadow:0 0 10px rgba(79,195,255,.8);background:rgba(79,195,255,.2)}
+.rank-row{display:flex;align-items:center;gap:10px;padding:8px 6px;border-bottom:1px dashed rgba(159,224,255,.15)}
+.rank-row.me{background:rgba(79,195,255,.12);border:1px solid rgba(159,224,255,.6)}
+.rank-row .rk{width:26px;text-align:center;font-weight:800}
+.rank-row .rn{flex:1;min-width:0;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rank-row .rx{font-family:Jost,sans-serif;font-weight:600}
+.node{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dashed rgba(159,224,255,.15);position:relative}
+.node:last-child{border-bottom:0}
+.node .nd{width:30px;height:30px;flex:none;display:grid;place-items:center;border:1px solid rgba(159,224,255,.4);transform:rotate(45deg);font-size:12px}
+.node .nd{line-height:1}
+.node.done .nd{border-color:#7dff9b;color:#7dff9b;box-shadow:0 0 8px rgba(125,255,155,.5)}
+.node.cur .nd{border-color:#fff;box-shadow:0 0 10px rgba(79,195,255,.8);background:rgba(79,195,255,.2)}
+.node.lock{opacity:.5}
+.sheetc .sgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.sgrid small{display:block;font-size:10.5px;letter-spacing:.12em;color:var(--mute)}
+.sgrid b{font-family:Jost,sans-serif;font-weight:600;font-size:17px}
+.sgrid b.up{color:#7dff9b;text-shadow:0 0 8px rgba(125,255,155,.6)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{position:relative;text-align:left;padding:14px;border:1px solid rgba(200,235,255,.5);background:rgba(4,10,22,.8);box-shadow:inset 0 0 18px rgba(79,195,255,.1);display:flex;flex-direction:column;gap:3px}
+.tile .te2{font-size:24px}
+.tile b{font-size:16px}
+.tile small{font-size:12px;color:var(--mute)}
+.tile.lk{border-color:rgba(255,210,122,.45)}
+.back{color:var(--cy2,#9fe0ff);font-weight:700;font-size:14px;padding:6px 0;letter-spacing:.06em}
+.gname{color:#ffd27a!important;text-shadow:0 0 8px rgba(255,198,90,.6)}
+.lockdot{position:absolute;top:2px;right:calc(50% - 20px);font-size:9px}
+.cls .ce{width:58px;height:58px}
+/* taverna */
+.post{padding:12px 14px}
+.post .ph{display:flex;align-items:center;gap:10px}
+.av{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#060a14;border:1px solid var(--gold2);font-size:18px;flex:none}
+.reply .av{width:30px;height:30px;font-size:14px}
+.post .pn{font-weight:700;line-height:1.15}
+.post .pm{font-size:12px;color:var(--dim)}
+.post .pt{margin-top:8px;white-space:pre-wrap;overflow-wrap:anywhere}
+.post .pa{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.pact{padding:5px 10px;border-radius:8px;border:1px solid var(--line);font-size:13px;font-weight:700;color:var(--mute)}
+.pact.on{color:#d6a1ff;border-color:#3d2470;background:#160d2c}
+.replies{margin-top:10px;padding-left:12px;border-left:2px solid var(--line);display:grid;gap:10px}
+.reply .pt{margin-top:4px;font-size:15px}
+.share-card{margin-top:8px;padding:10px 12px;border-radius:6px;background:#060a14;border:1px dashed var(--gold2);font-size:14px}
+.share-card b{color:var(--gold)}
+.you{font-size:10px;font-weight:700;letter-spacing:.08em;color:var(--gold);border:1px solid var(--gold2);border-radius:4px;padding:0 4px;margin-left:4px;vertical-align:2px}
+
+/* nav */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:linear-gradient(transparent,var(--bg) 30%);padding:10px 10px calc(10px + env(safe-area-inset-bottom))}
+.nav .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(7,1fr);background:#080c18;border:1px solid var(--line);border-radius:6px;padding:5px;box-shadow:0 10px 30px rgba(0,0,0,.6)}
+.nav button{display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 0;border-radius:6px;color:var(--dim);font-size:10px;font-weight:700;letter-spacing:0;position:relative;min-width:0}
+.nav button .e{font-size:19px;filter:grayscale(.8)}
+.nav button.on{color:var(--gold);background:#0f2147}
+.nav button.on .e{filter:none}
+.dot{position:absolute;top:4px;right:calc(50% - 16px);width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 2px #080c18}
+
+/* modal + toast */
+.scrim{position:fixed;inset:0;background:rgba(5,4,3,.75);backdrop-filter:blur(3px);z-index:50;display:flex;align-items:flex-end;justify-content:center;animation:fade .2s}
+.scrim.center{align-items:center}
+.sheet{width:100%;max-width:560px;background:linear-gradient(180deg,#0f1d3a,#0a1020);border:1px solid var(--line2);border-bottom:0;border-radius:6px 20px 0 0;padding:18px 16px calc(20px + env(safe-area-inset-bottom));max-height:92vh;overflow:auto;animation:up .25s cubic-bezier(.2,.8,.2,1)}
+.scrim.center .sheet{border-radius:6px;border-bottom:1px solid var(--line2);margin:16px;animation:pop .35s cubic-bezier(.2,1.4,.4,1)}
+.sheet h3{font-family:Jost,sans-serif;font-size:20px;color:var(--gold);margin-bottom:4px}
+.field{margin-top:12px}
+.field label{display:block;font-size:13px;color:var(--mute);font-weight:600;margin-bottom:5px}
+.stepper{display:flex;align-items:center;gap:8px}
+.stepper button{width:44px;height:44px;border-radius:6px;background:var(--panel);border:1px solid var(--line);font-size:22px;font-weight:700;flex:none}
+.stepper input{text-align:center;font-size:20px;font-weight:700}
+.preview{margin-top:14px;padding:12px;border-radius:6px;background:#060a14;border:1px dashed var(--gold2);display:flex;justify-content:space-between;align-items:center}
+.preview b{font-family:Jost,sans-serif;font-size:24px;color:var(--gold)}
+.toasts{position:fixed;top:12px;left:0;right:0;z-index:60;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;padding:0 12px}
+.toast{max-width:520px;width:100%;background:rgba(8,16,34,.95);border:1px solid var(--gold);border-radius:4px;padding:10px 14px;font-weight:700;box-shadow:0 0 22px rgba(79,195,255,.35),0 10px 30px rgba(0,0,0,.6);animation:drop .3s cubic-bezier(.2,1.2,.4,1);display:flex;gap:10px;align-items:center}
+.toast .te{font-size:22px}
+.toast small{display:block;font-weight:600;color:var(--mute)}
+.lvup{text-align:center;padding:10px 0}
+.lvup .big{font-family:Jost,sans-serif;font-weight:900;font-size:72px;line-height:1;color:var(--gold);text-shadow:0 0 30px rgba(79,195,255,.6);animation:glow 1.6s infinite}
+.lvup .cap{font-family:Jost,sans-serif;letter-spacing:.3em;color:var(--mute);font-size:13px}
+.classes{display:grid;gap:10px;margin-top:8px}
+.cls{display:flex;gap:12px;align-items:center;text-align:left;padding:12px;border-radius:6px;background:var(--panel);border:1px solid var(--line);width:100%}
+.cls.on{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold2),0 0 20px rgba(79,195,255,.15)}
+.cls .ce{font-size:30px;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#060a14;border:1px solid var(--gold2);flex:none}
+.cls .cn{font-family:Jost,sans-serif;font-weight:700}
+.cls .cd{font-size:13px;color:var(--mute)}
+.intro{text-align:center;padding:30px 4px 10px}
+.intro h1{font-family:Jost,sans-serif;font-weight:900;font-size:30px;color:var(--gold);letter-spacing:.06em;text-shadow:0 0 24px rgba(79,195,255,.3)}
+.intro p{color:var(--mute);margin-top:6px}
+.sync{font-size:11px;color:var(--dim);text-align:center;margin-top:24px}
+@keyframes fade{from{opacity:0}}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+@keyframes pop{from{transform:scale(.7);opacity:0}}
+@keyframes drop{from{transform:translateY(-20px);opacity:0}}
+@keyframes glow{50%{text-shadow:0 0 50px rgba(79,195,255,.9)}}
+@keyframes pulse{50%{opacity:.5}}
+</style>
+</head>
+<body>
+<div class="toasts" id="toasts"></div>
+<div class="app" id="app"></div>
+<nav class="nav" id="nav" hidden></nav>
+<div id="modal"></div>
+
+<script>
+/* ================== DADOS DO JOGO ================== */
+const ART={keyart:'img/keyart.webp',chefe:'img/chefe.webp',
+  full:{monge:'img/cls-monge.webp',paladino:'img/cls-paladino.webp',guerreiro:'img/cls-guerreiro.webp'},
+  face:{monge:'img/f-monge.webp',paladino:'img/f-paladino.webp',guerreiro:'img/f-guerreiro.webp'}};
+const CLS_COLOR={monge:{acc:'#4fe3c8',bg:'linear-gradient(135deg,#0d3b3a,#06201f)',w:'MONGE'},paladino:{acc:'#ffc65a',bg:'linear-gradient(135deg,#3a2a0c,#1a1206)',w:'PALADINO'},guerreiro:{acc:'#ff6a5a',bg:'linear-gradient(135deg,#3d1010,#1c0707)',w:'GUERREIRO'}};
+/* ===== LINK DE PAGAMENTO DO PLANO CAÇADOR ELITE (cole aqui) ===== */
+const CHECKOUT_ELITE='';
+const ELITE_PERKS=[['🗺️','Dungeon de 30 Dias: um treino guiado por dia para a sua classe'],['🌳','Guia de Progressão: da primeira flexão ao muscle-up'],['📊','Planilha do Guerreiro: cargas, recordes e sugestão de carga'],['🏆','Temporada mensal com ranking entre heróis Elite'],['🍺','Taverna VIP e coroa dourada nos seus posts'],['👑','Título exclusivo “Fundador da Forja” + 300 de ouro']];
+
+const CLASSES = {
+  monge:    {n:'Monge das Barras',  e:'✊', d:'Mestre da calistenia. +20% XP em exercícios com peso corporal.', cal:1.2, mus:1.0},
+  guerreiro:{n:'Guerreiro do Ferro',e:'⚔️', d:'Senhor dos pesos. +20% XP em musculação.', cal:1.0, mus:1.2},
+  paladino: {n:'Paladino Híbrido',  e:'🛡️', d:'Equilíbrio entre barra e ferro. +10% XP em tudo.', cal:1.1, mus:1.1},
+};
+const ATTRS = {
+  FOR:{n:'Força',       d:'Cargas pesadas e movimentos difíceis', c:'var(--red)'},
+  RES:{n:'Resistência', d:'Volume, repetições e isometria',      c:'var(--green)'},
+  AGI:{n:'Agilidade',   d:'Controle, equilíbrio e habilidades',   c:'var(--blue)'},
+  VIG:{n:'Vigor',       d:'Constância: dias treinados e sequências', c:'var(--purple)'},
+};
+// t: cal|mus  g: grupo  m: multiplicador  u:'s' = segundos  tier 1-5 (dificuldade)
+const EX = [
+  {id:'flexao',n:'Flexão',t:'cal',g:'Empurrar',m:1,tier:1,a:{FOR:.5,RES:.5}},
+  {id:'flexao_diam',n:'Flexão diamante',t:'cal',g:'Empurrar',m:1.3,tier:2,a:{FOR:.6,RES:.4}},
+  {id:'pike',n:'Flexão pike',t:'cal',g:'Empurrar',m:1.4,tier:2,a:{FOR:.6,AGI:.4}},
+  {id:'paralelas',n:'Paralelas (dips)',t:'cal',g:'Empurrar',m:1.6,tier:2,a:{FOR:.7,RES:.3}},
+  {id:'flexao_arq',n:'Flexão arqueiro',t:'cal',g:'Empurrar',m:1.8,tier:3,a:{FOR:.7,AGI:.3}},
+  {id:'flexao_1b',n:'Flexão de um braço',t:'cal',g:'Empurrar',m:3,tier:4,a:{FOR:.7,AGI:.3}},
+  {id:'hspu',n:'Flexão em parada de mão',t:'cal',g:'Empurrar',m:3.5,tier:5,a:{FOR:.6,AGI:.4}},
+  {id:'australiana',n:'Barra australiana',t:'cal',g:'Puxar',m:.9,tier:1,a:{FOR:.5,RES:.5}},
+  {id:'chinup',n:'Barra supinada (chin-up)',t:'cal',g:'Puxar',m:2,tier:2,a:{FOR:.7,RES:.3}},
+  {id:'barra',n:'Barra fixa',t:'cal',g:'Puxar',m:2.2,tier:3,a:{FOR:.7,RES:.3}},
+  {id:'muscleup',n:'Muscle-up',t:'cal',g:'Puxar',m:4.5,tier:5,a:{FOR:.6,AGI:.4}},
+  {id:'agach',n:'Agachamento livre',t:'cal',g:'Pernas',m:.6,tier:1,a:{RES:.7,FOR:.3}},
+  {id:'afundo',n:'Afundo',t:'cal',g:'Pernas',m:.8,tier:1,a:{RES:.6,AGI:.4}},
+  {id:'bulgaro',n:'Agachamento búlgaro',t:'cal',g:'Pernas',m:1.1,tier:2,a:{FOR:.5,RES:.3,AGI:.2}},
+  {id:'pistol',n:'Pistol squat',t:'cal',g:'Pernas',m:2.6,tier:4,a:{FOR:.5,AGI:.5}},
+  {id:'abdominal',n:'Abdominal',t:'cal',g:'Core',m:.5,tier:1,a:{RES:1}},
+  {id:'elev_pernas',n:'Elevação de pernas na barra',t:'cal',g:'Core',m:1.4,tier:3,a:{FOR:.5,RES:.5}},
+  {id:'prancha',n:'Prancha',t:'cal',g:'Core',m:.15,u:'s',tier:1,a:{RES:1}},
+  {id:'lsit',n:'L-sit',t:'cal',g:'Core',m:.45,u:'s',tier:3,a:{FOR:.5,AGI:.5}},
+  {id:'parada',n:'Parada de mão',t:'cal',g:'Core',m:.3,u:'s',tier:3,a:{AGI:1}},
+  {id:'frontlever',n:'Front lever',t:'cal',g:'Core',m:1.2,u:'s',tier:5,a:{FOR:.7,AGI:.3}},
+  {id:'burpee',n:'Burpee',t:'cal',g:'Cardio',m:1.4,tier:2,a:{RES:.8,AGI:.2}},
+  {id:'polichinelo',n:'Polichinelo',t:'cal',g:'Cardio',m:.25,tier:1,a:{RES:.7,AGI:.3}},
+  {id:'corda',n:'Pular corda (seg)',t:'cal',g:'Cardio',m:.12,u:'s',tier:1,a:{RES:.6,AGI:.4}},
+
+  {id:'supino',n:'Supino reto',t:'mus',g:'Peito',m:1},
+  {id:'supino_incl',n:'Supino inclinado',t:'mus',g:'Peito',m:1},
+  {id:'crucifixo',n:'Crucifixo',t:'mus',g:'Peito',m:.8},
+  {id:'terra',n:'Levantamento terra',t:'mus',g:'Costas',m:1.3},
+  {id:'remada',n:'Remada curvada',t:'mus',g:'Costas',m:1},
+  {id:'puxada',n:'Puxada frontal',t:'mus',g:'Costas',m:.9},
+  {id:'remada_baixa',n:'Remada baixa',t:'mus',g:'Costas',m:.9},
+  {id:'agach_barra',n:'Agachamento com barra',t:'mus',g:'Pernas',m:1.2},
+  {id:'legpress',n:'Leg press',t:'mus',g:'Pernas',m:.4},
+  {id:'stiff',n:'Stiff',t:'mus',g:'Pernas',m:1},
+  {id:'extensora',n:'Cadeira extensora',t:'mus',g:'Pernas',m:.6},
+  {id:'flexora',n:'Mesa flexora',t:'mus',g:'Pernas',m:.6},
+  {id:'panturrilha',n:'Panturrilha',t:'mus',g:'Pernas',m:.5},
+  {id:'desenv',n:'Desenvolvimento',t:'mus',g:'Ombros',m:1},
+  {id:'elev_lat',n:'Elevação lateral',t:'mus',g:'Ombros',m:.9},
+  {id:'rosca',n:'Rosca direta',t:'mus',g:'Braços',m:.9},
+  {id:'martelo',n:'Rosca martelo',t:'mus',g:'Braços',m:.9},
+  {id:'triceps',n:'Tríceps pulley',t:'mus',g:'Braços',m:.8},
+  {id:'triceps_testa',n:'Tríceps testa',t:'mus',g:'Braços',m:.9},
+];
+EX.forEach(e=>{ if(e.t==='mus'){ e.a=e.a||{FOR:.75,RES:.25}; } });
+const EXM = Object.fromEntries(EX.map(e=>[e.id,e]));
+const GROUP_ICON = {Empurrar:'🫸',Puxar:'🧗',Pernas:'🦵',Core:'🧱',Cardio:'🔥',Peito:'🛡️',Costas:'🪽',Ombros:'⛰️',Braços:'💪'};
+
+const RANKS = [[1,'Recruta'],[5,'Escudeiro'],[10,'Guerreiro'],[20,'Cavaleiro'],[30,'Campeão'],[45,'Senhor da Guerra'],[60,'Lenda'],[80,'Titã'],[100,'Deus do Ferro']];
+
+const PUSH=['Empurrar','Peito','Ombros'], PULL=['Puxar','Costas'];
+const QUESTS = [
+  {id:'push',t:'Golpes de Empurrar',d:'Faça 60 repetições de empurrar (peito, ombro ou flexões)',goal:60,f:es=>sum(es.filter(e=>PUSH.includes(EXM[e.ex].g)&&!EXM[e.ex].u),e=>e.s*e.r)},
+  {id:'pull',t:'Força de Tração',d:'Faça 30 repetições de puxar (barra, remada, puxada)',goal:30,f:es=>sum(es.filter(e=>PULL.includes(EXM[e.ex].g)),e=>e.s*e.r)},
+  {id:'legs',t:'Pernas de Aço',d:'Complete 8 séries de pernas',goal:8,f:es=>sum(es.filter(e=>EXM[e.ex].g==='Pernas'),e=>e.s)},
+  {id:'core',t:'Núcleo de Pedra',d:'Complete 5 séries de core',goal:5,f:es=>sum(es.filter(e=>EXM[e.ex].g==='Core'),e=>e.s)},
+  {id:'xp',t:'Fúria do Guerreiro',d:'Ganhe 400 XP em treinos hoje',goal:400,f:es=>sum(es,e=>e.xp)},
+  {id:'sets',t:'Batalha Longa',d:'Complete 14 séries no total',goal:14,f:es=>sum(es,e=>e.s)},
+  {id:'variety',t:'Mestre de Armas',d:'Treine 4 exercícios diferentes',goal:4,f:es=>new Set(es.map(e=>e.ex)).size},
+  {id:'iso',t:'Estátua Viva',d:'Acumule 120 segundos em isometria (prancha, L-sit…)',goal:120,f:es=>sum(es.filter(e=>EXM[e.ex].u==='s'),e=>e.s*e.r)},
+  {id:'vol',t:'Carregador de Ferro',d:'Mova 3.000 kg de volume (séries × reps × carga)',goal:3000,cls:['guerreiro','paladino'],f:es=>sum(es.filter(e=>EXM[e.ex].t==='mus'),e=>e.s*e.r*(e.kg||0))},
+  {id:'calis',t:'Disciplina do Monge',d:'Faça 100 repetições de calistenia',goal:100,cls:['monge','paladino'],f:es=>sum(es.filter(e=>EXM[e.ex].t==='cal'&&!EXM[e.ex].u),e=>e.s*e.r)},
+  {id:'hard',t:'Desafio do Mestre',d:'Faça 3 séries de um exercício nível III ou mais',goal:3,cls:['monge','paladino'],f:es=>sum(es.filter(e=>(EXM[e.ex].tier||0)>=3),e=>e.s)},
+];
+
+const BOSSES = [
+  {id:'goblin',n:'Goblin das Flexões',e:'👺',d:'30 flexões numa única série',ex:['flexao','flexao_diam'],goal:30,u:'reps'},
+  {id:'troll',n:'Troll da Barra',e:'🧌',d:'12 barras fixas numa série',ex:['barra','chinup'],goal:12,u:'reps'},
+  {id:'golem',n:'Golem do Supino',e:'🗿',d:'Supino com 1× seu peso corporal',ex:['supino'],bw:1,u:'kg'},
+  {id:'hidra',n:'Hidra do Agachamento',e:'🐍',d:'Agachamento com 1,5× seu peso corporal',ex:['agach_barra'],bw:1.5,u:'kg'},
+  {id:'lich',n:'Lich da Pistol',e:'💀',d:'5 pistol squats numa série',ex:['pistol'],goal:5,u:'reps'},
+  {id:'espectro',n:'Espectro do Muscle-up',e:'👻',d:'Faça 1 muscle-up',ex:['muscleup'],goal:1,u:'reps'},
+  {id:'dragao',n:'Dragão do Terra',e:'🐉',d:'Levantamento terra com 2× seu peso corporal',ex:['terra'],bw:2,u:'kg'},
+  {id:'wyvern',n:'Wyvern do Front Lever',e:'🦅',d:'Segure o front lever por 10 segundos',ex:['frontlever'],goal:10,u:'s'},
+  {id:'rei',n:'Rei Demônio',e:'😈',d:'5 flexões em parada de mão numa série',ex:['hspu'],goal:5,u:'reps'},
+];
+
+const ACH = [
+  {id:'first',e:'🗡️',t:'Primeiro Sangue',f:c=>c.entries>=1},
+  {id:'d3',e:'🔥',t:'3 dias seguidos',f:c=>c.best>=3},
+  {id:'d7',e:'☄️',t:'7 dias seguidos',f:c=>c.best>=7},
+  {id:'d30',e:'🌋',t:'30 dias seguidos',f:c=>c.best>=30},
+  {id:'days10',e:'📜',t:'10 dias de treino',f:c=>c.days>=10},
+  {id:'days50',e:'🏰',t:'50 dias de treino',f:c=>c.days>=50},
+  {id:'r1k',e:'⚒️',t:'1.000 repetições',f:c=>c.reps>=1000},
+  {id:'r10k',e:'⚙️',t:'10.000 repetições',f:c=>c.reps>=10000},
+  {id:'l10',e:'🥉',t:'Nível 10',f:c=>c.level>=10},
+  {id:'l25',e:'🥈',t:'Nível 25',f:c=>c.level>=25},
+  {id:'l50',e:'🥇',t:'Nível 50',f:c=>c.level>=50},
+  {id:'q10',e:'📯',t:'10 missões',f:c=>c.quests>=10},
+  {id:'b1',e:'⚔️',t:'Primeiro chefe',f:c=>c.bosses>=1},
+  {id:'b5',e:'👑',t:'5 chefes',f:c=>c.bosses>=5},
+  {id:'ball',e:'🐲',t:'Todos os chefes',f:c=>c.bosses>=BOSSES.length},
+  {id:'ton',e:'🏋️',t:'10 toneladas',f:c=>c.vol>=10000},
+];
+
+const SHOP = [
+  {id:'elixir',e:'🧪',n:'Elixir de Fúria',d:'+50% de XP em todos os treinos de hoje',p:120,kind:'elixir'},
+  {id:'t_impl',e:'📛',n:'Título: “o Implacável”',d:'Aparece abaixo do seu nome',p:100,kind:'title',v:'o Implacável'},
+  {id:'t_quebra',e:'📛',n:'Título: “Quebra-Barras”',d:'Aparece abaixo do seu nome',p:180,kind:'title',v:'Quebra-Barras'},
+  {id:'t_ferro',e:'📛',n:'Título: “Filho do Ferro”',d:'Aparece abaixo do seu nome',p:250,kind:'title',v:'Filho do Ferro'},
+  {id:'t_sombra',e:'📛',n:'Título: “Sombra do Amanhecer”',d:'Para quem treina às 5h',p:350,kind:'title',v:'Sombra do Amanhecer'},
+  {id:'t_lenda',e:'📛',n:'Título: “Lenda da Academia”',d:'Só os fortes chegam aqui',p:600,kind:'title',v:'Lenda da Academia'},
+];
+
+/* ================== UTILS ================== */
+const $ = s=>document.querySelector(s);
+const sum=(a,f)=>a.reduce((t,x)=>t+(f?f(x):x),0);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=n=>Math.round(n).toLocaleString('pt-BR');
+function ymd(d=new Date()){const z=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate())}
+function addDays(s,n){const [y,m,d]=s.split('-').map(Number);const dt=new Date(y,m-1,d+n);return ymd(dt)}
+function hash(s){let h=2166136261;for(const c of s){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
+function rng(seed){return()=>{seed=(seed+0x6D2B79F5)|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const ROMAN=['','I','II','III','IV','V'];
+
+/* ================== ESTADO ================== */
+const KEY='forja_heroi_v1';
+function blank(){return {v:1,created:false,name:'',cls:'paladino',bw:75,log:[],bonusXP:0,goldBonus:0,goldSpent:0,
+  q:{d:'',ids:[],claimed:[]},plan:'recruta',dg:{done:{}},qTotal:0,bosses:{},ach:{},titles:[],title:'',elixir:'',last:{},updated:0}}
+function migrate(s){return Object.assign(blank(),s||{})}
+let S = blank();
+try{const raw=localStorage.getItem(KEY); if(raw) S=migrate(JSON.parse(raw));}catch(e){}
+
+let dbRef=null, syncState='local', saveTimer=null, saving=false, saveAgain=false;
+function save(){
+  S.updated=Date.now();
+  try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}
+  clearTimeout(saveTimer); saveTimer=setTimeout(saveRemote,900);
+}
+async function saveRemote(){
+  if(!dbRef) return;
+  if(saving){saveAgain=true;return}
+  saving=true;
+  try{ await dbRef.set(JSON.parse(JSON.stringify(S))); setSync('cloud'); }
+  catch(e){ setSync('local'); }
+  saving=false;
+  if(saveAgain){saveAgain=false;saveRemote()}
+}
+function setSync(s){syncState=s;const el=$('#sync');if(el)el.textContent=syncLabel()}
+function syncLabel(){return syncState==='cloud'?'☁️ Progresso salvo na sua conta':'💾 Progresso salvo neste aparelho · faça backup na ⚙️ Ficha'}
+async function initCloud(){
+  try{
+    if(!window.claude||typeof claude.use!=='function') return;
+    const [db,user]=await Promise.all([claude.use('db'),claude.use('user')]);
+    if(!db||!user) return;
+    const id=await user.id(); if(!id) return;
+    TV.db=db;TV.me=id;
+    try{TV.owner=!!(await Promise.resolve(user.isOwner&&user.isOwner()))}catch(e){}
+    subTaverna();
+    const ref=db.doc('data/users/'+id+'/heroi');
+    const snap=await Promise.race([ref.get(),new Promise((_,r)=>setTimeout(()=>r('timeout'),10000))]);
+    dbRef=ref;
+    const remote=snap&&snap.exists?snap.data():null;
+    if(remote&&remote.created&&(remote.updated||0)>(S.updated||0)){
+      S=migrate(JSON.parse(JSON.stringify(remote)));
+      try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}
+      setSync('cloud'); render();
+    }else if(S.created){ setSync('cloud'); saveRemote(); }
+    else setSync('cloud');
+  }catch(e){}
+}
+
+/* ================== CÁLCULOS ================== */
+function classMult(ex){return CLASSES[S.cls][ex.t]}
+function baseXP(ex,s,r,kg){
+  if(ex.t==='cal') return s*r*ex.m*2;
+  return s*r*(1+(kg||0)/30)*ex.m;
+}
+function streakInfo(){
+  const days=[...new Set(S.log.map(e=>e.d))].sort();
+  const set=new Set(days);
+  const today=ymd();
+  let cur=0, start=set.has(today)?today:addDays(today,-1);
+  while(set.has(start)){cur++;start=addDays(start,-1)}
+  let best=0,run=0,prev=null;
+  for(const d of days){run=(prev&&addDays(prev,1)===d)?run+1:1;best=Math.max(best,run);prev=d}
+  return {cur,best,days:days.length,trainedToday:set.has(today)};
+}
+function multipliers(ex){
+  const st=streakInfo();
+  const streakB=Math.min(st.cur,10)*0.05;
+  const elixir=S.elixir===ymd()?0.5:0;
+  return {cls:classMult(ex),streak:1+streakB,elixir:1+elixir,total:classMult(ex)*(1+streakB)*(1+elixir)};
+}
+function xpNeed(L){return Math.round(80*Math.pow(L,1.6))}
+function totalXP(){return sum(S.log,e=>e.xp)+S.bonusXP}
+function levelInfo(xp=totalXP()){
+  let L=1,rest=xp;
+  while(rest>=xpNeed(L)){rest-=xpNeed(L);L++}
+  return {L,into:rest,need:xpNeed(L)};
+}
+function rankOf(L){let r=RANKS[0][1];for(const [l,n] of RANKS) if(L>=l) r=n;return r}
+function gold(){return Math.max(0,Math.floor(sum(S.log,e=>Math.floor(e.xp/20)))+S.goldBonus-S.goldSpent)}
+function attrs(){
+  const a={FOR:0,RES:0,AGI:0,VIG:0};
+  for(const e of S.log){const ex=EXM[e.ex];if(!ex)continue;for(const k in ex.a)a[k]+=e.xp*ex.a[k]}
+  const st=streakInfo(); a.VIG=st.days*60+st.best*40;
+  const out={};for(const k in a){out[k]=1+Math.floor(Math.sqrt(a[k]/12));out[k+'_raw']=a[k]}
+  return out;
+}
+function attrProgress(raw){const lv=1+Math.floor(Math.sqrt(raw/12));const lo=12*Math.pow(lv-1,2),hi=12*Math.pow(lv,2);return (raw-lo)/(hi-lo)}
+function todayEntries(){const t=ymd();return S.log.filter(e=>e.d===t)}
+
+function ensureQuests(){
+  const t=ymd();
+  if(S.q.d===t&&S.q.ids.length) return;
+  const pool=QUESTS.filter(q=>!q.cls||q.cls.includes(S.cls));
+  const r=rng(hash(t+S.name+S.cls));
+  const ids=[];const p=[...pool];
+  while(ids.length<3&&p.length){ids.push(p.splice(Math.floor(r()*p.length),1)[0].id)}
+  S.q={d:t,ids,claimed:[]};
+}
+function questReward(){const L=levelInfo().L;return {xp:Math.round(60*(1+L*0.06)),gold:25}}
+function bossProgress(b){
+  const es=S.log.filter(e=>b.ex.includes(e.ex));
+  if(b.u==='kg'){
+    const target=b.bw*(S.bw||0); if(!target) return {best:0,target:0,p:0};
+    const best=Math.max(0,...es.map(e=>e.kg||0)); return {best,target:Math.round(target*10)/10,p:Math.min(1,best/target)};
+  }
+  const best=Math.max(0,...es.map(e=>e.r)); return {best,target:b.goal,p:Math.min(1,best/b.goal)};
+}
+function counters(){
+  const st=streakInfo();
+  return {entries:S.log.length,best:st.best,days:st.days,
+    reps:sum(S.log.filter(e=>!EXM[e.ex]?.u),e=>e.s*e.r),
+    vol:sum(S.log.filter(e=>EXM[e.ex]?.t==='mus'),e=>e.s*e.r*(e.kg||0)),
+    level:levelInfo().L,quests:S.qTotal,bosses:Object.keys(S.bosses).length};
+}
+
+/* ================== EVENTOS DE JOGO ================== */
+function afterProgress(prevLevel){
+  // chefes
+  for(const b of BOSSES){
+    if(S.bosses[b.id]) continue;
+    const p=bossProgress(b);
+    if(p.p>=1&&p.target>0){
+      S.bosses[b.id]=Date.now();
+      const xp=300+Object.keys(S.bosses).length*50;
+      S.bonusXP+=xp;S.goldBonus+=120;
+      queueModal(()=>bossModal(b,xp));
+    }
+  }
+  // conquistas
+  const c=counters();
+  for(const a of ACH){
+    if(!S.ach[a.id]&&a.f(c)){S.ach[a.id]=Date.now();S.goldBonus+=30;toast(a.e,'Conquista desbloqueada!',a.t+' · +30 ouro')}
+  }
+  const L=levelInfo().L;
+  if(L>prevLevel){
+    const oldR=rankOf(prevLevel),newR=rankOf(L);
+    queueModal(()=>levelModal(L,newR!==oldR?newR:null));
+    // conquistas de nível após subir
+    const c2=counters();
+    for(const a of ACH){ if(!S.ach[a.id]&&a.f(c2)){S.ach[a.id]=Date.now();S.goldBonus+=30;toast(a.e,'Conquista desbloqueada!',a.t+' · +30 ouro')} }
+  }
+  save();
+}
+function logExercise(exId,s,r,kg){
+  const ex=EXM[exId];const prev=levelInfo().L;
+  const m=multipliers(ex);
+  const xp=Math.max(1,Math.round(baseXP(ex,s,r,kg)*m.total));
+  S.log.push({id:uid(),d:ymd(),ts:Date.now(),ex:exId,s,r,kg:ex.t==='mus'?kg:0,xp});
+  S.last[exId]={s,r,kg};
+  toast('✨','+'+fmt(xp)+' XP · +'+Math.floor(xp/20)+' ouro',ex.n+' — '+s+'×'+r+(ex.u?'s':'')+(ex.t==='mus'?' · '+kg+' kg':''));
+  afterProgress(prev);
+}
+function claimQuest(id){
+  if(S.q.claimed.includes(id)) return;
+  const prev=levelInfo().L;const rw=questReward();
+  S.q.claimed.push(id);S.qTotal++;S.bonusXP+=rw.xp;S.goldBonus+=rw.gold;
+  toast('📯','Missão cumprida!','+'+rw.xp+' XP · +'+rw.gold+' ouro');
+  if(S.q.ids.every(q=>S.q.claimed.includes(q))){S.bonusXP+=100;S.goldBonus+=50;toast('🏆','Todas as missões do dia!','Bônus: +100 XP · +50 ouro')}
+  afterProgress(prev);
+}
+function buy(id){
+  const it=SHOP.find(x=>x.id===id);if(!it||gold()<it.p)return;
+  if(it.kind==='elixir'){ if(S.elixir===ymd()) return; S.elixir=ymd(); }
+  else { if(S.titles.includes(it.v)) return; S.titles.push(it.v); S.title=it.v; }
+  S.goldSpent+=it.p; toast(it.e,'Comprado!',it.n); save(); render();
+}
+function deleteEntry(id){S.log=S.log.filter(e=>e.id!==id);save();render()}
+
+/* ================== UI: TOAST / MODAL ================== */
+function toast(e,t,sub){
+  const el=document.createElement('div');el.className='toast';
+  el.innerHTML='<span class="te">'+e+'</span><div>'+esc(t)+(sub?'<small>'+esc(sub)+'</small>':'')+'</div>';
+  $('#toasts').appendChild(el);setTimeout(()=>{el.style.transition='.3s';el.style.opacity=0;el.style.transform='translateY(-10px)'},2800);setTimeout(()=>el.remove(),3200);
+}
+const mq=[];let modalOpen=false;
+function queueModal(fn){mq.push(fn);if(!modalOpen)nextModal()}
+function nextModal(){const fn=mq.shift();if(fn){modalOpen=true;fn()}else modalOpen=false}
+function openModal(html,center){
+  $('#modal').innerHTML='<div class="scrim'+(center?' center':'')+'" data-scrim><div class="sheet">'+html+'</div></div>';
+}
+function closeModal(){$('#modal').innerHTML='';if(modalOpen){modalOpen=false;setTimeout(nextModal,150)}}
+function levelModal(L,newRank){
+  openModal(`<div class="lvup"><img class="lv-art" src="${ART.full[S.cls]}" alt=""><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:var(--gold)">SUBIU DE NÍVEL</div><div class="big">${L}</div>
+   ${newRank?`<p style="margin-top:10px">Nova patente: <span class="rank">${newRank}</span></p>`:''}
+   <p class="muted" style="margin:12px 0 18px">Seus atributos ficaram mais fortes. Continue forjando.</p>
+   <button class="btn full" data-a="close">Continuar</button></div>`,true);
+}
+function bossModal(b,xp){
+  openModal(`<div class="lvup"><div style="font-size:64px">${b.e}</div><div class="cap" style="margin-top:6px">[ SISTEMA ] CHEFE DERROTADO</div>
+   <h3 style="margin-top:6px">${b.n}</h3><p class="reward" style="margin:8px 0 18px">+${xp} XP · +120 ouro</p>
+   <button class="btn full" data-a="close">Glória!</button></div>`,true);
+}
+function confirmModal(msg,onOk,okLabel='Confirmar'){
+  window.__ok=onOk;
+  openModal(`<h3>Tem certeza?</h3><p class="muted" style="margin:6px 0 16px">${msg}</p>
+   <div class="grid2"><button class="btn ghost" data-a="close">Cancelar</button><button class="btn danger" data-a="ok">${okLabel}</button></div>`,true);
+}
+
+function exerciseSheet(id,preset){
+  const ex=EXM[id];const l=preset||S.last[id]||{s:ex.t==='mus'?4:3,r:ex.u?30:(ex.t==='mus'?10:10),kg:ex.t==='mus'?20:0};
+  const unit=ex.u?'Segundos por série':'Repetições por série';
+  openModal(`<div class="row between"><div><h3>${esc(ex.n)}</h3><div class="muted">${GROUP_ICON[ex.g]||''} ${ex.g} · ${ex.t==='cal'?'Calistenia':'Musculação'}${ex.tier?` <span class="tier t${ex.tier}">NÍVEL ${ROMAN[ex.tier]}</span>`:''}</div></div><button class="iconbtn" data-a="close">✕</button></div>
+    <div class="field"><label>Séries</label>${stepper('f_s',l.s,1)}</div>
+    <div class="field"><label>${unit}</label>${stepper('f_r',l.r,ex.u?5:1)}</div>
+    ${ex.t==='mus'?`<div class="field"><label>Carga (kg)</label>${stepper('f_kg',l.kg,2.5)}</div>`:''}
+    <div class="preview"><div><div class="muted" style="font-size:13px">Recompensa estimada</div><div class="dim" style="font-size:12px" id="f_mult"></div></div><b id="f_xp">0 XP</b></div>
+    <button class="btn full" style="margin-top:14px" data-a="log" data-id="${id}">⚔️ Registrar série</button>`);
+  window.__sheetEx=id; updatePreview();
+}
+function stepper(id,v,step){return `<div class="stepper"><button data-a="step" data-t="${id}" data-d="-${step}">−</button><input id="${id}" type="number" inputmode="decimal" min="0" step="${step}" value="${v}"><button data-a="step" data-t="${id}" data-d="${step}">+</button></div>`}
+function readSheet(){
+  const ex=EXM[window.__sheetEx];
+  const s=Math.max(0,Math.round(+$('#f_s').value||0)),r=Math.max(0,Math.round(+$('#f_r').value||0));
+  const kg=ex.t==='mus'?Math.max(0,+(+$('#f_kg').value||0).toFixed(2)):0;
+  return {ex,s,r,kg};
+}
+function updatePreview(){
+  if(!$('#f_xp'))return;
+  const {ex,s,r,kg}=readSheet();const m=multipliers(ex);
+  $('#f_xp').textContent='+'+fmt(Math.round(baseXP(ex,s,r,kg)*m.total))+' XP';
+  const parts=[];if(m.cls>1)parts.push('classe ×'+m.cls.toFixed(1));if(m.streak>1)parts.push('sequência ×'+m.streak.toFixed(2));if(m.elixir>1)parts.push('elixir ×1.5');
+  $('#f_mult').textContent=parts.length?'Bônus: '+parts.join(' · '):'Sem bônus ativos';
+}
+function settingsSheet(){
+  openModal(`<div class="row between"><h3>Ficha do Herói</h3><button class="iconbtn" data-a="close">✕</button></div>
+   <div class="field"><label>Nome</label><input id="s_name" maxlength="24" value="${esc(S.name)}"></div>
+   <div class="field"><label>Peso corporal (kg) — usado nos chefes de força</label><input id="s_bw" type="number" inputmode="decimal" value="${S.bw||''}"></div>
+   <div class="field"><label>Título equipado</label><select id="s_title"><option value="">— nenhum —</option>${S.titles.map(t=>`<option ${t===S.title?'selected':''}>${esc(t)}</option>`).join('')}</select></div>
+   <div class="field"><label>Classe</label><div class="classes">${classCards(S.cls)}</div></div>
+   <button class="btn full" style="margin-top:16px" data-a="saveSettings">Salvar</button>
+   <h2 style="font-size:15px">Plano</h2>
+   ${isElite()?'<div class="card"><span class="crown">👑 CAÇADOR ELITE</span><p class="muted" style="font-size:13px;margin-top:6px">Todos os recursos liberados. Obrigado por apoiar a Forja!</p></div>':'<div class="card"><b class="glow">Recruta</b><p class="muted" style="font-size:13px;margin:4px 0 10px">App completo. Faça o upgrade para liberar a Dungeon, o ranking e mais.</p><button class="btn gold full sm" data-a="elite">👑 Conhecer o Caçador Elite</button></div>'}
+   <h2 style="font-size:15px">Backup</h2>
+   <p class="muted" style="font-size:13px">Copie seu progresso para guardar, ou cole um backup para restaurar.</p>
+   <textarea id="s_bk" rows="3" placeholder="Cole aqui um backup para restaurar" style="margin-top:8px;font-size:12px"></textarea>
+   <div class="grid2" style="margin-top:8px"><button class="btn ghost sm" data-a="copyBk">📋 Copiar backup</button><button class="btn ghost sm" data-a="loadBk">⤵️ Restaurar</button></div>
+   <button class="btn danger full sm" style="margin-top:18px" data-a="reset">Apagar herói e recomeçar</button>`);
+  window.__clsPick=S.cls;
+}
+function classCards(sel){return Object.entries(CLASSES).map(([k,c])=>`<button class="cls ${k===sel?'on':''}" data-a="pickCls" data-c="${k}"><span class="ce" style="overflow:hidden;padding:0">${face(k)}</span><span><div class="cn">${c.n}</div><div class="cd">${c.d}</div></span></button>`).join('')}
+
+/* ================== TELAS ================== */
+let tab='heroi', trainType='cal', trainGroup='Todos';
+let timerEnd=0,timerInt=null;
+
+function render(){
+  if(!S.created){ $('#nav').hidden=true; $('#app').innerHTML=viewCreate(); return; }
+  ensureQuests();
+  $('#nav').hidden=false;
+  const g=gold();
+  const head=`<div class="top"><div class="brand">FORJA DO HERÓI<small>TREINO RPG</small></div>
+    <div class="topr">${isElite()?'<span class="pill elite">👑 ELITE</span>':'<button class="pill up" data-a="elite">RECRUTA ↑</button>'}<span class="pill">🪙 ${fmt(g)}</span><button class="iconbtn" data-a="settings" title="Ficha">⚙️</button></div></div>`;
+  const views={heroi:viewHero,treinar:viewTrain,dungeon:viewDungeon,missoes:viewQuests,chefes:viewBosses,taverna:viewTaverna,mais:viewMais,loja:viewShop,diario:viewLog,temporada:viewSeason,progressao:viewProgress,planilha:viewSheet};
+  $('#app').innerHTML=head+views[tab]()+`<div class="sync" id="sync">${syncLabel()}</div>`;
+  renderNav();
+  if(tab==='treinar') tickTimer();
+}
+function renderNav(){
+  const es=todayEntries();
+  const qReady=S.q.ids.some(id=>{const q=QUESTS.find(x=>x.id===id);return q&&!S.q.claimed.includes(id)&&q.f(es)>=q.goal});
+  const items=[['heroi','🧙','Herói'],['treinar','⚔️','Treinar'],['dungeon','🗺️','Dungeon'],['missoes','📜','Missões'],['chefes','🐉','Chefes'],['taverna','🍺','Taverna'],['mais','☰','Mais']];
+  const navTab=['loja','diario','temporada','progressao','planilha'].includes(tab)?'mais':tab;
+  $('#nav').innerHTML='<div class="in">'+items.map(([k,e,n])=>`<button class="${navTab===k?'on':''}" data-tab="${k}"><span class="e">${e}</span>${n}${k==='missoes'&&qReady?'<span class="dot"></span>':''}${k==='dungeon'&&!isElite()?'<span class="lockdot">🔒</span>':''}</button>`).join('')+'</div>';
+}
+
+const face=(k)=>`<img class="facei" src="${ART.face[k]||ART.face.paladino}" alt="">`;
+function viewCreate(){
+  const c=window.__clsPick||'paladino';
+  const col=CLS_COLOR[c];
+  return `<div class="cbanner"><img src="${ART.keyart}" alt="Os três heróis: Monge, Paladino e Guerreiro"><div class="cb-t"><span class="tag">[ SISTEMA ] · NOVO JOGADOR DETECTADO</span><h1>FORJA DO HERÓI</h1><p>Cada série vira XP. Cada treino, um passo na sua lenda.</p></div></div>
+  <div class="stage" style="background:${col.bg};--acc:${col.acc};margin-top:12px"><div class="stage-word">${col.w}</div><img class="stage-art" src="${ART.full[c]}" alt="${CLASSES[c].n}"><div class="stage-info"><span class="tag">CLASSE ESCOLHIDA</span><div class="stage-name">${CLASSES[c].n}</div><div class="stage-cls">${CLASSES[c].d}</div></div></div>
+  <div class="card"><div class="field" style="margin-top:0"><label>Nome do herói</label><input id="c_name" maxlength="24" placeholder="Ex.: Juliano, o Forte" value="${esc(window.__cname||'')}"></div>
+  <div class="field"><label>Peso corporal (kg)</label><input id="c_bw" type="number" inputmode="decimal" placeholder="75" value="${esc(window.__cbw||'')}"></div>
+  <div class="field"><label>Escolha sua classe</label><div class="classes">${classCards(c)}</div></div>
+  <button class="btn full" style="margin-top:16px" data-a="create">⚔️ Despertar meu herói</button></div>`;
+}
+
+const ICO={FOR:'<path d="M6 7v10M3 9.5v5M18 7v10M21 9.5v5M6 12h12"/>',RES:'<path d="M12 2.5l7.5 3v6.2c0 4.6-3.1 8-7.5 9.8-4.4-1.8-7.5-5.2-7.5-9.8V5.5z"/>',AGI:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',VIG:'<path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-3 2-4 2-7 1 1 2 2 3 3z"/>'};
+const svgI=(d,sz=22)=>`<svg width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="#dff4ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+function viewHero(){
+  const li=levelInfo(),st=streakInfo(),at=attrs(),c=CLASSES[S.cls];
+  const bossN=Object.keys(S.bosses).length;
+  const anyEx={t:S.cls==='guerreiro'?'mus':'cal'};
+  const m=multipliers(anyEx);
+  const buffs=[];
+  if(st.cur>0) buffs.push(`<span class="buff">🔥 Sequência +${Math.round((m.streak-1)*100)}% XP</span>`);
+  if(S.elixir===ymd()) buffs.push(`<span class="buff p">🧪 Elixir +50% XP</span>`);
+  buffs.push(`<span class="buff p">${c.e} Bônus de classe</span>`);
+  const days=[];const wd=['D','S','T','Q','Q','S','S'];let mx=1;
+  for(let i=6;i>=0;i--){const d=addDays(ymd(),-i);const x=sum(S.log.filter(e=>e.d===d),e=>e.xp);mx=Math.max(mx,x);const [y,mo,da]=d.split('-').map(Number);days.push({x,l:wd[new Date(y,mo-1,da).getDay()]})}
+  const col=CLS_COLOR[S.cls];
+  return `<div class="stage" style="background:${col.bg};--acc:${col.acc}"><div class="stage-word">${col.w}</div><img class="stage-art" src="${ART.full[S.cls]}" alt="${c.n}"><div class="stage-info"><span class="tag">[ SISTEMA ] · JOGADOR</span><div class="stage-name">${esc(S.name)}</div><div class="stage-cls">${c.n}</div>${isElite()?'<span class="crown">👑 CAÇADOR ELITE</span>':''}${S.title?`<div class="stage-title">« ${esc(S.title)} »</div>`:''}</div></div>
+  <div class="win">
+    <div class="wtitle">STATUS</div>
+    <div class="st-top">
+      <div class="st-face">${face(S.cls)}</div>
+      <div class="st-lv glow"><b>${li.L}</b><span>NÍVEL</span></div>
+      <div class="st-info">
+        <div><small>NOME: </small><span class="glow">${esc(S.name)}</span></div>
+        <div><small>CLASSE: </small><span class="glow">${c.n}</span></div>
+        <div><small>TÍTULO: </small><span class="glow">${S.title?esc(S.title):'Nenhum'}</span></div>
+        <div><small>PATENTE: </small><span class="glow">${rankOf(li.L)}</span></div>
+      </div>
+    </div>
+    <div class="buffs" style="justify-content:center;margin-top:14px">${buffs.join('')}</div>
+  </div>
+  <div class="win">
+    <div class="barrow"><span class="lb glow">XP</span><div class="track"><i style="width:${(li.into/li.need*100).toFixed(1)}%"></i></div></div>
+    <div class="xpline" style="padding-left:50px"><span>${fmt(li.into)} / ${fmt(li.need)}</span><span>faltam ${fmt(li.need-li.into)}</span></div>
+    <div class="barrow" style="margin-top:10px"><span class="lb glow">SEQ</span><div class="track v"><i style="width:${Math.min(st.cur,10)*10}%"></i></div></div>
+    <div class="xpline" style="padding-left:50px"><span>${st.cur} ${st.cur===1?'dia seguido':'dias seguidos'}</span><span>bônus +${Math.min(st.cur,10)*5}% XP</span></div>
+    <div class="mini">
+      <div><b class="glow">${st.days}</b><span>DIAS</span></div>
+      <div><b class="glow">${bossN}/${BOSSES.length}</b><span>CHEFES</span></div>
+      <div><b class="glow">${fmt(totalXP())}</b><span>XP TOTAL</span></div>
+      <div><b class="glow">${fmt(gold())}</b><span>OURO</span></div>
+    </div>
+  </div>
+  <div class="win">
+    <div class="stgrid">${Object.entries(ATTRS).map(([k,a])=>`<div class="stc" title="${a.n}: ${a.d}">${svgI(ICO[k])}<span class="k glow">${k}:</span><span class="v glow">${at[k]}</span></div>`).join('')}</div>
+    <div style="margin-top:14px;font-size:12.5px;color:var(--mute);text-align:center">FOR: cargas e movimentos difíceis · RES: volume e isometria · AGI: controle e habilidades · VIG: constância</div>
+  </div>
+
+  ${elitePromo()}
+
+  <h2>Últimos 7 dias</h2>
+  <div class="card"><div class="week">${days.map(d=>`<div><i class="${d.x?'':'zero'}" style="height:${d.x?Math.max(8,d.x/mx*100):4}%"></i><span>${d.l}</span></div>`).join('')}</div>
+  ${!st.trainedToday?`<button class="btn full" style="margin-top:12px" data-tab="treinar">⚔️ Treinar hoje e manter a sequência</button>`:`<p class="muted" style="margin-top:10px;font-size:14px;text-align:center">Você já treinou hoje: ${fmt(sum(todayEntries(),e=>e.xp))} XP ganhos.</p>`}</div>
+
+  <h2>Conquistas <span class="sub">${Object.keys(S.ach).length}/${ACH.length}</span></h2>
+  <div class="ach">${ACH.map(a=>`<div class="badge ${S.ach[a.id]?'on':''}"><span class="e">${a.e}</span><span class="t">${a.t}</span></div>`).join('')}</div>`;
+}
+
+function viewTrain(){
+  const groups=['Todos',...new Set(EX.filter(e=>e.t===trainType).map(e=>e.g))];
+  if(!groups.includes(trainGroup)) trainGroup='Todos';
+  const list=EX.filter(e=>e.t===trainType&&(trainGroup==='Todos'||e.g===trainGroup));
+  const es=todayEntries().slice().reverse();
+  return `<div class="card"><div class="row between"><div><div style="font-weight:700">⏱️ Descanso</div><div class="muted" style="font-size:12px">Timer entre séries</div></div>
+    <div class="timer"><span class="clock" id="clock">--:--</span><button class="tbtn" data-a="timer" data-v="60">60s</button><button class="tbtn" data-a="timer" data-v="90">90s</button><button class="tbtn" data-a="timer" data-v="120">2m</button></div></div></div>
+  <h2>Escolha o exercício</h2>
+  <div class="seg"><button class="${trainType==='cal'?'on':''}" data-a="type" data-v="cal">🤸 Calistenia</button><button class="${trainType==='mus'?'on':''}" data-a="type" data-v="mus">🏋️ Musculação</button></div>
+  <div class="chips">${groups.map(g=>`<button class="chip ${g===trainGroup?'on':''}" data-a="group" data-v="${g}">${GROUP_ICON[g]||''} ${g}</button>`).join('')}</div>
+  <div class="exlist">${list.map(e=>{const l=S.last[e.id];return `<button class="ex" data-a="ex" data-id="${e.id}"><span class="ic">${GROUP_ICON[e.g]||'•'}</span>
+    <span><div class="n">${esc(e.n)}${e.tier?`<span class="tier t${e.tier}">${ROMAN[e.tier]}</span>`:''}</div><div class="d">${e.g}${l?` · último: ${l.s}×${l.r}${e.u?'s':''}${e.t==='mus'?' '+l.kg+'kg':''}`:''}</div></span>
+    <span class="m">×${e.m}</span></button>`}).join('')}</div>
+  <h2>Treino de hoje <span class="sub">${fmt(sum(es,e=>e.xp))} XP</span></h2>
+  <div class="card">${es.length?es.map(entryRow).join(''):'<p class="muted">Nenhuma série registrada hoje. Escolha um exercício acima.</p>'}</div>`;
+}
+function entryRow(e){const ex=EXM[e.ex]||{n:e.ex};return `<div class="entry"><div><div class="n">${esc(ex.n)}</div><div class="d">${e.s} × ${e.r}${ex.u?'s':''}${ex.t==='mus'?' · '+e.kg+' kg':''}</div></div><span class="x">+${fmt(e.xp)} XP</span><button class="del" data-a="del" data-id="${e.id}" title="Apagar">✕</button></div>`}
+
+function viewQuests(){
+  const es=todayEntries();const rw=questReward();const st=streakInfo();
+  const now=new Date();const mid=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1);
+  const h=Math.floor((mid-now)/36e5),mi=Math.floor((mid-now)/6e4)%60;
+  const allDone=S.q.ids.every(id=>S.q.claimed.includes(id));
+  let warn;
+  if(allDone) warn=`<span style="color:#7dff9b;text-shadow:0 0 10px rgba(125,255,155,.7)">MISSÃO CUMPRIDA.</span> Volte amanhã para a próxima.`;
+  else if(st.cur>0&&!st.trainedToday) warn=`<b>AVISO!</b> Se você não treinar hoje, sua sequência de ${st.cur} ${st.cur===1?'dia':'dias'} e o bônus de +${Math.min(st.cur,10)*5}% de XP serão perdidos.`;
+  else warn=`<b>AVISO!</b> Missões não cumpridas desaparecem à meia-noite, junto com as recompensas.`;
+  return `<div class="win qwin" style="margin-top:8px">
+    <span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span>
+    <div class="qhead glow"><span class="qbang">!</span>MISSÃO DIÁRIA</div>
+    <div class="glow" style="margin-top:12px;font-weight:700;letter-spacing:.06em">FORJANDO O HERÓI — DIA ${st.cur+(st.trainedToday?0:1)}</div>
+    <div class="qgoal">OBJETIVOS</div>
+    ${S.q.ids.map(id=>{const q=QUESTS.find(x=>x.id===id);if(!q)return'';const v=Math.min(q.goal,q.f(es));const done=v>=q.goal;const cl=S.q.claimed.includes(id);
+      return `<div class="qrow ${done?'done':''}"><div><div class="qn glow">[${cl?'CONCLUÍDA':done?'COMPLETA':'INCOMPLETA'}] ${q.t}</div><small>${q.d}</small></div>
+      <div style="text-align:right"><div class="qv glow">[${fmt(v)}/${fmt(q.goal)}]</div>${done&&!cl?`<button class="btn sm" data-a="claim" data-id="${id}">Resgatar</button>`:''}</div></div>`}).join('')}
+    <div style="margin-top:12px;font-size:13.5px;color:#bfe9ff">Recompensa: +${rw.xp} XP e ${rw.gold} ouro por missão · bônus de +100 XP e 50 ouro ao completar todas</div>
+    <div class="warn glow">${warn}</div>
+    <div class="qtimer glow"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="filter:drop-shadow(0 0 6px rgba(79,195,255,.9))"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M10 2h4M12 2v3"/></svg>RENOVA EM ${String(h).padStart(2,'0')}:${String(mi).padStart(2,'0')}</div>
+  </div>
+  <p class="muted" style="font-size:13px;margin-top:14px;text-align:center">Missões cumpridas no total: ${S.qTotal}</p>${isElite()?'':`<div style="margin-top:14px">${elitePromo()}</div>`}`;
+}
+function viewBosses(){
+  return `<div class="bossban"><img src="${ART.chefe}" alt="Herói enfrentando o Golem do Supino"><div><span class="tag" style="color:#e2c4ff">BATALHAS DE CHEFE</span><h2 style="margin:8px 0 0">Seus recordes viram monstros</h2></div></div>
+  ${!S.bw?`<div class="card" style="border-color:var(--gold2)"><p>Defina seu peso corporal na ⚙️ Ficha para enfrentar os chefes de força.</p></div>`:''}
+  ${BOSSES.map(b=>{const p=bossProgress(b);const dead=!!S.bosses[b.id];const unit=b.u==='kg'?' kg':b.u==='s'?' s':' reps';
+   return `<div class="card"><div class="boss ${dead?'dead':''}"><div class="face">${b.e}</div><div style="flex:1;min-width:0">
+   <div class="row between"><span class="bn">${b.n}</span>${dead?'<span class="slain">DERROTADO</span>':''}</div>
+   <div class="bd">${b.d}${b.u==='kg'&&p.target?` (${fmt(p.target)} kg)`:''}</div>
+   ${dead?'':`<div style="margin-top:8px" class="bar red thin"><i style="width:${((1-p.p)*100).toFixed(1)}%"></i></div>
+   <div class="hp"><span>HP ${Math.round((1-p.p)*100)}%</span><span>sua marca: ${fmt(p.best)}${unit}</span></div>`}
+   </div></div></div>`}).join('')}`;
+}
+
+function viewShop(){
+  const g=gold();
+  return backMais()+`<h2>Loja do Ferreiro <span class="sub">você tem 🪙 ${fmt(g)}</span></h2>
+  <p class="muted" style="font-size:13px;margin-bottom:10px">Ouro vem dos treinos (1 a cada 20 XP), das missões, dos chefes e das conquistas.</p>
+  ${SHOP.map(it=>{const owned=it.kind==='title'?S.titles.includes(it.v):S.elixir===ymd();
+   return `<div class="card shop"><span class="si">${it.e}</span><div><div class="sn">${it.n}</div><div class="sd">${it.d}</div></div>
+   ${owned?`<span class="done-tag">${it.kind==='elixir'?'ATIVO HOJE':'SEU'}</span>`:`<button class="btn sm" ${g<it.p?'disabled':''} data-a="buy" data-id="${it.id}">🪙 ${it.p}</button>`}</div>`}).join('')}`;
+}
+
+function viewLog(){
+  if(!S.log.length) return backMais()+`<h2>Diário de batalha</h2><div class="card"><p class="muted">Seu diário está vazio. Registre seu primeiro treino na aba Treinar.</p></div>`;
+  const by={};for(const e of S.log)(by[e.d]=by[e.d]||[]).push(e);
+  const days=Object.keys(by).sort().reverse();
+  return backMais()+`<h2>Diário de batalha <span class="sub">${S.log.length} registros</span></h2>`+days.slice(0,60).map(d=>{
+    const [y,m,da]=d.split('-');const es=by[d].slice().reverse();
+    return `<div class="dayh"><span>${da}/${m}/${y}</span><span>${fmt(sum(es,e=>e.xp))} XP</span></div><div class="card">${es.map(entryRow).join('')}</div>`}).join('');
+}
+
+/* ================== TAVERNA (mural compartilhado) ================== */
+const TV={db:null,me:null,owner:false,ready:false,docs:[],err:'',canWrite:true,unsub:null,draft:'',chan:'geral'};
+let tvChain=Promise.resolve();
+function subTaverna(){
+  if(TV.unsub||!TV.db) return;
+  const t=setTimeout(()=>{if(!TV.ready){TV.err='A Taverna está demorando para carregar. Verifique sua conexão.';paintFeed()}},10000);
+  try{
+    TV.unsub=TV.db.collection('taverna').onSnapshot(snap=>{
+      TV.docs=snap.docs.filter(d=>d.exists).map(d=>Object.assign({},d.data()||{},{uid:d.id}));
+      TV.ready=true;if(!snap.metadata||!snap.metadata.fromCache){TV.err='';clearTimeout(t)}
+      paintFeed();
+    },e=>{clearTimeout(t);TV.err='Não foi possível carregar a Taverna agora.';paintFeed()});
+  }catch(e){clearTimeout(t);TV.err='Não foi possível carregar a Taverna agora.'}
+}
+function tvErr(e){
+  if(e&&e.code==='invalid_argument'){TV.canWrite=false;toast('🔒','Você só pode ler a Taverna','Peça ao dono do app para te convidar como editor');if(tab==='taverna')render()}
+  else if(e&&e.code==='quota_exceeded') toast('⚠️','A Taverna está cheia','Apague posts antigos para liberar espaço');
+  else toast('⚠️','Não foi possível enviar','Tente de novo em instantes');
+}
+function heroSnap(){const li=levelInfo();return {name:S.name||'Herói',cls:S.cls,level:li.L,rank:rankOf(li.L),title:S.title||'',elite:isElite(),season:{k:seasonKey(),xp:seasonXP()}}}
+function writeMine(mut){
+  if(!TV.db||!TV.me) return;
+  tvChain=tvChain.then(async()=>{
+    const cur=TV.docs.find(d=>d.uid===TV.me);
+    const doc=cur?JSON.parse(JSON.stringify(cur)):{};
+    delete doc.uid;
+    doc.posts=Array.isArray(doc.posts)?doc.posts:[];doc.likes=(doc.likes&&typeof doc.likes==='object')?doc.likes:{};
+    mut(doc);
+    doc.posts=doc.posts.slice(-100);
+    const lk=Object.keys(doc.likes);if(lk.length>400){for(const k of lk.slice(0,lk.length-400))delete doc.likes[k]}
+    doc.hero=heroSnap();doc.updated=Date.now();
+    await TV.db.doc('taverna/'+TV.me).set(doc);
+  }).catch(tvErr);
+  return tvChain;
+}
+function modDelete(uid,pid){
+  tvChain=tvChain.then(async()=>{
+    const d=TV.docs.find(x=>x.uid===uid);if(!d)return;
+    const doc=JSON.parse(JSON.stringify(d));delete doc.uid;
+    doc.posts=(doc.posts||[]).filter(p=>p.id!==pid);
+    await TV.db.doc('taverna/'+uid).set(doc);
+  }).catch(tvErr);
+}
+function tvPost(text,kind,data,replyTo,vip){
+  text=String(text||'').trim().slice(0,500);
+  if(!text&&!kind) return false;
+  const p={id:uid(),ts:Date.now(),text,kind:kind||'text'};
+  if(data)p.data=data;if(replyTo)p.replyTo=replyTo;if(vip||(!replyTo&&TV.chan==='vip'&&isElite()))p.vip=true;
+  writeMine(doc=>doc.posts.push(p));
+  return true;
+}
+function workoutShare(){
+  const es=todayEntries();if(!es.length) return null;
+  const items=es.map(e=>{const ex=EXM[e.ex]||{n:e.ex};return {n:ex.n,s:e.s,r:e.r,kg:ex.t==='mus'?e.kg:0,u:ex.u?'s':''}}).slice(0,12);
+  return {xp:sum(es,e=>e.xp),items};
+}
+function ago(ts){
+  const s=Math.max(0,(Date.now()-ts)/1000);
+  if(s<60)return 'agora';if(s<3600)return Math.floor(s/60)+' min';if(s<86400)return Math.floor(s/3600)+' h';
+  if(s<86400*7)return Math.floor(s/86400)+' d';const d=new Date(ts);return d.toLocaleDateString('pt-BR');
+}
+function feedData(){
+  const all=[],likes={};
+  for(const d of TV.docs){
+    const hero=(d.hero&&typeof d.hero==='object')?d.hero:{};
+    for(const p of (Array.isArray(d.posts)?d.posts:[])){
+      if(!p||typeof p!=='object'||typeof p.id!=='string')continue;
+      all.push({id:p.id,ts:+p.ts||0,text:String(p.text||'').slice(0,500),kind:String(p.kind||'text'),data:p.data,replyTo:typeof p.replyTo==='string'?p.replyTo:null,vip:!!p.vip,uid:d.uid,key:d.uid+':'+p.id,hero});
+    }
+    if(d.likes&&typeof d.likes==='object')for(const k in d.likes)(likes[k]=likes[k]||new Set()).add(d.uid);
+  }
+  const keys=new Set(all.map(p=>p.key));
+  const top=all.filter(p=>!p.replyTo&&(TV.chan==='vip'?p.vip:!p.vip)).sort((a,b)=>b.ts-a.ts).slice(0,80);
+  const reps={};for(const p of all)if(p.replyTo&&keys.has(p.replyTo))(reps[p.replyTo]=reps[p.replyTo]||[]).push(p);
+  for(const k in reps)reps[k].sort((a,b)=>a.ts-b.ts);
+  return {top,reps,likes};
+}
+function shareCard(p){
+  const d=p.data;if(!d||typeof d!=='object')return '';
+  if(p.kind==='treino'&&Array.isArray(d.items)){
+    return `<div class="share-card">⚔️ <b>Treino do dia · +${fmt(+d.xp||0)} XP</b>${d.items.slice(0,12).map(i=>`<div class="muted">${esc(i.n)} — ${+i.s||0}×${+i.r||0}${i.u==='s'?'s':''}${+i.kg?' · '+(+i.kg)+' kg':''}</div>`).join('')}</div>`;
+  }
+  if(p.kind==='nivel'){
+    return `<div class="share-card">🏅 <b>Nível ${+d.level||1}</b> · ${esc(d.rank||'')} · ${fmt(+d.xp||0)} XP total · 🔥 ${+d.streak||0} dias seguidos · ${+d.bosses||0} chefes derrotados</div>`;
+  }
+  return '';
+}
+function postHTML(p,F,isReply){
+  const h=p.hero;const c=CLASSES[h.cls]||CLASSES.paladino;const mine=p.uid===TV.me;
+  const set=F.likes[p.key];const n=set?set.size:0;const iLike=!!(set&&set.has(TV.me));
+  const canDel=mine||TV.owner;
+  const head=`<div class="ph"><span class="av" style="overflow:hidden">${face(CLASSES[h.cls]?h.cls:"paladino")}</span><div style="min-width:0"><div class="pn ${h.elite?'gname':''}">${h.elite?'👑 ':''}${esc(h.name||'Herói')}${mine?'<span class="you">VOCÊ</span>':''}</div>
+    <div class="pm">Nv ${+h.level||1} · ${esc(h.rank||'')}${h.title?' · '+esc(h.title):''} · ${ago(p.ts)}</div></div></div>`;
+  const actions=`<div class="pa">
+    <button class="pact ${iLike?'on':''}" data-a="tvLike" data-k="${esc(p.key)}" ${TV.canWrite?'':'disabled'}>💪 ${n||''}</button>
+    ${isReply?'':`<button class="pact" data-a="tvReply" data-k="${esc(p.key)}" ${TV.canWrite?'':'disabled'}>💬 Responder</button>`}
+    ${canDel?`<button class="pact" data-a="tvDel" data-u="${esc(p.uid)}" data-id="${esc(p.id)}">🗑️</button>`:''}</div>`;
+  const body=(p.text?`<div class="pt">${esc(p.text)}</div>`:'')+shareCard(p);
+  if(isReply) return `<div class="reply post" style="padding:0">${head}${body}${actions}</div>`;
+  const reps=F.reps[p.key]||[];
+  return `<div class="card post">${head}${body}${actions}${reps.length?`<div class="replies">${reps.map(r=>postHTML(r,F,true)).join('')}</div>`:''}</div>`;
+}
+function feedHTML(){
+  if(TV.err&&!TV.docs.length) return `<div class="card"><p class="muted">${esc(TV.err)}</p></div>`;
+  if(!TV.ready) return `<div class="card"><p class="muted">Abrindo as portas da taverna…</p></div>`;
+  const F=feedData();
+  if(TV.chan==='vip'&&!isElite()) return lockedView('Taverna VIP','Um salão só para heróis Elite: desafios em grupo, tira-dúvidas de treino e coroa dourada em todos os seus posts.',ART.keyart);
+  if(!F.top.length) return `<div class="card" style="text-align:center"><div style="font-size:34px">🍺</div><p class="muted">${TV.chan==='vip'?'O salão VIP está vazio. Inaugure com um post!':'A taverna está vazia. Seja o primeiro a puxar conversa!'}</p></div>`;
+  return (TV.err?`<p class="dim" style="font-size:12px;margin-bottom:6px">${esc(TV.err)}</p>`:'')+F.top.map(p=>postHTML(p,F,false)).join('');
+}
+function paintFeed(){const el=$('#feed');if(el&&tab==='taverna')el.innerHTML=feedHTML()}
+function viewTaverna(){
+  if(!TV.db) return `<h2>🍺 Taverna</h2><div class="card"><p>A Taverna é o mural da galera: posts, respostas e treinos compartilhados.</p>
+    <p class="muted" style="margin-top:8px;font-size:14px">O salão está sendo preparado e abre em breve para todos os heróis. Enquanto isso, continue treinando: seu progresso fica salvo neste aparelho.</p></div>`;
+  return `<h2>🍺 Taverna <span class="sub">o mural dos heróis</span></h2>
+  <div class="seg" style="margin-bottom:10px"><button class="${TV.chan==='geral'?'on':''}" data-a="tvChan" data-v="geral">🍺 Salão geral</button><button class="${TV.chan==='vip'?'on':''}" data-a="tvChan" data-v="vip">👑 Salão VIP</button></div>
+  ${TV.canWrite&&(TV.chan!=='vip'||isElite())?`<div class="card">
+    <textarea id="tv_text" rows="3" maxlength="500" placeholder="Conte como foi o treino, peça dicas ou desafie a galera…">${esc(TV.draft)}</textarea>
+    <div class="row between" style="margin-top:8px;flex-wrap:wrap;gap:8px">
+      <div class="row" style="gap:6px;flex-wrap:wrap"><button class="btn ghost sm" data-a="tvShare">⚔️ Treino de hoje</button><button class="btn ghost sm" data-a="tvLevel">🏅 Meu nível</button></div>
+      <button class="btn sm" data-a="tvPost">Postar</button></div></div>`
+  :`<div class="card" style="border-color:var(--gold2)"><p>🔒 Você pode ler a Taverna, mas não postar.</p><p class="muted" style="font-size:14px;margin-top:4px">Peça ao dono do app para te convidar como editor.</p></div>`}
+  <div id="feed" style="margin-top:10px;display:grid;gap:10px">${feedHTML()}</div>`;
+}
+function replySheet(key){
+  const F=feedData();const parent=F.top.find(p=>p.key===key);if(!parent)return;
+  window.__replyTo=key;
+  openModal(`<div class="row between"><h3>Responder a ${esc(parent.hero.name||'Herói')}</h3><button class="iconbtn" data-a="close">✕</button></div>
+   ${parent.text?`<p class="muted" style="margin:6px 0 4px;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere">${esc(parent.text.slice(0,200))}</p>`:''}
+   <textarea id="tv_reply" rows="3" maxlength="500" placeholder="Sua resposta…" style="margin-top:10px"></textarea>
+   <button class="btn full" style="margin-top:12px" data-a="tvSendReply">Enviar resposta</button>`);
+  setTimeout(()=>{const t=$('#tv_reply');t&&t.focus()},50);
+}
+
+/* ================== PLANOS ================== */
+const isElite=()=>S.plan==='elite';
+const CODE_A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+function validCode(c){c=String(c||'').trim().toUpperCase().replace(/\s/g,'');const m=/^ELITE-([A-Z0-9]{5})([A-Z0-9])$/.exec(c);if(!m)return false;let x=0;for(const ch of m[1])x=(x*31+ch.charCodeAt(0))%CODE_A.length;return CODE_A[(x+7)%CODE_A.length]===m[2]}
+function activateElite(code){
+  if(!validCode(code)) return false;
+  const prev=levelInfo().L;
+  S.plan='elite';S.eliteCode=String(code).trim().toUpperCase();S.eliteAt=Date.now();
+  if(!S.titles.includes('Fundador da Forja'))S.titles.push('Fundador da Forja');
+  S.title='Fundador da Forja';S.goldBonus+=300;
+  afterProgress(prev);return true;
+}
+function eliteModal(feature){
+  openModal(`<div class="ebanner"><img src="${ART.keyart}" alt="Os três heróis das classes"><span class="crown big">👑 CAÇADOR ELITE</span></div>
+   <h3 style="margin-top:14px">${feature?esc(feature)+' é exclusivo do Caçador Elite':'Desperte o Caçador Elite'}</h3>
+   <p class="muted" style="font-size:14px">Libere o arsenal completo do Sistema e evolua mais rápido.</p>
+   <ul class="elist">${ELITE_PERKS.map(p=>`<li><span>${p[0]}</span>${p[1]}</li>`).join('')}</ul>
+   ${CHECKOUT_ELITE?`<a class="btn gold full" href="${CHECKOUT_ELITE}" target="_blank" rel="noopener">Liberar Caçador Elite · R$ 19,90</a>`:`<button class="btn gold full" disabled>Liberar Caçador Elite · R$ 19,90</button><p class="dim" style="font-size:12px;text-align:center;margin-top:6px">Link de compra em breve</p>`}
+   <div class="field"><label>Já comprou? Digite o código de ativação que chegou no seu e-mail</label>
+   <div class="row"><input id="e_code" placeholder="ELITE-XXXXXX" autocapitalize="characters" style="text-transform:uppercase"><button class="btn sm" data-a="activate">Ativar</button></div></div>
+   <button class="btn ghost full sm" style="margin-top:12px" data-a="close">Agora não</button>`);
+}
+function lockedView(title,desc,art,bullets){
+  return `<div class="win locked"><div class="lk-art"><img src="${art||ART.keyart}" alt=""><span class="crown">👑 EXCLUSIVO CAÇADOR ELITE</span></div>
+   <div class="lk-body"><h3 class="glow">${title}</h3><p class="muted">${desc}</p>
+   ${bullets?`<ul class="elist">${bullets.map(b=>`<li><span>✦</span>${b}</li>`).join('')}</ul>`:''}
+   <button class="btn gold full" data-a="elite" data-f="${esc(title)}">🔓 Liberar com o Caçador Elite</button></div></div>`;
+}
+function elitePromo(){
+  if(isElite()) return '';
+  return `<button class="promo" data-a="elite"><img src="${ART.keyart}" alt=""><span class="promo-t"><span class="crown">👑 CAÇADOR ELITE</span><b>Dungeon de 30 dias, ranking e muito mais</b><small>Toque para ver o que você libera</small></span></button>`;
+}
+
+/* ================== DUNGEON DE 30 DIAS ================== */
+const DG_POOL={
+  monge:{A:[['flexao',1],['paralelas',1],['flexao_diam',2],['pike',2],['flexao_arq',3],['flexao_1b',4]],B:[['australiana',1],['chinup',1],['barra',2],['elev_pernas',3],['lsit',3]],C:[['agach',1],['afundo',1],['abdominal',1],['prancha',1],['bulgaro',2],['pistol',4]]},
+  guerreiro:{A:[['supino',1],['desenv',1],['triceps',1],['supino_incl',2],['elev_lat',2],['triceps_testa',3]],B:[['terra',1],['remada',1],['rosca',1],['puxada',2],['martelo',2],['remada_baixa',3]],C:[['agach_barra',1],['legpress',1],['panturrilha',1],['stiff',2],['extensora',2],['flexora',3]]},
+  paladino:{A:[['supino',1],['flexao',1],['paralelas',2],['desenv',2],['flexao_diam',3]],B:[['australiana',1],['remada',1],['barra',2],['rosca',2],['chinup',3]],C:[['agach_barra',1],['prancha',1],['bulgaro',2],['elev_pernas',3],['pistol',4]]}
+};
+const DG_NAMES={A:'Empurrar',B:'Puxar',C:'Pernas e Core'};
+function dgDay(d){
+  const w=Math.min(4,Math.ceil(d/7));
+  if(d%7===0) return {d,rest:true,name:'Descanso ativo',items:[{ex:'prancha',s:3,r:20+10*w},{ex:'polichinelo',s:2,r:40}]};
+  const k='ABC'[(d-Math.floor(d/7)-1)%3];
+  const pool=DG_POOL[S.cls][k].filter(x=>w>=x[1]);
+  const chosen=pool.slice().sort((a,b)=>b[1]-a[1]).slice(0,4).map(x=>x[0]);
+  const items=pool.filter(x=>chosen.includes(x[0])).map(([id])=>{const ex=EXM[id];let r;
+    if(ex.u==='s') r=(ex.tier>=3?8:20)+(ex.tier>=3?3:10)*(w-1);
+    else if(ex.t==='mus') r=[12,10,8,6][w-1];
+    else {const base=ex.tier>=4?3:ex.tier===3?5:ex.tier===2?8:12;r=Math.round(base*(1+0.2*(w-1)))}
+    return {ex:id,s:w>=3?4:3,r}});
+  return {d,name:DG_NAMES[k],items};
+}
+function dgCurrent(){let d=1;while(S.dg.done[d]&&d<=30)d++;return d}
+function dgAvailable(d){if(d>30)return false;if(d===1)return true;const prev=S.dg.done[d-1];return !!prev&&prev<ymd()}
+function dgItemDone(it){return todayEntries().some(e=>e.ex===it.ex)}
+function dgComplete(){
+  const d=dgCurrent();const day=dgDay(d);
+  if(!dgAvailable(d)||!day.items.every(dgItemDone)) return;
+  const prev=levelInfo().L;const xp=120+d*8;
+  S.dg.done[d]=ymd();S.bonusXP+=xp;S.goldBonus+=40;
+  toast('🗺️','Dia '+d+' da Dungeon concluído!','+'+xp+' XP · +40 ouro');
+  if(d===30){S.bonusXP+=1000;if(!S.titles.includes('Conquistador da Dungeon'))S.titles.push('Conquistador da Dungeon');toast('👑','DUNGEON CONQUISTADA!','+1.000 XP e o título “Conquistador da Dungeon”')}
+  afterProgress(prev);render();
+}
+function viewDungeon(){
+  if(!isElite()) return `<h2>🗺️ Dungeon de 30 dias</h2>`+lockedView('Dungeon de 30 Dias','Um treino guiado por dia, montado para a sua classe, que fica mais difícil a cada semana. Você só precisa abrir o app e seguir.',ART.full[S.cls],['Treinos de Empurrar, Puxar e Pernas que se alternam','Séries e repetições sobem toda semana','Bônus de XP a cada dia concluído','Título “Conquistador da Dungeon” no dia 30']);
+  const d=dgCurrent();const col=CLS_COLOR[S.cls];
+  const grid=Array.from({length:30},(_,i)=>{const n=i+1;const st=S.dg.done[n]?'ok':n===d?'cur':'';return `<span class="dgc ${st}">${S.dg.done[n]?'✓':n}</span>`}).join('');
+  if(d>30) return `<h2>🗺️ Dungeon de 30 dias</h2><div class="win qwin"><span class="corner c1"></span><span class="corner c4"></span><div class="qhead glow">DUNGEON CONQUISTADA</div><p class="glow" style="margin-top:14px">Você completou os 30 dias. Lenda.</p><div class="dggrid">${grid}</div><button class="btn full" style="margin-top:14px" data-a="dgReset">Recomeçar a Dungeon</button></div>`;
+  const day=dgDay(d);const avail=dgAvailable(d);const allDone=day.items.every(dgItemDone);
+  return `<div class="stage sm" style="background:${col.bg};--acc:${col.acc}"><div class="stage-word">DIA ${d}</div><img class="stage-art" src="${ART.full[S.cls]}" alt=""><div class="stage-info"><span class="tag">DUNGEON · SEMANA ${Math.min(4,Math.ceil(d/7))}</span><div class="stage-name">${day.name}</div><div class="stage-cls">${Object.keys(S.dg.done).length}/30 dias concluídos</div></div></div>
+  <div class="win qwin"><span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span>
+   <div class="qhead glow"><span class="qbang">!</span>DIA ${d} · ${day.name.toUpperCase()}</div>
+   ${avail?'':`<p class="warn glow"><b>AGUARDE.</b> O próximo dia da Dungeon abre amanhã. Descanso também faz parte do treino.</p>`}
+   <div class="qgoal">OBJETIVOS</div>
+   ${day.items.map(it=>{const ex=EXM[it.ex];const ok=dgItemDone(it);return `<div class="qrow ${ok?'done':''}"><div><div class="qn glow">[${ok?'FEITO':'  '}] ${esc(ex.n)}</div><small>${it.s} séries × ${it.r}${ex.u?'s':' reps'}${ex.t==='mus'?' · carga à sua escolha':''}</small></div>
+    <div>${ok?'<span class="qv glow">✓</span>':`<button class="btn sm" ${avail?'':'disabled'} data-a="dgLog" data-id="${it.ex}" data-s="${it.s}" data-r="${it.r}">Registrar</button>`}</div></div>`}).join('')}
+   <div style="margin-top:12px;font-size:13.5px;color:#bfe9ff">Recompensa do dia: +${120+d*8} XP e 40 ouro</div>
+   <button class="btn full" style="margin-top:14px" ${avail&&allDone?'':'disabled'} data-a="dgDone">${allDone?'⚔️ Concluir o dia '+d:'Complete os objetivos para concluir'}</button>
+  </div>
+  <h2>Mapa da Dungeon</h2><div class="card"><div class="dggrid">${grid}</div></div>`;
+}
+
+/* ================== TEMPORADA ================== */
+function seasonKey(){return ymd().slice(0,7)}
+function seasonXP(){const k=seasonKey();return sum(S.log.filter(e=>e.d.startsWith(k)),e=>e.xp)}
+const MESES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+function viewSeason(){
+  const now=new Date();const left=new Date(now.getFullYear(),now.getMonth()+1,1)-now;const dl=Math.ceil(left/864e5);
+  const title=`Temporada de ${MESES[now.getMonth()]}`;
+  if(!isElite()) return backMais()+`<h2>🏆 ${title}</h2>`+lockedView('Temporada mensal','Todo mês, os heróis Elite disputam um ranking de XP. Os primeiros colocados ganham títulos que nunca mais voltam.',ART.keyart,['Ranking ao vivo com os heróis da Taverna','Títulos exclusivos para o Top 3','Zera todo mês: sempre dá para chegar no topo']);
+  const k=seasonKey();
+  const rows=TV.docs.filter(d=>d.hero&&d.hero.elite&&d.hero.season&&d.hero.season.k===k).map(d=>({uid:d.uid,name:String(d.hero.name||'Herói'),cls:d.hero.cls,xp:+d.hero.season.xp||0}));
+  if(!rows.some(r=>r.uid===TV.me)) rows.push({uid:TV.me||'me',name:S.name,cls:S.cls,xp:seasonXP()});
+  else rows.forEach(r=>{if(r.uid===TV.me)r.xp=seasonXP()});
+  rows.sort((a,b)=>b.xp-a.xp);
+  const medal=['🥇','🥈','🥉'];
+  return backMais()+`<div class="stage sm" style="background:linear-gradient(135deg,#3a2a0c,#120c04);--acc:#ffc65a"><div class="stage-word">TOP</div><img class="stage-art" src="${ART.full[S.cls]}" alt=""><div class="stage-info"><span class="tag">TEMPORADA</span><div class="stage-name">${title}</div><div class="stage-cls">termina em ${dl} ${dl===1?'dia':'dias'}</div></div></div>
+  <div class="win"><div class="wtitle">RANKING</div>
+  ${rows.slice(0,20).map((r,i)=>`<div class="rank-row ${r.uid===TV.me||r.uid==='me'?'me':''}"><span class="rk">${medal[i]||(i+1)}</span><span class="av" style="width:32px;height:32px;overflow:hidden">${face(CLASSES[r.cls]?r.cls:'paladino')}</span><span class="rn">${esc(r.name)}${r.uid===TV.me||r.uid==='me'?' <span class="you">VOCÊ</span>':''}</span><span class="rx glow">${fmt(r.xp)} XP</span></div>`).join('')}
+  ${TV.db?'':'<p class="dim" style="font-size:12px;margin-top:8px">O ranking com outros heróis aparece quando a Taverna está conectada.</p>'}
+  </div>
+  <div class="card" style="margin-top:12px"><b class="glow">Recompensas da temporada</b><p class="muted" style="font-size:14px;margin-top:4px">🥇 título “Lenda de ${MESES[now.getMonth()]}” · 🥈 “Campeão de ${MESES[now.getMonth()]}” · 🥉 “Elite de ${MESES[now.getMonth()]}”. Só conta o XP ganho em treinos neste mês.</p></div>`;
+}
+
+/* ================== GUIA DE PROGRESSÃO ================== */
+const TREES=[
+  {n:'Empurrar',steps:[['flexao',20],['flexao_diam',15],['pike',12],['flexao_arq',10],['flexao_1b',5],['hspu',5]]},
+  {n:'Puxar',steps:[['australiana',15],['chinup',10],['barra',10],['elev_pernas',10],['muscleup',3]]},
+  {n:'Pernas',steps:[['agach',30],['afundo',20],['bulgaro',12],['pistol',5]]},
+  {n:'Core',steps:[['prancha',60],['parada',20],['lsit',20],['frontlever',10]]}
+];
+function bestReps(id){return Math.max(0,...S.log.filter(e=>e.ex===id).map(e=>e.r))}
+function viewProgress(){
+  if(!isElite()) return backMais()+`<h2>🌳 Guia de Progressão</h2>`+lockedView('Guia de Progressão','O caminho exato de cada habilidade da calistenia: o que dominar antes de passar para o próximo nível, com metas claras.',ART.full.monge,['4 árvores: Empurrar, Puxar, Pernas e Core','Metas de repetições para liberar o próximo passo','Do iniciante ao muscle-up e front lever']);
+  return backMais()+`<h2>🌳 Guia de Progressão</h2><p class="muted" style="font-size:14px;margin:-4px 0 12px">Domine cada passo (atinja a meta numa série) para liberar o próximo.</p>`+TREES.map(t=>{
+    let active=false;
+    const steps=t.steps.map(([id,goal],i)=>{const ex=EXM[id];const b=bestReps(id);const done=b>=goal;let st='lock';
+      if(done)st='done';else if(!active){st='cur';active=true}
+      return `<div class="node ${st}"><span class="nd">${st==='done'?'✓':st==='cur'?'▶':'🔒'}</span><div style="flex:1;min-width:0"><div class="glow" style="font-weight:700">${esc(ex.n)} ${ex.tier?`<span class="tier t${ex.tier}">${ROMAN[ex.tier]}</span>`:''}</div>
+       <div class="dim" style="font-size:12.5px">Meta: ${goal}${ex.u?'s':' reps'} numa série · seu melhor: ${b}${ex.u?'s':''}</div>
+       ${st==='cur'?`<div class="track" style="margin-top:6px;height:10px"><i style="width:${Math.min(100,b/goal*100)}%"></i></div>`:''}</div>
+       ${st==='cur'?`<button class="btn sm" data-a="ex" data-id="${id}">Treinar</button>`:''}</div>`}).join('');
+    return `<div class="win"><div class="wtitle" style="font-size:16px;padding:6px 26px">${t.n.toUpperCase()}</div>${steps}</div>`}).join('');
+}
+
+/* ================== PLANILHA DO GUERREIRO ================== */
+function viewSheet(){
+  if(!isElite()) return backMais()+`<h2>📊 Planilha do Guerreiro</h2>`+lockedView('Planilha do Guerreiro','Seus recordes de carga, a força máxima estimada e a sugestão de carga para o próximo treino, calculados sozinhos a cada série.',ART.full.guerreiro,['Recorde de carga de cada exercício','1RM estimado (força máxima)','Sugestão automática de quando subir a carga']);
+  const ids=[...new Set(S.log.filter(e=>EXM[e.ex]&&EXM[e.ex].t==='mus').map(e=>e.ex))];
+  if(!ids.length) return backMais()+`<h2>📊 Planilha do Guerreiro</h2><div class="card"><p class="muted">Registre exercícios de musculação para a planilha começar a se preencher.</p></div>`;
+  return backMais()+`<h2>📊 Planilha do Guerreiro</h2>`+ids.map(id=>{const es=S.log.filter(e=>e.ex===id);const ex=EXM[id];
+    const best=Math.max(...es.map(e=>e.kg||0));const rm=Math.max(...es.map(e=>(e.kg||0)*(1+e.r/30)));const last=es[es.length-1];
+    const sug=last.r>=10?Math.round(((last.kg||0)+2.5)*2)/2:(last.kg||0);
+    return `<div class="card sheetc"><div class="row between"><b class="glow">${esc(ex.n)}</b><span class="dim" style="font-size:12px">${es.length} ${es.length===1?'treino':'treinos'}</span></div>
+     <div class="sgrid"><div><small>RECORDE</small><b>${fmt(best)} kg</b></div><div><small>1RM ESTIMADO</small><b>${fmt(rm)} kg</b></div><div><small>ÚLTIMO</small><b>${last.s}×${last.r} · ${last.kg||0} kg</b></div><div><small>PRÓXIMO TREINO</small><b class="${sug>(last.kg||0)?'up':''}">${sug} kg ${sug>(last.kg||0)?'↑':''}</b></div></div></div>`}).join('');
+}
+
+/* ================== MAIS ================== */
+function backMais(){return `<button class="back" data-tab="mais">← Mais</button>`}
+function viewMais(){
+  const t=(k,e,n,d,el)=>`<button class="tile ${el&&!isElite()?'lk':''}" data-tab="${k}"><span class="te2">${e}</span><b>${n}</b><small>${d}</small>${el?'<span class="crown sm">👑</span>':''}</button>`;
+  return `<h2>Mais</h2>${elitePromo()}<div class="tiles">
+   ${t('temporada','🏆','Temporada','Ranking do mês',1)}${t('progressao','🌳','Progressão','Árvores de habilidade',1)}
+   ${t('planilha','📊','Planilha','Cargas e recordes',1)}${t('loja','🪙','Loja','Elixires e títulos')}
+   ${t('diario','📖','Diário','Histórico de treinos')}<button class="tile" data-a="settings"><span class="te2">⚙️</span><b>Ficha</b><small>Nome, classe e plano</small></button>
+  </div>`;
+}
+
+/* ================== TIMER ================== */
+function tickTimer(){
+  const el=$('#clock');if(!el)return;
+  if(!timerEnd){el.textContent='--:--';el.classList.remove('done');return}
+  const left=Math.max(0,Math.ceil((timerEnd-Date.now())/1000));
+  el.textContent=String(Math.floor(left/60)).padStart(2,'0')+':'+String(left%60).padStart(2,'0');
+  el.classList.toggle('done',left===0);
+}
+function startTimer(sec){
+  timerEnd=Date.now()+sec*1000;clearInterval(timerInt);
+  timerInt=setInterval(()=>{tickTimer();if(Date.now()>=timerEnd){clearInterval(timerInt);toast('⏱️','Descanso terminado!','Hora da próxima série');try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){}}},250);
+  tickTimer();
+}
+
+/* ================== EVENTOS ================== */
+document.addEventListener('click',ev=>{
+  const t=ev.target;
+  if(t.matches('[data-scrim]')){ if(!modalOpen) closeModal(); return; }
+  const tb=t.closest('[data-tab]');if(tb){tab=tb.dataset.tab;closeModal();render();window.scrollTo(0,0);return}
+  const b=t.closest('[data-a]');if(!b)return;
+  const a=b.dataset.a;
+  switch(a){
+    case 'close': closeModal(); break;
+    case 'ok': {const f=window.__ok;window.__ok=null;closeModal();f&&f();break}
+    case 'pickCls':{
+      window.__clsPick=b.dataset.c;
+      b.parentElement.querySelectorAll('.cls').forEach(x=>x.classList.toggle('on',x===b));
+      if(!S.created){window.__cname=$('#c_name').value;window.__cbw=$('#c_bw').value;render()}
+      break}
+    case 'create':{
+      const name=$('#c_name').value.trim();if(!name){$('#c_name').focus();$('#c_name').style.borderColor='var(--red)';return}
+      S=blank();S.created=true;S.name=name;S.bw=+$('#c_bw').value||0;S.cls=window.__clsPick||'paladino';
+      S.goldBonus=50;save();tab='heroi';render();toast('⚒️','Bem-vindo, '+name+'!','Você recebeu 50 ouro para começar');break}
+    case 'settings': settingsSheet(); break;
+    case 'saveSettings':{
+      const n=$('#s_name').value.trim();if(n)S.name=n;S.bw=+$('#s_bw').value||0;S.title=$('#s_title').value;
+      if(window.__clsPick&&window.__clsPick!==S.cls){S.cls=window.__clsPick;S.q.d=''}
+      save();closeModal();render();toast('📜','Ficha atualizada');break}
+    case 'copyBk':{
+      const txt=JSON.stringify(S);const ta=$('#s_bk');
+      const done=()=>toast('📋','Backup copiado','Guarde em um lugar seguro');
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,()=>{ta.value=txt;ta.select();toast('📋','Selecione e copie o texto')})}
+      else{ta.value=txt;ta.select();toast('📋','Selecione e copie o texto')}
+      break}
+    case 'loadBk':{
+      try{const o=JSON.parse($('#s_bk').value);if(!o||!Array.isArray(o.log))throw 0;
+        confirmModal('Isso substitui todo o progresso atual pelo backup colado.',()=>{S=migrate(o);S.created=true;save();render();toast('⤵️','Backup restaurado')},'Restaurar');
+      }catch(e){toast('⚠️','Backup inválido','Cole o texto completo copiado antes')}
+      break}
+    case 'reset': confirmModal('Todo o seu progresso (níveis, diário, ouro, chefes) será apagado.',()=>{const k=S.updated;S=blank();S.updated=Date.now();save();render()},'Apagar tudo'); break;
+    case 'type': trainType=b.dataset.v;trainGroup='Todos';render();break;
+    case 'group': trainGroup=b.dataset.v;render();break;
+    case 'ex': exerciseSheet(b.dataset.id);break;
+    case 'step':{const inp=$('#'+b.dataset.t);const d=+b.dataset.d;inp.value=Math.max(0,Math.round(((+inp.value||0)+d)*100)/100);updatePreview();break}
+    case 'log':{
+      const {ex,s,r,kg}=readSheet();if(!s||!r){toast('⚠️','Informe séries e repetições');return}
+      closeModal();logExercise(ex.id,s,r,kg);render();
+      startTimer(ex.t==='mus'?90:60);break}
+    case 'del': confirmModal('Apagar este registro? O XP e o ouro dele serão removidos.',()=>deleteEntry(b.dataset.id),'Apagar'); break;
+    case 'claim': claimQuest(b.dataset.id);render();break;
+    case 'buy': buy(b.dataset.id);break;
+    case 'timer': startTimer(+b.dataset.v);break;
+    case 'elite': eliteModal(b.dataset.f||'');break;
+    case 'activate':{const c=$('#e_code').value;if(activateElite(c)){closeModal();render();queueModal(()=>openModal(`<div class="lvup"><img class="lv-art" src="${ART.full[S.cls]}" alt=""><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ffc65a">CLASSE DESPERTADA</div><h3 style="margin-top:8px;color:#ffc65a">👑 Caçador Elite</h3><p class="muted" style="margin:10px 0 18px">Dungeon, ranking, progressão, planilha e Taverna VIP liberados. Você ganhou o título “Fundador da Forja” e 300 de ouro.</p><button class="btn gold full" data-a="close">Entrar na Dungeon</button></div>`,true))}else{toast('⚠️','Código inválido','Confira o código que chegou no seu e-mail')}break}
+    case 'dgLog':{const id=b.dataset.id;const l=S.last[id]||{};exerciseSheet(id,{s:+b.dataset.s,r:+b.dataset.r,kg:l.kg||20});break}
+    case 'dgDone': dgComplete();break;
+    case 'dgReset': confirmModal('Recomeçar a Dungeon do dia 1? Seu progresso de treinos continua salvo.',()=>{S.dg={done:{}};save();render()},'Recomeçar');break;
+    case 'tvChan': TV.chan=b.dataset.v;render();break;
+    case 'tvPost':{const t=$('#tv_text');if(tvPost(t.value)){TV.draft='';t.value='';toast('🍺','Postado na Taverna')}else t.focus();break}
+    case 'tvShare':{const d=workoutShare();if(!d){toast('⚔️','Nenhum treino hoje ainda','Registre uma série na aba Treinar');break}
+      const t=$('#tv_text');tvPost(t.value,'treino',d);TV.draft='';t.value='';toast('⚔️','Treino compartilhado!');break}
+    case 'tvLevel':{const li=levelInfo(),st=streakInfo();const t=$('#tv_text');
+      tvPost(t.value,'nivel',{level:li.L,rank:rankOf(li.L),xp:totalXP(),streak:st.cur,bosses:Object.keys(S.bosses).length});TV.draft='';t.value='';toast('🏅','Nível compartilhado!');break}
+    case 'tvLike':{const k=b.dataset.k;writeMine(doc=>{if(doc.likes[k])delete doc.likes[k];else doc.likes[k]=1});break}
+    case 'tvReply': replySheet(b.dataset.k);break;
+    case 'tvSendReply':{const t=$('#tv_reply');if(tvPost(t.value,null,null,window.__replyTo)){closeModal();toast('💬','Resposta enviada')}else t.focus();break}
+    case 'tvDel':{const u=b.dataset.u,id=b.dataset.id;
+      confirmModal('Apagar este post da Taverna?',()=>{if(u===TV.me)writeMine(doc=>{doc.posts=doc.posts.filter(p=>p.id!==id)});else modDelete(u,id)},'Apagar');break}
+  }
+});
+document.addEventListener('input',ev=>{if(ev.target.closest('.stepper'))updatePreview();if(ev.target.id==='tv_text')TV.draft=ev.target.value});
+setInterval(()=>{if(tab==='taverna')paintFeed()},60000);
+setInterval(()=>{ if(S.created&&S.q.d&&S.q.d!==ymd()){render()} },60000);
+
+render();
+initCloud();
+</script>
+</body>
+</html>
