@@ -348,7 +348,7 @@ const ART={keyart:'img/keyart.webp',chefe:'img/chefe.webp',
 const CLS_COLOR={monge:{acc:'#4fe3c8',bg:'linear-gradient(135deg,#0d3b3a,#06201f)',w:'MONGE'},paladino:{acc:'#ffc65a',bg:'linear-gradient(135deg,#3a2a0c,#1a1206)',w:'PALADINO'},guerreiro:{acc:'#ff6a5a',bg:'linear-gradient(135deg,#3d1010,#1c0707)',w:'GUERREIRO'}};
 /* ===== LINK DE PAGAMENTO DO PLANO CAÇADOR ELITE (cole aqui) ===== */
 const CHECKOUT_ELITE='https://appdigitalhub.com.br/c/1C7E51FE';
-const ELITE_PERKS=[['🎁','BÔNUS · Alquimia do Herói: 12 bebidas e alimentos anabólicos'],['🗺️','Dungeon de 30 Dias: um treino guiado por dia para a sua classe'],['🌳','Guia de Progressão: da primeira flexão ao muscle-up'],['📊','Planilha do Guerreiro: cargas, recordes e sugestão de carga'],['🏆','Temporada mensal com ranking entre heróis Elite'],['🍺','Taverna VIP e coroa dourada nos seus posts'],['👑','Título exclusivo “Fundador da Forja” + 300 de ouro']];
+const ELITE_PERKS=[['🎁','BÔNUS · Alquimia do Herói: 50 bebidas e alimentos anabólicos'],['🗺️','Dungeon de 30 Dias: um treino guiado por dia para a sua classe'],['🌳','Guia de Progressão: da primeira flexão ao muscle-up'],['📊','Planilha do Guerreiro: cargas, recordes e sugestão de carga'],['🏆','Temporada mensal com ranking entre heróis Elite'],['🍺','Taverna VIP e coroa dourada nos seus posts'],['👑','Título exclusivo “Fundador da Forja” + 300 de ouro']];
 
 const CLASSES = {
   monge:    {n:'Monge das Barras',  e:'✊', d:'Mestre da calistenia. +20% XP em exercícios com peso corporal.', cal:1.2, mus:1.0},
@@ -1161,43 +1161,78 @@ function viewSheet(){
 
 /* ================== ALQUIMIA (poções e rações anabólicas) ================== */
 const RAR={c:['COMUM','#9fb3d1'],r:['RARO','#4fc3ff'],e:['ÉPICO','#b67dff'],l:['LENDÁRIO','#ffc65a']};
-const ALQ=[
- {id:'despertar',e:'🧪',n:'Poção do Despertar',k:'Poção',rar:'c',p:18,kcal:420,q:'Café da manhã ou pré-treino',
-  ing:['300 ml de leite','1 banana','3 colheres (sopa) de aveia','1 colher (sopa) de pasta de amendoim','Canela a gosto'],prep:'Bata tudo no liquidificador por 30 segundos. Gelada fica melhor: use a banana congelada.'},
- {id:'panqueca',e:'🥞',n:'Panqueca Anabólica do Paladino',k:'Ração',rar:'c',p:16,kcal:330,q:'Café da manhã ou lanche',
-  ing:['2 ovos','1 banana madura','2 colheres (sopa) de aveia','Canela a gosto','Opcional: 1 scoop de whey (+24 g de proteína)'],prep:'Amasse a banana, misture os ovos e a aveia. Doure em frigideira antiaderente untada, 2 minutos de cada lado.'},
- {id:'recuperacao',e:'💧',n:'Elixir de Recuperação',k:'Poção',rar:'r',p:30,kcal:290,q:'Até 1 hora depois do treino',
-  ing:['1 pote de iogurte natural (170 g)','1 scoop de whey','1 xícara de frutas vermelhas ou morango','150 ml de água gelada'],prep:'Bata tudo até ficar cremoso. Sem whey? Troque por 200 ml de leite em pó reconstituído (fica com 18 g).'},
- {id:'mousse',e:'🍫',n:'Mousse Anabólico de Chocolate',k:'Ração',rar:'r',p:32,kcal:280,q:'Sobremesa ou lanche da noite',
-  ing:['1 pote de iogurte grego natural','1 scoop de whey de chocolate','1 colher (chá) de cacau em pó','Adoçante a gosto'],prep:'Misture bem com um garfo até ficar liso. Leve à geladeira por 20 minutos.'},
- {id:'fogo',e:'🔥',n:'Poção de Fogo Pré-Treino',k:'Poção',rar:'r',p:10,kcal:260,q:'30 a 40 min antes do treino',
-  ing:['1 xícara de café coado frio','150 ml de leite','1 banana','1 colher (sopa) de mel','Canela'],prep:'Bata tudo com gelo. Energia rápida da banana e do mel com a cafeína do café.'},
- {id:'guerreiro',e:'🍗',n:'Ração do Guerreiro',k:'Ração',rar:'e',p:45,kcal:620,q:'Almoço ou jantar',
-  ing:['150 g de frango desfiado temperado','4 colheres (sopa) de arroz','1 concha de feijão','Salada à vontade','1 fio de azeite'],prep:'O clássico que constrói heróis. Cozinhe 1 kg de frango no domingo, desfie e congele em porções para a semana.'},
- {id:'omelete',e:'🍳',n:'Omelete do Monge',k:'Ração',rar:'c',p:25,kcal:310,q:'Qualquer refeição',
-  ing:['3 ovos','1 punhado de espinafre ou couve','30 g de queijo branco','Tomate e cebola picados','Sal e orégano'],prep:'Bata os ovos, junte o resto e cozinhe em fogo baixo com tampa por 4 minutos.'},
- {id:'noturno',e:'🌙',n:'Pudim Proteico Noturno',k:'Ração',rar:'e',p:28,kcal:380,q:'Antes de dormir',
-  ing:['4 colheres (sopa) de aveia','1 colher (sopa) de chia','1 scoop de whey','200 ml de leite','Fruta picada por cima'],prep:'Misture tudo num pote, tampe e deixe na geladeira de um dia para o outro. Proteína lenta durante o sono.'},
- {id:'crepioca',e:'🌯',n:'Crepioca do Caçador',k:'Ração',rar:'r',p:28,kcal:360,q:'Café da manhã ou lanche',
-  ing:['2 ovos','2 colheres (sopa) de goma de tapioca','80 g de frango desfiado','1 colher (sopa) de requeijão light'],prep:'Bata os ovos com a tapioca e faça como uma panqueca. Recheie com frango e requeijão e dobre.'},
- {id:'tita',e:'⚗️',n:'Shake Hipercalórico do Titã',k:'Poção',rar:'l',p:45,kcal:780,q:'Para quem quer ganhar massa',
-  ing:['400 ml de leite integral','1 scoop de whey','1 banana','4 colheres (sopa) de aveia','2 colheres (sopa) de pasta de amendoim','1 colher (sopa) de mel'],prep:'Bata tudo por 40 segundos. Para quem não consegue comer muito: 780 kcal num copo, sem empanturrar.'},
- {id:'sorvete',e:'🍨',n:'Sorvete Anabólico de Banana',k:'Ração',rar:'e',p:26,kcal:300,q:'Sobremesa',
-  ing:['2 bananas congeladas em rodelas','1 scoop de whey de baunilha ou chocolate','50 ml de leite'],prep:'Bata no processador ou liquidificador potente até virar sorvete cremoso. Sirva na hora.'},
- {id:'burger',e:'🍔',n:'Hambúrguer Caseiro do Herói',k:'Ração',rar:'l',p:38,kcal:520,q:'Almoço, jantar ou refeição livre',
-  ing:['150 g de patinho moído','Sal, alho e cebola','1 pão de hambúrguer integral','Alface, tomate e queijo'],prep:'Tempere a carne, modele o disco e grelhe 3 a 4 minutos de cada lado. Monte o lanche. Dá para congelar os discos crus.'}
+const ALQ_CATS={beb:['🧪','Bebidas'],caf:['🌅','Café da manhã'],ref:['🍗','Refeições'],lan:['🥪','Lanches'],sob:['🍫','Sobremesas']};
+const ALQ_RAW=[
+/* ---------- BEBIDAS (18) ---------- */
+['despertar','🧪','Poção do Despertar','beb',18,420,'Café da manhã ou pré-treino','300 ml de leite|1 banana|3 colheres (sopa) de aveia|1 colher (sopa) de pasta de amendoim|Canela a gosto','Bata tudo no liquidificador por 30 segundos. Gelada fica melhor: use a banana congelada.'],
+['recuperacao','💧','Elixir de Recuperação','beb',30,290,'Até 1 hora depois do treino','1 pote de iogurte natural (170 g)|1 scoop de whey|1 xícara de frutas vermelhas ou morango|150 ml de água gelada','Bata tudo até ficar cremoso. Sem whey? Use 200 ml de leite com 2 colheres de leite em pó (fica com 18 g).'],
+['fogo','🔥','Poção de Fogo Pré-Treino','beb',10,260,'30 a 40 min antes do treino','1 xícara de café coado frio|150 ml de leite|1 banana|1 colher (sopa) de mel|Canela','Bata tudo com gelo. Energia rápida da banana e do mel com a cafeína do café.'],
+['tita','⚗️','Shake Hipercalórico do Titã','beb',45,780,'Para quem quer ganhar massa','400 ml de leite integral|1 scoop de whey|1 banana|4 colheres (sopa) de aveia|2 colheres (sopa) de pasta de amendoim|1 colher (sopa) de mel','Bata tudo por 40 segundos. Para quem não consegue comer muito: 780 kcal num copo, sem empanturrar.'],
+['morango','🍓','Poção Rubra de Morango','beb',20,330,'Lanche da tarde','250 ml de leite|1 pote de iogurte natural|1 xícara de morangos|2 colheres (sopa) de aveia|Adoçante ou mel','Bata tudo com 3 pedras de gelo. Morango congelado deixa com textura de milk-shake.'],
+['verde','🥑','Poção Verde do Monge','beb',36,520,'Café da manhã ou pós-treino','300 ml de leite|1/2 abacate pequeno|1 scoop de whey de baunilha|1 colher (sopa) de mel|Gelo','Bata até ficar bem cremoso. Gordura boa do abacate e proteína do whey num copo só.'],
+['cafegelado','🧋','Café Anabólico Gelado','beb',28,200,'Manhã ou pré-treino','200 ml de café coado frio|1 scoop de whey de baunilha ou chocolate|100 ml de leite|Gelo a gosto','Bata ou chacoalhe na coqueteleira. Substitui o café com açúcar e já entrega quase 30 g de proteína.'],
+['pacoca','🥜','Shake de Paçoca do Guerreiro','beb',34,520,'Pós-treino ou lanche','300 ml de leite|1 scoop de whey de baunilha|1 paçoca|1 banana','Bata tudo por 30 segundos. Sabor de festa junina, valor de pós-treino.'],
+['achocolatado','🍫','Achocolatado do Herói','beb',35,250,'Qualquer hora do dia','300 ml de leite desnatado|1 scoop de whey de chocolate|1 colher (chá) de cacau em pó|Gelo','Misture na coqueteleira. O achocolatado de criança, versão herói: menos açúcar e muito mais proteína.'],
+['leiteempo','🥛','Poção Sem Whey','beb',22,480,'Para quem não tem suplemento','300 ml de leite|3 colheres (sopa) de leite em pó|1 banana|3 colheres (sopa) de aveia','Bata tudo. Prova de que dá para bater a meta de proteína só com coisas do mercado.'],
+['coco','🥥','Poção Tropical de Coco','beb',25,250,'Pós-treino em dia quente','300 ml de água de coco|1 scoop de whey de baunilha|3 rodelas de abacaxi|Hortelã e gelo','Bata tudo com bastante gelo. Hidrata e recupera ao mesmo tempo.'],
+['amendoim','🌰','Shake de Amendoim e Cacau','beb',17,520,'Lanche (versão sem whey)','300 ml de leite|2 colheres (sopa) de pasta de amendoim|1 colher (sopa) de cacau|1 banana congelada','Bata até ficar espesso. Calórico e barato: ótimo para quem está no modo ganho.'],
+['acai','🫐','Shake de Açaí Proteico','beb',32,430,'Pós-treino','100 g de polpa de açaí sem xarope|1 scoop de whey|1 banana|200 ml de leite','Bata tudo. O açaí da academia sem o xarope de guaraná e com proteína de verdade.'],
+['dourado','🌙','Leite Dourado Proteico','beb',32,320,'Antes de dormir','300 ml de leite morno|1 scoop de whey de baunilha|1/2 colher (chá) de cúrcuma|Canela e 1 colher (chá) de mel','Aqueça o leite sem ferver, desligue o fogo e misture o whey batendo com um garfo. Bebida quente para fechar o dia.'],
+['manga','🥭','Smoothie de Manga e Iogurte Grego','beb',20,310,'Café da manhã ou lanche','1 pote de iogurte grego natural|1 xícara de manga picada|150 ml de leite|Gelo','Bata tudo. Doce natural da manga, proteína do iogurte grego.'],
+['ricota','🍶','Shake Cremoso de Ricota','beb',22,400,'Lanche da tarde','250 ml de leite|100 g de ricota|1 banana|1 colher (sopa) de mel|Canela','Bata até a ricota sumir. Fica cremoso como milk-shake e rende proteína sem suplemento.'],
+['cacador','🏹','Shake Café da Manhã do Caçador','beb',40,600,'Café da manhã corrido','300 ml de leite|1 scoop de whey|4 colheres (sopa) de aveia|1 banana|1 colher (sopa) de chia','Bata tudo. Um café da manhã completo para tomar no caminho.'],
+['citrica','🍋','Poção Cítrica Refrescante','beb',25,120,'Pós-treino leve','300 ml de água gelada|1 scoop de whey isolado sem sabor ou de limão|Suco de 1 limão|Hortelã e adoçante','Bata com gelo. Leve, refrescante e com 25 g de proteína.'],
+/* ---------- CAFÉ DA MANHÃ (8) ---------- */
+['panqueca','🥞','Panqueca Anabólica do Paladino','caf',16,330,'Café da manhã ou lanche','2 ovos|1 banana madura|2 colheres (sopa) de aveia|Canela a gosto|Opcional: 1 scoop de whey (+24 g de proteína)','Amasse a banana, misture os ovos e a aveia. Doure em frigideira antiaderente untada, 2 minutos de cada lado.'],
+['omelete','🍳','Omelete do Monge','caf',25,310,'Qualquer refeição','3 ovos|1 punhado de espinafre ou couve|30 g de queijo branco|Tomate e cebola picados|Sal e orégano','Bata os ovos, junte o resto e cozinhe em fogo baixo com tampa por 4 minutos.'],
+['crepioca','🌯','Crepioca do Caçador','caf',28,360,'Café da manhã ou lanche','2 ovos|2 colheres (sopa) de goma de tapioca|80 g de frango desfiado|1 colher (sopa) de requeijão light','Bata os ovos com a tapioca e faça como uma panqueca. Recheie com frango e requeijão e dobre.'],
+['noturno','🫙','Overnight Proteico','caf',28,380,'Café da manhã (preparado na noite anterior)','4 colheres (sopa) de aveia|1 colher (sopa) de chia|1 scoop de whey|200 ml de leite|Fruta picada por cima','Misture tudo num pote, tampe e deixe na geladeira de um dia para o outro. Acordou, está pronto.'],
+['desjejum','🍞','Desjejum do Paladino','caf',30,450,'Café da manhã','3 ovos|30 g de queijo minas ou muçarela|2 fatias de pão integral|Café ou fruta para acompanhar','Faça ovos mexidos em fogo baixo e junte o queijo no final. Sirva com o pão tostado.'],
+['mingau','🥣','Mingau Proteico de Aveia','caf',35,430,'Café da manhã de inverno','250 ml de leite|4 colheres (sopa) de aveia|1 scoop de whey de baunilha|Canela','Cozinhe o leite com a aveia por 3 minutos mexendo. Desligue, espere 1 minuto e misture o whey.'],
+['paoqueijo','🧀','Pão de Queijo de Frigideira','caf',20,300,'Café da manhã ou lanche','2 ovos|2 colheres (sopa) de goma de tapioca|30 g de queijo ralado|2 colheres (sopa) de iogurte natural|Sal','Misture tudo e despeje em frigideira untada. Tampe e doure 3 minutos de cada lado.'],
+['bowl','🍨','Bowl do Monge','caf',22,380,'Café da manhã ou lanche','2 potes de iogurte grego natural|3 colheres (sopa) de granola|Frutas picadas|1 fio de mel','Monte em camadas numa tigela. Rápido, bonito e cheio de proteína.'],
+/* ---------- REFEIÇÕES (11) ---------- */
+['guerreiro','🍗','Ração do Guerreiro','ref',45,620,'Almoço ou jantar','150 g de frango desfiado temperado|4 colheres (sopa) de arroz|1 concha de feijão|Salada à vontade|1 fio de azeite','O clássico que constrói heróis. Cozinhe 1 kg de frango no domingo, desfie e congele em porções para a semana.'],
+['burger','🍔','Hambúrguer Caseiro do Herói','ref',38,520,'Almoço, jantar ou refeição livre','150 g de patinho moído|Sal, alho e cebola|1 pão de hambúrguer integral|Alface, tomate e queijo','Tempere a carne, modele o disco e grelhe 3 a 4 minutos de cada lado. Monte o lanche. Dá para congelar os discos crus.'],
+['strogonoff','🍛','Strogonoff Fit de Frango','ref',42,520,'Almoço ou jantar','150 g de peito de frango em cubos|2 colheres (sopa) de molho de tomate|3 colheres (sopa) de iogurte natural ou creme de ricota|Champignon (opcional)|4 colheres (sopa) de arroz','Doure o frango com alho e cebola, junte o molho e o champignon. Desligue o fogo e misture o iogurte. Sirva com arroz.'],
+['batatadoce','🍠','Carne Moída com Batata-Doce','ref',36,480,'Almoço ou jantar (marmita)','150 g de patinho moído|150 g de batata-doce cozida|Cebola, alho e cheiro-verde|Legumes à vontade','Refogue a carne com os temperos até secar. Sirva com a batata-doce. Uma das marmitas mais fáceis de preparar em lote.'],
+['escondidinho','🥘','Escondidinho de Frango','ref',38,500,'Almoço ou jantar','150 g de frango desfiado temperado|150 g de batata-doce ou mandioca amassada|30 g de muçarela|Requeijão light','Faça uma camada de frango, cubra com o purê e o queijo. Leve ao forno ou airfryer até gratinar.'],
+['macarrao','🍝','Macarrão Integral com Atum','ref',38,560,'Almoço ou jantar rápido','80 g de macarrão integral (cru)|1 lata de atum em água|4 colheres (sopa) de molho de tomate|Alho e manjericão','Cozinhe o macarrão. Refogue o alho, junte o atum e o molho e misture tudo. Pronto em 15 minutos.'],
+['tilapia','🐟','Tilápia Grelhada do Pescador','ref',35,420,'Almoço ou jantar','150 g de filé de tilápia|Limão, sal e páprica|4 colheres (sopa) de arroz|Legumes no vapor','Tempere o peixe e grelhe 3 minutos de cada lado. Leve, rápido e cheio de proteína.'],
+['arrozforno','🍚','Arroz de Forno Proteico','ref',40,560,'Almoço ou jantar (rende marmitas)','1 xícara de arroz cozido|120 g de frango desfiado|1 ovo cozido picado|30 g de muçarela|Milho, ervilha e cheiro-verde','Misture tudo menos o queijo, coloque num refratário, cubra com o queijo e gratine por 10 minutos.'],
+['tropeiro','🫘','Feijão Tropeiro Fit','ref',35,550,'Almoço','1 concha de feijão cozido escorrido|2 ovos|80 g de carne magra em cubos|Couve refogada|2 colheres (sopa) de farinha de mandioca','Doure a carne, junte os ovos mexidos, o feijão e a couve. Finalize com a farinha.'],
+['picadinho','🥩','Picadinho do Ferreiro','ref',38,520,'Almoço ou jantar','150 g de patinho ou alcatra em cubos|Cenoura, batata e vagem|Molho de tomate|4 colheres (sopa) de arroz','Sele a carne, junte os legumes e um pouco de água e cozinhe até amaciar. Sirva com arroz.'],
+['pf','🍽️','Prato Feito do Titã','ref',48,680,'Almoço de quem quer ganhar massa','120 g de bife (patinho ou alcatra)|1 ovo frito com pouco óleo|4 colheres (sopa) de arroz|1 concha de feijão|Salada','O PF brasileiro na versão herói: carne, ovo, arroz e feijão. Simples, barato e completo.'],
+/* ---------- LANCHES (7) ---------- */
+['atum','🥪','Sanduíche de Atum do Caçador','lan',32,380,'Lanche ou jantar rápido','2 fatias de pão integral|1 lata de atum em água|1 colher (sopa) de requeijão light|Alface e tomate','Misture o atum com o requeijão e monte o sanduíche. Leva 3 minutos.'],
+['wrap','🌮','Wrap de Frango','lan',32,450,'Lanche ou marmita fria','1 tortilha integral|120 g de frango desfiado|1 colher (sopa) de requeijão ou iogurte|Alface, tomate e cenoura ralada','Espalhe o requeijão, recheie, enrole bem apertado e corte ao meio. Embrulhe no papel-alumínio para levar.'],
+['pizza','🍕','Pizza de Frigideira Proteica','lan',30,380,'Lanche ou noite de pizza','2 ovos|2 colheres (sopa) de goma de tapioca|3 colheres (sopa) de molho de tomate|80 g de frango desfiado|30 g de muçarela e orégano','Bata os ovos com a tapioca e doure a massa na frigideira. Vire, cubra com molho, frango e queijo e tampe até derreter.'],
+['cuscuz','🌽','Cuscuz Nordestino Proteico','lan',28,420,'Café da manhã, lanche ou jantar','1 xícara de flocão de milho|2 ovos|60 g de frango desfiado ou carne de sol|Manteiga e sal','Faça o cuscuz na cuscuzeira. Sirva com ovos mexidos e o frango por cima.'],
+['natural','🥬','Sanduíche Natural de Frango','lan',28,350,'Lanche para levar','2 fatias de pão integral|80 g de frango desfiado|2 colheres (sopa) de ricota amassada|Cenoura ralada e alface','Misture o frango com a ricota e a cenoura. Monte e leve na marmita.'],
+['muffin','🧁','Muffin de Ovo de Forno','lan',15,180,'Lanche (rende 3 porções)','6 ovos|Tomate, cebola e espinafre picados|60 g de queijo|Sal e orégano','Bata os ovos, junte o resto e distribua em forminhas. Asse a 180 °C por 20 minutos. Guarde na geladeira para a semana.'],
+['bolinho','🍘','Bolinho de Frango na Airfryer','lan',30,300,'Lanche ou petisco','150 g de frango cozido e desfiado|1 ovo|2 colheres (sopa) de farinha de aveia|Cheiro-verde e sal','Misture tudo, modele bolinhas e asse na airfryer a 200 °C por 12 minutos.'],
+/* ---------- SOBREMESAS (6) ---------- */
+['mousse','🍫','Mousse Anabólico de Chocolate','sob',32,280,'Sobremesa ou lanche da noite','1 pote de iogurte grego natural|1 scoop de whey de chocolate|1 colher (chá) de cacau em pó|Adoçante a gosto','Misture bem com um garfo até ficar liso. Leve à geladeira por 20 minutos.'],
+['sorvete','🍨','Sorvete Anabólico de Banana','sob',26,300,'Sobremesa','2 bananas congeladas em rodelas|1 scoop de whey de baunilha ou chocolate|50 ml de leite','Bata no processador ou liquidificador potente até virar sorvete cremoso. Sirva na hora.'],
+['brigadeiro','🟤','Brigadeiro Proteico','sob',20,250,'Sobremesa (porção de 4 unidades)','1 scoop de whey de chocolate|2 colheres (sopa) de leite em pó|1 colher (sopa) de cacau|Leite aos poucos até dar ponto','Misture os secos e vá pingando leite até virar uma massa. Enrole e passe no cacau. Não vai ao fogo.'],
+['bolocaneca','☕','Bolo de Caneca Proteico','sob',30,280,'Sobremesa ou lanche','1 ovo|1 scoop de whey de chocolate|1/2 banana amassada|1 colher (chá) de fermento','Misture tudo na caneca e leve ao micro-ondas por 1 minuto e meio. Bolo quente em 3 minutos.'],
+['gelatina','🍮','Gelatina Proteica','sob',25,120,'Sobremesa leve','1 envelope de gelatina zero|1 scoop de whey de baunilha|Água conforme a embalagem','Prepare a gelatina com metade da água quente. Quando amornar, misture o whey com a água fria e junte. Geladeira por 3 horas.'],
+['cheesecake','🍰','Cheesecake de Pote','sob',22,300,'Sobremesa','1 pote de iogurte grego|2 colheres (sopa) de ricota|2 biscoitos de maisena triturados|Geleia de frutas vermelhas sem açúcar','Misture iogurte e ricota. Monte no pote: biscoito, creme e geleia. Geladeira por 30 minutos.']
 ];
+const ALQ=ALQ_RAW.map(([id,e,n,c,p,kcal,q,ing,prep])=>({id,e,n,c,k:c==='beb'?'Bebida':'Alimento',p,kcal,q,ing:ing.split('|'),prep,rar:p>=40?'l':p>=30?'e':p>=20?'r':'c'}));
 const ALQ_MAX=2, ALQ_XP=40, ALQ_GOLD=10;
 function alqToday(){if(!S.alq||S.alq.d!==ymd())S.alq={d:ymd(),done:[]};return S.alq}
 function alqOpen(r){return isElite()||r.free}
+let alqCat='beb';
 function viewAlquimia(){
   const a=alqToday();const left=ALQ_MAX-a.done.length;
   const pTot=sum(a.done.map(id=>ALQ.find(r=>r.id===id)).filter(Boolean),r=>r.p);
   return backMais()+`<h2>🧪 Alquimia do Herói</h2>${isElite()?'<span class="crown" style="display:inline-block;margin:-6px 0 10px">🎁 BÔNUS CAÇADOR ELITE</span>':''}
   <p class="muted" style="font-size:14px;margin:-4px 0 12px">Bebidas e alimentos anabólicos: receitas ricas em proteína, com comida de mercado. Preparou? Registre e ganhe <b style="color:var(--gold)">+${ALQ_XP} XP</b> (até ${ALQ_MAX} por dia).</p>
   <div class="card row between" style="gap:10px"><div><small class="dim">ALQUIMIAS HOJE</small><div class="glow" style="font-weight:800;font-size:20px">${a.done.length}/${ALQ_MAX}</div></div><div style="text-align:right"><small class="dim">PROTEÍNA DAS RECEITAS</small><div style="font-weight:800;font-size:20px;color:#7dff9b">${pTot} g</div></div></div>
-  ${isElite()?'':`<button class="promo" data-a="elite" style="margin:10px 0"><img src="${ART.keyart}" alt=""><span class="promo-t"><span class="crown">🎁 BÔNUS DO CAÇADOR ELITE</span><b>Libere as 12 bebidas e alimentos anabólicos</b><small>Toque para ver o plano Elite</small></span></button>`}
-  <div class="alqgrid">${ALQ.map(r=>{const op=alqOpen(r),dn=a.done.includes(r.id),[rn,rc]=RAR[r.rar];
+  ${isElite()?'':`<button class="promo" data-a="elite" style="margin:10px 0"><img src="${ART.keyart}" alt=""><span class="promo-t"><span class="crown">🎁 BÔNUS DO CAÇADOR ELITE</span><b>Libere as ${ALQ.length} bebidas e alimentos anabólicos</b><small>Toque para ver o plano Elite</small></span></button>`}
+  <div class="chips" style="margin-top:12px">${Object.entries(ALQ_CATS).map(([k,[e,n]])=>`<button class="chip ${k===alqCat?'on':''}" data-a="alqCat" data-v="${k}">${e} ${n} <small style="opacity:.7">${ALQ.filter(r=>r.c===k).length}</small></button>`).join('')}</div>
+  <div class="alqgrid">${ALQ.filter(r=>r.c===alqCat).map(r=>{const op=alqOpen(r),dn=a.done.includes(r.id),[rn,rc]=RAR[r.rar];
    return `<button class="alq ${op?'':'lk'} ${dn?'dn':''}" style="--rc:${rc}" data-a="${op?'alq':'elite'}" data-id="${r.id}"><span class="ae">${op?r.e:'🔒'}</span><small style="color:${rc}">${rn} · ${r.k.toUpperCase()}</small><b>${esc(r.n)}</b><span class="am">${r.p} g proteína · ${r.kcal} kcal</span>${dn?'<span class="ad">✓ FEITA HOJE</span>':''}</button>`}).join('')}</div>`;
 }
 function alqSheet(id){
@@ -1283,6 +1318,7 @@ document.addEventListener('click',ev=>{
     case 'group': trainGroup=b.dataset.v;render();break;
     case 'ex': exerciseSheet(b.dataset.id);break;
     case 'alq': alqSheet(b.dataset.id);break;
+    case 'alqCat': alqCat=b.dataset.v;render();break;
     case 'alqDone': closeModal();alqDone(b.dataset.id);break;
     case 'step':{const inp=$('#'+b.dataset.t);const d=+b.dataset.d;inp.value=Math.max(0,Math.round(((+inp.value||0)+d)*100)/100);updatePreview();break}
     case 'log':{
