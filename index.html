@@ -176,7 +176,7 @@ section{position:relative}
 .ticks li{padding-left:30px;position:relative;font-weight:600}
 .ticks li:before{content:"";position:absolute;left:4px;top:7px;width:12px;height:12px;border:2px solid var(--cy2);transform:rotate(45deg);box-shadow:0 0 8px var(--cy)}
 .guar{display:flex;flex-wrap:wrap;gap:26px;align-items:center;max-width:900px;margin:44px auto 0;padding:24px 28px;border-color:rgba(255,210,122,.55);box-shadow:0 0 24px rgba(255,198,90,.2)}
-.guar img{width:230px;height:230px;object-fit:cover;flex:none;border:1px solid rgba(255,210,122,.5);box-shadow:0 0 22px rgba(255,198,90,.35)}
+.guar img{width:260px;height:260px;object-fit:contain;flex:none;margin:-30px -10px -30px -20px;filter:drop-shadow(0 0 24px rgba(255,198,90,.35));-webkit-mask-image:radial-gradient(circle at 50% 50%,#000 62%,transparent 72%);mask-image:radial-gradient(circle at 50% 50%,#000 62%,transparent 72%)}
 .guar>div{flex:1 1 300px;min-width:0}
 
 /* FAQ */
