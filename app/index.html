@@ -6,6 +6,13 @@
 <title>Forja do Herói — Treino RPG</title>
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#05070d">
+<link rel="manifest" href="/app/manifest.webmanifest">
+<link rel="icon" type="image/png" href="/app/icons/favicon-64.png">
+<link rel="apple-touch-icon" href="/app/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Forja do Herói">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <script src="supabase.js"></script>
@@ -332,6 +339,20 @@ h2 .sub{font-family:Rajdhani;font-size:13px;color:var(--mute);letter-spacing:0;f
 .alq{position:relative;text-align:left;padding:12px;border-radius:12px;border:1px solid color-mix(in srgb,var(--rc) 55%,transparent);background:linear-gradient(160deg,color-mix(in srgb,var(--rc) 16%,#0a1224),#070c18);color:var(--text);display:flex;flex-direction:column;gap:3px;box-shadow:0 0 14px color-mix(in srgb,var(--rc) 22%,transparent)}
 .alq .ae{font-size:28px;line-height:1}.alq small{font-size:10px;font-weight:700;letter-spacing:.1em}.alq b{font-size:14px;line-height:1.2}.alq .am{font-size:11.5px;color:var(--mute)}
 .alq.lk{opacity:.55;filter:saturate(.5)}.alq.dn{border-color:#7dff9b}.alq .ad{font-size:10px;font-weight:800;color:#7dff9b;letter-spacing:.08em}
+
+/* instalar app */
+.ibanner{display:flex;align-items:center;gap:12px;width:100%;text-align:left;margin:4px 0 12px;padding:10px 12px;border:1px solid rgba(79,195,255,.6);background:rgba(4,14,30,.9);box-shadow:0 0 14px rgba(79,195,255,.25)}
+.ibanner img{width:44px;height:44px;border-radius:10px;flex:none}
+.ibanner b{display:block;font-size:15px}.ibanner small{color:var(--mute);font-size:12.5px}
+.ibanner .x{margin-left:auto;color:var(--dim);font-size:18px;padding:4px 6px}
+.ilogo{display:block;width:96px;height:96px;border-radius:22px;margin:4px auto 10px;box-shadow:0 0 24px rgba(79,195,255,.45)}
+.isteps{list-style:none;counter-reset:i;margin:12px 0 0}
+.isteps li{counter-increment:i;position:relative;padding:10px 0 10px 44px;border-top:1px solid rgba(79,195,255,.15);font-size:15px;line-height:1.35}
+.isteps li:first-child{border-top:0}
+.isteps li:before{content:counter(i);position:absolute;left:0;top:9px;width:30px;height:30px;display:grid;place-items:center;border:1px solid var(--gold);color:var(--gold);font-weight:700;box-shadow:0 0 10px rgba(79,195,255,.4)}
+.isteps .k{display:inline-flex;align-items:center;gap:4px;padding:1px 7px;border:1px solid rgba(200,235,255,.45);background:rgba(79,195,255,.12);font-weight:700;white-space:nowrap}
+.inote{margin-top:12px;padding:10px 12px;border-left:3px solid #ffd27a;background:rgba(255,198,90,.08);font-size:13.5px;color:var(--mute)}
+.instl{display:block;margin:14px auto 0;color:var(--gold);font-size:14px;text-decoration:underline}
 </style>
 </head>
 <body>
@@ -734,7 +755,7 @@ function render(){
   const head=`<div class="top"><div class="brand">FORJA DO HERÓI<small>TREINO RPG</small></div>
     <div class="topr">${isElite()?'<span class="pill elite">👑 ELITE</span>':'<button class="pill up" data-a="elite">RECRUTA ↑</button>'}<span class="pill">🪙 ${fmt(g)}</span><button class="iconbtn" data-a="settings" title="Ficha">⚙️</button></div></div>`;
   const views={heroi:viewHero,treinar:viewTrain,dungeon:viewDungeon,missoes:viewQuests,chefes:viewBosses,taverna:viewTaverna,mais:viewMais,loja:viewShop,diario:viewLog,temporada:viewSeason,progressao:viewProgress,planilha:viewSheet,alquimia:viewAlquimia};
-  $('#app').innerHTML=head+views[tab]()+`<div class="sync" id="sync">${syncLabel()}</div>`;
+  $('#app').innerHTML=head+(tab==='heroi'?installBanner():'')+views[tab]()+`<div class="sync" id="sync">${syncLabel()}</div>`;
   renderNav();
   if(tab==='treinar') tickTimer();
 }
@@ -1261,6 +1282,7 @@ function viewMais(){
    ${t('temporada','🏆','Temporada','Ranking do mês',1)}${t('progressao','🌳','Progressão','Árvores de habilidade',1)}
    ${t('alquimia','🧪','Alquimia','Bônus: receitas anabólicas',1)}${t('planilha','📊','Planilha','Cargas e recordes',1)}${t('loja','🪙','Loja','Elixires e títulos')}
    ${t('diario','📖','Diário','Histórico de treinos')}<button class="tile" data-a="settings"><span class="te2">⚙️</span><b>Ficha</b><small>Nome, classe e plano</small></button>
+   <button class="tile" data-a="install"><span class="te2">📲</span><b>Instalar app</b><small>Ícone na tela do celular</small></button>
   </div>`;
 }
 
@@ -1298,6 +1320,10 @@ document.addEventListener('click',ev=>{
       S=blank();S.created=true;S.name=name;S.bw=+$('#c_bw').value||0;S.cls=window.__clsPick||'paladino';
       S.goldBonus=50;save();tab='heroi';render();toast('⚒️','Bem-vindo, '+name+'!','Você recebeu 50 ouro para começar');break}
     case 'settings': settingsSheet(); break;
+    case 'install': installSheet(b.dataset.v); break;
+    case 'installNow': installNow(); break;
+    case 'installHide': try{localStorage.setItem('fh_install_hide','1')}catch(e){} render(); break;
+    case 'copyLink': {const u=location.origin+'/app/';(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast('🔗','Link copiado!','Cole no navegador')).catch(()=>prompt('Copie o link:',u));break}
     case 'saveSettings':{
       const n=$('#s_name').value.trim();if(n)S.name=n;S.bw=+$('#s_bw').value||0;S.title=$('#s_title').value;
       if(window.__clsPick&&window.__clsPick!==S.cls){S.cls=window.__clsPick;S.q.d=''}
@@ -1386,7 +1412,8 @@ function fhView(){
    </form>
    ${FH_TAB==='login'?`<p class="dim" style="font-size:12.5px;text-align:center;margin-top:12px">Esqueceu a senha? Fale com o suporte pelo e-mail informado na sua compra.</p>`:''}
   </div>
-  <p class="muted" style="font-size:13px;text-align:center;margin-top:16px">Ainda não tem o app? <a href="${FH_SITE}" style="color:var(--gold)">Conheça o Forja do Herói</a></p>`;
+  <p class="muted" style="font-size:13px;text-align:center;margin-top:16px">Ainda não tem o app? <a href="${FH_SITE}" style="color:var(--gold)">Conheça o Forja do Herói</a></p>
+  ${isStandalone()?'':'<button class="instl" data-a="install">📲 Como instalar o app no celular</button>'}`;
 }
 function fhRenderLogin(){$('#nav').hidden=true;$('#app').innerHTML=fhView();const f=$('#fhForm');if(f)f.onsubmit=fhSubmit;}
 async function fhSubmit(ev){
@@ -1424,6 +1451,62 @@ document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-a]
 });
 (async()=>{const {data:{session}}=await FH.auth.getSession();if(session)fhAfterLogin();else fhRenderLogin();})();
 
+
+/* ================== INSTALAR APP (PWA) ================== */
+let DEFER_INSTALL=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();DEFER_INSTALL=e;});
+window.addEventListener('appinstalled',()=>{DEFER_INSTALL=null;try{localStorage.setItem('fh_install_hide','1')}catch(e){};closeModal();toast('📲','App instalado!','Abra pelo ícone Forja do Herói');});
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/app/sw.js',{scope:'/app/'}).catch(()=>{}));
+function isStandalone(){return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}
+function devOS(){const u=navigator.userAgent;if(/iPhone|iPad|iPod/i.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1))return 'ios';if(/Android/i.test(u))return 'android';return 'pc'}
+function inAppBrowser(){return /FBAN|FBAV|FB_IAB|Instagram|Line\/|TikTok|musical_ly|WhatsApp/i.test(navigator.userAgent)}
+function installBanner(){
+  let h='';try{h=localStorage.getItem('fh_install_hide')}catch(e){}
+  if(isStandalone()||h)return '';
+  return `<div class="ibanner"><img src="/app/icons/icon-192.png" alt=""><button data-a="install" style="text-align:left;flex:1"><b>📲 Instale o app no celular</b><small>Ícone na tela inicial, abre em tela cheia. Leva 10 segundos.</small></button><button class="x" data-a="installHide" title="Ocultar">✕</button></div>`;
+}
+async function installNow(){
+  if(!DEFER_INSTALL)return installSheet('android');
+  DEFER_INSTALL.prompt();const r=await DEFER_INSTALL.userChoice.catch(()=>({}));DEFER_INSTALL=null;
+  if(r&&r.outcome==='accepted'){closeModal();toast('📲','Instalando…','O ícone vai aparecer na sua tela inicial');}
+}
+function installSheet(force){
+  const os=force||devOS();
+  const seg=(t,k)=>`<button class="${os===k?'on':''}" data-a="install" data-v="${k}">${t}</button>`;
+  let body='';
+  if(isStandalone()){
+    body=`<div class="card" style="text-align:center"><b>✅ Você já está no app instalado.</b><p class="muted" style="font-size:14px;margin-top:6px">Abra sempre pelo ícone Forja do Herói na tela do celular.</p></div>`;
+  }else if(os==='ios'){
+    const notSafari=inAppBrowser()||/CriOS|FxiOS|EdgiOS|OPiOS/.test(navigator.userAgent);
+    body=`${notSafari&&devOS()==='ios'?`<div class="inote">⚠️ No iPhone, instale pelo <b>Safari</b>. Toque em <b>Copiar link</b>, abra o Safari, cole o link na barra de endereço e siga os passos abaixo.</div><button class="btn full" style="margin-top:10px" data-a="copyLink">🔗 Copiar link do app</button>`:''}
+    <ol class="isteps">
+     <li>Abra o app no <b>Safari</b> (o navegador da bússola azul).</li>
+     <li>Toque no botão <span class="k">Compartilhar <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 12v8h14v-8"/></svg></span>. Ele fica na barra de baixo (ou em cima, no iPad).</li>
+     <li>Role a lista para baixo e toque em <span class="k">Adicionar à Tela de Início ➕</span>.</li>
+     <li>Toque em <span class="k">Adicionar</span>, no canto de cima.</li>
+     <li>Pronto! O ícone do <b>Forja do Herói</b> aparece na sua tela. Abra sempre por ele.</li>
+    </ol>`;
+  }else if(os==='android'){
+    body=`${DEFER_INSTALL?`<button class="btn gold full" style="margin-top:4px" data-a="installNow">📲 Instalar agora</button><p class="dim" style="font-size:12.5px;text-align:center;margin-top:8px">Toque no botão e confirme em “Instalar”. Se não funcionar, siga os passos abaixo.</p>`:''}
+    ${inAppBrowser()?`<div class="inote">⚠️ Você está no navegador do Instagram/Facebook/WhatsApp. Toque nos <b>⋮</b> ou <b>⋯</b> do canto e escolha <b>Abrir no Chrome</b> (ou “Abrir no navegador”). Ou copie o link e cole no Chrome.</div><button class="btn full" style="margin-top:10px" data-a="copyLink">🔗 Copiar link do app</button>`:''}
+    <ol class="isteps">
+     <li>Abra o app no <b>Google Chrome</b>.</li>
+     <li>Toque nos <span class="k">⋮</span> (três pontinhos), no canto de cima à direita.</li>
+     <li>Toque em <span class="k">Instalar app</span> ou <span class="k">Adicionar à tela inicial</span>.</li>
+     <li>Confirme em <span class="k">Instalar</span>.</li>
+     <li>Pronto! O ícone do <b>Forja do Herói</b> aparece na sua tela (e na lista de apps). Abra sempre por ele.</li>
+    </ol>`;
+  }else{
+    body=`<div class="card"><p style="font-size:15px">O Forja do Herói foi feito para o <b>celular</b>. Abra este link no navegador do seu telefone e instale por lá:</p><p style="margin-top:10px;font-weight:700;color:var(--gold);word-break:break-all">${location.origin}/app/</p><button class="btn full" style="margin-top:10px" data-a="copyLink">🔗 Copiar link</button></div>
+    <p class="muted" style="font-size:13.5px;margin-top:12px">Escolha acima <b>iPhone</b> ou <b>Android</b> para ver o passo a passo.</p>`;
+  }
+  openModal(`<div class="row between"><h3>📲 Instalar o app</h3><button class="iconbtn" data-a="close">✕</button></div>
+   <img class="ilogo" src="/app/icons/icon-192.png" alt="Ícone do Forja do Herói">
+   <p class="muted" style="text-align:center;font-size:14px">Coloque o Forja do Herói na tela do celular, como um app normal: abre em tela cheia e com 1 toque. Não precisa de loja de apps.</p>
+   <div class="seg" style="margin-top:12px">${seg('🍎 iPhone','ios')}${seg('🤖 Android','android')}</div>
+   ${body}
+   <p class="dim" style="font-size:12.5px;text-align:center;margin-top:14px">No primeiro acesso pelo ícone, entre com o mesmo e-mail e senha.</p>`);
+}
 </script>
 </body>
 </html>
