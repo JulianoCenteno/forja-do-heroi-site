@@ -107,7 +107,7 @@ section{position:relative}
 .d-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;max-width:470px}
 .d-list span{font-size:14px;font-weight:700;padding:4px 10px;border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.25)}
 .d-art{position:relative;height:680px;display:flex;justify-content:center;align-items:flex-end}
-.d-art img{height:100%;width:auto;max-width:none;object-fit:contain;filter:drop-shadow(0 0 30px var(--acc));-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent),linear-gradient(180deg,#000 82%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent),linear-gradient(180deg,#000 82%,transparent);mask-composite:intersect;transition:opacity .4s,transform .5s}
+.d-art img{height:100%;width:auto;max-width:none;object-fit:contain;transition:opacity .4s,transform .5s}
 .d-art img.out{opacity:0;transform:translateX(30px)}
 .d-thumbs{position:absolute;left:50%;bottom:40px;transform:translateX(-50%);display:flex;gap:26px;z-index:3}
 .thumb{width:84px;height:84px;transform:rotate(45deg);border:2px solid rgba(255,255,255,.5);overflow:hidden;background:#05070d;cursor:pointer;transition:.25s;padding:0}
@@ -208,7 +208,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
   .sec{padding:80px 0}
 }
 
-.hero-m,.mock-swipe,.swipe-hint{display:none}
+.hero-m,.mock-swipe,.swipe-hint,.dots{display:none}
 @media (max-width:700px){
   body{font-size:17px}
   .wrap{padding:0 20px}
@@ -218,8 +218,9 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
   .btn{font-size:16px;min-height:52px;padding:0 18px;letter-spacing:.04em}
   .btn.big{font-size:17px;min-height:56px;width:100%;padding:0 16px}
   .hero{min-height:auto;display:block;padding-top:64px}
-  .hero .art{filter:blur(8px) brightness(.4);animation:none;transform:scale(1.1)}
-  .hero:after{background:linear-gradient(180deg,rgba(5,7,13,.2) 0%,rgba(5,7,13,0) 35%,rgba(5,7,13,.9) 62%,#05070d 100%)}
+  .hero .art{display:none}
+  .hero{background:radial-gradient(120% 60% at 50% 28%,#12285a 0%,#08102a 45%,#05070d 75%)}
+  .hero:after{background:linear-gradient(180deg,rgba(5,7,13,0) 60%,#05070d 100%)}
   .hero-m{display:block;position:relative;z-index:1;width:116%;max-width:none;height:auto;margin:0 -8%}
   .hero .wrap{padding-top:0;padding-bottom:56px;margin-top:-70px}
   .hero h1{font-size:42px;letter-spacing:.04em;margin:12px 0 8px}
@@ -244,9 +245,16 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
   .mock-trio{display:none}
   img.duo{display:none}
   .split{gap:30px}
-  .mock-swipe{display:flex;gap:6px;overflow-x:auto;scroll-snap-type:x mandatory;margin:26px -20px 0;padding:0 11%;scrollbar-width:none}
+  .mock-swipe{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;margin:26px -20px 0;padding:10px 18vw 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .mock-swipe::-webkit-scrollbar{display:none}
-  .mock-swipe img{flex:0 0 78%;width:78%;height:auto;scroll-snap-align:center;filter:drop-shadow(0 24px 40px rgba(0,0,0,.6))}
+  .mock-swipe figure{flex:0 0 64vw;margin:0;scroll-snap-align:center;scroll-snap-stop:always;transition:transform .25s,opacity .25s;transform:scale(.84);opacity:.45}
+  .mock-swipe figure.on{transform:scale(1);opacity:1}
+  .mock-swipe img{width:100%;height:auto;filter:drop-shadow(0 24px 40px rgba(0,0,0,.6))}
+  .mock-swipe figcaption{text-align:center;font-weight:700;letter-spacing:.14em;font-size:13px;color:var(--cy2);margin-top:10px;opacity:0;transition:opacity .25s}
+  .mock-swipe figure.on figcaption{opacity:1}
+  .dots{display:flex!important;justify-content:center;gap:8px;margin-top:14px}
+  .dots i{width:8px;height:8px;border:1px solid var(--cy2);transform:rotate(45deg);transition:.2s}
+  .dots i.on{background:var(--cy2);box-shadow:0 0 8px var(--cy)}
   .swipe-hint{display:block;color:var(--cy2);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-top:4px}
   .feat3{margin-top:26px;gap:16px}
   .card{padding:24px}
@@ -401,11 +409,14 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
       <div><b class="glow">JANELA DE STATUS</b><span>Nível, patente, atributos e o seu herói evoluindo a cada série.</span></div>
       <div><b class="glow">BATALHAS DE CHEFE</b><span>Recordes pessoais viram monstros com barra de HP.</span></div>
     </div>
-    <div class="mock-swipe" aria-label="Telas do app (deslize para o lado)">
-      <img src="img/mock-status.webp" alt="Celular com a tela de Status do herói" width="520" height="1157" loading="lazy">
-      <img src="img/mock-missoes.webp" alt="Celular com a tela de Missão Diária" width="520" height="1157" loading="lazy">
-      <img src="img/mock-dungeon.webp" alt="Celular com a tela da Dungeon de 30 dias" width="520" height="1157" loading="lazy">
+    <div class="mock-swipe" id="swipe" aria-label="Telas do app (deslize para o lado)">
+      <figure><img src="img/flat-status.webp" alt="Tela de Status do herói" width="560" height="1180" loading="lazy"><figcaption>JANELA DE STATUS</figcaption></figure>
+      <figure><img src="img/flat-missoes.webp" alt="Tela de Missão Diária" width="560" height="1180" loading="lazy"><figcaption>MISSÕES DIÁRIAS</figcaption></figure>
+      <figure><img src="img/flat-dungeon.webp" alt="Tela da Dungeon de 30 dias" width="560" height="1180" loading="lazy"><figcaption>DUNGEON DE 30 DIAS</figcaption></figure>
+      <figure><img src="img/flat-chefes.webp" alt="Tela de Batalhas de Chefe" width="560" height="1180" loading="lazy"><figcaption>BATALHAS DE CHEFE</figcaption></figure>
+      <figure><img src="img/flat-treinar.webp" alt="Tela de escolha de exercícios" width="560" height="1180" loading="lazy"><figcaption>45 EXERCÍCIOS</figcaption></figure>
     </div>
+    <div class="dots" id="dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></div>
     <p class="swipe-hint">deslize para ver mais telas →</p>
     <p style="color:var(--dim);font-size:14px;margin-top:20px">Telas reais do app. Nome e números de exemplo.</p>
   </div>
@@ -588,6 +599,12 @@ function setCls(k,first){
 }
 document.querySelectorAll('.thumb').forEach(t=>t.onclick=()=>setCls(t.dataset.c));
 setCls('monge',true);
+
+/* carrossel de telas */
+const sw=document.getElementById('swipe');
+if(sw){const figs=[...sw.children],dots=[...document.querySelectorAll('#dots i')];
+  const upd=()=>{const c=sw.scrollLeft+sw.clientWidth/2;let best=0,bd=1e9;figs.forEach((f,i)=>{const d=Math.abs(f.offsetLeft+f.offsetWidth/2-c);if(d<bd){bd=d;best=i}});figs.forEach((f,i)=>f.classList.toggle('on',i===best));dots.forEach((d,i)=>d.classList.toggle('on',i===best))};
+  sw.addEventListener('scroll',()=>requestAnimationFrame(upd),{passive:true});addEventListener('resize',upd);upd();}
 
 /* reveal */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
