@@ -632,7 +632,7 @@ function afterProgress(prevLevel){
   // conquistas
   const c=counters();
   for(const a of ACH){
-    if(!S.ach[a.id]&&a.f(c)){S.ach[a.id]=Date.now();S.goldBonus+=30;toast(a.e,'Conquista desbloqueada!',a.t+' · +30 ouro')}
+    if(!S.ach[a.id]&&a.f(c)){S.ach[a.id]=Date.now();S.goldBonus+=30;toast(a.e,'Conquista desbloqueada!',a.t+' · +30 ouro');setTimeout(()=>sfx('achievement'),700)}
   }
   const L=levelInfo().L;
   if(L>prevLevel){
@@ -640,7 +640,7 @@ function afterProgress(prevLevel){
     queueModal(()=>levelModal(L,newR!==oldR?newR:null));
     // conquistas de nível após subir
     const c2=counters();
-    for(const a of ACH){ if(!S.ach[a.id]&&a.f(c2)){S.ach[a.id]=Date.now();S.goldBonus+=30;toast(a.e,'Conquista desbloqueada!',a.t+' · +30 ouro')} }
+    for(const a of ACH){ if(!S.ach[a.id]&&a.f(c2)){S.ach[a.id]=Date.now();S.goldBonus+=30;toast(a.e,'Conquista desbloqueada!',a.t+' · +30 ouro');setTimeout(()=>sfx('achievement'),700)} }
   }
   save();
 }
@@ -650,22 +650,22 @@ function logExercise(exId,s,r,kg){
   const xp=Math.max(1,Math.round(baseXP(ex,s,r,kg)*m.total));
   S.log.push({id:uid(),d:ymd(),ts:Date.now(),ex:exId,s,r,kg:ex.t==='mus'?kg:0,xp});
   S.last[exId]={s,r,kg};
-  toast('✨','+'+fmt(xp)+' XP · +'+Math.floor(xp/20)+' ouro',ex.n+' — '+s+'×'+r+(ex.u?'s':'')+(ex.t==='mus'?' · '+kg+' kg':''));
+  sfx('xp');toast('✨','+'+fmt(xp)+' XP · +'+Math.floor(xp/20)+' ouro',ex.n+' — '+s+'×'+r+(ex.u?'s':'')+(ex.t==='mus'?' · '+kg+' kg':''));
   afterProgress(prev);
 }
 function claimQuest(id){
   if(S.q.claimed.includes(id)) return;
   const prev=levelInfo().L;const rw=questReward();
   S.q.claimed.push(id);S.qTotal++;S.bonusXP+=rw.xp;S.goldBonus+=rw.gold;
-  toast('📯','Missão cumprida!','+'+rw.xp+' XP · +'+rw.gold+' ouro');
-  if(S.q.ids.every(q=>S.q.claimed.includes(q))){S.bonusXP+=100;S.goldBonus+=50;toast('🏆','Todas as missões do dia!','Bônus: +100 XP · +50 ouro')}
+  sfx('quest');toast('📯','Missão cumprida!','+'+rw.xp+' XP · +'+rw.gold+' ouro');
+  if(S.q.ids.every(q=>S.q.claimed.includes(q))){S.bonusXP+=100;S.goldBonus+=50;setTimeout(()=>sfx('allquests'),900);toast('🏆','Todas as missões do dia!','Bônus: +100 XP · +50 ouro')}
   afterProgress(prev);
 }
 function buy(id){
   const it=SHOP.find(x=>x.id===id);if(!it||gold()<it.p)return;
   if(it.kind==='elixir'){ if(S.elixir===ymd()) return; S.elixir=ymd(); }
   else { if(S.titles.includes(it.v)) return; S.titles.push(it.v); S.title=it.v; }
-  S.goldSpent+=it.p; toast(it.e,'Comprado!',it.n); save(); render();
+  S.goldSpent+=it.p; sfx('coin'); toast(it.e,'Comprado!',it.n); save(); render();
 }
 function deleteEntry(id){S.log=S.log.filter(e=>e.id!==id);save();render()}
 
@@ -683,12 +683,14 @@ function openModal(html,center){
 }
 function closeModal(){$('#modal').innerHTML='';if(modalOpen){modalOpen=false;setTimeout(nextModal,150)}}
 function levelModal(L,newRank){
+  sfx('levelup');
   openModal(`<div class="lvup"><img class="lv-art" src="${ART.full[S.cls]}" alt=""><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:var(--gold)">SUBIU DE NÍVEL</div><div class="big">${L}</div>
    ${newRank?`<p style="margin-top:10px">Nova patente: <span class="rank">${newRank}</span></p>`:''}
    <p class="muted" style="margin:12px 0 18px">Seus atributos ficaram mais fortes. Continue forjando.</p>
    <button class="btn full" data-a="close">Continuar</button></div>`,true);
 }
 function bossModal(b,xp){
+  sfx('boss');
   openModal(`<div class="lvup"><div style="font-size:64px">${b.e}</div><div class="cap" style="margin-top:6px">[ SISTEMA ] CHEFE DERROTADO</div>
    <h3 style="margin-top:6px">${b.n}</h3><p class="reward" style="margin:8px 0 18px">+${xp} XP · +120 ouro</p>
    <button class="btn full" data-a="close">Glória!</button></div>`,true);
@@ -753,7 +755,7 @@ function render(){
   $('#nav').hidden=false;
   const g=gold();
   const head=`<div class="top"><div class="brand">FORJA DO HERÓI<small>TREINO RPG</small></div>
-    <div class="topr">${isElite()?'<span class="pill elite">👑 ELITE</span>':'<button class="pill up" data-a="elite">RECRUTA ↑</button>'}<span class="pill">🪙 ${fmt(g)}</span><button class="iconbtn" data-a="settings" title="Ficha">⚙️</button></div></div>`;
+    <div class="topr">${isElite()?'<span class="pill elite">👑 ELITE</span>':'<button class="pill up" data-a="elite">RECRUTA ↑</button>'}<span class="pill">🪙 ${fmt(g)}</span><button class="iconbtn" data-a="sound" title="${SFX.on?'Desligar sons':'Ligar sons'}">${SFX.on?'🔊':'🔇'}</button><button class="iconbtn" data-a="settings" title="Ficha">⚙️</button></div></div>`;
   const views={heroi:viewHero,treinar:viewTrain,dungeon:viewDungeon,missoes:viewQuests,chefes:viewBosses,taverna:viewTaverna,mais:viewMais,loja:viewShop,diario:viewLog,temporada:viewSeason,progressao:viewProgress,planilha:viewSheet,alquimia:viewAlquimia};
   $('#app').innerHTML=head+(tab==='heroi'?installBanner():'')+views[tab]()+`<div class="sync" id="sync">${syncLabel()}</div>`;
   renderNav();
@@ -1101,7 +1103,7 @@ function dgComplete(){
   if(!dgAvailable(d)||!day.items.every(dgItemDone)) return;
   const prev=levelInfo().L;const xp=120+d*8;
   S.dg.done[d]=ymd();S.bonusXP+=xp;S.goldBonus+=40;
-  toast('🗺️','Dia '+d+' da Dungeon concluído!','+'+xp+' XP · +40 ouro');
+  sfx(d===30?'dungeonfinal':'dungeon');toast('🗺️','Dia '+d+' da Dungeon concluído!','+'+xp+' XP · +40 ouro');
   if(d===30){S.bonusXP+=1000;if(!S.titles.includes('Conquistador da Dungeon'))S.titles.push('Conquistador da Dungeon');toast('👑','DUNGEON CONQUISTADA!','+1.000 XP e o título “Conquistador da Dungeon”')}
   afterProgress(prev);render();
 }
@@ -1270,7 +1272,7 @@ function alqDone(id){
   const r=ALQ.find(x=>x.id===id);const a=alqToday();
   if(!r||!alqOpen(r)||a.done.includes(id)||a.done.length>=ALQ_MAX)return;
   const prev=levelInfo().L;a.done.push(id);S.bonusXP+=ALQ_XP;S.goldBonus+=ALQ_GOLD;
-  toast(r.e,'Alquimia concluída!',r.n+' · +'+ALQ_XP+' XP · +'+ALQ_GOLD+' ouro');
+  sfx('alquimia');toast(r.e,'Alquimia concluída!',r.n+' · +'+ALQ_XP+' XP · +'+ALQ_GOLD+' ouro');
   afterProgress(prev);save();render();
 }
 
@@ -1296,7 +1298,7 @@ function tickTimer(){
 }
 function startTimer(sec){
   timerEnd=Date.now()+sec*1000;clearInterval(timerInt);
-  timerInt=setInterval(()=>{tickTimer();if(Date.now()>=timerEnd){clearInterval(timerInt);toast('⏱️','Descanso terminado!','Hora da próxima série');try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){}}},250);
+  timerInt=setInterval(()=>{tickTimer();if(Date.now()>=timerEnd){clearInterval(timerInt);sfx('timer');toast('⏱️','Descanso terminado!','Hora da próxima série');try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){}}},250);
   tickTimer();
 }
 
@@ -1320,6 +1322,7 @@ document.addEventListener('click',ev=>{
       S=blank();S.created=true;S.name=name;S.bw=+$('#c_bw').value||0;S.cls=window.__clsPick||'paladino';
       S.goldBonus=50;save();tab='heroi';render();toast('⚒️','Bem-vindo, '+name+'!','Você recebeu 50 ouro para começar');break}
     case 'settings': settingsSheet(); break;
+    case 'sound': toggleSound(); break;
     case 'install': installSheet(b.dataset.v); break;
     case 'installNow': installNow(); break;
     case 'installHide': try{localStorage.setItem('fh_install_hide','1')}catch(e){} render(); break;
@@ -1447,7 +1450,7 @@ render=function(){if(!window.__FH_PLAN)return fhRenderLogin();if(S.plan!==window
 document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-a]');if(!b)return;const a=b.dataset.a;
   if(a==='fhTab'){FH_TAB=b.dataset.v;FH_MSG='';fhRenderLogin();}
   if(a==='fhLogout'){closeModal();await FH.auth.signOut();try{localStorage.removeItem(KEY)}catch(e){}location.reload();}
-  if(a==='fhRefresh'){const {data:me}=await FH.rpc('fh_me');if(me&&me.plan){window.__FH_PLAN=me.plan;closeModal();render();toast(me.plan==='elite'?'👑':'⚔️',me.plan==='elite'?'Caçador Elite liberado!':'Ainda não encontramos a compra do Elite',me.plan==='elite'?'Todos os recursos foram desbloqueados':'Aguarde 1 ou 2 minutos e tente de novo')}}
+  if(a==='fhRefresh'){const {data:me}=await FH.rpc('fh_me');if(me&&me.plan){if(me.plan==='elite'&&window.__FH_PLAN!=='elite')sfx('elite');window.__FH_PLAN=me.plan;closeModal();render();toast(me.plan==='elite'?'👑':'⚔️',me.plan==='elite'?'Caçador Elite liberado!':'Ainda não encontramos a compra do Elite',me.plan==='elite'?'Todos os recursos foram desbloqueados':'Aguarde 1 ou 2 minutos e tente de novo')}}
 });
 (async()=>{const {data:{session}}=await FH.auth.getSession();if(session)fhAfterLogin();else fhRenderLogin();})();
 
@@ -1507,6 +1510,63 @@ function installSheet(force){
    ${body}
    <p class="dim" style="font-size:12.5px;text-align:center;margin-top:14px">No primeiro acesso pelo ícone, entre com o mesmo e-mail e senha.</p>`);
 }
+
+/* ================== SONS (gerados no app com Web Audio) ================== */
+const SFX={ctx:null,on:(()=>{try{return localStorage.getItem('fh_sound')!=='0'}catch(e){return true}})()};
+function sfxCtx(){if(!SFX.ctx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return null;SFX.ctx=new A();}if(SFX.ctx.state==='suspended')SFX.ctx.resume();return SFX.ctx}
+['pointerdown','touchstart','keydown'].forEach(t=>window.addEventListener(t,()=>{if(SFX.on)sfxCtx()},{passive:true}));
+function tone(f,t0,d,{type='triangle',vol=.18,f2=null,attack=.01,dest=null}={}){
+  const c=SFX.ctx,o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.setValueAtTime(f,t0);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t0+d);
+  g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(vol,t0+attack);g.gain.exponentialRampToValueAtTime(0.0001,t0+d);
+  o.connect(g);g.connect(dest||SFX.bus);o.start(t0);o.stop(t0+d+.05);
+}
+function noise(t0,d,{vol=.25,freq=900,q=.8}={}){
+  const c=SFX.ctx,n=c.sampleRate*d,b=c.createBuffer(1,n,c.sampleRate),x=b.getChannelData(0);for(let i=0;i<n;i++)x[i]=(Math.random()*2-1)*(1-i/n);
+  const s=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain();s.buffer=b;f.type='lowpass';f.frequency.value=freq;f.Q.value=q;g.gain.value=vol;s.connect(f);f.connect(g);g.connect(SFX.bus);s.start(t0);
+}
+const N=n=>440*Math.pow(2,(n-69)/12); // nota MIDI -> Hz
+function chord(ns,t,d,o){ns.forEach(n=>tone(N(n),t,d,o))}
+function horn(n,t,d,vol=.12){tone(N(n),t,d,{type:'sawtooth',vol,attack:.03});tone(N(n),t,d,{type:'square',vol:vol*.5,attack:.03});tone(N(n-12),t,d,{type:'triangle',vol:vol*1.2,attack:.03})}
+function sfx(kind){
+  if(!SFX.on)return;const c=sfxCtx();if(!c)return;
+  if(!SFX.bus){const comp=c.createDynamicsCompressor(),lp=c.createBiquadFilter(),m=c.createGain();lp.type='lowpass';lp.frequency.value=6500;m.gain.value=.9;lp.connect(comp);comp.connect(m);m.connect(c.destination);SFX.bus=lp;}
+  const t=c.currentTime+.02;
+  switch(kind){
+    case 'xp': // série registrada: moeda brilhante
+      tone(N(88),t,.12,{type:'square',vol:.08});tone(N(93),t+.07,.32,{type:'square',vol:.08});tone(N(100),t+.07,.3,{vol:.06});break;
+    case 'coin':
+      tone(N(84),t,.09,{type:'square',vol:.07});tone(N(91),t+.06,.25,{type:'square',vol:.07});break;
+    case 'quest': // missão cumprida: arpejo heroico
+      [72,76,79].forEach((n,i)=>tone(N(n),t+i*.09,.22,{type:'square',vol:.08}));chord([72,76,79,84],t+.27,.7,{vol:.08});tone(N(96),t+.27,.5,{vol:.05});break;
+    case 'allquests': // todas as missões do dia
+      [67,72,76,79,84].forEach((n,i)=>tone(N(n),t+i*.08,.2,{type:'square',vol:.08}));chord([72,76,79,84,88],t+.42,1.2,{vol:.07});
+      [96,100,103].forEach((n,i)=>tone(N(n),t+.5+i*.07,.25,{vol:.04}));break;
+    case 'alquimia': // poção borbulhando
+      for(let i=0;i<7;i++){const f=N(70+Math.floor(Math.random()*14));tone(f,t+i*.07,.12,{type:'sine',vol:.12,f2:f*1.8})}
+      chord([79,83,86],t+.5,.6,{type:'sine',vol:.06});break;
+    case 'dungeon': // dia da Dungeon concluído: trompas + tambor
+      noise(t,.25,{vol:.35,freq:180});noise(t+.18,.2,{vol:.25,freq:220});
+      horn(67,t,.18);horn(67,t+.18,.12);horn(72,t+.32,.18);horn(76,t+.52,.6);
+      chord([60,64,67,72],t+.52,1.1,{vol:.05});break;
+    case 'dungeonfinal': // Dungeon conquistada (dia 30)
+      [0,.2,.4].forEach(d=>noise(t+d,.3,{vol:.4,freq:160}));
+      horn(67,t,.2);horn(72,t+.2,.2);horn(76,t+.4,.2);horn(79,t+.6,.5);horn(76,t+1.1,.18);horn(79,t+1.28,.18);horn(84,t+1.46,1.4,.14);
+      chord([60,67,72,76,84],t+1.46,1.8,{vol:.05});[96,100,103,108].forEach((n,i)=>tone(N(n),t+1.6+i*.08,.3,{vol:.035}));break;
+    case 'levelup': // subiu de nível: escada brilhante
+      [60,64,67,72,76,79,84].forEach((n,i)=>tone(N(n),t+i*.06,.2,{type:'square',vol:.07}));
+      chord([72,76,79,84],t+.45,1.3,{vol:.07});[91,96,100].forEach((n,i)=>tone(N(n),t+.5+i*.1,.4,{type:'sine',vol:.05}));break;
+    case 'boss': // chefe derrotado: impacto + vitória
+      noise(t,.5,{vol:.6,freq:120});tone(N(36),t,.6,{type:'sine',vol:.35,f2:N(24)});
+      horn(60,t+.35,.22);horn(67,t+.57,.22);horn(72,t+.79,1.2,.14);chord([48,55,60,64,67],t+.79,1.4,{vol:.05});break;
+    case 'achievement': // conquista desbloqueada: brilho
+      [84,88,91,96].forEach((n,i)=>tone(N(n),t+i*.07,.35,{type:'sine',vol:.08}));tone(N(103),t+.3,.6,{type:'sine',vol:.05});break;
+    case 'timer': // descanso terminado
+      [0,.25].forEach(d=>{tone(N(81),t+d,.15,{type:'square',vol:.09});tone(N(88),t+d+.08,.15,{type:'square',vol:.07})});break;
+    case 'elite':
+      chord([60,67,72],t,.4,{type:'sawtooth',vol:.04});[72,76,79,84,88,91].forEach((n,i)=>tone(N(n),t+.1+i*.07,.3,{type:'square',vol:.06}));chord([72,79,84,88],t+.55,1.4,{vol:.07});break;
+  }
+}
+function toggleSound(){SFX.on=!SFX.on;try{localStorage.setItem('fh_sound',SFX.on?'1':'0')}catch(e){}if(SFX.on)sfx('coin');render();toast(SFX.on?'🔊':'🔇',SFX.on?'Sons ligados':'Sons desligados');}
 </script>
 </body>
 </html>
