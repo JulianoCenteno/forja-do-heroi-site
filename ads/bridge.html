@@ -1,0 +1,12 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>bridge</title></head><body style="background:#111;color:#0f0;font:14px monospace">
+<div id="s">aguardando…</div>
+<script>
+const s=document.getElementById('s');
+addEventListener('message',async e=>{
+  if(e.origin!=='https://adsmanager.facebook.com'&&e.origin!=='https://business.facebook.com')return;
+  const files=e.data&&e.data.want||[];const out=[];
+  for(const f of files){const r=await fetch('/ads/'+f,{cache:'no-store'});out.push({name:f,type:'image/jpeg',buf:await r.arrayBuffer()})}
+  e.source.postMessage({files:out},e.origin,out.map(o=>o.buf));s.textContent='enviado '+out.length;
+});
+if(window.opener){window.opener.postMessage({ready:true},'*');s.textContent='pronto'}else s.textContent='sem opener';
+</script></body></html>
