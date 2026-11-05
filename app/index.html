@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Forja do Herói">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,700;1,800&family=Jost:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <script src="supabase.js"></script>
 <style>
 :root{
@@ -354,6 +354,270 @@ h2 .sub{font-family:Rajdhani;font-size:13px;color:var(--mute);letter-spacing:0;f
 .inote{margin-top:12px;padding:10px 12px;border-left:3px solid #ffd27a;background:rgba(255,198,90,.08);font-size:13.5px;color:var(--mute)}
 .musbtn{display:block;width:fit-content;margin:0 0 10px auto;padding:5px 10px;border:1px solid rgba(200,235,255,.4);background:rgba(4,10,22,.8);font-size:13px;font-weight:700;color:var(--mute)}
 .instl{display:block;margin:14px auto 0;color:var(--gold);font-size:14px;text-decoration:underline}
+
+/* ================== SKIN v2 (fiel aos mockups) ================== */
+.app.z,.nav .in{zoom:var(--z,1)}
+.brand{white-space:nowrap}
+:root{--cy:#4fd2ff;--cy2:#2a8fd6;--gd:#ffcc4d;--gd2:#e09a1a;--pu:#a35cff;--pu2:#6b2bd9;--panelv:rgba(6,14,32,.86)}
+body{background:radial-gradient(900px 600px at 50% -120px,#13224a 0%,transparent 70%),radial-gradient(700px 500px at 100% 60%,rgba(98,40,180,.12),transparent 70%),#050913;background-attachment:fixed}
+.app{padding:0 12px 112px}
+.disp{font-family:'Exo 2',Jost,sans-serif;font-weight:800;font-style:italic;letter-spacing:.06em;text-transform:uppercase}
+.nglow{text-shadow:0 0 10px rgba(79,210,255,.75)}
+/* topo */
+.top{padding:10px 0 10px;margin:0 -12px;padding-left:0;padding-right:12px;background:linear-gradient(#050913 75%,rgba(5,9,19,0))}
+.brand{position:relative;padding:8px 34px 8px 26px;background:linear-gradient(90deg,#0a1a3a,#0b1d44 70%,rgba(11,29,68,0));clip-path:polygon(0 0,100% 0,86% 100%,0 100%);font-family:'Exo 2',Jost,sans-serif;font-weight:800;font-size:17px;letter-spacing:.08em;color:#7fe0ff;text-shadow:0 0 12px rgba(79,210,255,.8);border-bottom:2px solid rgba(79,210,255,.7)}
+.brand:before{content:"";position:absolute;left:12px;top:8px;bottom:6px;width:3px;background:linear-gradient(#bff1ff,#2a8fd6);transform:skewX(-18deg);box-shadow:0 0 8px #4fd2ff}
+.brand small{font-family:Rajdhani;font-size:10.5px;letter-spacing:.42em;color:#9cc7e8;text-shadow:none;margin-top:1px}
+.topr{gap:7px}
+.pill{height:34px;padding:0 12px;border-radius:99px;background:rgba(8,16,36,.9);border:1px solid rgba(120,170,230,.45);font-size:15px;font-weight:700}
+.pill.elite{background:linear-gradient(180deg,#ffe07a,#f2b21f);color:#2a1800;border:1px solid #ffe9a8;box-shadow:0 0 14px rgba(255,190,50,.55);font-size:13px;letter-spacing:.06em;font-weight:800}
+.pill.up{color:#ffd27a;border-color:#a8801f}
+.coin{width:17px;height:17px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3a8,#f5b928 55%,#b07408);box-shadow:0 0 6px rgba(255,190,60,.7);display:inline-block}
+.iconbtn{width:38px;height:38px;border-radius:8px;background:rgba(8,16,36,.9);border:1px solid rgba(120,170,230,.45);color:#e8f4ff}
+.iconbtn svg{width:20px;height:20px}
+/* navegação */
+.nav{padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:linear-gradient(rgba(5,9,19,0),#050913 35%)}
+.nav .in{background:linear-gradient(180deg,rgba(14,24,50,.97),rgba(8,14,32,.97));border:1px solid rgba(110,170,240,.45);border-radius:16px;padding:6px;box-shadow:0 0 18px rgba(79,195,255,.18),0 10px 30px rgba(0,0,0,.6)}
+.nav button{gap:2px;padding:6px 0 5px;border-radius:10px;color:#c6d6ef;font-size:11.5px;font-weight:600;border:1px solid transparent}
+.nav button img{width:30px;height:26px;object-fit:contain;mix-blend-mode:lighten;filter:saturate(.85)}
+.nav button.on{color:#7fe3ff;background:linear-gradient(180deg,rgba(40,110,200,.35),rgba(20,60,130,.35));border-color:rgba(110,220,255,.9);box-shadow:0 0 12px rgba(79,210,255,.6),inset 0 0 10px rgba(79,210,255,.3)}
+.nav button.on img{filter:drop-shadow(0 0 5px rgba(79,210,255,.9)) saturate(1.1)}
+/* painéis */
+.pv{position:relative;background:var(--panelv);border:1px solid rgba(110,200,255,.55);border-radius:14px;box-shadow:0 0 14px rgba(79,195,255,.28),inset 0 0 22px rgba(79,195,255,.08)}
+.banner{position:relative;margin:2px -12px 0;overflow:hidden}
+.banner img{display:block;width:100%;height:auto}
+.banner.fade:after{content:"";position:absolute;left:0;right:0;bottom:0;height:40%;background:linear-gradient(rgba(5,9,19,0),#050913)}
+.banner.frame{margin:4px 0 0;border-radius:14px}
+.banner.frame img{border-radius:12px}
+.banner.gold{border:2px solid #ffc94a;box-shadow:0 0 16px rgba(255,190,60,.55);border-radius:14px}
+/* título com ângulos (MAIS / STATUS) */
+.hextitle{display:flex;align-items:center;gap:12px;margin:10px 0 18px}
+.hextitle:before,.hextitle:after{content:"";flex:1;height:2px;background:linear-gradient(90deg,transparent,#4fd2ff);box-shadow:0 0 6px #4fd2ff}
+.hextitle:after{background:linear-gradient(90deg,#4fd2ff,transparent)}
+.hextitle span{padding:9px 44px;border:2px solid rgba(140,220,255,.9);clip-path:polygon(9% 0,100% 0,91% 100%,0 100%);background:linear-gradient(180deg,rgba(20,50,100,.85),rgba(8,20,45,.9));font-family:'Exo 2',Jost;font-weight:800;font-style:italic;font-size:26px;letter-spacing:.32em;color:#fff;text-shadow:0 0 12px rgba(120,220,255,.9);box-shadow:inset 0 0 14px rgba(79,210,255,.4)}
+.sechead{font-family:'Exo 2',Jost;font-weight:800;font-style:italic;font-size:21px;letter-spacing:.2em;color:#fff;text-transform:uppercase;text-shadow:0 0 12px rgba(120,220,255,.8);margin:20px 0 12px;position:relative;padding-bottom:6px}
+.sechead:after{content:"";position:absolute;left:0;bottom:0;width:62%;height:2px;background:linear-gradient(90deg,#4fd2ff,transparent);box-shadow:0 0 6px #4fd2ff}
+/* MAIS */
+.mtiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mtile{position:relative;display:flex;align-items:center;gap:10px;min-height:92px;padding:10px 10px 10px 8px;text-align:left;border-radius:14px;border:1.5px solid var(--tc,#4fd2ff);background:radial-gradient(120% 140% at 100% 100%,var(--tg,rgba(79,210,255,.18)),transparent 55%),linear-gradient(180deg,rgba(12,22,46,.95),rgba(6,12,28,.95));box-shadow:0 0 12px var(--tg,rgba(79,210,255,.3)),inset 0 0 18px rgba(79,210,255,.06);overflow:hidden}
+.mtile img{width:58px;height:58px;object-fit:contain;flex:none;mix-blend-mode:lighten}
+.mtile .tx{border-left:1.5px solid rgba(200,225,255,.35);padding-left:10px;min-width:0}
+.mtile b{display:block;font-family:Rajdhani;font-weight:700;font-size:20px;line-height:1.05;color:#fff;text-shadow:0 1px 0 #000}
+.mtile small{display:block;font-size:13px;color:#d4e1f5;margin-top:3px;line-height:1.2}
+.mtile .cr{position:absolute;top:6px;right:8px;width:30px;height:20px;border-radius:4px;background:linear-gradient(180deg,#ffe07a,#f2b21f);display:grid;place-items:center;font-size:11px;box-shadow:0 0 8px rgba(255,190,50,.6)}
+.mtile.lk{filter:saturate(.75)}
+.savedline{display:flex;align-items:center;gap:10px;justify-content:center;margin:22px 0 4px;color:#c9d8ef;font-style:italic;font-size:14px}
+.savedline:before,.savedline:after{content:"";width:80px;height:1px;background:linear-gradient(90deg,transparent,#a35cff)}
+.savedline:after{background:linear-gradient(90deg,#a35cff,transparent)}
+/* HERÓI */
+.hcard{position:relative;height:255px;margin-top:6px;border-radius:14px;overflow:hidden;border:2px solid var(--acc);box-shadow:0 0 18px var(--accg,rgba(255,190,60,.45))}
+.hcard .bgw{position:absolute;left:14px;top:4px;font-family:'Exo 2',Jost;font-weight:800;font-style:italic;font-size:74px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,220,150,.35);white-space:nowrap;letter-spacing:.02em}
+.hcard .art{position:absolute;right:-8px;bottom:-6px;height:112%;filter:drop-shadow(0 0 18px var(--acc));-webkit-mask-image:linear-gradient(90deg,transparent,#000 22%)}
+.hcard .inf{position:absolute;left:16px;bottom:16px;display:flex;flex-direction:column;gap:7px;max-width:62%}
+.hcard .tg{align-self:flex-start;padding:5px 12px;border:1.5px solid rgba(255,255,255,.75);background:rgba(5,9,19,.65);font-weight:700;font-size:12.5px;letter-spacing:.12em}
+.hcard .nm{align-self:flex-start;background:#fff;color:#05070d;font-family:Jost;font-weight:800;font-size:25px;padding:1px 22px 1px 12px;clip-path:polygon(0 0,100% 0,92% 100%,0 100%)}
+.hcard .cl{font-weight:700;font-size:17px;color:var(--acc);text-shadow:0 0 10px currentColor}
+.hcard .el{align-self:flex-start;padding:7px 16px;border-radius:6px;background:linear-gradient(180deg,#ffd75a,#e2a31c);color:#2a1800;font-weight:800;font-size:14px;letter-spacing:.12em;box-shadow:0 0 14px rgba(255,190,50,.5)}
+.statp{padding:16px 14px;margin-top:14px}
+.statp .ttl{display:table;margin:-2px auto 14px}
+.st2{display:grid;grid-template-columns:auto auto 1fr;gap:14px;align-items:center}
+.st2 .av{width:92px;height:92px;border-radius:50%;overflow:hidden;border:2px solid #7fe0ff;box-shadow:0 0 16px rgba(79,210,255,.7)}
+.st2 .av img{width:100%;height:100%;object-fit:cover}
+.st2 .lv{text-align:center;padding-right:14px;border-right:1px solid rgba(200,225,255,.35)}
+.st2 .lv b{display:block;font-family:Jost;font-weight:800;font-size:58px;line-height:.95;color:#fff;text-shadow:0 0 14px rgba(150,220,255,.8)}
+.st2 .lv span{font-size:12px;letter-spacing:.24em;color:#c9d8ef}
+.st2 .kv{display:grid;gap:5px;font-size:15px}
+.st2 .kv small{color:#8fb8e6;font-size:12px;letter-spacing:.1em;font-weight:700}
+.st2 .kv span{font-weight:700;color:#fff}
+.bonus{display:table;margin:12px auto 0;padding:6px 16px;border-radius:99px;background:linear-gradient(180deg,rgba(120,60,220,.5),rgba(80,30,170,.5));border:1px solid rgba(190,140,255,.8);font-weight:700;font-size:14px;color:#efe2ff}
+.barsp{padding:16px 14px;margin-top:14px}
+.bar2{display:flex;align-items:center;gap:12px}
+.bar2 .lb{flex:none;width:76px;padding:5px 0;text-align:center;font-weight:800;font-style:italic;letter-spacing:.08em;border:1.5px solid rgba(140,220,255,.8);clip-path:polygon(14% 0,100% 0,86% 100%,0 100%);background:rgba(20,50,100,.6)}
+.bar2 .tr{flex:1;height:16px;border-radius:99px;border:1.5px solid rgba(200,235,255,.85);padding:2px;box-shadow:0 0 8px rgba(79,195,255,.5)}
+.bar2 .tr i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#9fe6ff,#fff);box-shadow:0 0 8px #9fdcff}
+.bar2 .tr.v i{background:linear-gradient(90deg,#b98bff,#efe2ff);box-shadow:0 0 8px #a77de8}
+.bar2l{display:flex;justify-content:space-between;padding-left:88px;margin:4px 0 12px;font-size:14px;color:#c9d8ef}
+.bar2l b{color:#4ff0c8}
+.stt{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:4px}
+.stt div{border-radius:10px;border:1px solid rgba(110,200,255,.5);background:linear-gradient(180deg,rgba(18,34,70,.9),rgba(8,16,36,.9));padding:10px 4px 8px;text-align:center}
+.stt div:nth-child(2){border-color:rgba(190,140,255,.7);background:linear-gradient(180deg,rgba(60,30,110,.6),rgba(20,12,40,.9))}
+.stt div:nth-child(4){border-color:rgba(255,200,90,.6);background:linear-gradient(180deg,rgba(70,50,15,.55),rgba(20,14,6,.9))}
+.stt i{display:block;font-style:normal;font-size:20px;line-height:1}
+.stt b{display:block;font-family:Jost;font-weight:800;font-size:25px;color:#fff;margin-top:4px}
+.stt span{font-size:11.5px;letter-spacing:.14em;color:#c9d8ef}
+.bigcta{position:relative;display:flex;align-items:center;justify-content:center;gap:16px;width:100%;margin:24px 0 6px;padding:18px 10px;border:2px solid #ffe9a8;clip-path:polygon(5% 0,95% 0,100% 50%,95% 100%,5% 100%,0 50%);background:linear-gradient(180deg,#ffd75a,#f0a81a 60%,#d98a0c);color:#2a1800;font-family:'Exo 2',Jost;font-weight:800;font-style:italic;font-size:26px;letter-spacing:.06em;box-shadow:0 0 26px rgba(255,180,40,.7)}
+.bigcta .sep{width:2px;height:30px;background:rgba(60,30,0,.35)}
+.ctasub{text-align:center;font-style:italic;color:#d9e6fa;font-size:15px;letter-spacing:.06em}
+/* TREINAR */
+.rest{display:flex;align-items:center;gap:10px;padding:12px;border-radius:14px}
+.rest .ic{font-size:26px}
+.rest b{display:block;font-size:17px}.rest small{color:#c9d8ef;font-size:13px}
+.rest .sp{margin-left:auto;display:flex;align-items:center;gap:8px;padding-left:10px;border-left:1px solid rgba(200,225,255,.3)}
+.rest .tb{padding:8px 13px;border-radius:9px;border:1px solid rgba(200,225,255,.6);background:rgba(8,16,36,.9);font-weight:700;font-size:15px}
+.rest .clock2{font-family:Jost;font-weight:700;font-size:17px;color:#7fe3ff;min-width:52px;text-align:center}
+.rest .clock2.done{color:#7dff9b}
+.seg2{display:flex;border-radius:12px;border:1px solid rgba(110,200,255,.5);background:rgba(8,16,36,.9);overflow:hidden}
+.seg2 button{flex:1;padding:13px 6px;font-weight:700;font-size:18px;color:#c9d8ef;display:flex;align-items:center;justify-content:center;gap:8px}
+.seg2 button.on{color:#fff;background:linear-gradient(180deg,rgba(40,120,220,.55),rgba(20,70,150,.55));box-shadow:inset 0 0 0 1.5px rgba(110,220,255,.9),0 0 14px rgba(79,210,255,.5)}
+.chips2{display:flex;gap:8px;overflow-x:auto;padding:12px 0 6px;scrollbar-width:none}
+.chips2::-webkit-scrollbar{display:none}
+.chips2 button{flex:none;padding:7px 14px;border-radius:99px;border:1px solid rgba(160,190,230,.45);background:rgba(8,16,36,.9);font-weight:600;font-size:14.5px;color:#dce8fa}
+.chips2 button.on{border-color:#7fe3ff;color:#7fe3ff;box-shadow:0 0 10px rgba(79,210,255,.5)}
+.exl{display:grid;gap:7px;margin-top:6px}
+.exr{position:relative;display:flex;align-items:center;gap:12px;width:100%;padding:8px 14px 8px 10px;text-align:left;border-radius:10px;border:1px solid rgba(110,200,255,.5);background:radial-gradient(60% 120% at 100% 50%,rgba(140,70,255,.18),transparent 70%),linear-gradient(180deg,rgba(12,22,46,.95),rgba(6,12,28,.95))}
+.exr .ib{width:44px;height:38px;border-radius:7px;border:1px solid rgba(190,140,255,.6);display:grid;place-items:center;font-size:19px;background:rgba(20,12,40,.8);flex:none}
+.exr .n{font-weight:700;font-size:17px;color:#fff;display:flex;align-items:center;gap:8px}
+.exr .d{font-size:13.5px;color:#c9d8ef}
+.exr .xp{margin-left:auto;font-weight:700;font-size:17px;color:#7dffd0;white-space:nowrap;text-shadow:0 0 8px rgba(79,255,200,.4)}
+.rn{display:inline-grid;place-items:center;min-width:20px;height:18px;padding:0 4px;border-radius:3px;font-size:11px;font-weight:800;border:1px solid}
+.rn.r1{color:#9dff9a;border-color:#3e8f3c;background:#0f2a12}.rn.r2,.rn.r3{color:#9fd4ff;border-color:#3a6fa8;background:#0d1d36}.rn.r4,.rn.r5{color:#d7b8ff;border-color:#7a4fc0;background:#1e1238}
+.today{margin-top:18px;padding:14px;border-radius:14px}
+.today .hd{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.today .hd .disp{font-size:21px;letter-spacing:.18em;color:#fff}
+.today .hd .x{padding:4px 18px;border-radius:99px;border:1px solid rgba(140,220,255,.7);font-weight:700;font-style:italic;color:#bfefff}
+.today .empty{display:flex;gap:12px;align-items:center;padding:12px;border:1px solid rgba(110,200,255,.35);border-radius:10px;background:rgba(8,16,36,.7);color:#c9d8ef;font-style:italic}
+/* MISSÕES */
+.misban{display:block;width:100%;max-width:520px;margin:-6px auto 0}
+.missub{display:flex;align-items:center;gap:12px;justify-content:center;font-weight:800;letter-spacing:.12em;font-size:16px;color:#e8f4ff;margin:10px 0 0}
+.missub:before,.missub:after{content:"";width:50px;height:2px;background:linear-gradient(90deg,transparent,#4fd2ff)}
+.missub:after{background:linear-gradient(90deg,#4fd2ff,transparent)}
+.mispanel{padding:14px 12px;margin-top:10px;border-radius:16px;border-width:1.5px}
+.qcard{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;margin-top:10px;border:1px solid rgba(110,200,255,.5);clip-path:polygon(2% 0,98% 0,100% 12%,100% 88%,98% 100%,2% 100%,0 88%,0 12%);background:linear-gradient(180deg,rgba(18,40,80,.85),rgba(8,18,40,.9))}
+.qcard:first-child{margin-top:0}
+.qi{width:66px;height:58px;flex:none;object-fit:contain}
+.qi.em{display:grid;place-items:center;font-size:28px;border:1.5px solid rgba(110,220,255,.85);clip-path:polygon(18% 0,82% 0,100% 25%,100% 75%,82% 100%,18% 100%,0 75%,0 25%);background:rgba(10,30,60,.9);box-shadow:inset 0 0 12px rgba(79,210,255,.4)}
+.qcard .tx{flex:1;min-width:0}
+.qcard .tt{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.qcard .tt b{font-weight:700;font-style:italic;font-size:19px;color:#fff}
+.qcard .tt span{font-family:Jost;font-weight:600;font-size:18px;white-space:nowrap}
+.qcard small{display:block;font-style:italic;color:#c9d8ef;font-size:14px}
+.qcard .qb{height:12px;border-radius:99px;border:1.5px solid rgba(200,235,255,.75);margin-top:8px;padding:2px}
+.qcard .qb i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#4fd2ff,#bff1ff);box-shadow:0 0 6px #4fd2ff}
+.qcard.done .tt span,.qcard.done .tt b{color:#7dff9b}
+.qcard .btn{margin-top:8px}
+.qreward{display:flex;align-items:center;gap:12px;margin-top:14px;padding:8px 14px 8px 8px;border:2px solid #ffcc4d;clip-path:polygon(3% 0,97% 0,100% 50%,97% 100%,3% 100%,0 50%);background:linear-gradient(180deg,rgba(70,50,10,.9),rgba(40,26,4,.9));box-shadow:0 0 16px rgba(255,190,50,.45)}
+.qreward img{width:110px;flex:none}
+.qreward div{border-left:2px solid rgba(255,210,120,.5);padding-left:12px;font-style:italic;font-size:15px;color:#fff}
+.qreward b{color:#ffd65a}
+.qwarn{text-align:center;font-style:italic;margin:14px 6px 0;font-size:15px;color:#e8f0fb}
+.qwarn b{color:#ff5a6a;font-style:italic}
+.qrenew{display:flex;align-items:center;justify-content:center;gap:12px;margin:16px auto 4px;max-width:340px;padding:10px;border:2px solid rgba(140,220,255,.85);clip-path:polygon(7% 0,93% 0,100% 50%,93% 100%,7% 100%,0 50%);background:rgba(10,24,52,.9);font-family:'Exo 2',Jost;font-weight:700;font-style:italic;font-size:22px;letter-spacing:.18em;color:#fff;text-shadow:0 0 10px rgba(120,220,255,.8)}
+/* CHEFES */
+.brow{display:flex;align-items:center;gap:12px;margin-top:9px;padding:6px 12px 6px 6px;border-radius:12px;border:1px solid rgba(110,200,255,.55);background:radial-gradient(50% 140% at 100% 0,rgba(140,70,255,.25),transparent 70%),linear-gradient(180deg,rgba(12,22,46,.95),rgba(6,12,28,.95));box-shadow:0 0 10px rgba(79,195,255,.2)}
+.brow img{width:78px;height:64px;object-fit:contain;flex:none}
+.brow .bx{flex:1;min-width:0;border-left:1px solid rgba(200,225,255,.25);padding-left:10px}
+.brow .bn{font-weight:700;font-size:18px;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:6px}
+.brow .bd{font-size:13.5px;color:#dce8fa;margin-top:1px}
+.brow .hb{height:9px;border-radius:99px;background:rgba(80,40,140,.35);margin-top:7px;overflow:hidden;border:1px solid rgba(190,140,255,.4)}
+.brow .hb i{display:block;height:100%;background:linear-gradient(90deg,#7a3cff,#c58bff);box-shadow:0 0 8px #a35cff}
+.brow .hp{display:flex;justify-content:space-between;font-size:13px;color:#e2ebf8;margin-top:4px}
+.brow.dead img{filter:grayscale(1) brightness(.6)}
+.brow .slain{font-size:11px;font-weight:800;letter-spacing:.1em;color:#7dff9b;border:1px solid #3e8f3c;padding:2px 6px;border-radius:4px}
+/* DUNGEON */
+.portal{display:flex;margin-top:14px;border:2px solid #ffcc4d;border-radius:14px;overflow:hidden;box-shadow:0 0 18px rgba(255,190,50,.45);background:linear-gradient(90deg,rgba(30,20,6,.95),rgba(20,14,30,.95))}
+.portal img{width:43%;object-fit:cover;flex:none;clip-path:polygon(0 0,100% 0,88% 100%,0 100%)}
+.portal .px{padding:12px 12px 12px 6px;display:flex;flex-direction:column;gap:6px;justify-content:center}
+.portal h3{font-family:'Exo 2',Jost;font-weight:800;font-style:italic;font-size:17px;letter-spacing:.04em;color:#ffd65a;text-transform:uppercase}
+.portal p{font-style:italic;font-size:13.5px;color:#eef3fb;line-height:1.3}
+.goldbtn{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:4px;padding:10px;border:2px solid #ffe9a8;clip-path:polygon(7% 0,93% 0,100% 50%,93% 100%,7% 100%,0 50%);background:linear-gradient(180deg,#ffd75a,#e8a01a);color:#2a1800;font-family:'Exo 2',Jost;font-weight:800;font-style:italic;font-size:20px;letter-spacing:.08em;box-shadow:0 0 14px rgba(255,180,40,.6)}
+.dgc2{display:flex;margin-top:12px;border-radius:14px;overflow:hidden;border:1px solid rgba(110,200,255,.6);box-shadow:0 0 12px rgba(79,195,255,.3);background:linear-gradient(180deg,rgba(12,22,46,.96),rgba(6,12,28,.96));text-align:left;width:100%}
+.dgc2.p{border-color:rgba(190,140,255,.75);box-shadow:0 0 12px rgba(160,90,255,.4)}
+.dgc2>img{width:35%;object-fit:cover;flex:none}
+.dgc2 .dx{flex:1;padding:10px 10px 10px 8px;display:flex;flex-direction:column;gap:7px;min-width:0}
+.dgc2 h4{font-family:'Exo 2',Jost;font-weight:800;font-style:italic;font-size:16px;letter-spacing:.03em;color:#fff;text-transform:uppercase}
+.dgc2 .rr{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.dgc2 .df{padding:3px 8px;border-radius:6px;border:1px solid rgba(140,200,255,.5);font-size:11.5px;font-weight:700;letter-spacing:.06em;background:rgba(8,16,36,.8)}
+.dgc2 .df em{font-style:normal;color:#ffcc4d;letter-spacing:0}
+.dgc2 .stt2{margin-left:auto;padding:3px 9px;border-radius:99px;border:1px solid rgba(200,225,255,.5);font-size:12px;font-weight:700;white-space:nowrap}
+.dgc2 .rw{display:flex;align-items:center;gap:5px}
+.dgc2 .rw small{font-size:10.5px;font-weight:700;letter-spacing:.08em;color:#c9d8ef;margin-right:2px}
+.dgc2 .rw img{width:30px;height:30px;object-fit:contain}
+.dgc2 .rw .go{margin-left:auto;font-size:20px;color:#bfe9ff}
+.dgc2 .elt{margin-left:auto;padding:3px 9px;border-radius:99px;border:1.5px solid #ffcc4d;color:#ffd65a;font-size:12px;font-weight:800;box-shadow:0 0 8px rgba(255,190,50,.4)}
+.dgc2.lock>img{filter:grayscale(.4) brightness(.7)}
+.chest{display:flex;align-items:center;gap:10px;margin-top:14px;padding:4px 12px 4px 0;border:2px solid #ffcc4d;border-radius:14px;background:linear-gradient(90deg,rgba(40,24,60,.95),rgba(14,12,30,.95));box-shadow:0 0 14px rgba(255,190,50,.35)}
+.chest img{width:34%;flex:none}
+.chest .cx{flex:1;border-left:1px solid rgba(255,210,120,.4);padding-left:10px}
+.chest .ch{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.chest b{font-family:'Exo 2',Jost;font-weight:800;font-style:italic;font-size:15px;color:#ffd65a;text-transform:uppercase}
+.chest small{display:block;font-size:12.5px;color:#e2ebf8;margin-top:2px}
+.chest .pb{height:10px;border-radius:99px;border:1px solid rgba(200,225,255,.6);margin-top:6px;overflow:hidden}
+.chest .pb i{display:block;height:100%;background:linear-gradient(90deg,#ffcc4d,#fff1b0)}
+/* TAVERNA */
+.tavh{display:flex;align-items:center;gap:12px;margin:14px 0 12px;padding-bottom:10px;border-bottom:1px solid rgba(110,200,255,.25)}
+.tavh .disp{font-size:34px;color:#fff;text-shadow:0 0 12px rgba(150,220,255,.6)}
+.tavh .sb{border-left:1.5px solid rgba(200,225,255,.4);padding-left:12px;font-family:'Exo 2';font-style:italic;font-weight:700;letter-spacing:.14em;color:#9fc6ee;font-size:15px}
+.compose{padding:12px;margin-top:12px;border-radius:14px}
+.compose textarea{background:rgba(10,22,48,.9);border:1px solid rgba(110,170,240,.45);border-radius:10px;font-style:italic;min-height:84px}
+.compose .acts{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+.compose .gb{padding:8px 12px;border-radius:8px;border:1px solid rgba(160,190,230,.5);background:rgba(8,16,36,.9);font-weight:700;font-size:14.5px}
+.compose .post2{margin-left:auto;padding:9px 22px;border-radius:9px;border:2px solid #ffe9a8;background:linear-gradient(180deg,#ffd75a,#e8a01a);color:#2a1800;font-weight:800;font-size:17px;box-shadow:0 0 14px rgba(255,180,40,.55)}
+.pcard{position:relative;margin-top:12px;padding:14px 14px 10px;border-radius:14px;border:1.5px solid rgba(160,130,255,.7);background:radial-gradient(60% 80% at 100% 60%,rgba(140,70,255,.22),transparent 70%),linear-gradient(180deg,rgba(14,22,50,.96),rgba(8,12,30,.96));box-shadow:0 0 14px rgba(140,90,255,.3)}
+.pcard .ph2{display:flex;gap:14px}
+.pcard .av2{width:72px;height:72px;border-radius:50%;overflow:hidden;flex:none;border:2px solid #7fe0ff;box-shadow:0 0 14px rgba(79,210,255,.6)}
+.pcard .av2 img{width:100%;height:100%;object-fit:cover}
+.pcard .who{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pcard .who b{font-size:19px;color:#fff}
+.pcard .lvp{padding:1px 9px;border-radius:6px;border:1px solid rgba(190,140,255,.8);background:rgba(60,30,110,.6);font-size:13px;font-weight:700}
+.pcard .tm{font-size:13px;color:#b9c9e2}
+.pcard .txt{margin-top:4px;font-size:16px;color:#f2f6fc;white-space:pre-wrap;overflow-wrap:anywhere}
+.pcard .chips3{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.pcard .chips3 span{padding:3px 12px;border-radius:8px;border:1.5px solid #4fd2ff;color:#bff1ff;font-weight:700;font-size:14px;background:rgba(10,40,70,.6)}
+.pcard .chips3 span.g{border-color:#ffcc4d;color:#ffd65a;background:rgba(60,40,6,.6)}
+.pcard .more{position:absolute;right:12px;top:8px;font-size:20px;color:#c9d8ef;letter-spacing:2px}
+.pcard .ft{display:flex;align-items:center;gap:14px;margin-top:10px;padding-top:8px;border-top:1px solid rgba(200,225,255,.18);font-size:15px;color:#e2ebf8}
+.pcard .ft button{display:flex;align-items:center;gap:6px;font-weight:600}
+.pcard .ft .on{color:#7fe3ff}
+.pcard .ft .sep{width:1px;height:18px;background:rgba(200,225,255,.3)}
+.pcard .ft .kind{margin-left:auto;font-size:13.5px;padding:3px 10px;border-radius:8px;background:rgba(8,16,36,.8)}
+.thread .rp{padding:8px 0;border-top:1px solid rgba(200,225,255,.15)}
+.thread .rp b{font-size:14px}.thread .rp p{font-size:14.5px;white-space:pre-wrap;overflow-wrap:anywhere}
+
+/* ajustes de densidade (v2.1) */
+.app{position:relative}
+.top{padding-top:8px;padding-bottom:8px}
+.brand{font-size:21px;padding:9px 40px 9px 30px}.brand small{font-size:12px}
+.pill{height:40px;font-size:17px;padding:0 15px}.pill.elite{font-size:15px}
+.iconbtn{width:44px;height:44px}.iconbtn svg{width:23px;height:23px}
+.musbtn{position:absolute;right:20px;top:78px;z-index:6;margin:0;padding:4px 9px;font-size:12px;border-radius:99px;background:rgba(5,9,19,.75)}
+.hcard{height:212px}
+.hcard .art{top:-4px;bottom:auto;height:205%;right:-40px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 18%),linear-gradient(#000 70%,transparent);-webkit-mask-composite:source-in;mask-composite:intersect}
+.hcard .bgw{font-size:80px}
+.statp{padding:12px 14px}
+.bar2 .lb{width:66px;padding:3px 0;font-size:15px}
+.bar2l{padding-left:78px;margin:3px 0 10px}
+.exr{padding:5px 14px 5px 8px}
+.exr .ib{width:40px;height:34px}
+.exr .n{font-size:17px}.exr .d{font-size:13px}
+.exl{gap:6px}
+.dgc2 .dx{gap:6px;padding:8px 10px 8px 8px}
+.misban{margin-top:-44px;position:relative}
+.qcard{padding:8px 12px 8px 8px}
+.brow{margin-top:7px;padding:4px 12px 4px 4px}
+.brow img{width:74px;height:58px}
+.pcard .av2{width:76px;height:76px}
+
+.pill{white-space:nowrap}
+.nav button{font-size:13.5px}.nav button img{width:38px;height:32px}
+.bigcta{width:84%;margin-left:auto;margin-right:auto;font-size:28px;padding:16px 10px}
+.exr{padding:2px 14px 2px 8px;min-height:44px}
+.exr .ib{width:36px;height:30px;font-size:16px}
+.exr .n{font-size:16px}.exr .d{font-size:12.5px;line-height:1.1}
+.exr .xp{font-size:16px}
+.hcard .art{height:215%;right:-30px}
+
+.qreward div{font-size:16.5px}.qwarn{font-size:16px}
+.qcard .tt b{font-size:19px}.qcard small{font-size:14px}
+
+.brow{padding:2px 12px 2px 2px;margin-top:6px}.brow img{width:92px;height:74px}
+.brow .bn{font-size:19px}.brow .bd{font-size:14px}.brow .hb{margin-top:5px}.brow .hp{margin-top:3px}
+.pcard .av2{width:88px;height:88px}.pcard .who b{font-size:21px}.pcard .lvp{font-size:14px}
+.pcard .tm{font-size:14px}.pcard .txt{font-size:18px}.pcard .chips3 span{font-size:15px}.pcard .ft{font-size:16.5px}
+
+.app:not(.z) .top{zoom:var(--z,1)}
+.top{gap:6px}.brand{font-size:19px;padding:9px 30px 9px 26px;min-width:0;flex:0 1 auto;overflow:hidden}.brand:before{left:10px}
+.topr{gap:6px;flex:none}.pill{padding:0 11px;font-size:16px;height:38px}.pill.elite{font-size:14px}
+.iconbtn{width:40px;height:40px}
 </style>
 </head>
 <body>
@@ -363,6 +627,8 @@ h2 .sub{font-family:Rajdhani;font-size:13px;color:var(--mute);letter-spacing:0;f
 <div id="modal"></div>
 
 <script>
+/* escala: o layout é desenhado em 500px (igual aos mockups) e encolhe proporcionalmente em telas menores */
+(function(){const f=()=>document.documentElement.style.setProperty('--z',Math.min(1,Math.max(.8,innerWidth/500)).toFixed(4));f();addEventListener('resize',f)})();
 /* ================== DADOS DO JOGO ================== */
 const ART={keyart:'img/keyart.webp',chefe:'img/chefe.webp',
   full:{monge:'img/cls-monge.webp',paladino:'img/cls-paladino.webp',guerreiro:'img/cls-guerreiro.webp'},
@@ -750,27 +1016,6 @@ function classCards(sel){return Object.entries(CLASSES).map(([k,c])=>`<button cl
 let tab='heroi', trainType='cal', trainGroup='Todos';
 let timerEnd=0,timerInt=null;
 
-function render(){
-  if(!S.created){ $('#nav').hidden=true; $('#app').innerHTML=viewCreate(); return; }
-  ensureQuests();
-  $('#nav').hidden=false;
-  const g=gold();
-  const head=`<div class="top"><div class="brand">FORJA DO HERÓI<small>TREINO RPG</small></div>
-    <div class="topr">${isElite()?'<span class="pill elite">👑 ELITE</span>':'<button class="pill up" data-a="elite">RECRUTA ↑</button>'}<span class="pill">🪙 ${fmt(g)}</span><button class="iconbtn" data-a="sound" title="${SFX.on?'Desligar sons':'Ligar sons'}">${SFX.on?'🔊':'🔇'}</button><button class="iconbtn" data-a="settings" title="Ficha">⚙️</button></div></div>`;
-  const views={heroi:viewHero,treinar:viewTrain,dungeon:viewDungeon,missoes:viewQuests,chefes:viewBosses,taverna:viewTaverna,mais:viewMais,loja:viewShop,diario:viewLog,temporada:viewSeason,progressao:viewProgress,planilha:viewSheet,alquimia:viewAlquimia};
-  $('#app').innerHTML=head+(tab==='heroi'?installBanner():'')+(MUS.tracks[tab]?musicBtn():'')+views[tab]()+`<div class="sync" id="sync">${syncLabel()}</div>`;
-  renderNav();
-  if(tab==='treinar') tickTimer();
-  try{musicSync()}catch(e){}
-}
-function renderNav(){
-  const es=todayEntries();
-  const qReady=S.q.ids.some(id=>{const q=QUESTS.find(x=>x.id===id);return q&&!S.q.claimed.includes(id)&&q.f(es)>=q.goal});
-  const items=[['heroi','🧙','Herói'],['treinar','⚔️','Treinar'],['dungeon','🗺️','Dungeon'],['missoes','📜','Missões'],['chefes','🐉','Chefes'],['taverna','🍺','Taverna'],['mais','☰','Mais']];
-  const navTab=['loja','diario','temporada','progressao','planilha','alquimia'].includes(tab)?'mais':tab;
-  $('#nav').innerHTML='<div class="in">'+items.map(([k,e,n])=>`<button class="${navTab===k?'on':''}" data-tab="${k}"><span class="e">${e}</span>${n}${k==='missoes'&&qReady?'<span class="dot"></span>':''}${k==='dungeon'&&!isElite()?'<span class="lockdot">🔒</span>':''}</button>`).join('')+'</div>';
-}
-
 const face=(k)=>`<img class="facei" src="${ART.face[k]||ART.face.paladino}" alt="">`;
 function viewCreate(){
   const c=window.__clsPick||'paladino';
@@ -785,112 +1030,7 @@ function viewCreate(){
 
 const ICO={FOR:'<path d="M6 7v10M3 9.5v5M18 7v10M21 9.5v5M6 12h12"/>',RES:'<path d="M12 2.5l7.5 3v6.2c0 4.6-3.1 8-7.5 9.8-4.4-1.8-7.5-5.2-7.5-9.8V5.5z"/>',AGI:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',VIG:'<path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-3 2-4 2-7 1 1 2 2 3 3z"/>'};
 const svgI=(d,sz=22)=>`<svg width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="#dff4ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
-function viewHero(){
-  const li=levelInfo(),st=streakInfo(),at=attrs(),c=CLASSES[S.cls];
-  const bossN=Object.keys(S.bosses).length;
-  const anyEx={t:S.cls==='guerreiro'?'mus':'cal'};
-  const m=multipliers(anyEx);
-  const buffs=[];
-  if(st.cur>0) buffs.push(`<span class="buff">🔥 Sequência +${Math.round((m.streak-1)*100)}% XP</span>`);
-  if(S.elixir===ymd()) buffs.push(`<span class="buff p">🧪 Elixir +50% XP</span>`);
-  buffs.push(`<span class="buff p">${c.e} Bônus de classe</span>`);
-  const days=[];const wd=['D','S','T','Q','Q','S','S'];let mx=1;
-  for(let i=6;i>=0;i--){const d=addDays(ymd(),-i);const x=sum(S.log.filter(e=>e.d===d),e=>e.xp);mx=Math.max(mx,x);const [y,mo,da]=d.split('-').map(Number);days.push({x,l:wd[new Date(y,mo-1,da).getDay()]})}
-  const col=CLS_COLOR[S.cls];
-  return `<div class="stage" style="background:${col.bg};--acc:${col.acc}"><div class="stage-word">${col.w}</div><img class="stage-art" src="${ART.full[S.cls]}" alt="${c.n}"><div class="stage-info"><span class="tag">[ SISTEMA ] · JOGADOR</span><div class="stage-name">${esc(S.name)}</div><div class="stage-cls">${c.n}</div>${isElite()?'<span class="crown">👑 CAÇADOR ELITE</span>':''}${S.title?`<div class="stage-title">« ${esc(S.title)} »</div>`:''}</div></div>
-  <div class="win">
-    <div class="wtitle">STATUS</div>
-    <div class="st-top">
-      <div class="st-face">${face(S.cls)}</div>
-      <div class="st-lv glow"><b>${li.L}</b><span>NÍVEL</span></div>
-      <div class="st-info">
-        <div><small>NOME: </small><span class="glow">${esc(S.name)}</span></div>
-        <div><small>CLASSE: </small><span class="glow">${c.n}</span></div>
-        <div><small>TÍTULO: </small><span class="glow">${S.title?esc(S.title):'Nenhum'}</span></div>
-        <div><small>PATENTE: </small><span class="glow">${rankOf(li.L)}</span></div>
-      </div>
-    </div>
-    <div class="buffs" style="justify-content:center;margin-top:14px">${buffs.join('')}</div>
-  </div>
-  <div class="win">
-    <div class="barrow"><span class="lb glow">XP</span><div class="track"><i style="width:${(li.into/li.need*100).toFixed(1)}%"></i></div></div>
-    <div class="xpline" style="padding-left:50px"><span>${fmt(li.into)} / ${fmt(li.need)}</span><span>faltam ${fmt(li.need-li.into)}</span></div>
-    <div class="barrow" style="margin-top:10px"><span class="lb glow">SEQ</span><div class="track v"><i style="width:${Math.min(st.cur,10)*10}%"></i></div></div>
-    <div class="xpline" style="padding-left:50px"><span>${st.cur} ${st.cur===1?'dia seguido':'dias seguidos'}</span><span>bônus +${Math.min(st.cur,10)*5}% XP</span></div>
-    <div class="mini">
-      <div><b class="glow">${st.days}</b><span>DIAS</span></div>
-      <div><b class="glow">${bossN}/${BOSSES.length}</b><span>CHEFES</span></div>
-      <div><b class="glow">${fmt(totalXP())}</b><span>XP TOTAL</span></div>
-      <div><b class="glow">${fmt(gold())}</b><span>OURO</span></div>
-    </div>
-  </div>
-  <div class="win">
-    <div class="stgrid">${Object.entries(ATTRS).map(([k,a])=>`<div class="stc" title="${a.n}: ${a.d}">${svgI(ICO[k])}<span class="k glow">${k}:</span><span class="v glow">${at[k]}</span></div>`).join('')}</div>
-    <div style="margin-top:14px;font-size:12.5px;color:var(--mute);text-align:center">FOR: cargas e movimentos difíceis · RES: volume e isometria · AGI: controle e habilidades · VIG: constância</div>
-  </div>
-
-  ${elitePromo()}
-
-  <h2>Últimos 7 dias</h2>
-  <div class="card"><div class="week">${days.map(d=>`<div><i class="${d.x?'':'zero'}" style="height:${d.x?Math.max(8,d.x/mx*100):4}%"></i><span>${d.l}</span></div>`).join('')}</div>
-  ${!st.trainedToday?`<button class="btn full" style="margin-top:12px" data-tab="treinar">⚔️ Treinar hoje e manter a sequência</button>`:`<p class="muted" style="margin-top:10px;font-size:14px;text-align:center">Você já treinou hoje: ${fmt(sum(todayEntries(),e=>e.xp))} XP ganhos.</p>`}</div>
-
-  <h2>Conquistas <span class="sub">${Object.keys(S.ach).length}/${ACH.length}</span></h2>
-  <div class="ach">${ACH.map(a=>`<div class="badge ${S.ach[a.id]?'on':''}"><span class="e">${a.e}</span><span class="t">${a.t}</span></div>`).join('')}</div>`;
-}
-
-function viewTrain(){
-  const groups=['Todos',...new Set(EX.filter(e=>e.t===trainType).map(e=>e.g))];
-  if(!groups.includes(trainGroup)) trainGroup='Todos';
-  const list=EX.filter(e=>e.t===trainType&&(trainGroup==='Todos'||e.g===trainGroup));
-  const es=todayEntries().slice().reverse();
-  return `<div class="card"><div class="row between"><div><div style="font-weight:700">⏱️ Descanso</div><div class="muted" style="font-size:12px">Timer entre séries</div></div>
-    <div class="timer"><span class="clock" id="clock">--:--</span><button class="tbtn" data-a="timer" data-v="60">60s</button><button class="tbtn" data-a="timer" data-v="90">90s</button><button class="tbtn" data-a="timer" data-v="120">2m</button></div></div></div>
-  <h2>Escolha o exercício</h2>
-  <div class="seg"><button class="${trainType==='cal'?'on':''}" data-a="type" data-v="cal">🤸 Calistenia</button><button class="${trainType==='mus'?'on':''}" data-a="type" data-v="mus">🏋️ Musculação</button></div>
-  <div class="chips">${groups.map(g=>`<button class="chip ${g===trainGroup?'on':''}" data-a="group" data-v="${g}">${GROUP_ICON[g]||''} ${g}</button>`).join('')}</div>
-  <div class="exlist">${list.map(e=>{const l=S.last[e.id];return `<button class="ex" data-a="ex" data-id="${e.id}"><span class="ic">${GROUP_ICON[e.g]||'•'}</span>
-    <span><div class="n">${esc(e.n)}${e.tier?`<span class="tier t${e.tier}">${ROMAN[e.tier]}</span>`:''}</div><div class="d">${e.g}${l?` · último: ${l.s}×${l.r}${e.u?'s':''}${e.t==='mus'?' '+l.kg+'kg':''}`:''}</div></span>
-    <span class="m">×${e.m}</span></button>`}).join('')}</div>
-  <h2>Treino de hoje <span class="sub">${fmt(sum(es,e=>e.xp))} XP</span></h2>
-  <div class="card">${es.length?es.map(entryRow).join(''):'<p class="muted">Nenhuma série registrada hoje. Escolha um exercício acima.</p>'}</div>`;
-}
 function entryRow(e){const ex=EXM[e.ex]||{n:e.ex};return `<div class="entry"><div><div class="n">${esc(ex.n)}</div><div class="d">${e.s} × ${e.r}${ex.u?'s':''}${ex.t==='mus'?' · '+e.kg+' kg':''}</div></div><span class="x">+${fmt(e.xp)} XP</span><button class="del" data-a="del" data-id="${e.id}" title="Apagar">✕</button></div>`}
-
-function viewQuests(){
-  const es=todayEntries();const rw=questReward();const st=streakInfo();
-  const now=new Date();const mid=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1);
-  const h=Math.floor((mid-now)/36e5),mi=Math.floor((mid-now)/6e4)%60;
-  const allDone=S.q.ids.every(id=>S.q.claimed.includes(id));
-  let warn;
-  if(allDone) warn=`<span style="color:#7dff9b;text-shadow:0 0 10px rgba(125,255,155,.7)">MISSÃO CUMPRIDA.</span> Volte amanhã para a próxima.`;
-  else if(st.cur>0&&!st.trainedToday) warn=`<b>AVISO!</b> Se você não treinar hoje, sua sequência de ${st.cur} ${st.cur===1?'dia':'dias'} e o bônus de +${Math.min(st.cur,10)*5}% de XP serão perdidos.`;
-  else warn=`<b>AVISO!</b> Missões não cumpridas desaparecem à meia-noite, junto com as recompensas.`;
-  return `<div class="win qwin" style="margin-top:8px">
-    <span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span>
-    <div class="qhead glow"><span class="qbang">!</span>MISSÃO DIÁRIA</div>
-    <div class="glow" style="margin-top:12px;font-weight:700;letter-spacing:.06em">FORJANDO O HERÓI — DIA ${st.cur+(st.trainedToday?0:1)}</div>
-    <div class="qgoal">OBJETIVOS</div>
-    ${S.q.ids.map(id=>{const q=QUESTS.find(x=>x.id===id);if(!q)return'';const v=Math.min(q.goal,q.f(es));const done=v>=q.goal;const cl=S.q.claimed.includes(id);
-      return `<div class="qrow ${done?'done':''}"><div><div class="qn glow">[${cl?'CONCLUÍDA':done?'COMPLETA':'INCOMPLETA'}] ${q.t}</div><small>${q.d}</small></div>
-      <div style="text-align:right"><div class="qv glow">[${fmt(v)}/${fmt(q.goal)}]</div>${done&&!cl?`<button class="btn sm" data-a="claim" data-id="${id}">Resgatar</button>`:''}</div></div>`}).join('')}
-    <div style="margin-top:12px;font-size:13.5px;color:#bfe9ff">Recompensa: +${rw.xp} XP e ${rw.gold} ouro por missão · bônus de +100 XP e 50 ouro ao completar todas</div>
-    <div class="warn glow">${warn}</div>
-    <div class="qtimer glow"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="filter:drop-shadow(0 0 6px rgba(79,195,255,.9))"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M10 2h4M12 2v3"/></svg>RENOVA EM ${String(h).padStart(2,'0')}:${String(mi).padStart(2,'0')}</div>
-  </div>
-  <p class="muted" style="font-size:13px;margin-top:14px;text-align:center">Missões cumpridas no total: ${S.qTotal}</p>${isElite()?'':`<div style="margin-top:14px">${elitePromo()}</div>`}`;
-}
-function viewBosses(){
-  return `<div class="bossban"><img src="${ART.chefe}" alt="Herói enfrentando o Golem do Supino"><div><span class="tag" style="color:#e2c4ff">BATALHAS DE CHEFE</span><h2 style="margin:8px 0 0">Seus recordes viram monstros</h2></div></div>
-  ${!S.bw?`<div class="card" style="border-color:var(--gold2)"><p>Defina seu peso corporal na ⚙️ Ficha para enfrentar os chefes de força.</p></div>`:''}
-  ${BOSSES.map(b=>{const p=bossProgress(b);const dead=!!S.bosses[b.id];const unit=b.u==='kg'?' kg':b.u==='s'?' s':' reps';
-   return `<div class="card"><div class="boss ${dead?'dead':''}"><div class="face">${b.e}</div><div style="flex:1;min-width:0">
-   <div class="row between"><span class="bn">${b.n}</span>${dead?'<span class="slain">DERROTADO</span>':''}</div>
-   <div class="bd">${b.d}${b.u==='kg'&&p.target?` (${fmt(p.target)} kg)`:''}</div>
-   ${dead?'':`<div style="margin-top:8px" class="bar red thin"><i style="width:${((1-p.p)*100).toFixed(1)}%"></i></div>
-   <div class="hp"><span>HP ${Math.round((1-p.p)*100)}%</span><span>sua marca: ${fmt(p.best)}${unit}</span></div>`}
-   </div></div></div>`}).join('')}`;
-}
 
 function viewShop(){
   const g=gold();
@@ -997,21 +1137,6 @@ function shareCard(p){
   }
   return '';
 }
-function postHTML(p,F,isReply){
-  const h=p.hero;const c=CLASSES[h.cls]||CLASSES.paladino;const mine=p.uid===TV.me;
-  const set=F.likes[p.key];const n=set?set.size:0;const iLike=!!(set&&set.has(TV.me));
-  const canDel=mine||TV.owner;
-  const head=`<div class="ph"><span class="av" style="overflow:hidden">${face(CLASSES[h.cls]?h.cls:"paladino")}</span><div style="min-width:0"><div class="pn ${h.elite?'gname':''}">${h.elite?'👑 ':''}${esc(h.name||'Herói')}${mine?'<span class="you">VOCÊ</span>':''}</div>
-    <div class="pm">Nv ${+h.level||1} · ${esc(h.rank||'')}${h.title?' · '+esc(h.title):''} · ${ago(p.ts)}</div></div></div>`;
-  const actions=`<div class="pa">
-    <button class="pact ${iLike?'on':''}" data-a="tvLike" data-k="${esc(p.key)}" ${TV.canWrite?'':'disabled'}>💪 ${n||''}</button>
-    ${isReply?'':`<button class="pact" data-a="tvReply" data-k="${esc(p.key)}" ${TV.canWrite?'':'disabled'}>💬 Responder</button>`}
-    ${canDel?`<button class="pact" data-a="tvDel" data-u="${esc(p.uid)}" data-id="${esc(p.id)}">🗑️</button>`:''}</div>`;
-  const body=(p.text?`<div class="pt">${esc(p.text)}</div>`:'')+shareCard(p);
-  if(isReply) return `<div class="reply post" style="padding:0">${head}${body}${actions}</div>`;
-  const reps=F.reps[p.key]||[];
-  return `<div class="card post">${head}${body}${actions}${reps.length?`<div class="replies">${reps.map(r=>postHTML(r,F,true)).join('')}</div>`:''}</div>`;
-}
 function feedHTML(){
   if(TV.err&&!TV.docs.length) return `<div class="card"><p class="muted">${esc(TV.err)}</p></div>`;
   if(!TV.ready) return `<div class="card"><p class="muted">Abrindo as portas da taverna…</p></div>`;
@@ -1021,19 +1146,6 @@ function feedHTML(){
   return (TV.err?`<p class="dim" style="font-size:12px;margin-bottom:6px">${esc(TV.err)}</p>`:'')+F.top.map(p=>postHTML(p,F,false)).join('');
 }
 function paintFeed(){const el=$('#feed');if(el&&tab==='taverna')el.innerHTML=feedHTML()}
-function viewTaverna(){
-  if(!TV.db) return `<h2>🍺 Taverna</h2><div class="card"><p>A Taverna é o mural da galera: posts, respostas e treinos compartilhados.</p>
-    <p class="muted" style="margin-top:8px;font-size:14px">O salão está sendo preparado e abre em breve para todos os heróis. Enquanto isso, continue treinando: seu progresso fica salvo neste aparelho.</p></div>`;
-  return `<h2>🍺 Taverna <span class="sub">o mural dos heróis</span></h2>
-  <div class="seg" style="margin-bottom:10px"><button class="${TV.chan==='geral'?'on':''}" data-a="tvChan" data-v="geral">🍺 Salão geral</button><button class="${TV.chan==='vip'?'on':''}" data-a="tvChan" data-v="vip">👑 Salão VIP</button></div>
-  ${TV.canWrite&&(TV.chan!=='vip'||isElite())?`<div class="card">
-    <textarea id="tv_text" rows="3" maxlength="500" placeholder="Conte como foi o treino, peça dicas ou desafie a galera…">${esc(TV.draft)}</textarea>
-    <div class="row between" style="margin-top:8px;flex-wrap:wrap;gap:8px">
-      <div class="row" style="gap:6px;flex-wrap:wrap"><button class="btn ghost sm" data-a="tvShare">⚔️ Treino de hoje</button><button class="btn ghost sm" data-a="tvLevel">🏅 Meu nível</button></div>
-      <button class="btn sm" data-a="tvPost">Postar</button></div></div>`
-  :`<div class="card" style="border-color:var(--gold2)"><p>🔒 Você pode ler a Taverna, mas não postar.</p><p class="muted" style="font-size:14px;margin-top:4px">Peça ao dono do app para te convidar como editor.</p></div>`}
-  <div id="feed" style="margin-top:10px;display:grid;gap:10px">${feedHTML()}</div>`;
-}
 function replySheet(key){
   const F=feedData();const parent=F.top.find(p=>p.key===key);if(!parent)return;
   window.__replyTo=key;
@@ -1105,29 +1217,11 @@ function dgComplete(){
   if(!dgAvailable(d)||!day.items.every(dgItemDone)) return;
   const prev=levelInfo().L;const xp=120+d*8;
   S.dg.done[d]=ymd();S.bonusXP+=xp;S.goldBonus+=40;
+  if(d===10||d===20){const r=d===10?'Guardião das Ruínas':'Senhor do Abismo';if(!S.titles.includes(r)){S.titles.push(r);setTimeout(()=>toast('🏆','Relíquia conquistada!','Título “'+r+'”'),900)}}
   sfx(d===30?'dungeonfinal':'dungeon');toast('🗺️','Dia '+d+' da Dungeon concluído!','+'+xp+' XP · +40 ouro');
   if(d===30){S.bonusXP+=1000;if(!S.titles.includes('Conquistador da Dungeon'))S.titles.push('Conquistador da Dungeon');toast('👑','DUNGEON CONQUISTADA!','+1.000 XP e o título “Conquistador da Dungeon”')}
   afterProgress(prev);render();
 }
-function viewDungeon(){
-  if(!isElite()) return `<h2>🗺️ Dungeon de 30 dias</h2>`+lockedView('Dungeon de 30 Dias','Um treino guiado por dia, montado para a sua classe, que fica mais difícil a cada semana. Você só precisa abrir o app e seguir.',ART.full[S.cls],['Treinos de Empurrar, Puxar e Pernas que se alternam','Séries e repetições sobem toda semana','Bônus de XP a cada dia concluído','Título “Conquistador da Dungeon” no dia 30']);
-  const d=dgCurrent();const col=CLS_COLOR[S.cls];
-  const grid=Array.from({length:30},(_,i)=>{const n=i+1;const st=S.dg.done[n]?'ok':n===d?'cur':'';return `<span class="dgc ${st}">${S.dg.done[n]?'✓':n}</span>`}).join('');
-  if(d>30) return `<h2>🗺️ Dungeon de 30 dias</h2><div class="win qwin"><span class="corner c1"></span><span class="corner c4"></span><div class="qhead glow">DUNGEON CONQUISTADA</div><p class="glow" style="margin-top:14px">Você completou os 30 dias. Lenda.</p><div class="dggrid">${grid}</div><button class="btn full" style="margin-top:14px" data-a="dgReset">Recomeçar a Dungeon</button></div>`;
-  const day=dgDay(d);const avail=dgAvailable(d);const allDone=day.items.every(dgItemDone);
-  return `<div class="stage sm" style="background:${col.bg};--acc:${col.acc}"><div class="stage-word">DIA ${d}</div><img class="stage-art" src="${ART.full[S.cls]}" alt=""><div class="stage-info"><span class="tag">DUNGEON · SEMANA ${Math.min(4,Math.ceil(d/7))}</span><div class="stage-name">${day.name}</div><div class="stage-cls">${Object.keys(S.dg.done).length}/30 dias concluídos</div></div></div>
-  <div class="win qwin"><span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span>
-   <div class="qhead glow"><span class="qbang">!</span>DIA ${d} · ${day.name.toUpperCase()}</div>
-   ${avail?'':`<p class="warn glow"><b>AGUARDE.</b> O próximo dia da Dungeon abre amanhã. Descanso também faz parte do treino.</p>`}
-   <div class="qgoal">OBJETIVOS</div>
-   ${day.items.map(it=>{const ex=EXM[it.ex];const ok=dgItemDone(it);return `<div class="qrow ${ok?'done':''}"><div><div class="qn glow">[${ok?'FEITO':'  '}] ${esc(ex.n)}</div><small>${it.s} séries × ${it.r}${ex.u?'s':' reps'}${ex.t==='mus'?' · carga à sua escolha':''}</small></div>
-    <div>${ok?'<span class="qv glow">✓</span>':`<button class="btn sm" ${avail?'':'disabled'} data-a="dgLog" data-id="${it.ex}" data-s="${it.s}" data-r="${it.r}">Registrar</button>`}</div></div>`}).join('')}
-   <div style="margin-top:12px;font-size:13.5px;color:#bfe9ff">Recompensa do dia: +${120+d*8} XP e 40 ouro</div>
-   <button class="btn full" style="margin-top:14px" ${avail&&allDone?'':'disabled'} data-a="dgDone">${allDone?'⚔️ Concluir o dia '+d:'Complete os objetivos para concluir'}</button>
-  </div>
-  <h2>Mapa da Dungeon</h2><div class="card"><div class="dggrid">${grid}</div></div>`;
-}
-
 /* ================== TEMPORADA ================== */
 function seasonKey(){return ymd().slice(0,7)}
 function seasonXP(){const k=seasonKey();return sum(S.log.filter(e=>e.d.startsWith(k)),e=>e.xp)}
@@ -1280,16 +1374,6 @@ function alqDone(id){
 
 /* ================== MAIS ================== */
 function backMais(){return `<button class="back" data-tab="mais">← Mais</button>`}
-function viewMais(){
-  const t=(k,e,n,d,el)=>`<button class="tile ${el&&!isElite()?'lk':''}" data-tab="${k}"><span class="te2">${e}</span><b>${n}</b><small>${d}</small>${el?'<span class="crown sm">👑</span>':''}</button>`;
-  return `<h2>Mais</h2>${elitePromo()}<div class="tiles">
-   ${t('temporada','🏆','Temporada','Ranking do mês',1)}${t('progressao','🌳','Progressão','Árvores de habilidade',1)}
-   ${t('alquimia','🧪','Alquimia','Bônus: receitas anabólicas',1)}${t('planilha','📊','Planilha','Cargas e recordes',1)}${t('loja','🪙','Loja','Elixires e títulos')}
-   ${t('diario','📖','Diário','Histórico de treinos')}<button class="tile" data-a="settings"><span class="te2">⚙️</span><b>Ficha</b><small>Nome, classe e plano</small></button>
-   <button class="tile" data-a="install"><span class="te2">📲</span><b>Instalar app</b><small>Ícone na tela do celular</small></button>
-  </div>`;
-}
-
 /* ================== TIMER ================== */
 function tickTimer(){
   const el=$('#clock');if(!el)return;
@@ -1302,6 +1386,237 @@ function startTimer(sec){
   timerEnd=Date.now()+sec*1000;clearInterval(timerInt);
   timerInt=setInterval(()=>{tickTimer();if(Date.now()>=timerEnd){clearInterval(timerInt);sfx('timer');toast('⏱️','Descanso terminado!','Hora da próxima série');try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){}}},250);
   tickTimer();
+}
+
+/* ================== SKIN v2: telas ================== */
+const UI='img/ui/';
+const SVG_SOUND_ON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg>';
+const SVG_SOUND_OFF='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M17 9l5 6M22 9l-5 6"/></svg>';
+const SVG_GEAR='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.4 7.4 0 0 0-1.7-1L15 3.3h-4l-.4 2.6a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.6 7.6 0 0 0 0 2l-2.2 1.6 2 3.5 2.5-1c.5.4 1.1.7 1.7 1l.4 2.6h4l.4-2.6c.6-.3 1.2-.6 1.7-1l2.5 1 2-3.5zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" transform="translate(-1 0)"/></svg>';
+function topBar(){
+  return `<div class="top"><div class="brand">FORJA DO HERÓI<small>TREINO RPG</small></div>
+    <div class="topr">${isElite()?'<span class="pill elite">👑 ELITE</span>':'<button class="pill up" data-a="elite">RECRUTA ↑</button>'}<span class="pill"><i class="coin"></i> ${fmt(gold())}</span><button class="iconbtn" data-a="sound" title="${SFX.on?'Desligar sons':'Ligar sons'}">${SFX.on?SVG_SOUND_ON:SVG_SOUND_OFF}</button><button class="iconbtn" data-a="settings" title="Ficha">${SVG_GEAR}</button></div></div>`;
+}
+function render(){
+  if(!S.created){ $('#nav').hidden=true; $('#app').classList.remove('z'); $('#app').innerHTML=viewCreate(); return; }
+  ensureQuests();
+  $('#nav').hidden=false;
+  const views={heroi:viewHero,treinar:viewTrain,dungeon:viewDungeon,missoes:viewQuests,chefes:viewBosses,taverna:viewTaverna,mais:viewMais,loja:viewShop,diario:viewLog,temporada:viewSeason,progressao:viewProgress,planilha:viewSheet,alquimia:viewAlquimia};
+  $('#app').classList.toggle('z',['heroi','treinar','dungeon','missoes','chefes','taverna','mais'].includes(tab));
+  $('#app').innerHTML=topBar()+(tab==='heroi'?installBanner():'')+(MUS.tracks[tab]?musicBtn():'')+views[tab]()+(tab==='mais'?'':`<div class="sync" id="sync">${syncLabel()}</div>`);
+  renderNav();
+  if(tab==='treinar') tickTimer();
+  try{musicSync()}catch(e){}
+}
+function renderNav(){
+  const es=todayEntries();
+  const qReady=S.q.ids.some(id=>{const q=QUESTS.find(x=>x.id===id);return q&&!S.q.claimed.includes(id)&&q.f(es)>=q.goal});
+  const items=[['heroi','Herói'],['treinar','Treinar'],['dungeon','Dungeon'],['missoes','Missões'],['chefes','Chefes'],['taverna','Taverna'],['mais','Mais']];
+  const navTab=['loja','diario','temporada','progressao','planilha','alquimia'].includes(tab)?'mais':tab;
+  $('#nav').innerHTML='<div class="in">'+items.map(([k,n])=>`<button class="${navTab===k?'on':''}" data-tab="${k}"><img src="${UI}nav-${k}.webp" alt="">${n}${k==='missoes'&&qReady?'<span class="dot"></span>':''}${k==='dungeon'&&!isElite()?'<span class="lockdot">🔒</span>':''}</button>`).join('')+'</div>';
+}
+
+/* ---------- HERÓI ---------- */
+function viewHero(){
+  const li=levelInfo(),st=streakInfo(),at=attrs(),c=CLASSES[S.cls];
+  const bossN=Object.keys(S.bosses).length;
+  const col=CLS_COLOR[S.cls];
+  const days=[];const wd=['D','S','T','Q','Q','S','S'];let mx=1;
+  for(let i=6;i>=0;i--){const d=addDays(ymd(),-i);const x=sum(S.log.filter(e=>e.d===d),e=>e.xp);mx=Math.max(mx,x);const [y,mo,da]=d.split('-').map(Number);days.push({x,l:wd[new Date(y,mo-1,da).getDay()]})}
+  return `<div class="hcard" style="background:${col.bg};--acc:${col.acc};--accg:${col.acc}66"><div class="bgw">${col.w}</div><img class="art" src="${ART.full[S.cls]}" alt="${c.n}">
+    <div class="inf"><span class="tg">[ SISTEMA ] · JOGADOR</span><span class="nm">${esc(S.name)}</span><span class="cl">${c.n}</span>${isElite()?'<span class="el">👑 CAÇADOR ELITE</span>':''}${S.title?`<span style="font-size:13px">« ${esc(S.title)} »</span>`:''}</div></div>
+  <div class="pv statp"><div class="hextitle" style="margin:0 0 14px"><span style="font-size:22px;padding:7px 40px">STATUS</span></div>
+    <div class="st2"><div class="av"><img src="${ART.face[S.cls]}" alt=""></div><div class="lv"><b>${li.L}</b><span>NÍVEL</span></div>
+     <div class="kv"><div><small>NOME: </small><span>${esc(S.name)}</span></div><div><small>CLASSE: </small><span>${c.n}</span></div><div><small>TÍTULO: </small><span>${S.title?esc(S.title):'Nenhum'}</span></div><div><small>PATENTE: </small><span>${rankOf(li.L)}</span></div></div></div>
+    <span class="bonus">🛡️ Bônus de classe${S.elixir===ymd()?' · 🧪 Elixir +50%':''}</span></div>
+  <div class="pv barsp">
+    <div class="bar2"><span class="lb">XP</span><div class="tr"><i style="width:${(li.into/li.need*100).toFixed(1)}%"></i></div></div>
+    <div class="bar2l"><span>${fmt(li.into)} / ${fmt(li.need)}</span><span>faltam ${fmt(li.need-li.into)}</span></div>
+    <div class="bar2"><span class="lb">SEQ</span><div class="tr v"><i style="width:${Math.min(st.cur,10)*10}%"></i></div></div>
+    <div class="bar2l"><span>${st.cur} ${st.cur===1?'dia seguido':'dias seguidos'}</span><span>bônus <b>+${Math.min(st.cur,10)*5}%</b> XP</span></div>
+    <div class="stt"><div><i>📅</i><b>${st.days}</b><span>DIAS</span></div><div><i>⚔️</i><b>${bossN}/${BOSSES.length}</b><span>CHEFES</span></div><div><i>📊</i><b>${fmt(totalXP())}</b><span>XP TOTAL</span></div><div><i>🪙</i><b>${fmt(gold())}</b><span>OURO</span></div></div>
+  </div>
+  <button class="bigcta" data-tab="treinar">⚔️<span class="sep"></span>${st.trainedToday?'CONTINUAR TREINO':'INICIAR MISSÃO'} »</button>
+  <div class="ctasub">${st.trainedToday?`Hoje: +${fmt(sum(todayEntries(),e=>e.xp))} XP conquistados`:'Seu despertar começa agora.'}</div>
+  ${elitePromo()}
+  <div class="sechead">Atributos</div>
+  <div class="pv" style="padding:14px"><div class="stgrid">${Object.entries(ATTRS).map(([k,a])=>`<div class="stc" title="${a.n}: ${a.d}">${svgI(ICO[k])}<span class="k glow">${k}:</span><span class="v glow">${at[k]}</span></div>`).join('')}</div></div>
+  <div class="sechead">Últimos 7 dias</div>
+  <div class="pv" style="padding:14px"><div class="week">${days.map(d=>`<div><i class="${d.x?'':'zero'}" style="height:${d.x?Math.max(8,d.x/mx*100):4}%"></i><span>${d.l}</span></div>`).join('')}</div></div>
+  <div class="sechead">Conquistas <span class="sub">${Object.keys(S.ach).length}/${ACH.length}</span></div>
+  <div class="ach">${ACH.map(a=>`<div class="badge ${S.ach[a.id]?'on':''}"><span class="e">${a.e}</span><span class="t">${a.t}</span></div>`).join('')}</div>`;
+}
+
+/* ---------- TREINAR ---------- */
+function viewTrain(){
+  const groups=['Todos',...new Set(EX.filter(e=>e.t===trainType).map(e=>e.g))];
+  if(!groups.includes(trainGroup)) trainGroup='Todos';
+  const list=EX.filter(e=>e.t===trainType&&(trainGroup==='Todos'||e.g===trainGroup));
+  const es=todayEntries().slice().reverse();
+  return `<div class="pv rest"><span class="ic">⏱️</span><div><b>Descanso</b><small>Timer entre séries</small></div>
+    <div class="sp"><span class="clock2" id="clock">--:--</span><button class="tb" data-a="timer" data-v="60">60s</button><button class="tb" data-a="timer" data-v="90">90s</button><button class="tb" data-a="timer" data-v="120">2m</button></div></div>
+  <div class="sechead">Escolha o exercício</div>
+  <div class="seg2"><button class="${trainType==='cal'?'on':''}" data-a="type" data-v="cal">🤸 Calistenia</button><button class="${trainType==='mus'?'on':''}" data-a="type" data-v="mus">🏋️ Musculação</button></div>
+  <div class="chips2">${groups.map(g=>`<button class="${g===trainGroup?'on':''}" data-a="group" data-v="${g}">${GROUP_ICON[g]||''} ${g}</button>`).join('')}</div>
+  <div class="exl">${list.map(e=>{const l=S.last[e.id];return `<button class="exr" data-a="ex" data-id="${e.id}"><span class="ib">${GROUP_ICON[e.g]||'•'}</span>
+    <span style="min-width:0"><span class="n">${esc(e.n)}${e.tier?`<span class="rn r${e.tier}">${ROMAN[e.tier]}</span>`:''}</span><span class="d" style="display:block">${e.g}${l?` · último: ${l.s}×${l.r}${e.u?'s':''}${e.t==='mus'?' '+l.kg+'kg':''}`:''}</span></span>
+    <span class="xp">+${String(e.m).replace('.',',')} XP</span></button>`}).join('')}</div>
+  <div class="pv today"><div class="hd"><span class="disp">Treino de hoje</span><span class="x">${fmt(sum(es,e=>e.xp))} XP</span></div>
+   ${es.length?es.map(entryRow).join(''):'<div class="empty">📋 Nenhuma série registrada hoje. Escolha um exercício acima.</div>'}</div>`;
+}
+
+/* ---------- MISSÕES ---------- */
+const Q_ART={xp:'q-dumb',push:'q-push',variety:'q-swords'};
+const Q_EMO={pull:'🧗',legs:'🦵',core:'🛡️',sets:'🔥',iso:'🗿',vol:'🏋️',calis:'🤸',hard:'💀'};
+function viewQuests(){
+  const es=todayEntries();const rw=questReward();const st=streakInfo();
+  const now=new Date();const mid=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1);
+  const h=Math.floor((mid-now)/36e5),mi=Math.floor((mid-now)/6e4)%60;
+  const allDone=S.q.ids.every(id=>S.q.claimed.includes(id));
+  let warn;
+  if(allDone) warn=`<span style="color:#7dff9b">MISSÃO CUMPRIDA.</span> Volte amanhã para a próxima.`;
+  else if(st.cur>0&&!st.trainedToday) warn=`<b>AVISO!</b> Se você não treinar hoje, sua sequência de ${st.cur} ${st.cur===1?'dia':'dias'} e o bônus de +${Math.min(st.cur,10)*5}% de XP serão perdidos.`;
+  else warn=`<b>AVISO!</b> Missões não cumpridas desaparecem à meia-noite, junto com as recompensas.`;
+  return `<div class="banner fade"><img src="${UI}ban-keyart.webp" alt="Os três heróis"></div>
+  <img class="misban" src="${UI}mis-banner.webp" alt="Missão diária">
+  <div class="missub">FORJANDO O HERÓI – DIA ${st.cur+(st.trainedToday?0:1)}</div>
+  <div class="pv mispanel">
+   ${S.q.ids.map(id=>{const q=QUESTS.find(x=>x.id===id);if(!q)return'';const v=Math.min(q.goal,q.f(es));const done=v>=q.goal;const cl=S.q.claimed.includes(id);
+     const ic=Q_ART[id]?`<img class="qi" src="${UI}${Q_ART[id]}.webp" alt="">`:`<span class="qi em">${Q_EMO[id]||'⚔️'}</span>`;
+     return `<div class="qcard ${done?'done':''}">${ic}<div class="tx"><div class="tt"><b>${q.t}</b><span>${cl?'✓':`[${fmt(v)}/${fmt(q.goal)}]`}</span></div><small>${q.d}</small>
+      <div class="qb"><i style="width:${(v/q.goal*100).toFixed(1)}%"></i></div>${done&&!cl?`<button class="btn sm" data-a="claim" data-id="${id}">🎁 Resgatar recompensa</button>`:''}</div></div>`}).join('')}
+   <div class="qreward"><img src="${UI}q-reward.webp" alt=""><div><b>+${rw.xp} XP e ${rw.gold} ouro</b> por missão · bônus <b>+100 XP</b> e <b>50 ouro</b> ao completar tudo</div></div>
+   <div class="qwarn">${warn}</div>
+   <div class="qrenew">⏱️ RENOVA EM ${String(h).padStart(2,'0')}:${String(mi).padStart(2,'0')}</div>
+  </div>
+  <p class="muted" style="font-size:13px;margin-top:12px;text-align:center">Missões cumpridas no total: ${S.qTotal}</p>${isElite()?'':`<div style="margin-top:12px">${elitePromo()}</div>`}`;
+}
+
+/* ---------- CHEFES ---------- */
+const BOSS_IMG={goblin:'b0',troll:'b1',golem:'b2',hidra:'b3',lich:'b4',espectro:'b5',dragao:'b6',wyvern:'b7',rei:'b8'};
+const BOSS_ICO={reps:'💪',kg:'🏋️',s:'⏱️'};
+function viewBosses(){
+  return `<div class="banner frame"><img src="${UI}boss-ban.webp" alt="Batalhas de chefe: seus recordes viram monstros"></div>
+  ${!S.bw?`<div class="pv" style="padding:12px;margin-top:10px;border-color:#ffcc4d"><p>Defina seu peso corporal na ⚙️ Ficha para enfrentar os chefes de força.</p></div>`:''}
+  ${BOSSES.map(b=>{const p=bossProgress(b);const dead=!!S.bosses[b.id];const unit=b.u==='kg'?' kg':b.u==='s'?' s':' reps';const hp=Math.round((1-p.p)*100);
+   return `<div class="brow ${dead?'dead':''}"><img src="${UI}${BOSS_IMG[b.id]||'b0'}.webp" alt="${b.n}"><div class="bx">
+    <div class="bn"><span>${b.n}</span>${dead?'<span class="slain">DERROTADO</span>':''}</div>
+    <div class="bd">${BOSS_ICO[b.u]||'⚔️'} ${b.d}${b.u==='kg'&&p.target?` (${fmt(p.target)} kg)`:''}</div>
+    <div class="hb"><i style="width:${dead?0:hp}%"></i></div>
+    <div class="hp"><span>HP ${dead?0:hp}%</span><span>Seu marco: ${fmt(p.best)}${unit}</span></div></div></div>`}).join('')}`;
+}
+
+/* ---------- DUNGEON ---------- */
+let dgOpen=false;
+const DG_TIERS=[
+  {n:'Ruínas do Despertar',img:'dg-r1',ic:'🏛️',from:1,to:10,st:1,rw:'rw-crystal',relic:'Guardião das Ruínas'},
+  {n:'Abismo do Ferro',img:'dg-r2',ic:'⚒️',from:11,to:20,st:2,rw:'rw-ingot',relic:'Senhor do Abismo'},
+  {n:'Fortaleza do Caçador',img:'dg-r3',ic:'🔱',from:21,to:30,st:3,rw:'rw-medal',relic:'Conquistador da Dungeon',p:true}];
+function weekStart(){const d=new Date();const k=(d.getDay()+6)%7;d.setDate(d.getDate()-k);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function dgWeekCount(){const w=weekStart();return Object.values(S.dg.done).filter(d=>d>=w).length}
+function viewDungeon(){
+  if(dgOpen&&isElite()) return viewDungeonDay();
+  const el=isElite();const cur=dgCurrent();
+  const tiers=DG_TIERS.map((t,i)=>{
+    let n=0;for(let d=t.from;d<=t.to;d++)if(S.dg.done[d])n++;
+    const pct=Math.round(n/10*100);const prevDone=i===0||DG_TIERS.slice(0,i).every(x=>{for(let d=x.from;d<=x.to;d++)if(!S.dg.done[d])return false;return true});
+    const lock=!el||(t.from>cur+10&&!prevDone);
+    return `<button title="Dias ${t.from} a ${t.to} · relíquia: título “${t.relic}”" class="dgc2 ${t.p?'p':''} ${lock?'lock':''}" data-a="${el?(lock?'dgLocked':'dgEnter'):'elite'}"><img src="${UI}${t.img}.webp" alt=""><div class="dx">
+      <h4>${t.ic} ${t.n}</h4>
+      <div class="rr"><span class="df">DIFICULDADE: <em>${'★'.repeat(t.st)}<span style="color:#6f7f99">${'☆'.repeat(3-t.st)}</span></em></span>${lock?'<span class="stt2">🔒 Bloqueada</span>':`<span class="stt2">✅ Concluída ${pct}%</span>`}</div>
+      <div class="rw"><small>RECOMPENSAS:</small><img src="${UI}rw-xp.webp" alt="XP"><img src="${UI}rw-gold.webp" alt="ouro"><img src="${UI}${t.rw}.webp" alt="relíquia">${t.p?'<span class="elt">👑 ELITE</span>':lock?'':'<span class="go">›</span>'}</div>
+      </div></button>`}).join('');
+  const wk=Math.min(3,dgWeekCount());const claimed=S.dg.chest===weekStart();
+  return `<div class="banner frame"><img src="${UI}dg-ban.webp" alt="Dungeon: escolha sua incursão"></div>
+  <div class="portal"><img src="${UI}dg-portal.webp" alt=""><div class="px"><h3>⚔️ Portal das Provações</h3><p>${el?(cur>30?'Você conquistou a Dungeon inteira. Lenda.':`Hoje: <b>Dia ${cur}</b> · ${dgDay(Math.min(cur,30)).name}. Cumpra os objetivos para ganhar XP, ouro e relíquias.`):'Entre na dungeon e cumpra objetivos para ganhar XP, ouro e relíquias.'}</p>
+   <button class="goldbtn" data-a="${el?'dgEnter':'elite'}">⚔️ ${el?'ENTRAR':'LIBERAR'} »</button></div></div>
+  ${tiers}
+  <div class="chest"><img src="${UI}dg-chest.webp" alt="Baú semanal"><div class="cx"><div class="ch"><b>🗓️ Recompensa semanal</b><span style="font-size:13px">${wk}/3 Incursões</span></div>
+   <small>${claimed?'Baú desta semana já aberto. Volte na segunda!':'Conclua 3 dias de dungeon nesta semana para abrir o baú (+150 XP e 75 ouro).'}</small>
+   <div class="pb"><i style="width:${wk/3*100}%"></i></div>${el&&wk>=3&&!claimed?'<button class="btn gold sm" style="margin-top:8px" data-a="dgChest">🎁 Abrir o baú</button>':''}</div></div>`;
+}
+function viewDungeonDay(){
+  const d=dgCurrent();const grid=Array.from({length:30},(_,i)=>{const n=i+1;const st=S.dg.done[n]?'ok':n===d?'cur':'';return `<span class="dgc ${st}">${S.dg.done[n]?'✓':n}</span>`}).join('');
+  const back=`<button class="back" data-a="dgBack">← Dungeon</button>`;
+  if(d>30) return back+`<div class="pv mispanel" style="text-align:center"><div class="disp" style="font-size:22px;color:#ffd65a">Dungeon conquistada</div><p style="margin-top:10px">Você completou os 30 dias. Lenda.</p><div class="dggrid">${grid}</div><button class="btn full" style="margin-top:14px" data-a="dgReset">Recomeçar a Dungeon</button></div>`;
+  const day=dgDay(d);const avail=dgAvailable(d);const allDone=day.items.every(dgItemDone);const t=DG_TIERS.find(x=>d>=x.from&&d<=x.to);
+  return back+`<div class="banner frame"><img src="${UI}${t.img}.webp" alt="" style="height:150px;object-fit:cover"></div>
+  <div class="missub" style="margin-top:12px">${t.n.toUpperCase()} – DIA ${d}</div>
+  <div class="pv mispanel">
+   <div class="disp" style="text-align:center;font-size:20px;color:#fff">${day.name}</div>
+   ${avail?'':`<p class="qwarn"><b>AGUARDE.</b> O próximo dia da Dungeon abre amanhã. Descanso também faz parte do treino.</p>`}
+   ${day.items.map(it=>{const ex=EXM[it.ex];const ok=dgItemDone(it);return `<div class="qcard ${ok?'done':''}"><span class="qi em">${GROUP_ICON[ex.g]||'⚔️'}</span><div class="tx"><div class="tt"><b>${esc(ex.n)}</b><span>${ok?'✓':''}</span></div><small>${it.s} séries × ${it.r}${ex.u?'s':' reps'}${ex.t==='mus'?' · carga à sua escolha':''}</small>
+    ${ok?'':`<button class="btn sm" ${avail?'':'disabled'} data-a="dgLog" data-id="${it.ex}" data-s="${it.s}" data-r="${it.r}">Registrar</button>`}</div></div>`}).join('')}
+   <div class="qreward"><img src="${UI}q-reward.webp" alt=""><div>Recompensa do dia: <b>+${120+d*8} XP</b> e <b>40 ouro</b>${d===t.to?` · relíquia <b>“${t.relic}”</b>`:''}</div></div>
+   <button class="goldbtn" style="width:100%;margin-top:14px" ${avail&&allDone?'':'disabled'} data-a="dgDone">${allDone?'⚔️ CONCLUIR O DIA '+d:'COMPLETE OS OBJETIVOS'}</button>
+  </div>
+  <div class="sechead">Mapa da Dungeon</div><div class="pv" style="padding:12px"><div class="dggrid">${grid}</div></div>`;
+}
+
+/* ---------- TAVERNA ---------- */
+function viewTaverna(){
+  const head=`<div class="banner frame gold"><img src="${UI}tav-ban.webp" alt="Os heróis na Taverna"></div>
+  <div class="tavh"><span style="font-size:34px">🍺</span><span class="disp">Taverna</span><span class="sb">MURAL DOS HERÓIS</span></div>`;
+  if(!TV.db) return head+`<div class="pv" style="padding:14px"><p>A Taverna é o mural da galera: posts, respostas e treinos compartilhados.</p>
+    <p class="muted" style="margin-top:8px;font-size:14px">Abrindo as portas da taverna… se demorar, verifique sua internet.</p></div>`;
+  return head+`<div class="seg2"><button class="${TV.chan==='geral'?'on':''}" data-a="tvChan" data-v="geral">🍺 Salão geral</button><button class="${TV.chan==='vip'?'on':''}" data-a="tvChan" data-v="vip">👑 Salão VIP</button></div>
+  ${TV.canWrite&&(TV.chan!=='vip'||isElite())?`<div class="pv compose">
+    <textarea id="tv_text" rows="3" maxlength="500" placeholder="Conte como foi o treino, peça dicas ou desafie a galera…">${esc(TV.draft)}</textarea>
+    <div class="acts"><button class="gb" data-a="tvShare">⚔️ Treino de hoje</button><button class="gb" data-a="tvLevel">🏅 Meu nível</button><button class="post2" data-a="tvPost">➤ Postar</button></div></div>`
+  :(TV.chan==='vip'?'':`<div class="pv" style="padding:12px;margin-top:12px"><p>🔒 Você pode ler a Taverna, mas não postar.</p></div>`)}
+  <div id="feed">${feedHTML()}</div>`;
+}
+function postKind(p){
+  if(p.kind==='treino')return '💪 Treino de força';
+  if(p.kind==='nivel')return '🏅 Evolução';
+  if(/dungeon/i.test(p.text))return '🗺️ Dungeon';
+  if(/chefe|goblin|troll|golem|hidra|lich|espectro|drag|wyvern|demônio/i.test(p.text))return '🐉 Chefes';
+  return '';
+}
+function postHTML(p,F){
+  const h=p.hero;const cls=CLASSES[h.cls]?h.cls:'paladino';const mine=p.uid===TV.me;
+  const set=F.likes[p.key];const n=set?set.size:0;const iLike=!!(set&&set.has(TV.me));
+  const canDel=mine||TV.owner;const reps=(F.reps[p.key]||[]).length;const d=p.data&&typeof p.data==='object'?p.data:null;
+  let chips='';
+  if(p.kind==='treino'&&d) chips=`<span>✦ +${fmt(+d.xp||0)} XP</span>`+(Array.isArray(d.items)?`<span>${d.items.length} exercício${d.items.length>1?'s':''}</span>`:'');
+  if(p.kind==='nivel'&&d) chips=`<span>✦ ${fmt(+d.xp||0)} XP</span><span class="g">⏫ Nível ${+d.level||1}</span>`+(+d.streak?`<span>🔥 ${+d.streak} ${+d.streak===1?'dia':'dias'}</span>`:'');
+  const kind=postKind(p);
+  return `<div class="pcard">${canDel?`<button class="more" data-a="tvDel" data-u="${esc(p.uid)}" data-id="${esc(p.id)}" title="Apagar">•••</button>`:''}
+   <div class="ph2"><div class="av2"><img src="${ART.face[cls]}" alt=""></div><div style="min-width:0;flex:1">
+    <div class="who"><b>${esc(h.name||'Herói')}</b><span class="lvp">${h.elite?'👑 ':''}Nível ${+h.level||1}</span>${mine?'<span class="you">VOCÊ</span>':''}</div>
+    <div class="tm">${p.ts?'Há '+ago(p.ts).replace('agora','instantes'):''}${h.rank?' · '+esc(h.rank):''}</div>
+    ${p.text?`<div class="txt">${esc(p.text)}</div>`:''}
+    ${chips?`<div class="chips3">${chips}</div>`:''}
+    ${p.kind==='treino'&&d&&Array.isArray(d.items)?`<div class="tm" style="margin-top:6px">${d.items.slice(0,6).map(i=>`${esc(i.n)} ${+i.s||0}×${+i.r||0}${i.u==='s'?'s':''}${+i.kg?' '+(+i.kg)+'kg':''}`).join(' · ')}</div>`:''}
+   </div></div>
+   <div class="ft"><button class="${iLike?'on':''}" data-a="tvLike" data-k="${esc(p.key)}" ${TV.canWrite?'':'disabled'}>👍 ${n}</button><span class="sep"></span>
+    <button data-a="tvThread" data-k="${esc(p.key)}">💬 ${reps} ${reps===1?'comentário':'comentários'}</button>${kind?`<span class="kind">${kind}</span>`:''}</div></div>`;
+}
+function threadSheet(key){
+  const F=feedData();const parent=F.top.find(p=>p.key===key);if(!parent)return;
+  window.__replyTo=key;const reps=F.reps[key]||[];
+  openModal(`<div class="row between"><h3>💬 Comentários</h3><button class="iconbtn" data-a="close">✕</button></div>
+   <p style="margin:6px 0 4px;font-size:14px;color:#c9d8ef"><b style="color:#fff">${esc(parent.hero.name||'Herói')}:</b> ${esc((parent.text||'').slice(0,200))}</p>
+   <div class="thread">${reps.length?reps.map(r=>`<div class="rp"><b>${r.hero.elite?'👑 ':''}${esc(r.hero.name||'Herói')}</b> <span class="dim" style="font-size:12px">· ${ago(r.ts)}</span>${(r.uid===TV.me||TV.owner)?` <button class="dim" style="font-size:12px" data-a="tvDel" data-u="${esc(r.uid)}" data-id="${esc(r.id)}">apagar</button>`:''}<p>${esc(r.text)}</p></div>`).join(''):'<p class="dim" style="font-size:14px;padding:8px 0">Nenhum comentário ainda. Seja o primeiro!</p>'}</div>
+   ${TV.canWrite?`<textarea id="tv_reply" rows="3" maxlength="500" placeholder="Escreva um comentário…" style="margin-top:10px"></textarea>
+   <button class="btn full" style="margin-top:12px" data-a="tvSendReply">Comentar</button>`:''}`);
+}
+
+/* ---------- MAIS ---------- */
+function viewMais(){
+  const T=[['temporada','ic-trophy','Temporada','Ranking do mês',1,'#ffcc4d','rgba(255,190,60,.3)'],
+    ['progressao','ic-tree','Progressão','Árvore de habilidade',1,'#4fd2ff','rgba(79,210,255,.3)'],
+    ['alquimia','ic-potion','Alquimia','Bônus: receitas anabólicas',1,'#3fe08a','rgba(60,220,130,.28)'],
+    ['planilha','ic-chart','Planilha','Cargas e recordes',1,'#a35cff','rgba(160,90,255,.32)'],
+    ['loja','ic-coin','Loja','Elixires e títulos',0,'#ffb43c','rgba(255,170,50,.3)'],
+    ['diario','ic-book','Diário','Histórico de treinos',0,'#4f9dff','rgba(79,150,255,.3)'],
+    ['@settings','ic-gear','Ficha','Nome, classe e plano',0,'#4fd2ff','rgba(79,210,255,.25)'],
+    ['@install','ic-phone','Instalar app','Ícone na tela do celular',0,'#a35cff','rgba(160,90,255,.3)']];
+  return `<div class="banner fade"><img src="${UI}ban-keyart.webp" alt="Os três heróis"></div>
+  <div class="hextitle" style="margin-top:-18px;position:relative"><span>MAIS</span></div>
+  ${elitePromo()}
+  <div class="mtiles">${T.map(([k,img,n,d,el,c,g])=>`<button class="mtile ${el&&!isElite()?'lk':''}" ${k[0]==='@'?`data-a="${k.slice(1)}"`:`data-tab="${k}"`} style="--tc:${c};--tg:${g}"><img src="${UI}${img}.webp" alt=""><span class="tx"><b>${n}</b><small>${d}</small></span>${el?'<span class="cr">👑</span>':''}</button>`).join('')}</div>
+  <div class="savedline">☁️ ${syncState==='cloud'?'Progresso salvo na sua conta':'Progresso salvo neste aparelho'}</div>`;
 }
 
 /* ================== EVENTOS ================== */
@@ -1374,6 +1689,11 @@ document.addEventListener('click',ev=>{
       tvPost(t.value,'nivel',{level:li.L,rank:rankOf(li.L),xp:totalXP(),streak:st.cur,bosses:Object.keys(S.bosses).length});TV.draft='';t.value='';toast('🏅','Nível compartilhado!');break}
     case 'tvLike':{const k=b.dataset.k;writeMine(doc=>{if(doc.likes[k])delete doc.likes[k];else doc.likes[k]=1});break}
     case 'tvReply': replySheet(b.dataset.k);break;
+    case 'tvThread': threadSheet(b.dataset.k);break;
+    case 'dgEnter': dgOpen=true;render();window.scrollTo(0,0);break;
+    case 'dgBack': dgOpen=false;render();window.scrollTo(0,0);break;
+    case 'dgLocked': toast('🔒','Incursão bloqueada','Conclua a anterior para liberar');break;
+    case 'dgChest':{if(dgWeekCount()>=3&&S.dg.chest!==weekStart()){const prev=levelInfo().L;S.dg.chest=weekStart();S.bonusXP+=150;S.goldBonus+=75;sfx('allquests');toast('🎁','Baú semanal aberto!','+150 XP · +75 ouro');afterProgress(prev);render()}break}
     case 'tvSendReply':{const t=$('#tv_reply');if(tvPost(t.value,null,null,window.__replyTo)){closeModal();toast('💬','Resposta enviada')}else t.focus();break}
     case 'tvDel':{const u=b.dataset.u,id=b.dataset.id;
       confirmModal('Apagar este post da Taverna?',()=>{if(u===TV.me)writeMine(doc=>{doc.posts=doc.posts.filter(p=>p.id!==id)});else modDelete(u,id)},'Apagar');break}
