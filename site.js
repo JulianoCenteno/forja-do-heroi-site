@@ -6,9 +6,15 @@ const CHECKOUT = {
   elitePopup: 'https://appdigitalhub.com.br/c/1D6785B5'   // Caçador Elite R$ 14,90 (oferta do pop-up)
 };
 const withQs=u=>{try{const q=location.search;if(!q||!u)return u;const x=new URL(u);new URLSearchParams(q).forEach((v,k)=>{if(!x.searchParams.has(k))x.searchParams.set(k,v)});return x.toString()}catch(e){return u}};
-const ic=(v,n)=>{try{fbq('track','InitiateCheckout',{value:v,currency:'BRL',content_name:n})}catch(e){}};
-const go=(u,v,n)=>{if(u){ic(v||9.9,n||'Forja do Heroi');location.href=withQs(u)}};
-document.querySelectorAll('[data-plan="elite"]').forEach(a=>{a.href=withQs(CHECKOUT.elite);a.addEventListener('click',()=>ic(19.9,'Cacador Elite'))});
+/* Digital Hub Tracker (tracker.js): leva UTMs + ID do visitante ao checkout e já envia o InitiateCheckout
+   (pixel + servidor, sem duplicar). Só disparamos o nosso se o tracker não carregou. */
+const RT=()=>window.Rastreio&&window.Rastreio.loaded?window.Rastreio:null;
+const dec=u=>{const r=RT();return r?r.decorate(withQs(u)):withQs(u)};
+const ic=(v,n,u)=>{const r=RT();if(r){r.initiateCheckout(u);return}try{fbq('track','InitiateCheckout',{value:v,currency:'BRL',content_name:n})}catch(e){}};
+const go=(u,v,n)=>{if(u){ic(v||9.9,n||'Forja do Heroi',u);location.href=dec(u)}};
+document.querySelectorAll('[data-plan="elite"]').forEach(a=>{a.href=withQs(CHECKOUT.elite);a.addEventListener('click',()=>{if(!RT())ic(19.9,'Cacador Elite')})});
+/* o botão do Recruta só abre o pop-up: tira o link do checkout para o tracker não contar o clique como início de compra */
+document.querySelectorAll('[data-plan="recruta"]').forEach(a=>a.setAttribute('href','#planos'));
 const pop=document.getElementById('pop');let lastFocus=null;
 function openPop(){lastFocus=document.activeElement;pop.hidden=false;document.body.style.overflow='hidden';document.getElementById('popYes').focus()}
 function closePop(){pop.hidden=true;document.body.style.overflow='';lastFocus&&lastFocus.focus()}
