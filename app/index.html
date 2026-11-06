@@ -1575,7 +1575,8 @@ function viewTrain(){
   if(!groups.includes(trainGroup)) trainGroup='Todos';
   const list=EX.filter(e=>e.t===trainType&&(trainGroup==='Todos'||e.g===trainGroup));
   const es=todayEntries().slice().reverse();
-  return `<div class="pv rest"><span class="ic">⏱️</span><div><b>Descanso</b><small>Timer entre séries</small></div>
+  return `<div class="banner frame"><img src="${UI}tr-ban.webp" alt="Treinar: forje seu corpo"></div>
+  <div class="pv rest" style="margin-top:12px"><span class="ic">⏱️</span><div><b>Descanso</b><small>Timer entre séries</small></div>
     <div class="sp"><span class="clock2" id="clock">--:--</span><button class="tb" data-a="timer" data-v="60">60s</button><button class="tb" data-a="timer" data-v="90">90s</button><button class="tb" data-a="timer" data-v="120">2m</button></div></div>
   <div class="sechead">Escolha o exercício</div>
   <div class="seg2"><button class="${trainType==='cal'?'on':''}" data-a="type" data-v="cal">🤸 Calistenia</button><button class="${trainType==='mus'?'on':''}" data-a="type" data-v="mus">🏋️ Musculação</button></div>
