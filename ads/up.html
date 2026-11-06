@@ -1,7 +1,0 @@
-<!doctype html><meta charset="utf-8"><title>up</title><body style="background:#111;color:#0f0;font:14px monospace">pronto
-<script>
-const K='sb_publishable_ceGy_dHSjG3cngC8mVAPLg_R4sxr5kA',U='https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/fh-site/';
-addEventListener('message',async e=>{const d=e.data;if(!d||!d.blob||!d.name)return;
- const r=await fetch(U+d.name,{method:'POST',headers:{apikey:K,'Content-Type':d.blob.type,'x-upsert':'true'},body:d.blob});
- const t=d.name+' '+r.status+' '+Math.round(d.blob.size/1024)+'KB';document.body.append(document.createElement('br'),t);e.source&&e.source.postMessage({upDone:t},'*')});
-</script>
