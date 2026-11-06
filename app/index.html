@@ -872,6 +872,15 @@ body{background:url(img/ui/particles.png) 0 0/700px 700px,radial-gradient(60% 40
 .missub:before,.missub:after{margin-top:-14px}
 .mispanel{padding-top:28px!important}
 .nglow>.statp:after,.nglow>.barsp:after{display:block!important}
+
+.hchips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.hchips button{padding:9px 0;border-radius:10px;border:1.5px solid rgba(140,210,255,.55);background:rgba(8,18,40,.9);font-weight:700;font-size:16px;color:#dcecff}
+.hchips button.on{border-color:#8fe6ff;color:#fff;background:rgba(30,90,170,.45);box-shadow:0 0 10px rgba(79,210,255,.55)}
+.htime{margin-top:8px;text-align:center;font-size:18px;font-weight:700;color-scheme:dark}
+.horapromo{display:flex;align-items:center;gap:10px;margin-top:14px;padding:10px 12px}
+.horapromo .hp-ic{font-size:24px}
+.horapromo div{flex:1;min-width:0}.horapromo b{display:block;font-size:15px;color:#bff3ff}.horapromo small{font-size:12.5px;color:#c9d8ef}
+.horapromo .hp-x{color:#8fa6c6;font-size:14px;padding:4px}
 </style>
 </head>
 <body>
@@ -1255,6 +1264,8 @@ function settingsSheet(){
    <div class="field"><label>Título equipado</label><select id="s_title"><option value="">— nenhum —</option>${S.titles.map(t=>`<option ${t===S.title?'selected':''}>${esc(t)}</option>`).join('')}</select></div>
    <div class="field"><label>Classe</label><div class="classes">${classCards(S.cls)}</div></div>
    <button class="btn full" style="margin-top:16px" data-a="saveSettings">Salvar</button>
+   <h2 style="font-size:15px">Horário do treino</h2>
+   <div class="card row between"><span>${S.treinoHora?('🔔 '+S.treinoHora+(S.pushOn?' · lembrete ligado':' · lembrete desligado')):'Ainda não definido'}</span><button class="btn sm" data-a="horaOpen">Alterar</button></div>
    <h2 style="font-size:15px">Plano</h2>
    ${isElite()?'<div class="card"><span class="crown">👑 CAÇADOR ELITE</span><p class="muted" style="font-size:13px;margin-top:6px">Todos os recursos liberados. Obrigado por apoiar a Forja!</p></div>':'<div class="card"><b class="glow">Recruta</b><p class="muted" style="font-size:13px;margin:4px 0 10px">App completo. Faça o upgrade para liberar a Dungeon, o ranking e mais.</p><button class="btn gold full sm" data-a="elite">👑 Conhecer o Caçador Elite</button></div>'}
    <h2 style="font-size:15px">Backup</h2>
@@ -1280,7 +1291,48 @@ function viewCreate(){
   <div class="card"><div class="field" style="margin-top:0"><label>Nome do herói</label><input id="c_name" maxlength="24" placeholder="Ex.: Juliano, o Forte" value="${esc(window.__cname||'')}"></div>
   <div class="field"><label>Peso corporal (kg)</label><input id="c_bw" type="number" inputmode="decimal" placeholder="75" value="${esc(window.__cbw||'')}"></div>
   <div class="field"><label>Escolha sua classe</label><div class="classes">${classCards(c)}</div></div>
+  <div class="field"><label>Melhor horário para treinar</label>${horaPicker(window.__hora||'12:00')}<small class="muted" style="display:block;margin-top:6px;font-size:12.5px">O Sistema vai te avisar nesse horário e repetir até você registrar o treino do dia.</small></div>
   <button class="btn full" style="margin-top:16px" data-a="create">⚔️ Despertar meu herói</button></div>`;
+}
+const HORAS=['06:00','07:00','12:00','18:00','19:00','20:00'];
+function horaPicker(v){return `<div class="hchips">${HORAS.map(h=>`<button type="button" class="${h===v?'on':''}" data-a="horaPick" data-v="${h}">${h}</button>`).join('')}</div><input id="c_hora" type="time" value="${v}" class="htime">`}
+/* ---------- lembrete do Sistema (Web Push) ---------- */
+const PUSH_FN='https://lpdicrpetxqnoxceozfa.supabase.co/functions/v1/fh-push';
+function pushOk(){return 'serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window}
+function isStandalone(){return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}
+function b64u(s){const p='='.repeat((4-s.length%4)%4);const b=atob((s+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(b,c=>c.charCodeAt(0))}
+async function pushEnable(hora){
+  S.treinoHora=hora;save();
+  if(!pushOk()) return /iPhone|iPad/.test(navigator.userAgent)&&!isStandalone()?'ios':'nosup';
+  const perm=await Notification.requestPermission(); if(perm!=='granted') return 'denied';
+  try{
+    const reg=await navigator.serviceWorker.ready;
+    let sub=await reg.pushManager.getSubscription();
+    if(!sub){const {publicKey}=await (await fetch(PUSH_FN+'?pub=1')).json();sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(publicKey)})}
+    const j=sub.toJSON();const {data:{user}}=await FH.auth.getUser(); if(!user) return 'nouser';
+    const {error}=await FH.from('fh_push').upsert({user_id:user.id,endpoint:j.endpoint,p256dh:j.keys.p256dh,auth:j.keys.auth,train_time:hora,tz:Intl.DateTimeFormat().resolvedOptions().timeZone||'America/Sao_Paulo',enabled:true,updated_at:new Date().toISOString()});
+    if(error) throw error; S.pushOn=true;save(); return 'ok';
+  }catch(e){console.warn('push',e);return 'err'}
+}
+async function pushDisable(){try{const {data:{user}}=await FH.auth.getUser();if(user)await FH.from('fh_push').update({enabled:false}).eq('user_id',user.id)}catch(e){} S.pushOn=false;save()}
+function pushToast(r,hora){
+  if(r==='ok') toast('🔔','Lembrete ativado','O Sistema vai te chamar às '+hora+' até você treinar');
+  else if(r==='ios') toast('📲','Instale o app primeiro','No iPhone, as notificações só funcionam com o app na tela inicial (Compartilhar → Adicionar à Tela de Início)');
+  else if(r==='denied') toast('🔕','Notificações bloqueadas','Libere as notificações do site nas configurações do navegador para receber o aviso');
+  else if(r==='nosup') toast('⚠️','Seu navegador não aceita notificações','Use o Chrome ou instale o app');
+  else toast('⚠️','Não deu para ativar agora','Tente de novo em Ficha → Horário do treino');
+}
+function horaSheet(){
+  const v=S.treinoHora||'12:00';
+  openModal(`<div class="row between"><h3>Horário do treino</h3><button class="iconbtn" data-a="close">✕</button></div>
+   <p class="muted" style="font-size:14px;margin:6px 0 10px">[SISTEMA] Escolha o melhor horário. Nesse horário você recebe a missão e o aviso se repete a cada 30 min até registrar o treino (no máximo 6 por dia, até as 23h).</p>
+   <div class="field" style="margin-top:0">${horaPicker(v)}</div>
+   <button class="btn full" style="margin-top:14px" data-a="horaSave">🔔 Ativar lembrete</button>
+   ${S.pushOn?'<button class="btn ghost full sm" style="margin-top:10px" data-a="horaOff">Desligar lembretes</button>':''}`);
+}
+function horaPromo(){
+  if(S.pushOn||S.horaHide) return '';
+  return `<div class="pv horapromo"><span class="hp-ic">🔔</span><div><b>[SISTEMA] Defina seu horário de treino</b><small>Receba a missão diária no celular e não perca a sequência.</small></div><button class="btn sm" data-a="horaOpen">Definir</button><button class="hp-x" data-a="horaHide" aria-label="Fechar">✕</button></div>`;
 }
 
 const ICO={FOR:'<path d="M6 7v10M3 9.5v5M18 7v10M21 9.5v5M6 12h12"/>',RES:'<path d="M12 2.5l7.5 3v6.2c0 4.6-3.1 8-7.5 9.8-4.4-1.8-7.5-5.2-7.5-9.8V5.5z"/>',AGI:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',VIG:'<path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-3 2-4 2-7 1 1 2 2 3 3z"/>'};
@@ -1699,6 +1751,7 @@ function viewHero(){
   </div></div>
   <div class="ctawrap"><button class="bigcta" data-tab="treinar">${SVG_SWORDS}<span class="sep"></span><span class="tx">${st.trainedToday?'CONTINUAR TREINO':'INICIAR MISSÃO'} »</span></button></div>
   <div class="ctasub">${st.trainedToday?`Hoje: +${fmt(sum(todayEntries(),e=>e.xp))} XP conquistados`:'Seu despertar começa agora.'}</div>
+  ${horaPromo()}
   ${elitePromo()}
   <div class="sechead">Atributos</div>
   <div class="pv" style="padding:14px"><div class="stgrid">${Object.entries(ATTRS).map(([k,a])=>`<div class="stc" title="${a.n}: ${a.d}">${svgI(ICO[k])}<span class="k glow">${k}:</span><span class="v glow">${at[k]}</span></div>`).join('')}</div></div>
@@ -1897,7 +1950,12 @@ document.addEventListener('click',ev=>{
     case 'create':{
       const name=$('#c_name').value.trim();if(!name){$('#c_name').focus();$('#c_name').style.borderColor='var(--red)';return}
       S=blank();S.created=true;S.name=name;S.bw=+$('#c_bw').value||0;S.cls=window.__clsPick||'paladino';
-      S.goldBonus=50;save();tab='heroi';render();toast('⚒️','Bem-vindo, '+name+'!','Você recebeu 50 ouro para começar');break}
+      S.goldBonus=50;const hora=($('#c_hora')&&$('#c_hora').value)||'12:00';S.treinoHora=hora;save();tab='heroi';render();toast('⚒️','Bem-vindo, '+name+'!','Você recebeu 50 ouro para começar');pushEnable(hora).then(r=>{if(r!=='ok')S.pushOn=false;setTimeout(()=>pushToast(r,hora),2600);render()});break}
+    case 'horaPick':{document.querySelectorAll('.hchips button').forEach(b=>b.classList.toggle('on',b===t.closest('button')));const i=$('#c_hora');if(i)i.value=t.closest('button').dataset.v;window.__hora=t.closest('button').dataset.v;break}
+    case 'horaOpen': horaSheet(); break;
+    case 'horaHide': S.horaHide=1;save();render();break;
+    case 'horaSave':{const hora=$('#c_hora').value||'12:00';pushEnable(hora).then(r=>{closeModal();render();pushToast(r,hora)});break}
+    case 'horaOff':{pushDisable().then(()=>{closeModal();render();toast('🔕','Lembretes desligados')});break}
     case 'settings': settingsSheet(); break;
     case 'sound': toggleSound(); break;
     case 'music': toggleMusic(); break;
@@ -2043,6 +2101,8 @@ document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-a]
 let DEFER_INSTALL=null;
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();DEFER_INSTALL=e;});
 window.addEventListener('appinstalled',()=>{DEFER_INSTALL=null;try{localStorage.setItem('fh_install_hide','1')}catch(e){};closeModal();toast('📲','App instalado!','Abra pelo ícone Forja do Herói');});
+try{const q=new URLSearchParams(location.search).get('tab');if(q&&['treinar','missoes','heroi'].includes(q))tab=q}catch(e){}
+if('serviceWorker' in navigator)navigator.serviceWorker.addEventListener('message',e=>{if(e.data&&e.data.fh==='tab'){tab=e.data.tab;render()}});
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/app/sw.js',{scope:'/app/'}).catch(()=>{}));
 function isStandalone(){return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}
 function devOS(){const u=navigator.userAgent;if(/iPhone|iPad|iPod/i.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1))return 'ios';if(/Android/i.test(u))return 'android';return 'pc'}
