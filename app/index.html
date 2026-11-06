@@ -899,6 +899,32 @@ body{background:url(img/ui/particles.png) 0 0/700px 700px,radial-gradient(60% 40
 .avspin{width:54px;height:54px;border-radius:50%;border:3px solid rgba(143,230,255,.25);border-top-color:#8fe6ff;animation:avs 1s linear infinite;box-shadow:0 0 14px rgba(79,210,255,.5)}
 @keyframes avs{to{transform:rotate(360deg)}}
 .averr{margin-top:8px;padding:8px 10px;border-radius:8px;background:rgba(255,80,100,.15);border:1px solid rgba(255,100,120,.5);color:#ffc2cb;font-size:14px}
+
+.duelbox{margin-top:14px;padding:12px}
+.dl-h{font-family:'Exo 2',Jost;font-style:italic;font-weight:800;letter-spacing:.14em;font-size:18px;color:#fff;text-shadow:0 0 10px rgba(120,220,255,.7)}
+.duel{position:relative;margin-top:10px;padding:10px 12px;border:1.5px solid rgba(143,230,255,.6);border-radius:10px;background:linear-gradient(180deg,rgba(14,30,66,.95),rgba(7,15,36,.95));cursor:pointer}
+.duel.live{border-color:#ff9a5a;box-shadow:0 0 10px rgba(255,140,60,.35)}
+.duel.pend{border-color:#c09bff}
+.duel.end{opacity:.92}
+.dl-top{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:#c9d8ef;font-weight:700}
+.dl-s{white-space:nowrap}
+.dl-vs{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;margin-top:8px}
+.dl-p{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;min-width:0}
+.dl-p img,.dl-q{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid #8fe6ff;box-shadow:0 0 10px rgba(79,210,255,.5)}
+.dl-p.op img{border-color:#ff8a6a;box-shadow:0 0 10px rgba(255,110,80,.5)}
+.dl-q{display:grid;place-items:center;font-size:22px;color:#9fb6d6;border-style:dashed}
+.dl-p b{font-size:14.5px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dl-p span{font-family:Jost;font-weight:800;font-size:18px;color:#fff}
+.dl-x{font-family:'Exo 2';font-style:italic;font-weight:800;font-size:22px;color:#ffd25a;text-shadow:0 0 10px rgba(255,190,60,.7)}
+.dl-bar{height:8px;margin-top:8px;border-radius:99px;background:linear-gradient(90deg,#ff6a4a,#ff9a5a);overflow:hidden}
+.dl-bar i{display:block;height:100%;background:linear-gradient(90deg,#9fe6ff,#4fd2ff);box-shadow:0 0 8px #4fd2ff;transition:width .6s}
+.dl-act{display:flex;gap:8px;margin-top:10px}.dl-act .btn{flex:1}
+.duel.big .dl-p img,.duel.big .dl-q{width:72px;height:72px}.duel.big .dl-p span{font-size:26px}.duel.big .dl-x{font-size:30px}.duel.big .dl-bar{height:12px}
+.dl-heroes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.dl-heroes button{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;border-radius:10px;border:1.5px solid rgba(143,230,255,.4);background:rgba(8,18,40,.9)}
+.dl-heroes img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:1.5px solid #8fe6ff}
+.dl-heroes span{font-weight:700;font-size:14px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dl-heroes small{font-size:11px;color:#9fb6d6}
+.dl-inv{display:flex;gap:12px;align-items:center;padding:12px}.dl-inv img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid #ff8a6a;flex:none}.dl-inv p{font-size:15px}
 </style>
 </head>
 <body>
@@ -1824,7 +1850,7 @@ function viewHero(){
   </div></div>
   <div class="ctawrap"><button class="bigcta" data-tab="treinar">${SVG_SWORDS}<span class="sep"></span><span class="tx">${st.trainedToday?'CONTINUAR TREINO':'INICIAR MISSÃO'} »</span></button></div>
   <div class="ctasub">${st.trainedToday?`Hoje: +${fmt(sum(todayEntries(),e=>e.xp))} XP conquistados`:'Seu despertar começa agora.'}</div>
-  ${avPromo()}${horaPromo()}
+  ${duelHeroCard()}${avPromo()}${horaPromo()}
   ${elitePromo()}
   <div class="sechead">Atributos</div>
   <div class="pv" style="padding:14px"><div class="stgrid">${Object.entries(ATTRS).map(([k,a])=>`<div class="stc" title="${a.n}: ${a.d}">${svgI(ICO[k])}<span class="k glow">${k}:</span><span class="v glow">${at[k]}</span></div>`).join('')}</div></div>
@@ -1942,10 +1968,10 @@ function viewDungeonDay(){
 /* ---------- TAVERNA ---------- */
 function viewTaverna(){
   const head=`<div class="banner frame gold"><img src="${UI}tav-ban.webp" alt="Os heróis na Taverna"></div>
-  <div class="tavh"><span style="font-size:34px">🍺</span><span class="disp">Taverna</span><span class="sb">MURAL DOS HERÓIS</span></div>`;
+  <div class="tavh"><span style="font-size:34px">🍺</span><span class="disp">Taverna</span><span class="sb">MURAL DOS HERÓIS</span></div>`+duelBox();
   if(!TV.db) return head+`<div class="pv" style="padding:14px"><p>A Taverna é o mural da galera: posts, respostas e treinos compartilhados.</p>
     <p class="muted" style="margin-top:8px;font-size:14px">Abrindo as portas da taverna… se demorar, verifique sua internet.</p></div>`;
-  return head+`<div class="seg2"><button class="${TV.chan==='geral'?'on':''}" data-a="tvChan" data-v="geral">🍺 Salão geral</button><button class="${TV.chan==='vip'?'on':''}" data-a="tvChan" data-v="vip">👑 Salão VIP</button></div>
+  return head+`<div class="seg2" style="margin-top:14px"><button class="${TV.chan==='geral'?'on':''}" data-a="tvChan" data-v="geral">🍺 Salão geral</button><button class="${TV.chan==='vip'?'on':''}" data-a="tvChan" data-v="vip">👑 Salão VIP</button></div>
   ${TV.canWrite&&(TV.chan!=='vip'||isElite())?`<div class="pv compose">
     <textarea id="tv_text" rows="3" maxlength="500" placeholder="Conte como foi o treino, peça dicas ou desafie a galera…">${esc(TV.draft)}</textarea>
     <div class="acts"><button class="gb" data-a="tvShare">⚔️ Treino de hoje</button><button class="gb" data-a="tvLevel">🏅 Meu nível</button><button class="post2" data-a="tvPost">➤ Postar</button></div></div>`
@@ -2031,6 +2057,16 @@ document.addEventListener('click',ev=>{
       S.goldBonus=50;const hora=($('#c_hora')&&$('#c_hora').value)||'12:00';S.treinoHora=hora;save();tab='heroi';render();toast('⚒️','Bem-vindo, '+name+'!','Você recebeu 50 ouro para começar');pushEnable(hora).then(r=>{if(r!=='ok')S.pushOn=false;setTimeout(()=>pushToast(r,hora),2600);render()});break}
     case 'horaPick':{document.querySelectorAll('.hchips button').forEach(b=>b.classList.toggle('on',b===t.closest('button')));const i=$('#c_hora');if(i)i.value=t.closest('button').dataset.v;window.__hora=t.closest('button').dataset.v;break}
     case 'horaOpen': horaSheet(); break;
+    case 'duelNew': DUEL.heroes=null;duelForm();FH.rpc('fh_duel_heroes').then(r=>{DUEL.heroes=r.data||[];if($('#modal').innerHTML.includes('Novo duelo'))duelForm()});break;
+    case 'duelKind': {const s_=$('#dl_ex');if(s_)DUEL.form.ex=s_.value;DUEL.form.kind=b.dataset.v;duelForm();break}
+    case 'duelDay': {const s_=$('#dl_ex');if(s_)DUEL.form.ex=s_.value;DUEL.form.day=b.dataset.v;duelForm();break}
+    case 'duelLink': {b.disabled=true;duelCreate(null).then(d=>{b.disabled=false;if(!d)return;closeModal();render();duelShare(d)});break}
+    case 'duelPick': {b.disabled=true;duelCreate(b.dataset.u).then(d=>{if(!d){b.disabled=false;return}duelNotify(d.code,'invite',d);closeModal();render();toast('⚔️','Desafio enviado!','Ele recebe o aviso no celular e aparece na Taverna dele')});break}
+    case 'duelShare': {const d=DUEL.list.find(x=>x.code===b.dataset.c);if(d)duelShare(d);break}
+    case 'duelCancel': FH.rpc('fh_duel_cancel',{p_code:b.dataset.c}).then(()=>{DUEL.list=DUEL.list.filter(x=>x.code!==b.dataset.c);render()});break;
+    case 'duelYes': case 'duelNo': {const yes=a==='duelYes';b.disabled=true;FH.rpc('fh_duel_answer',{p_code:b.dataset.c,p_accept:yes}).then(r=>{if(r.error){b.disabled=false;return toast('⚠️','Não deu',r.error.message)}const d=r.data;duelNotify(d.code,yes?'accepted':'declined',d);DUEL.list=[d,...DUEL.list.filter(x=>x.code!==d.code)];closeModal();render();if(yes){sfx&&sfx('elite');toast('⚔️','Duelo aceito!',d.day===ymd()?'Vá treinar: o placar já está valendo':'Começa amanhã')}});break}
+    case 'duelOpen': {if(t.closest('button'))break;const d=DUEL.list.find(x=>x.code===b.dataset.c);if(d)duelSheet(d);break}
+    case 'duelRematch': {const o=DUEL.list.find(x=>x.code===b.dataset.c);if(!o)break;const {op}=duelSides(o);DUEL.form={kind:o.kind,ex:o.ex||'flexao',day:'hoje'};duelCreate(op.uid).then(d=>{if(d){duelNotify(d.code,'invite',d);closeModal();render();toast('🔁','Revanche enviada!','')}});break}
     case 'avOpen': AV={img:null,res:null,busy:false,info:null,err:''};avSheet();avInfo().then(()=>{if($('#modal').innerHTML&&!AV.busy)avSheet()});break;
     case 'avClose': if(!AV.busy)closeModal(); break;
     case 'avHide': S.avHide=1;save();render();break;
@@ -2145,7 +2181,7 @@ function fhView(){
   <p class="muted" style="font-size:13px;text-align:center;margin-top:16px">Ainda não tem o app? <a href="${FH_SITE}" style="color:var(--gold)">Conheça o Forja do Herói</a></p>
   ${isStandalone()?'':'<button class="instl" data-a="install">📲 Como instalar o app no celular</button>'}`;
 }
-function fhRenderLogin(){$('#nav').hidden=true;$('#app').innerHTML=fhView();const f=$('#fhForm');if(f)f.onsubmit=fhSubmit;}
+function fhRenderLogin(){$('#nav').hidden=true;$('#app').innerHTML=fhView();const f=$('#fhForm');if(f)f.onsubmit=fhSubmit;duelLoginBanner();}
 async function fhSubmit(ev){
   ev.preventDefault();if(FH_BUSY)return;
   const email=$('#fh_e').value.trim().toLowerCase(),pass=$('#fh_p').value;window.__fhE=email;
@@ -2171,6 +2207,128 @@ async function fhAfterLogin(){
   S.ownerUid=uid;
   fhShim(uid,!!me.admin);
   render();initCloud();
+  const pc=duelPendingCode();if(pc&&S.created)setTimeout(()=>duelFromLink(pc),900);
+}
+
+/* ================== DUELOS (PVP entre amigos) ================== */
+const DUEL_URL='https://forja-do-heroi.vercel.app/app/?duelo=';
+const DUEL={list:[],at:0,loading:false,heroes:null,form:{kind:'reps',ex:'flexao',day:'hoje'},share:null};
+const DUEL_WIN=100,DUEL_TIE=40,DUEL_PART=25;
+function duelExName(d){return d.kind==='xp'?'XP':(EXM[d.ex]?EXM[d.ex].n:d.ex)}
+function duelUnit(d){return d.kind==='xp'?' XP':(EXM[d.ex]&&EXM[d.ex].u==='s'?'s':' reps')}
+function duelLocal(d){const es=S.log.filter(e=>e.d===d.day);return d.kind==='xp'?sum(es,e=>e.xp):sum(es.filter(e=>e.ex===d.ex),e=>e.s*e.r)}
+function duelSides(d){
+  const meIsC=d.mine!==undefined?!!d.mine:(d.creator&&d.creator.uid===S.ownerUid);
+  const me=meIsC?d.creator:d.opponent, op=meIsC?d.opponent:d.creator;
+  const my=Math.max(duelLocal(d),meIsC?+d.cs:+d.os), their=meIsC?+d.os:+d.cs;
+  return {me,op,my,their,meIsC};
+}
+function duelPhase(d){const t=ymd();if(d.status==='open'||d.status==='invited')return 'pend';if(d.status==='declined')return 'decl';return d.day>t?'soon':d.day===t?'live':'end'}
+async function duelLoad(force){
+  if(DUEL.loading||(!force&&Date.now()-DUEL.at<25000))return;
+  DUEL.loading=true;
+  try{const {data,error}=await FH.rpc('fh_duel_list');if(!error){DUEL.list=data||[];DUEL.at=Date.now();duelClaim();if(['taverna','heroi'].includes(tab)&&!$('#modal').innerHTML)render()}}catch(e){}
+  DUEL.loading=false;
+}
+function duelClaim(){
+  S.duels=S.duels||{};let changed=false;
+  for(const d of DUEL.list){
+    if(duelPhase(d)!=='end'||S.duels[d.code]||!d.opponent)continue;
+    const {my,their,op}=duelSides(d);if(!op)continue;
+    let g=DUEL_PART,msg='Duelo encerrado. Você ganhou '+DUEL_PART+' de ouro por participar.',ic='⚔️';
+    if(my>their){g=DUEL_WIN;ic='🏆';msg='Você venceu '+esc(op.name)+' ('+fmt(my)+' × '+fmt(their)+')! +'+DUEL_WIN+' de ouro';if(!S.titles.includes('Duelista'))S.titles.push('Duelista')}
+    else if(my===their){g=DUEL_TIE;msg='Empate com '+esc(op.name)+'. +'+DUEL_TIE+' de ouro'}
+    else msg='Derrota para '+esc(op.name)+' ('+fmt(my)+' × '+fmt(their)+'). +'+DUEL_PART+' de ouro pela coragem';
+    S.duels[d.code]=1;S.goldBonus+=g;S.duelW=(S.duelW||0)+(my>their?1:0);changed=true;
+    setTimeout(()=>toast(ic,my>their?'VITÓRIA NO DUELO!':my===their?'Empate!':'Fim do duelo',msg),600);
+  }
+  if(changed)save();
+}
+function duelAv(h){return `<img src="${h&&h.avatar?esc(h.avatar):aFace(CLASSES[h&&h.cls]?h.cls:'paladino',h&&h.sex)}" alt="">`}
+function duelCard(d,big){
+  const ph=duelPhase(d),{me,op,my,their,meIsC}=duelSides(d);
+  const tot=Math.max(1,my+their),pm=Math.round(my/tot*100);
+  const when=d.day===ymd()?'Hoje':d.day===addDays(ymd(),1)?'Amanhã':d.day.split('-').reverse().slice(0,2).join('/');
+  const tag={pend:meIsC?(d.status==='invited'?'⏳ Aguardando resposta':'🔗 Aguardando adversário'):'⚔️ Você foi desafiado',live:'🔥 Em andamento',soon:'🗓️ Começa amanhã',end:my>their?'🏆 Vitória':my<their?'💀 Derrota':'🤝 Empate',decl:'✖ Recusado'}[ph];
+  const actions=ph==='pend'?(meIsC?`<button class="btn ghost sm" data-a="duelShare" data-c="${d.code}">📲 Enviar link</button><button class="btn ghost sm" data-a="duelCancel" data-c="${d.code}">Cancelar</button>`
+    :`<button class="btn gold sm" data-a="duelYes" data-c="${d.code}">⚔️ Aceitar</button><button class="btn ghost sm" data-a="duelNo" data-c="${d.code}">Recusar</button>`):'';
+  return `<div class="duel ${ph}${big?' big':''}" data-a="duelOpen" data-c="${d.code}">
+   <div class="dl-top"><span class="dl-k">${d.kind==='xp'?'⚡ Mais XP':'💪 '+esc(duelExName(d))} · ${when}</span><span class="dl-s">${tag}</span></div>
+   <div class="dl-vs"><div class="dl-p me">${duelAv(me)}<b>Você</b><span>${fmt(my)}${duelUnit(d)}</span></div><div class="dl-x">VS</div>
+    <div class="dl-p op">${op?duelAv(op):'<span class="dl-q">?</span>'}<b>${op?esc(op.name.split(' ')[0]):'—'}</b><span>${op?fmt(their)+duelUnit(d):'sem adversário'}</span></div></div>
+   ${op&&ph!=='pend'?`<div class="dl-bar"><i style="width:${pm}%"></i></div>`:''}
+   ${actions?`<div class="dl-act">${actions}</div>`:''}</div>`;
+}
+function duelBox(){
+  duelLoad();
+  const L=DUEL.list.filter(d=>d.status!=='declined'||d.day>=ymd()).slice(0,6);
+  return `<div class="pv duelbox"><div class="row between"><div><b class="dl-h">⚔️ DUELOS</b><small class="muted" style="display:block">Desafie um amigo: quem faz mais vence e leva ouro.</small></div><button class="btn gold sm" data-a="duelNew">Desafiar</button></div>
+   ${L.length?L.map(d=>duelCard(d)).join(''):'<p class="muted" style="font-size:14px;margin-top:8px">Nenhum duelo ainda. Desafie alguém que treina com você!</p>'}</div>`;
+}
+function duelHeroCard(){
+  duelLoad();
+  const d=DUEL.list.find(x=>['live','pend'].includes(duelPhase(x))&&!(duelPhase(x)==='pend'&&x.mine));
+  return d?`<div style="margin-top:14px">${duelCard(d)}</div>`:'';
+}
+function duelForm(){
+  const f=DUEL.form;
+  const ex=EX.filter(e=>!e.u||true);
+  const opts=['cal','mus'].map(t=>`<optgroup label="${t==='cal'?'Calistenia':'Musculação'}">${ex.filter(e=>e.t===t).map(e=>`<option value="${e.id}" ${e.id===f.ex?'selected':''}>${esc(e.n)}</option>`).join('')}</optgroup>`).join('');
+  const H=DUEL.heroes;
+  openModal(`<div class="row between"><h3>⚔️ Novo duelo</h3><button class="iconbtn" data-a="close">✕</button></div>
+   <div class="field"><label>Tipo de duelo</label><div class="sexp"><button type="button" class="${f.kind==='reps'?'on':''}" data-a="duelKind" data-v="reps">💪 Mais repetições</button><button type="button" class="${f.kind==='xp'?'on':''}" data-a="duelKind" data-v="xp">⚡ Mais XP no dia</button></div></div>
+   ${f.kind==='reps'?`<div class="field"><label>Exercício</label><select id="dl_ex">${opts}</select></div>`:''}
+   <div class="field"><label>Quando</label><div class="sexp"><button type="button" class="${f.day==='hoje'?'on':''}" data-a="duelDay" data-v="hoje">Hoje</button><button type="button" class="${f.day==='amanha'?'on':''}" data-a="duelDay" data-v="amanha">Amanhã</button></div></div>
+   <button class="btn gold full" style="margin-top:6px" data-a="duelLink">📲 Criar convite e mandar pelo WhatsApp</button>
+   <div class="field" style="margin-top:16px"><label>Ou desafie um herói da Forja</label>
+    ${H===null?'<p class="muted" style="font-size:14px">Carregando heróis…</p>':H.length?`<div class="dl-heroes">${H.map(h=>`<button data-a="duelPick" data-u="${esc(h.uid)}">${duelAv(h)}<span>${esc(h.name)}</span><small>${esc(cName(CLASSES[h.cls]?h.cls:'paladino',h.sex))}</small></button>`).join('')}</div>`:'<p class="muted" style="font-size:14px">Ainda não há outros heróis. Mande o convite pelo WhatsApp!</p>'}
+   </div>`);
+}
+async function duelCreate(opp){
+  const f=DUEL.form;if(f.kind==='reps'){const s_=$('#dl_ex');if(s_)f.ex=s_.value}
+  const day=f.day==='hoje'?ymd():addDays(ymd(),1);
+  const {data,error}=await FH.rpc('fh_duel_create',{p_kind:f.kind,p_ex:f.kind==='reps'?f.ex:null,p_day:day,p_opponent:opp||null});
+  if(error){toast('⚠️','Não deu para criar o duelo',error.message);return null}
+  DUEL.list.unshift(data);return data;
+}
+async function duelNotify(code,event,d){
+  try{const {data:{session}}=await FH.auth.getSession();await fetch(PUSH_FN,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+session.access_token,apikey:FH_KEY},body:JSON.stringify({duel:code,event,exn:d?duelExName(d):'',when:d&&d.day!==ymd()?'amanhã':'hoje'})})}catch(e){}
+}
+function duelShareText(d){return `⚔️ ${S.name.split(' ')[0]} te desafiou para um DUELO na Forja do Herói: quem faz ${d.kind==='xp'?'mais XP':'mais '+duelExName(d)} ${d.day===ymd()?'hoje':'amanhã'}. Aceita? ${DUEL_URL}${d.code}`}
+function duelShare(d){
+  const txt=duelShareText(d);
+  if(navigator.share){navigator.share({title:'Duelo na Forja do Herói',text:txt}).catch(()=>{});return}
+  window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+}
+function duelSheet(d){
+  const ph=duelPhase(d),{op}=duelSides(d);
+  openModal(`<div class="row between"><h3>⚔️ Duelo</h3><button class="iconbtn" data-a="close">✕</button></div>
+   ${duelCard(d,true)}
+   <p class="muted" style="font-size:13.5px;margin-top:10px;text-align:center">${ph==='live'?'Registre suas séries em Treinar: o placar atualiza sozinho. O duelo termina à meia-noite.':ph==='end'?'Vitória: +'+DUEL_WIN+' de ouro e o título “Duelista”. Empate: +'+DUEL_TIE+'. Participação: +'+DUEL_PART+'.':ph==='soon'?'O duelo começa amanhã às 00:00.':'Vencedor leva +'+DUEL_WIN+' de ouro e o título “Duelista”.'}</p>
+   ${ph==='live'?'<button class="btn gold full" style="margin-top:10px" data-tab="treinar">💪 Ir treinar</button>':''}
+   ${ph==='end'&&op?`<button class="btn full" style="margin-top:10px" data-a="duelRematch" data-c="${d.code}">🔁 Revanche</button>`:''}`);
+}
+async function duelFromLink(code){
+  try{localStorage.removeItem('fh_duel_pending')}catch(e){}
+  await duelLoad(true);
+  let d=DUEL.list.find(x=>x.code===code);
+  if(d)return duelSheet(d);
+  const {data:p}=await FH.rpc('fh_duel_peek',{p_code:code});
+  if(!p)return toast('⚠️','Duelo não encontrado','Peça um novo link para o seu amigo');
+  if(p.taken)return toast('⚔️','Esse duelo já tem adversário','Peça um novo link para o seu amigo');
+  if(p.creator.uid===S.ownerUid)return toast('⚔️','Esse desafio é seu','Mande o link para o seu amigo aceitar');
+  openModal(`<div class="row between"><h3>⚔️ Você foi desafiado!</h3><button class="iconbtn" data-a="close">✕</button></div>
+   <div class="dl-inv">${duelAv(p.creator)}<p><b>${esc(p.creator.name)}</b> desafiou você: quem faz <b>${p.kind==='xp'?'mais XP':'mais '+esc(EXM[p.ex]?EXM[p.ex].n:p.ex)}</b> ${p.day===ymd()?'hoje':'amanhã'}.</p></div>
+   <div class="grid2" style="margin-top:14px"><button class="btn gold" data-a="duelYes" data-c="${p.code}">⚔️ Aceitar</button><button class="btn ghost" data-a="close">Agora não</button></div>`);
+}
+try{const q=new URLSearchParams(location.search).get('duelo');if(q){localStorage.setItem('fh_duel_pending',q.toUpperCase());history.replaceState(null,'',location.pathname)}}catch(e){}
+function duelPendingCode(){try{return localStorage.getItem('fh_duel_pending')}catch(e){return null}}
+async function duelLoginBanner(){
+  const c=duelPendingCode();if(!c||$('#dlb'))return;
+  try{const {data:p}=await FH.rpc('fh_duel_peek',{p_code:c});if(!p||!$('#fhForm'))return;
+   const el=document.createElement('div');el.id='dlb';el.className='pv dl-inv';el.style.margin='12px 0';
+   el.innerHTML=`${duelAv(p.creator)}<p><b>${esc(p.creator.name)}</b> te desafiou para um duelo! Entre para aceitar.<br><a href="/" style="color:#ffd25a;font-weight:700">Ainda não é da Forja? Garanta seu acesso →</a></p>`;
+   const f=$('#fhForm');f.parentNode.insertBefore(el,f)}catch(e){}
 }
 const _fhRender=render;
 render=function(){if(!window.__FH_PLAN)return fhRenderLogin();if(S.plan!==window.__FH_PLAN){S.plan=window.__FH_PLAN;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}return _fhRender();};
