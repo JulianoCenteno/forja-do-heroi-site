@@ -881,6 +881,12 @@ body{background:url(img/ui/particles.png) 0 0/700px 700px,radial-gradient(60% 40
 .horapromo .hp-ic{font-size:24px}
 .horapromo div{flex:1;min-width:0}.horapromo b{display:block;font-size:15px;color:#bff3ff}.horapromo small{font-size:12.5px;color:#c9d8ef}
 .horapromo .hp-x{color:#8fa6c6;font-size:14px;padding:4px}
+
+.sexp{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sexp button{padding:11px 0;border-radius:10px;border:1.5px solid rgba(140,210,255,.55);background:rgba(8,18,40,.9);font-weight:700;font-size:17px;color:#dcecff}
+.sexp button.on{border-color:#8fe6ff;color:#fff;background:rgba(30,90,170,.45);box-shadow:0 0 10px rgba(79,210,255,.55)}
+.stage-art[src*="-f.webp"],.lv-art[src*="-f.webp"]{object-fit:cover;object-position:75% 20%;width:100%;height:100%;right:0;left:0;top:0;bottom:0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%);mask-image:linear-gradient(90deg,transparent,#000 35%)}
+.hcard .bgw{white-space:nowrap;font-size:52px}
 </style>
 </head>
 <body>
@@ -897,6 +903,15 @@ const ART_CARD={paladino:'img/card-paladino.webp',guerreiro:'img/card-guerreiro.
 const ART={keyart:'img/keyart.webp',chefe:'img/chefe.webp',
   full:{monge:'img/cls-monge.webp',paladino:'img/cls-paladino.webp',guerreiro:'img/cls-guerreiro.webp'},
   face:{monge:'img/f-monge.webp',paladino:'img/f-paladino.webp',guerreiro:'img/f-guerreiro.webp'}};
+const ART_F={card:{paladino:'img/card-paladino-f.webp',guerreiro:'img/card-guerreiro-f.webp',monge:'img/card-monge-f.webp'},
+  face:{paladino:'img/f-paladino-f.webp',guerreiro:'img/f-guerreiro-f.webp',monge:'img/f-monge-f.webp'}};
+const CLS_F={monge:'Monja das Barras',guerreiro:'Guerreira do Ferro',paladino:'Paladina Híbrida'},CLS_FW={monge:'MONJA',guerreiro:'GUERREIRA',paladino:'PALADINA'};
+const sexOf=()=>S.sex==='f'?'f':'m';
+function aFace(c,x){return x==='f'&&ART_F.face[c]?ART_F.face[c]:(ART.face[c]||ART.face.paladino)}
+function aCard(c,x){return x==='f'?ART_F.card[c]:ART_CARD[c]}
+function aFull(c,x){return x==='f'?ART_F.card[c]:ART.full[c]}
+function cName(c,x){return x==='f'?CLS_F[c]:CLASSES[c].n}
+function cWord(c,x){return x==='f'?CLS_FW[c]:CLS_COLOR[c].w}
 const CLS_COLOR={monge:{acc:'#4fe3c8',bg:'linear-gradient(135deg,#0d3b3a,#06201f)',w:'MONGE'},paladino:{acc:'#ffc65a',bg:'linear-gradient(135deg,#3a2a0c,#1a1206)',w:'PALADINO'},guerreiro:{acc:'#ff6a5a',bg:'linear-gradient(135deg,#3d1010,#1c0707)',w:'GUERREIRO'}};
 /* ===== LINK DE PAGAMENTO DO PLANO CAÇADOR ELITE (cole aqui) ===== */
 const CHECKOUT_ELITE='https://appdigitalhub.com.br/c/1C7E51FE';
@@ -1215,7 +1230,7 @@ function openModal(html,center){
 function closeModal(){$('#modal').innerHTML='';if(modalOpen){modalOpen=false;setTimeout(nextModal,150)}}
 function levelModal(L,newRank){
   sfx('levelup');
-  openModal(`<div class="lvup"><img class="lv-art" src="${ART.full[S.cls]}" alt=""><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:var(--gold)">SUBIU DE NÍVEL</div><div class="big">${L}</div>
+  openModal(`<div class="lvup"><img class="lv-art" src="${aFull(S.cls,sexOf())}" alt=""><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:var(--gold)">SUBIU DE NÍVEL</div><div class="big">${L}</div>
    ${newRank?`<p style="margin-top:10px">Nova patente: <span class="rank">${newRank}</span></p>`:''}
    <p class="muted" style="margin:12px 0 18px">Seus atributos ficaram mais fortes. Continue forjando.</p>
    <button class="btn full" data-a="close">Continuar</button></div>`,true);
@@ -1262,6 +1277,7 @@ function settingsSheet(){
    <div class="field"><label>Nome</label><input id="s_name" maxlength="24" value="${esc(S.name)}"></div>
    <div class="field"><label>Peso corporal (kg) — usado nos chefes de força</label><input id="s_bw" type="number" inputmode="decimal" value="${S.bw||''}"></div>
    <div class="field"><label>Título equipado</label><select id="s_title"><option value="">— nenhum —</option>${S.titles.map(t=>`<option ${t===S.title?'selected':''}>${esc(t)}</option>`).join('')}</select></div>
+   <div class="field"><label>Personagem</label><div class="sexp"><button type="button" class="${(window.__sexPick||sexOf())==='m'?'on':''}" data-a="pickSex" data-v="m">♂ Herói</button><button type="button" class="${(window.__sexPick||sexOf())==='f'?'on':''}" data-a="pickSex" data-v="f">♀ Heroína</button></div></div>
    <div class="field"><label>Classe</label><div class="classes">${classCards(S.cls)}</div></div>
    <button class="btn full" style="margin-top:16px" data-a="saveSettings">Salvar</button>
    <h2 style="font-size:15px">Horário do treino</h2>
@@ -1276,20 +1292,21 @@ function settingsSheet(){
    <button class="btn danger full sm" style="margin-top:10px" data-a="reset">Apagar herói e recomeçar</button>`);
   window.__clsPick=S.cls;
 }
-function classCards(sel){return Object.entries(CLASSES).map(([k,c])=>`<button class="cls ${k===sel?'on':''}" data-a="pickCls" data-c="${k}"><span class="ce" style="overflow:hidden;padding:0">${face(k)}</span><span><div class="cn">${c.n}</div><div class="cd">${c.d}</div></span></button>`).join('')}
+function classCards(sel){return Object.entries(CLASSES).map(([k,c])=>`<button class="cls ${k===sel?'on':''}" data-a="pickCls" data-c="${k}"><span class="ce" style="overflow:hidden;padding:0">${face(k)}</span><span><div class="cn">${cName(k,S.created?(window.__sexPick||sexOf()):(window.__sexPick||"m"))}</div><div class="cd">${c.d}</div></span></button>`).join('')}
 
 /* ================== TELAS ================== */
 let tab='heroi', trainType='cal', trainGroup='Todos';
 let timerEnd=0,timerInt=null;
 
-const face=(k)=>`<img class="facei" src="${ART.face[k]||ART.face.paladino}" alt="">`;
+const face=(k)=>`<img class="facei" src="${aFace(k,S.created?(window.__sexPick||sexOf()):(window.__sexPick||"m"))}" alt="">`;
 function viewCreate(){
   const c=window.__clsPick||'paladino';
   const col=CLS_COLOR[c];
   return `<div class="cbanner"><img src="${ART.keyart}" alt="Os três heróis: Monge, Paladino e Guerreiro"><div class="cb-t"><span class="tag">[ SISTEMA ] · NOVO JOGADOR DETECTADO</span><h1>FORJA DO HERÓI</h1><p>Cada série vira XP. Cada treino, um passo na sua lenda.</p></div></div>
-  <div class="stage" style="background:${col.bg};--acc:${col.acc};margin-top:12px"><div class="stage-word">${col.w}</div><img class="stage-art" src="${ART.full[c]}" alt="${CLASSES[c].n}"><div class="stage-info"><span class="tag">CLASSE ESCOLHIDA</span><div class="stage-name">${CLASSES[c].n}</div><div class="stage-cls">${CLASSES[c].d}</div></div></div>
+  <div class="stage" style="background:${col.bg};--acc:${col.acc};margin-top:12px"><div class="stage-word">${cWord(c,window.__sexPick||"m")}</div><img class="stage-art" src="${aFull(c,window.__sexPick||"m")}" alt="${cName(c,window.__sexPick||"m")}"><div class="stage-info"><span class="tag">CLASSE ESCOLHIDA</span><div class="stage-name">${cName(c,window.__sexPick||"m")}</div><div class="stage-cls">${CLASSES[c].d}</div></div></div>
   <div class="card"><div class="field" style="margin-top:0"><label>Nome do herói</label><input id="c_name" maxlength="24" placeholder="Ex.: Juliano, o Forte" value="${esc(window.__cname||'')}"></div>
   <div class="field"><label>Peso corporal (kg)</label><input id="c_bw" type="number" inputmode="decimal" placeholder="75" value="${esc(window.__cbw||'')}"></div>
+  <div class="field"><label>Seu personagem</label><div class="sexp"><button type="button" class="${(window.__sexPick||'m')==='m'?'on':''}" data-a="pickSex" data-v="m">♂ Herói</button><button type="button" class="${window.__sexPick==='f'?'on':''}" data-a="pickSex" data-v="f">♀ Heroína</button></div></div>
   <div class="field"><label>Escolha sua classe</label><div class="classes">${classCards(c)}</div></div>
   <div class="field"><label>Melhor horário para treinar</label>${horaPicker(window.__hora||'12:00')}<small class="muted" style="display:block;margin-top:6px;font-size:12.5px">O Sistema vai te avisar nesse horário e repetir até você registrar o treino do dia.</small></div>
   <button class="btn full" style="margin-top:16px" data-a="create">⚔️ Despertar meu herói</button></div>`;
@@ -1376,7 +1393,7 @@ function tvErr(e){
   else if(e&&e.code==='quota_exceeded') toast('⚠️','A Taverna está cheia','Apague posts antigos para liberar espaço');
   else toast('⚠️','Não foi possível enviar','Tente de novo em instantes');
 }
-function heroSnap(){const li=levelInfo();return {name:S.name||'Herói',cls:S.cls,level:li.L,rank:rankOf(li.L),title:S.title||'',elite:isElite(),season:{k:seasonKey(),xp:seasonXP()}}}
+function heroSnap(){const li=levelInfo();return {name:S.name||'Herói',cls:S.cls,sex:sexOf(),level:li.L,rank:rankOf(li.L),title:S.title||'',elite:isElite(),season:{k:seasonKey(),xp:seasonXP()}}}
 function writeMine(mut){
   if(!TV.db||!TV.me) return;
   tvChain=tvChain.then(async()=>{
@@ -1543,7 +1560,7 @@ function viewSeason(){
   else rows.forEach(r=>{if(r.uid===TV.me)r.xp=seasonXP()});
   rows.sort((a,b)=>b.xp-a.xp);
   const medal=['🥇','🥈','🥉'];
-  return backMais()+`<div class="stage sm" style="background:linear-gradient(135deg,#3a2a0c,#120c04);--acc:#ffc65a"><div class="stage-word">TOP</div><img class="stage-art" src="${ART.full[S.cls]}" alt=""><div class="stage-info"><span class="tag">TEMPORADA</span><div class="stage-name">${title}</div><div class="stage-cls">termina em ${dl} ${dl===1?'dia':'dias'}</div></div></div>
+  return backMais()+`<div class="stage sm" style="background:linear-gradient(135deg,#3a2a0c,#120c04);--acc:#ffc65a"><div class="stage-word">TOP</div><img class="stage-art" src="${aFull(S.cls,sexOf())}" alt=""><div class="stage-info"><span class="tag">TEMPORADA</span><div class="stage-name">${title}</div><div class="stage-cls">termina em ${dl} ${dl===1?'dia':'dias'}</div></div></div>
   <div class="win"><div class="wtitle">RANKING</div>
   ${rows.slice(0,20).map((r,i)=>`<div class="rank-row ${r.uid===TV.me||r.uid==='me'?'me':''}"><span class="rk">${medal[i]||(i+1)}</span><span class="av" style="width:32px;height:32px;overflow:hidden">${face(CLASSES[r.cls]?r.cls:'paladino')}</span><span class="rn">${esc(r.name)}${r.uid===TV.me||r.uid==='me'?' <span class="you">VOCÊ</span>':''}</span><span class="rx glow">${fmt(r.xp)} XP</span></div>`).join('')}
   ${TV.db?'':'<p class="dim" style="font-size:12px;margin-top:8px">O ranking com outros heróis aparece quando a Taverna está conectada.</p>'}
@@ -1731,15 +1748,15 @@ function renderNav(){
 
 /* ---------- HERÓI ---------- */
 function viewHero(){
-  const li=levelInfo(),st=streakInfo(),at=attrs(),c=CLASSES[S.cls];
+  const li=levelInfo(),st=streakInfo(),at=attrs(),c={...CLASSES[S.cls],n:cName(S.cls,sexOf())};
   const bossN=Object.keys(S.bosses).length;
   const col=CLS_COLOR[S.cls];
   const days=[];const wd=['D','S','T','Q','Q','S','S'];let mx=1;
   for(let i=6;i>=0;i--){const d=addDays(ymd(),-i);const x=sum(S.log.filter(e=>e.d===d),e=>e.xp);mx=Math.max(mx,x);const [y,mo,da]=d.split('-').map(Number);days.push({x,l:wd[new Date(y,mo-1,da).getDay()]})}
-  return `<div class="hcwrap"><div class="hcard hc-${S.cls}" style="background:${col.bg};--acc:${col.acc};--accg:${col.acc}66"><div class="bgw">${col.w}</div>${ART_CARD[S.cls]?`<img class="art2" src="${ART_CARD[S.cls]}" alt="${c.n}"><i class="shade"></i>`:`<img class="art" src="${ART.full[S.cls]}" alt="${c.n}">`}
+  return `<div class="hcwrap"><div class="hcard hc-${S.cls}" style="background:${col.bg};--acc:${col.acc};--accg:${col.acc}66"><div class="bgw">${cWord(S.cls,sexOf())}</div>${aCard(S.cls,sexOf())?`<img class="art2" src="${aCard(S.cls,sexOf())}" alt="${c.n}"><i class="shade"></i>`:`<img class="art" src="${aFull(S.cls,sexOf())}" alt="${c.n}">`}
     <div class="inf"><span class="tg">[ SISTEMA ] · JOGADOR</span><span class="nm">${esc(S.name)}</span><span class="cl">${c.n}</span>${isElite()?'<span class="el">'+SVG_CROWN+'CAÇADOR ELITE</span>':''}${S.title?`<span style="font-size:13px">« ${esc(S.title)} »</span>`:''}</div></div></div>
   <div class="nglow"><div class="pv statp"><div class="hextitle" style="margin:0 0 14px"><span style="font-size:22px;padding:7px 40px">STATUS</span></div>
-    <div class="st2"><div class="av"><img src="${ART.face[S.cls]}" alt=""></div><div class="lv"><b>${li.L}</b><span>NÍVEL</span></div>
+    <div class="st2"><div class="av"><img src="${aFace(S.cls,sexOf())}" alt=""></div><div class="lv"><b>${li.L}</b><span>NÍVEL</span></div>
      <div class="kv"><div><small>NOME: </small><span>${esc(S.name)}</span></div><div><small>CLASSE: </small><span>${c.n}</span></div><div><small>TÍTULO: </small><span>${S.title?esc(S.title):'Nenhum'}</span></div><div><small>PATENTE: </small><span>${rankOf(li.L)}</span></div></div></div>
     <span class="bonus">${SVG_SHIELD}Bônus de classe${S.elixir===ymd()?' · 🧪 Elixir +50%':''}</span></div></div>
   <div class="nglow"><div class="pv barsp">
@@ -1895,7 +1912,7 @@ function postHTML(p,F){
   if(p.kind==='nivel'&&d) chips=`<span>✦ ${fmt(+d.xp||0)} XP</span><span class="g">⏫ Nível ${+d.level||1}</span>`+(+d.streak?`<span>🔥 ${+d.streak} ${+d.streak===1?'dia':'dias'}</span>`:'');
   const kind=postKind(p);
   return `<div class="pcard">${canDel?`<button class="more" data-a="tvDel" data-u="${esc(p.uid)}" data-id="${esc(p.id)}" title="Apagar">•••</button>`:''}
-   <div class="ph2"><div class="av2"><img src="${ART.face[cls]}" alt=""></div><div style="min-width:0;flex:1">
+   <div class="ph2"><div class="av2"><img src="${aFace(cls,h.sex)}" alt=""></div><div style="min-width:0;flex:1">
     <div class="who"><b>${esc(h.name||'Herói')}</b><span class="lvp">${h.elite?'👑 ':''}Nível ${+h.level||1}</span>${mine?'<span class="you">VOCÊ</span>':''}</div>
     <div class="tm">${p.ts?'Há '+ago(p.ts).replace('agora','instantes'):''}${h.rank?' · '+esc(h.rank):''}</div>
     ${p.text?`<div class="txt">${esc(p.text)}</div>`:''}
@@ -1942,6 +1959,11 @@ document.addEventListener('click',ev=>{
   switch(a){
     case 'close': closeModal(); break;
     case 'ok': {const f=window.__ok;window.__ok=null;closeModal();f&&f();break}
+    case 'pickSex':{
+      window.__sexPick=b.dataset.v;
+      if(!S.created){window.__cname=$('#c_name').value;window.__cbw=$('#c_bw').value;const h=$('#c_hora');if(h)window.__hora=h.value;render()}
+      else{document.querySelectorAll('.sexp button').forEach(x=>x.classList.toggle('on',x===b));document.querySelectorAll('.cls').forEach((el,i)=>{const k=Object.keys(CLASSES)[i];const im=el.querySelector('.facei');if(im)im.src=aFace(k,window.__sexPick);const n=el.querySelector('.cn');if(n)n.textContent=cName(k,window.__sexPick)})}
+      break}
     case 'pickCls':{
       window.__clsPick=b.dataset.c;
       b.parentElement.querySelectorAll('.cls').forEach(x=>x.classList.toggle('on',x===b));
@@ -1949,7 +1971,7 @@ document.addEventListener('click',ev=>{
       break}
     case 'create':{
       const name=$('#c_name').value.trim();if(!name){$('#c_name').focus();$('#c_name').style.borderColor='var(--red)';return}
-      S=blank();S.created=true;S.name=name;S.bw=+$('#c_bw').value||0;S.cls=window.__clsPick||'paladino';
+      S=blank();S.created=true;S.name=name;S.bw=+$('#c_bw').value||0;S.cls=window.__clsPick||'paladino';S.sex=window.__sexPick==='f'?'f':'m';
       S.goldBonus=50;const hora=($('#c_hora')&&$('#c_hora').value)||'12:00';S.treinoHora=hora;save();tab='heroi';render();toast('⚒️','Bem-vindo, '+name+'!','Você recebeu 50 ouro para começar');pushEnable(hora).then(r=>{if(r!=='ok')S.pushOn=false;setTimeout(()=>pushToast(r,hora),2600);render()});break}
     case 'horaPick':{document.querySelectorAll('.hchips button').forEach(b=>b.classList.toggle('on',b===t.closest('button')));const i=$('#c_hora');if(i)i.value=t.closest('button').dataset.v;window.__hora=t.closest('button').dataset.v;break}
     case 'horaOpen': horaSheet(); break;
@@ -1965,7 +1987,7 @@ document.addEventListener('click',ev=>{
     case 'copyLink': {const u=location.origin+'/app/';(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast('🔗','Link copiado!','Cole no navegador')).catch(()=>prompt('Copie o link:',u));break}
     case 'saveSettings':{
       const n=$('#s_name').value.trim();if(n)S.name=n;S.bw=+$('#s_bw').value||0;S.title=$('#s_title').value;
-      if(window.__clsPick&&window.__clsPick!==S.cls){S.cls=window.__clsPick;S.q.d=''}
+      if(window.__clsPick&&window.__clsPick!==S.cls){S.cls=window.__clsPick;S.q.d=''}if(window.__sexPick)S.sex=window.__sexPick;window.__sexPick=null;
       save();closeModal();render();toast('📜','Ficha atualizada');break}
     case 'copyBk':{
       const txt=JSON.stringify(S);const ta=$('#s_bk');
@@ -1995,7 +2017,7 @@ document.addEventListener('click',ev=>{
     case 'buy': buy(b.dataset.id);break;
     case 'timer': startTimer(+b.dataset.v);break;
     case 'elite': eliteModal(b.dataset.f||'');break;
-    case 'activate':{const c=$('#e_code').value;if(activateElite(c)){closeModal();render();queueModal(()=>openModal(`<div class="lvup"><img class="lv-art" src="${ART.full[S.cls]}" alt=""><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ffc65a">CLASSE DESPERTADA</div><h3 style="margin-top:8px;color:#ffc65a">👑 Caçador Elite</h3><p class="muted" style="margin:10px 0 18px">Dungeon, ranking, progressão, planilha e Taverna VIP liberados. Você ganhou o título “Fundador da Forja” e 300 de ouro.</p><button class="btn gold full" data-a="close">Entrar na Dungeon</button></div>`,true))}else{toast('⚠️','Código inválido','Confira o código que chegou no seu e-mail')}break}
+    case 'activate':{const c=$('#e_code').value;if(activateElite(c)){closeModal();render();queueModal(()=>openModal(`<div class="lvup"><img class="lv-art" src="${aFull(S.cls,sexOf())}" alt=""><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ffc65a">CLASSE DESPERTADA</div><h3 style="margin-top:8px;color:#ffc65a">👑 Caçador Elite</h3><p class="muted" style="margin:10px 0 18px">Dungeon, ranking, progressão, planilha e Taverna VIP liberados. Você ganhou o título “Fundador da Forja” e 300 de ouro.</p><button class="btn gold full" data-a="close">Entrar na Dungeon</button></div>`,true))}else{toast('⚠️','Código inválido','Confira o código que chegou no seu e-mail')}break}
     case 'dgLog':{const id=b.dataset.id;const l=S.last[id]||{};exerciseSheet(id,{s:+b.dataset.s,r:+b.dataset.r,kg:l.kg||20});break}
     case 'dgDone': dgComplete();break;
     case 'dgReset': confirmModal('Recomeçar a Dungeon do dia 1? Seu progresso de treinos continua salvo.',()=>{S.dg={done:{}};save();render()},'Recomeçar');break;
