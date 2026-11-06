@@ -1,0 +1,27 @@
+/* ===================== Carrossel (só celular) ===================== */
+.car-ui{display:none}
+.sx-car{display:contents}
+@media (max-width:760px){
+  .car{display:flex!important;flex-direction:row!important;align-items:flex-start!important;gap:1vw!important;width:100vw;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4vw 15vw 2vw;box-sizing:border-box;margin:0}
+  .car::-webkit-scrollbar{display:none}
+  .car>*{flex:0 0 70vw!important;width:70vw!important;scroll-snap-align:center;transition:transform .35s,opacity .35s,filter .35s}
+  .car>*:not(.on){transform:scale(.9);opacity:.5;filter:saturate(.7)}
+  /* sistema */
+  .sx-car{margin-top:2vw}
+  .sx-car .sx-col{position:relative;left:auto!important;top:auto;margin:0!important}
+  .sx-car .sx-lb{position:relative;top:auto;bottom:auto;left:-4%!important;transform:none;width:108%!important;margin-top:4vw}
+  .sx-car .sx-lb span{font-size:4.2vw}
+  .sx-in>.car-ui{margin-top:2vw}
+  /* classes */
+  .cx-cards.car{margin:6vw 0 0 -4vw!important}
+  .cx-cards.car .cx-card{position:relative;left:auto!important;top:auto!important;animation:none}
+  .cx-cards.car .cx-card:hover{transform:none}
+  .cx-cards.car .cx-card:not(.on){transform:scale(.9)}
+  .cx-in>.car-ui{margin:1vw 0 2vw}
+  /* controles */
+  .car-ui{display:flex;align-items:center;justify-content:center;gap:4vw;position:relative;z-index:4}
+  .car-dots{display:flex;gap:2.4vw}
+  .car-dots button{width:2.6vw;height:2.6vw;padding:0;border:0;border-radius:50%;background:rgba(160,190,230,.35);transition:all .3s}
+  .car-dots button.on{width:7vw;border-radius:2vw;background:linear-gradient(90deg,#ffe07a,#ffb21a);box-shadow:0 0 2vw rgba(255,180,40,.7)}
+  .car-ar{width:10vw;height:10vw;padding:0 0 1vw;border-radius:50%;border:1.5px solid rgba(255,200,80,.7);background:rgba(10,18,40,.7);color:#ffd23a;font-size:7vw;line-height:1;box-shadow:0 0 2.5vw rgba(255,180,40,.35)}
+}

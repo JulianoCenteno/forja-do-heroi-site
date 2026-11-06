@@ -25,6 +25,7 @@
 <link rel="stylesheet" href="garantia.css?v=1">
 <link rel="stylesheet" href="planos.css?v=1">
 <link rel="stylesheet" href="faq.css?v=1">
+<link rel="stylesheet" href="carousel.css?v=2">
 <!-- Meta Pixel: Forjo do Heroes -->
 <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1141320428608400');fbq('track','PageView');fbq('track','ViewContent',{content_name:'Forja do Heroi',value:9.90,currency:'BRL'});</script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1141320428608400&ev=PageView&noscript=1" alt=""></noscript>
@@ -83,9 +84,12 @@
     <div class="sx-pill"><img src="img/v3/sys-pill.webp" alt=""><span>Veja o sistema</span></div>
     <h2 class="sx-h"><i></i><span class="w">Seu treino,</span>&nbsp;<span class="g">como num jogo</span><i></i></h2>
     <p class="sx-sub">Acompanhe seu herói, entre em dungeons e cumpra missões diárias sem sair do treino.</p>
+    <div class="car sx-car" data-car>
     <div class="sx-col c1"><img class="sx-ph" src="img/v3/sys-ph1.webp" alt="Tela do Herói e status no app" loading="lazy"><div class="sx-lb"><img src="img/v3/sys-lb1.webp" alt=""><span>Herói e status</span></div></div>
     <div class="sx-col c2"><img class="sx-ph" src="img/v3/sys-ph2.webp" alt="Tela da Dungeon no app" loading="lazy"><div class="sx-lb"><img src="img/v3/sys-lb2.webp" alt=""><span>Dungeons e incursões</span></div></div>
     <div class="sx-col c3"><img class="sx-ph" src="img/v3/sys-ph3.webp" alt="Tela de Missões no app" loading="lazy"><div class="sx-lb"><img src="img/v3/sys-lb3.webp" alt=""><span>Missões e evolução</span></div></div>
+    </div>
+    <div class="car-ui" aria-hidden="false"><button class="car-ar prev" aria-label="Anterior">‹</button><div class="car-dots"><button aria-label="Tela 1"></button><button aria-label="Tela 2"></button><button aria-label="Tela 3"></button></div><button class="car-ar next" aria-label="Próximo">›</button></div>
   </div>
 </section>
 
@@ -96,11 +100,12 @@
     <div class="cx-pill"><img src="img/v3/cls-pill.webp" alt=""><span>Escolha sua classe</span></div>
     <h2 class="cx-h">Escolha quem você vai se tornar</h2>
     <p class="cx-sub">Cada classe muda a fantasia da sua jornada, enquanto a evolução acontece no treino real.</p>
-    <div class="cx-cards">
+    <div class="cx-cards car" data-car>
       <a class="cx-card m" href="#planos"><img src="img/v3/cls-card-monge.webp" alt="Monge das Barras · Calistenia · Força, Resistência, Agilidade e Vigor" loading="lazy"></a>
       <a class="cx-card p" href="#planos"><img src="img/v3/cls-card-paladino.webp" alt="Paladino Híbrido · Híbrido · Força, Resistência, Agilidade e Vigor" loading="lazy"></a>
       <a class="cx-card g" href="#planos"><img src="img/v3/cls-card-guerreiro.webp" alt="Guerreiro do Ferro · Musculação · Força, Resistência, Agilidade e Vigor" loading="lazy"></a>
     </div>
+    <div class="car-ui" aria-hidden="false"><button class="car-ar prev" aria-label="Anterior">‹</button><div class="car-dots"><button aria-label="Classe 1"></button><button aria-label="Classe 2"></button><button aria-label="Classe 3"></button></div><button class="car-ar next" aria-label="Próximo">›</button></div>
     <a class="cx-btn" href="#planos"><img src="img/v3/cls-btn.webp" alt=""><span>Escolher minha classe</span></a>
   </div>
 </section>

@@ -91,3 +91,20 @@ const aud=document.getElementById('aud'),mus=document.getElementById('mus');
 aud.volume=.35;
 fetch(aud.src,{method:'HEAD'}).then(r=>{if(r.ok)mus.hidden=false}).catch(()=>{});
 mus.onclick=()=>{if(aud.paused){aud.play().then(()=>{mus.classList.add('on');mus.setAttribute('aria-pressed','true');document.getElementById('musL').textContent='Tocando'}).catch(()=>{})}else{aud.pause();mus.classList.remove('on');mus.setAttribute('aria-pressed','false');document.getElementById('musL').textContent='Trilha sonora'}};
+
+/* Carrossel (celular): Sistema e Classes */
+document.querySelectorAll('[data-car]').forEach(car=>{
+  const ui=car.parentElement.querySelector(':scope > .car-ui');if(!ui)return;
+  const items=[...car.children],dots=[...ui.querySelectorAll('.car-dots button')];let cur=0,user=false,t;
+  const go=i=>{i=(i+items.length)%items.length;const el=items[i];car.scrollTo({left:el.offsetLeft-(car.clientWidth-el.offsetWidth)/2,behavior:'smooth'})};
+  const mark=()=>{const c=car.scrollLeft+car.clientWidth/2;let b=0,d=1e9;items.forEach((el,i)=>{const x=Math.abs(el.offsetLeft+el.offsetWidth/2-c);if(x<d){d=x;b=i}});cur=b;items.forEach((el,i)=>el.classList.toggle('on',i===b));dots.forEach((el,i)=>el.classList.toggle('on',i===b))};
+  car.addEventListener('scroll',()=>{cancelAnimationFrame(t);t=requestAnimationFrame(mark)},{passive:true});
+  ['touchstart','pointerdown','wheel'].forEach(e=>car.addEventListener(e,()=>user=true,{passive:true}));
+  dots.forEach((d,i)=>d.addEventListener('click',()=>{user=true;go(i)}));
+  ui.querySelector('.prev').addEventListener('click',()=>{user=true;go(cur-1)});
+  ui.querySelector('.next').addEventListener('click',()=>{user=true;go(cur+1)});
+  const mq=matchMedia('(max-width:760px)');
+  const start=()=>{if(!mq.matches)return;const i=car.classList.contains('cx-cards')?1:0;car.style.scrollBehavior='auto';const el=items[i];car.scrollLeft=el.offsetLeft-(car.clientWidth-el.offsetWidth)/2;car.style.scrollBehavior='';mark()};
+  start();addEventListener('load',start);mq.addEventListener('change',start);
+  setInterval(()=>{if(!user&&mq.matches&&document.visibilityState==='visible'){const r=car.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)go(cur+1)}},4500);
+});
