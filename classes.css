@@ -1,0 +1,43 @@
+/* ===================== CLASSES · fiel ao layout (base 1672×941) ===================== */
+.cx{position:relative;width:100%;aspect-ratio:1672/941;overflow:hidden;padding:0;background:#020c1e;container-type:inline-size}
+.cx-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cx-in{position:absolute;inset:0;z-index:3}
+.cx-pill{position:absolute;left:26.32%;top:9.78%;width:47.37%}
+.cx-pill img{width:100%;display:block}
+.cx-pill span{position:absolute;left:52.7%;top:50%;transform:translate(-50%,-52%);font-family:'Montserrat','Exo 2',sans-serif;font-style:italic;font-weight:800;text-transform:uppercase;font-size:1.34cqw;letter-spacing:.03em;color:#ffd23a;text-shadow:0 0 .6cqw rgba(255,190,40,.6);white-space:nowrap}
+.cx-h{position:absolute;left:0;right:0;top:15.6%;text-align:center;font-family:'Montserrat','Exo 2',sans-serif;font-style:italic;font-weight:900;text-transform:uppercase;font-size:3.12cqw;letter-spacing:.012em;line-height:1;
+  background:linear-gradient(180deg,#fff 0%,#f2f5fa 45%,#c4cfe0 62%,#eef2f8 80%,#a9b6ca 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 .12cqw 0 rgba(20,30,60,.8)) drop-shadow(0 0 1cqw rgba(160,200,255,.3))}
+.cx-sub{position:absolute;left:0;right:0;top:21.6%;text-align:center;font-family:'Fira Sans','Exo 2',sans-serif;font-style:italic;font-size:1.3cqw;letter-spacing:.03em;color:#eef3fb}
+.cx-card{position:absolute;display:block;transition:transform .35s,filter .35s}
+.cx-card img{width:100%;display:block}
+.cx-card:hover{transform:translateY(-.6cqw);filter:brightness(1.08)}
+.cx-card.m{left:4.78%;top:26.78%;width:30.62%}
+.cx-card.p{left:33.49%;top:24.65%;width:33.01%}
+.cx-card.g{left:64.83%;top:26.78%;width:30.62%}
+.cx-card.p{z-index:2}
+.cx-btn{position:absolute;left:25.12%;top:85.23%;width:49.64%;display:block;transition:transform .2s,filter .2s}
+.cx-btn img{width:100%;display:block}
+.cx-btn span{position:absolute;left:51.2%;top:47%;transform:translate(-50%,-50%);font-family:'Montserrat','Exo 2',sans-serif;font-style:italic;font-weight:900;text-transform:uppercase;font-size:1.74cqw;letter-spacing:.005em;color:#ffe9a6;text-shadow:0 .1cqw .25cqw rgba(80,30,0,.9),0 0 .8cqw rgba(255,200,80,.6);white-space:nowrap}
+.cx-btn:hover{transform:translateY(-.15cqw);filter:brightness(1.1)}
+.cx-card{animation:cxf 6s ease-in-out infinite}
+.cx-card.p{animation-delay:-2s}.cx-card.g{animation-delay:-4s}
+@keyframes cxf{0%,100%{translate:0 0}50%{translate:0 -.35cqw}}
+@media (max-width:760px){
+  .cx{aspect-ratio:auto}
+  .cx-in{position:relative;inset:auto;padding:12vw 4vw 12vw}
+  .cx-pill,.cx-h,.cx-sub,.cx-card,.cx-btn{position:relative;left:auto;top:auto}
+  .cx-pill{width:150vw;margin-left:-29vw}
+  .cx-pill span{font-size:3.7vw}
+  .cx-h{margin-top:3vw;font-size:8.6vw;line-height:1.08;padding:0 2vw}
+  .cx-sub{margin-top:3vw;font-size:4vw;padding:0 3vw}
+  .cx-cards{display:flex;flex-direction:column;align-items:center;gap:2vw;margin-top:6vw}
+  .cx-card.m,.cx-card.p,.cx-card.g{width:96vw}
+  .cx-card.p{width:100vw}
+  .cx-btn{width:118vw;margin:4vw 0 0 -11vw}
+  .cx-btn span{font-size:4.2vw}
+}
+@media (max-width:760px){
+  .cx-card.m,.cx-card.p,.cx-card.g{left:auto;top:auto;width:94vw}
+  .cx-card.p{width:98vw}
+  .cx-h{font-size:7.8vw}
+}
