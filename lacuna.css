@@ -1,0 +1,50 @@
+/* ===================== LACUNA + LOOP · fiel ao layout (base 1672×941) ===================== */
+.lx{position:relative;width:100%;aspect-ratio:1672/941;overflow:hidden;padding:0;background:#000e2a;container-type:inline-size}
+.lx-bg,.lx-bg img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+.lx-in{position:absolute;inset:0;z-index:3}
+.lx-pill1{position:absolute;left:11.06%;top:12.54%;width:36.78%}
+.lx-pill1 img,.lx-pill2 img{width:100%;display:block}
+.lx-pill1 span,.lx-pill2 span{position:absolute;top:50%;transform:translate(-50%,-50%);font-family:'Montserrat','Exo 2',sans-serif;font-style:italic;font-weight:800;text-transform:uppercase;color:#fff;white-space:nowrap}
+.lx-pill1 span{left:33.3%;font-size:1.15cqw;letter-spacing:.26em}
+.lx-h{position:absolute;left:11.2%;top:18.6%;display:flex;flex-direction:column;font-family:'Montserrat','Exo 2',sans-serif;font-style:italic;font-weight:900;text-transform:uppercase;line-height:.98;letter-spacing:-.005em}
+.lx-h span{display:block;font-size:4.62cqw;-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.3cqw}
+.lx-h .w{background-image:linear-gradient(180deg,#ffffff 0%,#f3f6fb 45%,#c3cede 60%,#eef2f8 78%,#a8b5c8 100%);filter:drop-shadow(0 .12cqw 0 rgba(20,30,60,.8)) drop-shadow(0 0 1cqw rgba(160,200,255,.25))}
+.lx-h .g{font-size:4.95cqw;background-image:linear-gradient(180deg,#fff7c8 0%,#ffe066 30%,#ffbf24 55%,#ffd65c 70%,#e08a00 100%);filter:drop-shadow(0 .12cqw 0 rgba(80,40,0,.8)) drop-shadow(0 0 1.4cqw rgba(255,170,30,.55))}
+.lx-line{position:absolute;left:7.2%;top:34.4%;width:32.5%;height:.2cqw;background:linear-gradient(90deg,transparent,#ffbf2e 25%,#fff0b0 55%,#ffbf2e 80%,transparent);box-shadow:0 0 .8cqw #ffb21a}
+.lx-p{position:absolute;left:11.25%;top:37.3%;font-family:'Fira Sans','Exo 2',sans-serif;font-style:italic;font-size:1.52cqw;line-height:1.24;color:#fff;text-shadow:0 .1cqw .3cqw rgba(0,0,0,.6)}
+.lx-p b{font-weight:600;color:#ffcf2e;text-shadow:0 0 .6cqw rgba(255,190,40,.5)}
+.lx-pill2{position:absolute;left:15.25%;top:58.98%;width:69.68%}
+.lx-pill2 span{left:49.3%;font-size:2.05cqw;letter-spacing:.22em}
+.lx-sub{position:absolute;left:0;right:0;top:67%;text-align:center;font-family:'Fira Sans','Exo 2',sans-serif;font-style:italic;font-size:1.28cqw;color:#e8eef8}
+.lx-cards{position:absolute;left:4.67%;right:4.55%;top:72.7%;display:grid;grid-template-columns:repeat(3,1fr);column-gap:1.08%}
+.lx-card{position:relative}
+.lx-card>img{width:100%;display:block}
+.lx-card .t{position:absolute;left:38%;top:20%;right:5%}
+.lx-card h3{font-family:'Montserrat','Exo 2',sans-serif;font-style:italic;font-weight:800;text-transform:uppercase;font-size:1.68cqw;line-height:1.14;color:#fff;letter-spacing:.01em}
+.lx-card p{margin-top:.8cqw;font-family:"Fira Sans","Exo 2",sans-serif;font-style:italic;font-size:1.32cqw;line-height:1.2;color:#e8eef8}
+.lx-card:nth-child(1) .t{left:38.06%}.lx-card:nth-child(2) .t{left:37.25%}.lx-card:nth-child(3) .t{left:36.64%}
+
+@media (max-width:760px){
+  .lx{aspect-ratio:auto;background:#000e2a}
+  .lx-bg{position:relative;inset:auto;height:auto}
+  .lx-bg img{position:relative;height:auto;aspect-ratio:auto}
+  .lx-in{position:relative;inset:auto;padding:0 5vw 12vw;margin-top:-8vw}
+  .lx-pill1,.lx-h,.lx-line,.lx-p,.lx-pill2,.lx-sub,.lx-cards{position:relative;left:auto;right:auto;top:auto}
+  .lx-pill1{width:92vw;margin-left:-2vw}
+  .lx-pill1 span{font-size:3.1vw}
+  .lx-h{margin-top:4vw}
+  .lx-h span{font-size:11vw}.lx-h .g{font-size:11.6vw}
+  .lx-line{display:block;width:80vw;height:.6vw;margin:3vw 0 4vw}
+  .lx-p{font-size:4.3vw;line-height:1.35}
+  .br-d{display:none}
+  .lx-pill2{width:110vw;margin:10vw 0 0 -10vw}
+  .lx-pill2 span{font-size:4.8vw;left:50%}
+  .lx-sub{font-size:3.9vw;margin-top:3vw;padding:0 2vw}
+  .lx-cards{grid-template-columns:1fr;row-gap:3.5vw;margin-top:6vw}
+  .lx-card h3{font-size:4.6vw}.lx-card p{font-size:3.6vw;margin-top:2vw}
+}
+@media (max-width:760px){
+  .lx-pill1 span{font-size:2.55vw;letter-spacing:.18em}
+  .lx-pill2{width:120vw;margin-left:-15vw}
+  .lx-pill2 span{font-size:4vw;letter-spacing:.14em}
+}
