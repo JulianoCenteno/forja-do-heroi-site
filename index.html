@@ -27,6 +27,7 @@
 <link rel="stylesheet" href="faq.css?v=1">
 <link rel="stylesheet" href="carousel.css?v=2">
 <link rel="stylesheet" href="aura.css?v=1">
+<link rel="stylesheet" href="popup.css?v=1">
 <!-- Meta Pixel: Forjo do Heroes -->
 <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1141320428608400');fbq('track','PageView');fbq('track','ViewContent',{content_name:'Forja do Heroi',value:9.90,currency:'BRL'});</script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1141320428608400&ev=PageView&noscript=1" alt=""></noscript>
@@ -217,14 +218,14 @@
 <div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="popT" hidden>
   <div class="pop-box">
     <button class="pop-x" id="popX" aria-label="Fechar">✕</button>
-    <div class="pop-art"><img src="img/v3/bg-hero.webp" alt=""><img class="pop-ch" src="img/v3/char-paladino.webp" alt=""><span class="pop-tag">[ Sistema ] · Oferta única</span></div>
+    <div class="pop-top"><img src="img/v3/pop-top.webp" alt="Paladino com aura dourada"><span class="pop-rib">Oferta única</span></div>
     <div class="pop-body">
-      <h3 id="popT" class="t-gold">Espera, herói!</h3>
+      <h3 id="popT">Espera, herói!</h3>
       <p class="pop-sub">Só nesta tela: leve o <b>Caçador Elite</b> completo por apenas <b class="w">R$ 5 a mais</b>.</p>
-      <div class="pop-price"><span class="pp-old">R$ 19,90</span><span class="pp-new t-gold"><small>R$</small>14<em>,90</em></span></div>
-      <ul class="pop-list"><li>Dungeon de 30 dias: treino guiado todo dia</li><li><b>Bônus:</b> 50 receitas anabólicas</li><li>Guia de Progressão e Planilha do Guerreiro</li><li>Temporadas com ranking e Taverna VIP</li><li>Título exclusivo “Fundador da Forja”</li></ul>
-      <a class="pbtn yes" id="popYes" href="https://appdigitalhub.com.br/c/1D6785B5"><b>✓ Sim, quero o Elite</b><small>por R$ 14,90 · economize R$ 5</small></a>
-      <a class="pbtn no" id="popNo" href="https://appdigitalhub.com.br/c/43752C6D"><b>✕ Não, quero só o Recruta</b><small>por R$ 9,90 · sem Dungeon e bônus</small></a>
+      <div class="pop-price"><s>R$ 19,90</s><span class="pp-new"><small>R$</small>14<sup>,90</sup></span></div>
+      <ul class="pop-list"><li>Dungeon de 30 dias: treino guiado todo dia</li><li><b>Bônus:</b> 50 receitas anabólicas</li><li>Guia de Progressão, Planilha e Taverna VIP</li></ul>
+      <a class="pop-yes" id="popYes" href="https://appdigitalhub.com.br/c/1D6785B5"><img src="img/v3/btn-gold.webp" alt=""><span>Sim, quero o Elite</span></a>
+      <a class="pop-no" id="popNo" href="https://appdigitalhub.com.br/c/43752C6D">Não, quero só o Recruta por R$ 9,90</a>
     </div>
   </div>
 </div>
