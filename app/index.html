@@ -1726,7 +1726,8 @@ function fhShim(uid,admin){
 }
 function fhView(){
   const btn=(t,k)=>`<button class="${FH_TAB===k?'on':''}" data-a="fhTab" data-v="${k}">${t}</button>`;
-  return `<div class="cbanner"><img src="${ART.keyart}" alt="Os três heróis: Monge, Paladino e Guerreiro"><div class="cb-t"><span class="tag">[ SISTEMA ] · IDENTIFIQUE-SE, JOGADOR</span><h1>FORJA DO HERÓI</h1><p>Entre para continuar a sua jornada de onde parou.</p></div></div>
+  return `<div style="margin:-4px -16px 0;position:relative"><img src="img/logo.webp" alt="Forja do Herói · Treino RPG" style="display:block;width:100%;-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)"></div>
+  <div style="text-align:center;margin-top:-6px"><span class="tag">[ SISTEMA ] · IDENTIFIQUE-SE, JOGADOR</span><p class="muted" style="margin-top:8px">Entre para continuar a sua jornada de onde parou.</p></div>
   <div class="card" style="margin-top:12px">
    <div class="seg" style="margin-bottom:6px">${btn('Entrar','login')}${btn('Primeiro acesso','signup')}</div>
    <p class="muted" style="font-size:13.5px;margin:8px 0 0">${FH_TAB==='signup'?'Comprou agora? Use o <b>mesmo e-mail da compra</b> e crie uma senha. Seu acesso é liberado na hora.':'Use o e-mail da compra e a senha que você criou no primeiro acesso.'}</p>
