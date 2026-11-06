@@ -168,7 +168,7 @@ function viewPlayers(){
   <div class="chips" style="margin-bottom:12px">${FILTERS.map(([k,n])=>`<button class="${FILTER===k?'on':''}" data-f="${k}">${n} <small>(${(()=>{const o=FILTER;FILTER=k;const c=P.filter(pass).length;FILTER=o;return c})()})</small></button>`).join('')}</div>
   <div class="tbl ch glow">${L.length?`<table><thead><tr><th>Jogador</th><th>Plano</th><th>Situação</th><th>Nível</th><th>Dias treinados</th><th>Último login</th><th>Gastou</th><th>Lembrete</th></tr></thead><tbody>
   ${L.map(p=>{const [c,t]=status(p);const L_=lvl(p.xp);return `<tr class="row" data-e="${esc(p.email)}">
-   <td class="who"><b>${esc(p.hero||p.buyer||'—')}${p.is_admin?' <span class="pill adm">ADMIN</span>':''}</b><small>${esc(p.email)}</small></td>
+   <td class="who">${p.avatar?`<img src="${esc(p.avatar)}" style="width:34px;height:34px;border-radius:50%;object-fit:cover;float:left;margin-right:8px;border:1.5px solid #8fe6ff">`:''}<b>${esc(p.hero||p.buyer||'—')}${p.is_admin?' <span class="pill adm">ADMIN</span>':''}</b><small>${esc(p.email)}</small></td>
    <td data-l="Plano"><span class="pill ${p.plan||'none'}">${p.plan?p.plan.toUpperCase():'SEM PLANO'}</span></td>
    <td data-l="Situação"><span class="st ${c}">${t}</span></td>
    <td data-l="Nível"><span class="lv">${p.hero?L_:'—'}</span> <small style="color:var(--dim)">${p.hero?rankOf(L_):''}</small></td>
@@ -180,7 +180,7 @@ function viewPlayers(){
 function viewRank(){
   const L=P.filter(p=>p.hero&&!p.is_admin).sort((a,b)=>b.xp-a.xp);
   if(!L.length) return '<div class="box ch glow empty">Ainda ninguém criou herói.</div>';
-  return L.map((p,i)=>{const L_=lvl(p.xp);return `<div class="rk ch glow" data-e="${esc(p.email)}" style="cursor:pointer"><span class="pos">${i+1}º</span><div><b>${esc(p.hero)}</b> <span class="pill ${p.plan||'none'}" style="margin-left:6px">${(p.plan||'—').toUpperCase()}</span><br><small style="color:var(--dim)">${CLS[p.cls]||''} · Nível ${L_} · ${rankOf(L_)} · ${p.bosses} chefes · ${p.dungeon} dias de dungeon · ${p.days} dias treinados</small></div><span class="xp">${fmt(p.xp)} XP</span></div>`}).join('');
+  return L.map((p,i)=>{const L_=lvl(p.xp);return `<div class="rk ch glow" data-e="${esc(p.email)}" style="cursor:pointer"><span class="pos">${i+1}º</span><div style="display:flex;gap:10px;align-items:center">${p.avatar?`<img src="${esc(p.avatar)}" style="width:42px;height:42px;border-radius:50%;object-fit:cover;border:1.5px solid #8fe6ff">`:''}<div><b>${esc(p.hero)}</b> <span class="pill ${p.plan||'none'}" style="margin-left:6px">${(p.plan||'—').toUpperCase()}</span><br><small style="color:var(--dim)">${CLS[p.cls]||''} · Nível ${L_} · ${rankOf(L_)} · ${p.bosses} chefes · ${p.dungeon} dias de dungeon · ${p.days} dias treinados</small></div></div><span class="xp">${fmt(p.xp)} XP</span></div>`}).join('');
 }
 const TPL=[
  ['all','[SISTEMA] Nova missão disponível','{nome}, uma nova missão foi liberada. Entre no app e cumpra para receber XP.'],
@@ -210,7 +210,7 @@ function drawer(email){
   const p=P.find(x=>x.email===email);if(!p)return;
   const [c,t]=status(p);const L_=lvl(p.xp);
   const d=document.createElement('div');d.className='drawer';d.innerHTML=`<div class="in">
-   <div style="display:flex;justify-content:space-between;align-items:center"><h3>${esc(p.hero||p.buyer||p.email)}</h3><button class="btn sm" data-x>✕</button></div>
+   <div style="display:flex;justify-content:space-between;align-items:center"><h3 style="display:flex;align-items:center;gap:10px">${p.avatar?`<img src="${esc(p.avatar)}" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid #8fe6ff">`:''}${esc(p.hero||p.buyer||p.email)}</h3><button class="btn sm" data-x>✕</button></div>
    <span class="pill ${p.plan||'none'}">${p.plan?p.plan.toUpperCase():'SEM PLANO'}</span> <span class="st ${c}" style="margin-left:6px">${t}</span>
    <div class="kv">
     <small>E-mail</small><span>${esc(p.email)}</span>

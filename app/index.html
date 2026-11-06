@@ -887,6 +887,18 @@ body{background:url(img/ui/particles.png) 0 0/700px 700px,radial-gradient(60% 40
 .sexp button.on{border-color:#8fe6ff;color:#fff;background:rgba(30,90,170,.45);box-shadow:0 0 10px rgba(79,210,255,.55)}
 .stage-art[src*="-f.webp"],.lv-art[src*="-f.webp"]{object-fit:cover;object-position:75% 20%;width:100%;height:100%;right:0;left:0;top:0;bottom:0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%);mask-image:linear-gradient(90deg,transparent,#000 35%)}
 .hcard .bgw{white-space:nowrap;font-size:52px}
+
+.hcard .art2.me{inset:auto 0 0 auto;top:0;width:64%;height:100%;object-fit:cover;object-position:50% 18%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 30%);mask-image:linear-gradient(90deg,transparent,#000 30%)}
+.avdrop{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:220px;margin-top:10px;border:1.5px dashed rgba(143,230,255,.6);border-radius:14px;background:rgba(8,18,40,.8);text-align:center;overflow:hidden}
+.avdrop span{font-size:40px}.avdrop small{color:#9fb6d6}
+.avdrop img{width:100%;max-height:320px;object-fit:contain}
+.avdrop input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.avok{display:flex;gap:8px;align-items:flex-start;margin-top:10px;font-size:13.5px;color:#c9d8ef}.avok input{margin-top:3px;width:auto}
+.avres{display:block;width:100%;border-radius:14px;margin-top:10px;border:1.5px solid #8fe6ff;box-shadow:0 0 16px rgba(79,210,255,.5)}
+.avbusy{display:flex;flex-direction:column;align-items:center;gap:8px;padding:40px 10px;text-align:center}.avbusy small{color:#9fb6d6}
+.avspin{width:54px;height:54px;border-radius:50%;border:3px solid rgba(143,230,255,.25);border-top-color:#8fe6ff;animation:avs 1s linear infinite;box-shadow:0 0 14px rgba(79,210,255,.5)}
+@keyframes avs{to{transform:rotate(360deg)}}
+.averr{margin-top:8px;padding:8px 10px;border-radius:8px;background:rgba(255,80,100,.15);border:1px solid rgba(255,100,120,.5);color:#ffc2cb;font-size:14px}
 </style>
 </head>
 <body>
@@ -1280,6 +1292,8 @@ function settingsSheet(){
    <div class="field"><label>Personagem</label><div class="sexp"><button type="button" class="${(window.__sexPick||sexOf())==='m'?'on':''}" data-a="pickSex" data-v="m">♂ Herói</button><button type="button" class="${(window.__sexPick||sexOf())==='f'?'on':''}" data-a="pickSex" data-v="f">♀ Heroína</button></div></div>
    <div class="field"><label>Classe</label><div class="classes">${classCards(S.cls)}</div></div>
    <button class="btn full" style="margin-top:16px" data-a="saveSettings">Salvar</button>
+   <h2 style="font-size:15px">Herói com a minha foto</h2>
+   <div class="card row between"><span style="display:flex;align-items:center;gap:10px">${S.avatar?`<img src="${S.avatar}" style="width:42px;height:42px;border-radius:50%;object-fit:cover;border:1.5px solid #8fe6ff">`:'📸'}${S.avatar?'Seu herói personalizado':'Transforme sua foto em herói anime'}</span><button class="btn sm" data-a="avOpen">${S.avatar?'Refazer':'Criar'}</button></div>
    <h2 style="font-size:15px">Horário do treino</h2>
    <div class="card row between"><span>${S.treinoHora?('🔔 '+S.treinoHora+(S.pushOn?' · lembrete ligado':' · lembrete desligado')):'Ainda não definido'}</span><button class="btn sm" data-a="horaOpen">Alterar</button></div>
    <h2 style="font-size:15px">Plano</h2>
@@ -1339,6 +1353,47 @@ function pushToast(r,hora){
   else if(r==='nosup') toast('⚠️','Seu navegador não aceita notificações','Use o Chrome ou instale o app');
   else toast('⚠️','Não deu para ativar agora','Tente de novo em Ficha → Horário do treino');
 }
+
+/* ---------- herói com a foto do jogador (IA) ---------- */
+const AV_FN='https://lpdicrpetxqnoxceozfa.supabase.co/functions/v1/fh-avatar';
+let AV={img:null,res:null,busy:false,info:null,err:''};
+const AV_COST=300;
+const avCost=()=>AV.info&&AV.info.used>0?AV_COST:0;
+function avPromo(){
+  if(S.avatar||S.avHide) return '';
+  return `<div class="pv horapromo"><span class="hp-ic">📸</span><div><b>[SISTEMA] Crie seu herói com a sua foto</b><small>A IA transforma você num personagem anime da sua classe.</small></div><button class="btn sm" data-a="avOpen">Criar</button><button class="hp-x" data-a="avHide" aria-label="Fechar">✕</button></div>`;
+}
+async function avToken(){const {data:{session}}=await FH.auth.getSession();return session&&session.access_token}
+async function avInfo(){try{const t=await avToken();const r=await fetch(AV_FN,{headers:{Authorization:'Bearer '+t,apikey:FH_KEY}});AV.info=await r.json()}catch(e){AV.info=null}}
+function avSheet(){
+  const left=AV.info?Math.max(0,AV.info.limit-AV.info.used):null;
+  const body=AV.busy?`<div class="avbusy"><div class="avspin"></div><b>[SISTEMA] Forjando seu herói…</b><small>Isso leva até 1 minuto. Não feche o app.</small></div>`
+   :AV.res?`<img class="avres" src="${AV.res}" alt="Seu herói"><div class="grid2" style="margin-top:12px"><button class="btn gold" data-a="avUse">✅ Usar este herói</button><button class="btn ghost" data-a="avAgain" ${left===0?'disabled':''}>↻ Gerar outro · 🪙 ${AV_COST}</button></div>`
+   :`<div class="avdrop">${AV.img?`<img src="${AV.img}" alt="Sua foto">`:'<span>📸</span><b>Tire uma selfie ou escolha uma foto</b><small>De frente, rosto bem visível e com boa luz</small>'}<input type="file" accept="image/*" id="av_file"></div>
+     <label class="avok"><input type="checkbox" id="av_ok"> Autorizo o uso da minha foto só para criar meu personagem. A foto original não é guardada.</label>
+     <button class="btn gold full" style="margin-top:12px" data-a="avGo" ${AV.img?'':'disabled'}>⚔️ Transformar em ${esc(cName(S.cls,sexOf()))}${avCost()?` · 🪙 ${AV_COST}`:' · grátis'}</button>`;
+  openModal(`<div class="row between"><h3>Herói com a sua foto</h3><button class="iconbtn" data-a="avClose">✕</button></div>
+   ${AV.err?`<p class="averr">${esc(AV.err)}</p>`:''}${body}
+   <p class="muted" style="font-size:12.5px;margin-top:10px;text-align:center">${left===null?'':`Você tem 🪙 <b>${fmt(gold())}</b> · a 1ª criação é grátis, as próximas custam ${AV_COST} de ouro · restam <b>${left}</b>${AV.info&&AV.info.plan!=='elite'?' · no Caçador Elite você ganha mais':''}`}</p>
+   ${S.avatar&&!AV.busy?'<button class="btn ghost full sm" style="margin-top:6px" data-a="avReset">Voltar para a arte padrão da classe</button>':''}`);
+  const f=$('#av_file');if(f)f.onchange=()=>avLoad(f.files[0]);
+}
+function avLoad(file){
+  if(!file)return;const fr=new FileReader();
+  fr.onload=()=>{const im=new Image();im.onload=()=>{const m=1024,k=Math.min(1,m/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);AV.img=c.toDataURL('image/jpeg',.86);AV.err='';avSheet()};im.src=fr.result};
+  fr.readAsDataURL(file);
+}
+async function avGo(){
+  if(!$('#av_ok')||!$('#av_ok').checked){AV.err='Marque a autorização para continuar.';return avSheet()}
+  const cost=avCost();if(cost&&gold()<cost){AV.err=`Você precisa de ${cost} de ouro. Treine e cumpra missões para ganhar mais.`;return avSheet()}
+  AV.busy=true;AV.err='';avSheet();
+  try{const t=await avToken();
+    const r=await fetch(AV_FN,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+t,apikey:FH_KEY},body:JSON.stringify({image:AV.img,cls:S.cls,sex:sexOf()})});
+    const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||'Não deu para criar agora.');
+    AV.res=j.url;AV.img=null;if(cost){S.goldSpent+=cost;save()}AV.info=Object.assign(AV.info||{},{used:j.used,limit:j.limit});sfx&&sfx('elite');
+  }catch(e){AV.err=e.message}
+  AV.busy=false;avSheet();
+}
 function horaSheet(){
   const v=S.treinoHora||'12:00';
   openModal(`<div class="row between"><h3>Horário do treino</h3><button class="iconbtn" data-a="close">✕</button></div>
@@ -1393,7 +1448,7 @@ function tvErr(e){
   else if(e&&e.code==='quota_exceeded') toast('⚠️','A Taverna está cheia','Apague posts antigos para liberar espaço');
   else toast('⚠️','Não foi possível enviar','Tente de novo em instantes');
 }
-function heroSnap(){const li=levelInfo();return {name:S.name||'Herói',cls:S.cls,sex:sexOf(),level:li.L,rank:rankOf(li.L),title:S.title||'',elite:isElite(),season:{k:seasonKey(),xp:seasonXP()}}}
+function heroSnap(){const li=levelInfo();return {name:S.name||'Herói',cls:S.cls,sex:sexOf(),avatar:S.avatar||'',level:li.L,rank:rankOf(li.L),title:S.title||'',elite:isElite(),season:{k:seasonKey(),xp:seasonXP()}}}
 function writeMine(mut){
   if(!TV.db||!TV.me) return;
   tvChain=tvChain.then(async()=>{
@@ -1555,14 +1610,14 @@ function viewSeason(){
   const title=`Temporada de ${MESES[now.getMonth()]}`;
   if(!isElite()) return backMais()+`<h2>🏆 ${title}</h2>`+lockedView('Temporada mensal','Todo mês, os heróis Elite disputam um ranking de XP. Os primeiros colocados ganham títulos que nunca mais voltam.',ART.keyart,['Ranking ao vivo com os heróis da Taverna','Títulos exclusivos para o Top 3','Zera todo mês: sempre dá para chegar no topo']);
   const k=seasonKey();
-  const rows=TV.docs.filter(d=>d.hero&&d.hero.elite&&d.hero.season&&d.hero.season.k===k).map(d=>({uid:d.uid,name:String(d.hero.name||'Herói'),cls:d.hero.cls,xp:+d.hero.season.xp||0}));
-  if(!rows.some(r=>r.uid===TV.me)) rows.push({uid:TV.me||'me',name:S.name,cls:S.cls,xp:seasonXP()});
+  const rows=TV.docs.filter(d=>d.hero&&d.hero.elite&&d.hero.season&&d.hero.season.k===k).map(d=>({uid:d.uid,name:String(d.hero.name||'Herói'),cls:d.hero.cls,sex:d.hero.sex,avatar:d.hero.avatar,xp:+d.hero.season.xp||0}));
+  if(!rows.some(r=>r.uid===TV.me)) rows.push({uid:TV.me||'me',name:S.name,cls:S.cls,sex:sexOf(),avatar:S.avatar,xp:seasonXP()});
   else rows.forEach(r=>{if(r.uid===TV.me)r.xp=seasonXP()});
   rows.sort((a,b)=>b.xp-a.xp);
   const medal=['🥇','🥈','🥉'];
   return backMais()+`<div class="stage sm" style="background:linear-gradient(135deg,#3a2a0c,#120c04);--acc:#ffc65a"><div class="stage-word">TOP</div><img class="stage-art" src="${aFull(S.cls,sexOf())}" alt=""><div class="stage-info"><span class="tag">TEMPORADA</span><div class="stage-name">${title}</div><div class="stage-cls">termina em ${dl} ${dl===1?'dia':'dias'}</div></div></div>
   <div class="win"><div class="wtitle">RANKING</div>
-  ${rows.slice(0,20).map((r,i)=>`<div class="rank-row ${r.uid===TV.me||r.uid==='me'?'me':''}"><span class="rk">${medal[i]||(i+1)}</span><span class="av" style="width:32px;height:32px;overflow:hidden">${face(CLASSES[r.cls]?r.cls:'paladino')}</span><span class="rn">${esc(r.name)}${r.uid===TV.me||r.uid==='me'?' <span class="you">VOCÊ</span>':''}</span><span class="rx glow">${fmt(r.xp)} XP</span></div>`).join('')}
+  ${rows.slice(0,20).map((r,i)=>`<div class="rank-row ${r.uid===TV.me||r.uid==='me'?'me':''}"><span class="rk">${medal[i]||(i+1)}</span><span class="av" style="width:32px;height:32px;overflow:hidden"><img class="facei" src="${r.avatar||aFace(CLASSES[r.cls]?r.cls:'paladino',r.sex)}" alt=""></span><span class="rn">${esc(r.name)}${r.uid===TV.me||r.uid==='me'?' <span class="you">VOCÊ</span>':''}</span><span class="rx glow">${fmt(r.xp)} XP</span></div>`).join('')}
   ${TV.db?'':'<p class="dim" style="font-size:12px;margin-top:8px">O ranking com outros heróis aparece quando a Taverna está conectada.</p>'}
   </div>
   <div class="card" style="margin-top:12px"><b class="glow">Recompensas da temporada</b><p class="muted" style="font-size:14px;margin-top:4px">🥇 título “Lenda de ${MESES[now.getMonth()]}” · 🥈 “Campeão de ${MESES[now.getMonth()]}” · 🥉 “Elite de ${MESES[now.getMonth()]}”. Só conta o XP ganho em treinos neste mês.</p></div>`;
@@ -1753,10 +1808,10 @@ function viewHero(){
   const col=CLS_COLOR[S.cls];
   const days=[];const wd=['D','S','T','Q','Q','S','S'];let mx=1;
   for(let i=6;i>=0;i--){const d=addDays(ymd(),-i);const x=sum(S.log.filter(e=>e.d===d),e=>e.xp);mx=Math.max(mx,x);const [y,mo,da]=d.split('-').map(Number);days.push({x,l:wd[new Date(y,mo-1,da).getDay()]})}
-  return `<div class="hcwrap"><div class="hcard hc-${S.cls}" style="background:${col.bg};--acc:${col.acc};--accg:${col.acc}66"><div class="bgw">${cWord(S.cls,sexOf())}</div>${aCard(S.cls,sexOf())?`<img class="art2" src="${aCard(S.cls,sexOf())}" alt="${c.n}"><i class="shade"></i>`:`<img class="art" src="${aFull(S.cls,sexOf())}" alt="${c.n}">`}
+  return `<div class="hcwrap"><div class="hcard hc-${S.cls}" style="background:${col.bg};--acc:${col.acc};--accg:${col.acc}66"><div class="bgw">${cWord(S.cls,sexOf())}</div>${S.avatar?`<img class="art2 me" src="${S.avatar}" alt="${esc(S.name)}"><i class="shade"></i>`:aCard(S.cls,sexOf())?`<img class="art2" src="${aCard(S.cls,sexOf())}" alt="${c.n}"><i class="shade"></i>`:`<img class="art" src="${aFull(S.cls,sexOf())}" alt="${c.n}">`}
     <div class="inf"><span class="tg">[ SISTEMA ] · JOGADOR</span><span class="nm">${esc(S.name)}</span><span class="cl">${c.n}</span>${isElite()?'<span class="el">'+SVG_CROWN+'CAÇADOR ELITE</span>':''}${S.title?`<span style="font-size:13px">« ${esc(S.title)} »</span>`:''}</div></div></div>
   <div class="nglow"><div class="pv statp"><div class="hextitle" style="margin:0 0 14px"><span style="font-size:22px;padding:7px 40px">STATUS</span></div>
-    <div class="st2"><div class="av"><img src="${aFace(S.cls,sexOf())}" alt=""></div><div class="lv"><b>${li.L}</b><span>NÍVEL</span></div>
+    <div class="st2"><div class="av"><img src="${S.avatar||aFace(S.cls,sexOf())}" alt=""></div><div class="lv"><b>${li.L}</b><span>NÍVEL</span></div>
      <div class="kv"><div><small>NOME: </small><span>${esc(S.name)}</span></div><div><small>CLASSE: </small><span>${c.n}</span></div><div><small>TÍTULO: </small><span>${S.title?esc(S.title):'Nenhum'}</span></div><div><small>PATENTE: </small><span>${rankOf(li.L)}</span></div></div></div>
     <span class="bonus">${SVG_SHIELD}Bônus de classe${S.elixir===ymd()?' · 🧪 Elixir +50%':''}</span></div></div>
   <div class="nglow"><div class="pv barsp">
@@ -1768,7 +1823,7 @@ function viewHero(){
   </div></div>
   <div class="ctawrap"><button class="bigcta" data-tab="treinar">${SVG_SWORDS}<span class="sep"></span><span class="tx">${st.trainedToday?'CONTINUAR TREINO':'INICIAR MISSÃO'} »</span></button></div>
   <div class="ctasub">${st.trainedToday?`Hoje: +${fmt(sum(todayEntries(),e=>e.xp))} XP conquistados`:'Seu despertar começa agora.'}</div>
-  ${horaPromo()}
+  ${avPromo()}${horaPromo()}
   ${elitePromo()}
   <div class="sechead">Atributos</div>
   <div class="pv" style="padding:14px"><div class="stgrid">${Object.entries(ATTRS).map(([k,a])=>`<div class="stc" title="${a.n}: ${a.d}">${svgI(ICO[k])}<span class="k glow">${k}:</span><span class="v glow">${at[k]}</span></div>`).join('')}</div></div>
@@ -1912,7 +1967,7 @@ function postHTML(p,F){
   if(p.kind==='nivel'&&d) chips=`<span>✦ ${fmt(+d.xp||0)} XP</span><span class="g">⏫ Nível ${+d.level||1}</span>`+(+d.streak?`<span>🔥 ${+d.streak} ${+d.streak===1?'dia':'dias'}</span>`:'');
   const kind=postKind(p);
   return `<div class="pcard">${canDel?`<button class="more" data-a="tvDel" data-u="${esc(p.uid)}" data-id="${esc(p.id)}" title="Apagar">•••</button>`:''}
-   <div class="ph2"><div class="av2"><img src="${aFace(cls,h.sex)}" alt=""></div><div style="min-width:0;flex:1">
+   <div class="ph2"><div class="av2"><img src="${h.avatar||aFace(cls,h.sex)}" alt=""></div><div style="min-width:0;flex:1">
     <div class="who"><b>${esc(h.name||'Herói')}</b><span class="lvp">${h.elite?'👑 ':''}Nível ${+h.level||1}</span>${mine?'<span class="you">VOCÊ</span>':''}</div>
     <div class="tm">${p.ts?'Há '+ago(p.ts).replace('agora','instantes'):''}${h.rank?' · '+esc(h.rank):''}</div>
     ${p.text?`<div class="txt">${esc(p.text)}</div>`:''}
@@ -1975,6 +2030,13 @@ document.addEventListener('click',ev=>{
       S.goldBonus=50;const hora=($('#c_hora')&&$('#c_hora').value)||'12:00';S.treinoHora=hora;save();tab='heroi';render();toast('⚒️','Bem-vindo, '+name+'!','Você recebeu 50 ouro para começar');pushEnable(hora).then(r=>{if(r!=='ok')S.pushOn=false;setTimeout(()=>pushToast(r,hora),2600);render()});break}
     case 'horaPick':{document.querySelectorAll('.hchips button').forEach(b=>b.classList.toggle('on',b===t.closest('button')));const i=$('#c_hora');if(i)i.value=t.closest('button').dataset.v;window.__hora=t.closest('button').dataset.v;break}
     case 'horaOpen': horaSheet(); break;
+    case 'avOpen': AV={img:null,res:null,busy:false,info:null,err:''};avSheet();avInfo().then(()=>{if($('#modal').innerHTML&&!AV.busy)avSheet()});break;
+    case 'avClose': if(!AV.busy)closeModal(); break;
+    case 'avHide': S.avHide=1;save();render();break;
+    case 'avGo': avGo(); break;
+    case 'avAgain': AV.res=null;avSheet(); break;
+    case 'avUse': S.avatar=AV.res;save();closeModal();render();toast('⚔️','Seu herói foi forjado!','Agora ele aparece no seu perfil, na Taverna e no ranking');break;
+    case 'avReset': S.avatar='';save();closeModal();render();break;
     case 'horaHide': S.horaHide=1;save();render();break;
     case 'horaSave':{const hora=$('#c_hora').value||'12:00';pushEnable(hora).then(r=>{closeModal();render();pushToast(r,hora)});break}
     case 'horaOff':{pushDisable().then(()=>{closeModal();render();toast('🔕','Lembretes desligados')});break}
