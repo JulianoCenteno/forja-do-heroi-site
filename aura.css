@@ -1,0 +1,12 @@
+/* ===================== Auras, fumaça e brasas por seção (desktop) ===================== */
+.fxl{position:absolute;inset:0;pointer-events:none;z-index:2;overflow:hidden}
+.fxl .gw{position:absolute;border-radius:50%;transform:translate(-50%,-50%);mix-blend-mode:screen;background:radial-gradient(closest-side,var(--c) 0%,color-mix(in srgb,var(--c) 40%,transparent) 45%,transparent 100%);opacity:.25;animation:gwp var(--d,4.5s) ease-in-out infinite;animation-delay:var(--dl,0s);filter:blur(1cqw)}
+@keyframes gwp{0%,100%{opacity:.18;transform:translate(-50%,-50%) scale(.92)}45%{opacity:.5;transform:translate(-50%,-50%) scale(1.06)}60%{opacity:.34}}
+.fxl .fl{position:absolute;transform:translate(-50%,-50%);mix-blend-mode:screen;opacity:0;background:radial-gradient(closest-side,#fff 0%,var(--c) 30%,transparent 100%);border-radius:50%;animation:flk var(--d,7s) linear infinite;animation-delay:var(--dl,0s)}
+@keyframes flk{0%,86%,100%{opacity:0}88%{opacity:.55}89%{opacity:.1}91%{opacity:.7}94%{opacity:0}}
+.fxl .sm{position:absolute;bottom:-12%;width:70%;height:42%;border-radius:50%;mix-blend-mode:screen;background:radial-gradient(closest-side,var(--c),transparent 70%);filter:blur(3cqw);opacity:.32;animation:smk var(--d,22s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes smk{0%{transform:translateX(-18%) scale(1)}50%{opacity:.45}100%{transform:translateX(18%) scale(1.15)}}
+.fxl .em{position:absolute;width:var(--s);height:var(--s);border-radius:50%;background:var(--c);box-shadow:0 0 calc(var(--s)*3) var(--c),0 0 calc(var(--s)*1.2) #fff;opacity:0;animation:emb var(--d) linear infinite;animation-delay:var(--dl)}
+@keyframes emb{0%{opacity:0;transform:translate(0,0)}12%{opacity:.95}70%{opacity:.7}100%{opacity:0;transform:translate(var(--dx),-14cqw)}}
+@media (max-width:760px){.fxl{display:none}}
+@media (prefers-reduced-motion:reduce){.fxl{display:none}}

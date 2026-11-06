@@ -86,11 +86,17 @@ if(matchMedia('(pointer:fine)').matches){addEventListener('mousemove',e=>{tx=(e.
   frame();
 })();
 
-/* ====== trilha sonora (só toca quando o visitante liga) ====== */
+/* ====== trilha sonora: tenta tocar 1s após entrar; se o navegador bloquear, começa no 1º toque/clique ====== */
 const aud=document.getElementById('aud'),mus=document.getElementById('mus');
 aud.volume=.35;
 fetch(aud.src,{method:'HEAD'}).then(r=>{if(r.ok)mus.hidden=false}).catch(()=>{});
-mus.onclick=()=>{if(aud.paused){aud.play().then(()=>{mus.classList.add('on');mus.setAttribute('aria-pressed','true');document.getElementById('musL').textContent='Tocando'}).catch(()=>{})}else{aud.pause();mus.classList.remove('on');mus.setAttribute('aria-pressed','false');document.getElementById('musL').textContent='Trilha sonora'}};
+const musUI=on=>{mus.classList.toggle('on',on);mus.setAttribute('aria-pressed',on?'true':'false');document.getElementById('musL').textContent=on?'Tocando':'Trilha sonora'};
+let musOff=false;try{musOff=localStorage.getItem('fhMus')==='off'}catch(e){}
+const EV=['pointerdown','touchstart','keydown','click'];
+const kick=()=>{if(musOff||!aud.paused)return unhook();aud.play().then(()=>{musUI(true);unhook()}).catch(()=>{})};
+const unhook=()=>EV.forEach(e=>removeEventListener(e,kick,true));
+mus.onclick=e=>{e.stopPropagation();if(aud.paused){musOff=false;try{localStorage.removeItem('fhMus')}catch(_){}aud.play().then(()=>musUI(true)).catch(()=>{})}else{aud.pause();musOff=true;try{localStorage.setItem('fhMus','off')}catch(_){}musUI(false)}unhook()};
+if(!musOff){setTimeout(()=>{aud.play().then(()=>musUI(true)).catch(()=>{EV.forEach(e=>addEventListener(e,kick,{capture:true,passive:true}))})},1000)}
 
 /* Carrossel (celular): Sistema e Classes */
 document.querySelectorAll('[data-car]').forEach(car=>{
@@ -108,3 +114,28 @@ document.querySelectorAll('[data-car]').forEach(car=>{
   start();addEventListener('load',start);mq.addEventListener('change',start);
   setInterval(()=>{if(!user&&mq.matches&&document.visibilityState==='visible'){const r=car.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)go(cur+1)}},4500);
 });
+
+/* Auras, fumaça e brasas por seção (desktop) */
+(()=>{
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  const G='#ffb21a',T='#22ffc0',R='#ff2a55',P='#8a3dff',B='#2e9bff',GR='#55ff6a',S='#a9c8ff';
+  // [x%,y%,tamanho(%largura),cor]
+  const C={
+    topo:{g:[[27,40,20,T],[52,40,22,G],[77,40,20,R],[51,14,16,B]],f:[[27,42,9,T],[52,44,10,G],[77,42,9,R]],s:[P,B,P],e:[[20,34,60,G],[16,34,62,T],[66,34,62,R]]},
+    problema:{g:[[87,25,16,G],[63,48,14,P]],f:[[88,24,8,G]],s:[P],e:[[78,96,30,G]]},
+    sistema:{g:[[25,50,14,G],[50,50,14,B],[75,50,14,P]],s:[B,P],e:[[10,80,85,G]]},
+    classes:{g:[[20,58,16,T],[50,55,18,G],[80,58,16,P]],f:[[6,40,8,T],[94,40,8,P]],s:[T,P],e:[[8,60,90,G]]},
+    alquimia:{g:[[32,32,24,G],[40,22,9,GR],[8,60,10,GR]],f:[[31,30,10,G]],s:[P],e:[[15,10,40,G],[30,10,15,GR]]},
+    ranking:{g:[[24,40,13,S],[50,36,17,G],[76,40,13,R]],f:[[50,34,9,G]],s:[P],e:[[40,30,22,G]]},
+    garantia:{g:[[21,45,30,B],[21,40,18,G]],f:[[16,40,10,B],[28,55,9,B]],s:[P,P],e:[[8,20,28,G]]},
+    planos:{g:[[11,42,24,G],[89,42,24,P],[88,30,10,R]],f:[[12,45,9,G],[90,40,9,P]],s:[P,G],e:[[2,30,20,G],[78,30,20,P]]},
+    faq:{g:[[15,45,26,G],[96,30,12,B]],f:[[12,50,10,G]],s:[B],e:[[2,30,24,G]]}
+  };
+  const r=(a,b)=>a+Math.random()*(b-a);
+  for(const id in C){const sec=document.getElementById(id);if(!sec)continue;const c=C[id];const L=document.createElement('div');L.className='fxl';L.setAttribute('aria-hidden','true');let h='';
+    (c.s||[]).forEach((col,i)=>h+=`<i class="sm" style="left:${[-10,40,15][i%3]}%;--c:${col};--d:${r(18,28)}s;--dl:-${r(0,20)}s"></i>`);
+    (c.g||[]).forEach(([x,y,s,col])=>h+=`<i class="gw" style="left:${x}%;top:${y}%;width:${s}cqw;height:${s}cqw;--c:${col};--d:${r(3.6,5.6)}s;--dl:-${r(0,4)}s"></i>`);
+    (c.f||[]).forEach(([x,y,s,col])=>h+=`<i class="fl" style="left:${x}%;top:${y}%;width:${s}cqw;height:${s}cqw;--c:${col};--d:${r(5,9)}s;--dl:-${r(0,8)}s"></i>`);
+    (c.e||[]).forEach(([x,y,w,col])=>{for(let k=0;k<Math.round(w/2.2)+4;k++)h+=`<i class="em" style="left:${r(x,x+w)}%;top:${r(y+20,y+55)}%;--s:${r(.15,.42)}cqw;--c:${col};--d:${r(3.5,7)}s;--dl:-${r(0,7)}s;--dx:${r(-3,3)}cqw"></i>`});
+    L.innerHTML=h;sec.appendChild(L)}
+})();
