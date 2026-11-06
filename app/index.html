@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
+<meta name="fh-ver" content="20261106131020">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Forja do Herói — Treino RPG</title>
 <meta name="robots" content="noindex">
@@ -2330,6 +2331,11 @@ async function duelLoginBanner(){
    el.innerHTML=`${duelAv(p.creator)}<p><b>${esc(p.creator.name)}</b> te desafiou para um duelo! Entre para aceitar.<br><a href="/" style="color:#ffd25a;font-weight:700">Ainda não é da Forja? Garanta seu acesso →</a></p>`;
    const f=$('#fhForm');f.parentNode.insertBefore(el,f)}catch(e){}
 }
+
+/* atualiza sozinho quando sai versão nova */
+(function(){const cur=(document.querySelector('meta[name=fh-ver]')||{}).content;if(!cur)return;let last=0;
+ async function chk(){if(Date.now()-last<60000)return;last=Date.now();try{const t=await (await fetch('/app/?vc='+Date.now(),{cache:'no-store'})).text();const m=t.match(/name="fh-ver" content="(\d+)"/);if(m&&m[1]!==cur&&!$('#modal').innerHTML){location.reload()}}catch(e){}}
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)chk()});setInterval(chk,10*60000);})();
 const _fhRender=render;
 render=function(){if(!window.__FH_PLAN)return fhRenderLogin();if(S.plan!==window.__FH_PLAN){S.plan=window.__FH_PLAN;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}return _fhRender();};
 document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-a]');if(!b)return;const a=b.dataset.a;
