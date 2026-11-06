@@ -1,0 +1,25 @@
+/* ===================== ALQUIMIA · fiel ao layout (base 1672×941) ===================== */
+.ax{position:relative;width:100%;aspect-ratio:1672/941;overflow:hidden;padding:0;background:#03091a}
+.ax-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ax-art-m{display:none}
+.ap{position:absolute;left:57.715%;top:6.376%;width:40.67%;aspect-ratio:680/755;container-type:inline-size;z-index:3}
+.ap>*{position:absolute}
+.ap-pill{left:14%;top:4.77%;transform:translateY(-50%);font-family:'Montserrat','Exo 2',sans-serif;font-weight:700;font-size:2.95cqw;color:#fff;text-transform:uppercase;white-space:nowrap}
+.ap-h{left:3.3%;top:8.6%;display:flex;flex-direction:column;font-family:'Montserrat','Exo 2',sans-serif;font-style:italic;font-weight:900;text-transform:uppercase;font-size:8.55cqw;line-height:1.12;white-space:nowrap;letter-spacing:-.005em}
+.ap-h span{display:block;-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:1cqw}
+.ap-h .w{background-image:linear-gradient(180deg,#fff 0%,#f3f6fb 45%,#c3cede 60%,#eef2f8 78%,#a8b5c8 100%);filter:drop-shadow(0 .3cqw 0 rgba(20,30,60,.8))}
+.ap-h .g{background-image:linear-gradient(180deg,#fff7c8 0%,#ffe066 30%,#ffbf24 55%,#ffd65c 70%,#e08a00 100%);filter:drop-shadow(0 .3cqw 0 rgba(80,40,0,.8)) drop-shadow(0 0 2.5cqw rgba(255,170,30,.45))}
+.ap-p{left:8.1%;top:34.6%;width:85%;font-family:'Montserrat','Fira Sans',sans-serif;font-weight:500;font-size:2.72cqw;line-height:1.38;color:#e9eef7}
+.ap-t{font-family:'Montserrat','Exo 2',sans-serif;font-weight:700;font-size:2.55cqw;line-height:1.22;color:#fff;transform:translateY(-50%)}
+.t1,.t4{left:14.3%}.t2,.t5{left:47%}.t3,.t6{left:80.1%;font-size:2.45cqw}
+.t1,.t2,.t3{top:57.9%}.t4,.t5,.t6{top:73.6%}
+.ap-btn{left:9.3%;top:87.2%;width:81.8%;height:8.6%;display:flex;align-items:center;justify-content:center;gap:2cqw;font-family:'Montserrat','Exo 2',sans-serif;font-weight:800;text-transform:uppercase;font-size:3.65cqw;color:#2a1600;transition:filter .2s}
+.ap-btn b{font-size:1.5em;line-height:0}
+.ap-btn:hover{filter:drop-shadow(0 0 2cqw rgba(255,190,50,.8))}
+@media (max-width:760px){
+  .ax{aspect-ratio:auto;padding-bottom:6vw}
+  .ax-bg{display:none}
+  .ax-art-m{display:block;width:100%}
+  .ap-h{font-size:7.7cqw;left:4%}
+  .ap{position:relative;left:auto;top:auto;width:100%;margin-top:-2vw;background:url(img/v3/alq-panel.webp) center/100% 100% no-repeat}
+}
