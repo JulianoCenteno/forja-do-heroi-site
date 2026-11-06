@@ -224,14 +224,40 @@ function drawer(email){
     <small>Conquistas</small><span>${p.bosses} chefes · ${p.quests} missões · ${p.dungeon} dias de dungeon</span>
     <small>Lembrete</small><span>${p.push_on?'Ligado às '+esc(p.train_time)+(p.push_last?' · último aviso '+ago(p.push_last)+' atrás':''):'Desligado'}</span>
    </div>
-   <div class="ttl" style="font-size:16px;margin-top:10px">Compras</div>
-   ${(p.orders||[]).map(o=>`<div class="ord ch" style="--bc:${o.plan==='elite'?'#ffe08a':'#8fe6ff'}"><b>${o.plan==='elite'?'Caçador Elite':'Recruta'}</b> · ${brl(o.amount)} · <span class="st ${o.status==='pago'?'ok':'warn'}">${esc(o.status)}</span><br><small style="color:var(--dim)">${dt(o.paid_at)} · ${esc(o.method||'')}</small>${o.bumps&&o.bumps.length?`<br><small>➕ ${o.bumps.map(esc).join(', ')}</small>`:''}${o.campaign?`<br><small style="color:var(--dim)">📣 ${esc(o.campaign)} · ${esc(o.ad)}</small>`:''}</div>`).join('')||'<p class="note">Sem compras registradas (conta de teste ou admin).</p>'}
+   <div class="ttl" style="font-size:16px;margin-top:10px;display:flex;justify-content:space-between;align-items:center">Compras <button class="btn sm" data-grant>＋ Liberar item/plano</button></div>
+   ${(p.orders||[]).map(o=>`<div class="ord ch" style="--bc:${o.plan==='elite'?'#ffe08a':'#8fe6ff'}"><b>${o.plan==='elite'?'Caçador Elite':'Recruta'}</b>${o.manual?' <span class="pill adm">MANUAL</span>':''} · ${brl(o.amount)} · <span class="st ${o.status==='pago'?'ok':'warn'}">${esc(o.status)}</span><br><small style="color:var(--dim)">${dt(o.paid_at)} · ${esc(o.method||'')}</small>${o.bumps&&o.bumps.length?`<br><small>➕ ${o.bumps.map(esc).join(', ')}</small>`:''}${o.upsells&&o.upsells.length?`<br><small>⬆️ ${o.upsells.map(esc).join(', ')}</small>`:''}${o.campaign?`<br><small style="color:var(--dim)">📣 ${esc(o.campaign)}${o.ad?' · '+esc(o.ad):''}</small>`:''}${o.note?`<br><small style="color:var(--dim)">📝 ${esc(o.note)}</small>`:''}<div style="margin-top:8px">${o.status==='pago'?`<button class="btn sm" data-st="cancelado" data-o="${esc(o.id)}">Cancelar acesso</button>`:`<button class="btn sm" data-st="pago" data-o="${esc(o.id)}">Reativar acesso</button>`}</div></div>`).join('')||'<p class="note">Sem compras registradas (conta de teste ou admin).</p>'}
    ${p.push_on&&p.user_id?`<div class="ttl" style="font-size:16px">Mandar notificação só pra ele</div>
    <div class="field"><input id="d_t" value="[SISTEMA] " maxlength="80"></div><div class="field"><textarea id="d_b" maxlength="240" placeholder="Mensagem"></textarea></div>
    <button class="btn gold" data-send1="${p.user_id}">🔔 Enviar</button>`:''}
   </div>`;
-  d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-x]'))d.remove();const s=e.target.closest('[data-send1]');if(s)send({target:'users',user_ids:[s.dataset.send1],title:$('#d_t').value,body:$('#d_b').value,url:'/app/'},s)});
+  d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-x]'))d.remove();if(e.target.closest('[data-grant]')){d.remove();grantForm(p.email,p.buyer||p.hero||'');return}const st=e.target.closest('[data-st]');if(st){if(!confirm(st.dataset.st==='pago'?'Reativar este acesso?':'Cancelar este acesso? A pessoa perde o plano no app.'))return;sb.rpc('fh_admin_set_status',{p_order_id:st.dataset.o,p_status:st.dataset.st}).then(async r=>{if(r.error)return toast('❌ '+r.error.message);toast('✅ Atualizado');d.remove();await load();drawer(email)});return}
+  const s=e.target.closest('[data-send1]');if(s)send({target:'users',user_ids:[s.dataset.send1],title:$('#d_t').value,body:$('#d_b').value,url:'/app/'},s)});
   document.body.appendChild(d);
+}
+
+const BUMPS=['Grimório da Alimentação do Herói','Missões Relâmpago','Pergaminho da Regeneração','Diário do Caçador · 90 dias','Arsenal Completo (todos os aceleradores + bônus)'];
+function grantForm(email='',name=''){
+  const d=document.createElement('div');d.className='drawer';d.innerHTML=`<form class="in" id="gf">
+   <div style="display:flex;justify-content:space-between;align-items:center"><h3>Cadastrar acesso</h3><button type="button" class="btn sm" data-x>✕</button></div>
+   <p class="note" style="margin-bottom:12px">Use quando alguém comprou e não recebeu, ou para dar acesso de cortesia. Depois a pessoa entra no app em <b>Criar acesso</b> com este e-mail e cria a senha.</p>
+   <div class="field"><label>E-mail da pessoa</label><input id="g_e" type="email" required value="${esc(email)}"></div>
+   <div class="field"><label>Nome</label><input id="g_n" value="${esc(name)}"></div>
+   <div class="field"><label>Plano</label><div class="chips" id="g_p"><button type="button" data-p="recruta">Recruta</button><button type="button" class="on" data-p="elite">Caçador Elite</button></div></div>
+   <div class="field"><label>Order bumps</label>${BUMPS.map((b,i)=>`<label style="display:flex;gap:8px;align-items:center;text-transform:none;letter-spacing:0;font-size:15px;color:var(--txt);margin:6px 0"><input type="checkbox" value="${esc(b)}" class="g_b" style="width:auto"> ${esc(b)}</label>`).join('')}</div>
+   <div class="field"><label>Upsells / outros itens</label><input id="g_u" placeholder="Separe por vírgula (ex.: Upgrade Elite pop-up)"></div>
+   <div class="field"><label>Valor pago (opcional)</label><input id="g_v" type="number" step="0.01" min="0" placeholder="0,00"></div>
+   <div class="field"><label>Observação</label><input id="g_o" placeholder="Ex.: pagou por Pix e não recebeu"></div>
+   <button class="btn gold" style="width:100%;justify-content:center">✅ Liberar acesso</button>
+   <p class="note">Os e-books dos order bumps continuam sendo entregues por e-mail pela Digital Hub. Aqui fica registrado o que a pessoa tem.</p></form>`;
+  document.body.appendChild(d);
+  d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-x]'))d.remove();const b=e.target.closest('[data-p]');if(b){d.querySelectorAll('[data-p]').forEach(x=>x.classList.toggle('on',x===b))}});
+  d.querySelector('#gf').onsubmit=async e=>{e.preventDefault();const btn=e.submitter;btn.disabled=true;
+    const plan=d.querySelector('[data-p].on').dataset.p;
+    const r=await sb.rpc('fh_admin_grant',{p_email:d.querySelector('#g_e').value,p_name:d.querySelector('#g_n').value,p_plan:plan,
+      p_bumps:[...d.querySelectorAll('.g_b:checked')].map(x=>x.value),p_upsells:d.querySelector('#g_u').value.split(',').map(x=>x.trim()).filter(Boolean),
+      p_amount:+d.querySelector('#g_v').value||0,p_note:d.querySelector('#g_o').value||null});
+    btn.disabled=false;if(r.error)return toast('❌ '+r.error.message);
+    toast(r.data.has_account?'✅ Liberado! A pessoa já tem conta, é só entrar.':'✅ Liberado! A pessoa já pode criar o acesso no app.');d.remove();await load();};
 }
 async function send(payload,btn){
   if(!payload.title.trim()||!payload.body.trim()){toast('Preencha título e mensagem');return}
@@ -243,13 +269,14 @@ async function send(payload,btn){
   }catch(e){toast('❌ '+e.message)}finally{btn.disabled=false}
 }
 function render(){
-  $('#root').innerHTML=`<header><div class="brand">CENTRAL DO MESTRE<small>FORJA DO HERÓI · ADMIN</small></div><div class="hr"><button class="btn sm" id="rl">↻ Atualizar</button><button class="btn sm" id="out">Sair</button></div></header>
+  $('#root').innerHTML=`<header><div class="brand">CENTRAL DO MESTRE<small>FORJA DO HERÓI · ADMIN</small></div><div class="hr"><button class="btn gold sm" id="add">＋ Cadastrar acesso</button><button class="btn sm" id="rl">↻ Atualizar</button><button class="btn sm" id="out">Sair</button></div></header>
   ${kpis()}
   <div class="tabs">${[['jogadores','👥 Jogadores'],['ranking','🏆 Ranking'],['notif','🔔 Notificações']].map(([k,n])=>`<button class="${TAB===k?'on':''}" data-tab="${k}">${n}</button>`).join('')}</div>
   <div id="view">${TAB==='jogadores'?viewPlayers():TAB==='ranking'?viewRank():viewPush()}</div>`;
   bind();
 }
 function bind(){
+  $('#add').onclick=()=>grantForm();
   $('#rl').onclick=()=>load().then(()=>toast('Atualizado'));
   $('#out').onclick=async()=>{await sb.auth.signOut();login()};
   document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{TAB=b.dataset.tab;render()});
