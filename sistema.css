@@ -1,0 +1,40 @@
+/* ===================== VEJA O SISTEMA · fiel ao layout (base 1672×941) ===================== */
+.sx{position:relative;width:100%;aspect-ratio:1672/941;overflow:hidden;padding:0;background:#060c22;container-type:inline-size}
+.sx-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.sx-in{position:absolute;inset:0;z-index:3}
+.sx-pill{position:absolute;left:37.68%;top:.85%;width:24.52%}
+.sx-pill img{width:100%;display:block}
+.sx-pill span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:'Montserrat','Exo 2',sans-serif;font-style:italic;font-weight:700;text-transform:uppercase;font-size:1.55cqw;letter-spacing:.42em;color:#fff;white-space:nowrap;padding-left:.42em}
+.sx-h{position:absolute;left:0;right:0;top:5.8%;display:flex;align-items:center;justify-content:center;font-family:Cinzel,'Times New Roman',serif;font-weight:900;text-transform:uppercase;font-size:3.35cqw;line-height:1}
+.sx-h span{display:inline-block;transform:skewX(-12deg);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sx-h .w{background-image:linear-gradient(180deg,#fff 0%,#f2f6ff 40%,#b9c6dc 58%,#eef3fb 75%,#9aa9c4 100%);filter:drop-shadow(0 .12cqw 0 #2a3350) drop-shadow(0 .25cqw .2cqw rgba(0,0,0,.8))}
+.sx-h .g{background-image:linear-gradient(180deg,#fffbe3 0%,#ffe57a 28%,#ffc22e 52%,#ffe48a 66%,#d98606 100%);filter:drop-shadow(0 .12cqw 0 #6a3a00) drop-shadow(0 0 1.2cqw rgba(255,170,30,.5))}
+.sx-h i{display:block;width:7.5cqw;height:.2cqw;margin:0 1.5cqw;background:linear-gradient(90deg,transparent,#ffbf2e 60%,#fff0b0);box-shadow:0 0 .6cqw #ffb21a}
+.sx-h i:last-child{background:linear-gradient(90deg,#fff0b0,#ffbf2e 40%,transparent)}
+.sx-sub{position:absolute;left:0;right:0;top:13.4%;text-align:center;font-family:'Fira Sans','Exo 2',sans-serif;font-style:italic;font-size:1.25cqw;letter-spacing:.03em;color:#f2f6fc}
+.sx-col{position:absolute;top:17.65%;display:block}
+.sx-ph{width:100%;display:block;animation:sxf 6s ease-in-out infinite}
+.c1{left:13.94%;width:22.19%}.c2{left:38.46%;width:23.03%}.c3{left:64.11%;width:22.97%}
+.c2 .sx-ph{animation-delay:-2s}.c3 .sx-ph{animation-delay:-4s}
+@keyframes sxf{0%,100%{transform:translateY(0)}50%{transform:translateY(-.5cqw)}}
+.sx-lb{position:absolute;top:103.9%}
+.c1 .sx-lb{left:-.6%;width:98.8%}.c2 .sx-lb{left:-3.1%;width:103.9%}.c3 .sx-lb{left:-.6%;width:95.6%}
+
+.sx-lb img{width:100%;display:block}
+.sx-lb span{position:absolute;top:50%;transform:translateY(-52%);font-family:'Montserrat','Exo 2',sans-serif;font-style:italic;font-weight:800;text-transform:uppercase;font-size:1.18cqw;color:#ffd23a;text-shadow:0 0 .5cqw rgba(255,190,40,.55);white-space:nowrap}
+.c1 .sx-lb span{left:33%}.c2 .sx-lb span{left:24%}.c3 .sx-lb span{left:27%}
+@media (max-width:760px){
+  .sx{aspect-ratio:auto}
+  .sx-bg{object-position:50% 50%}
+  .sx-in{position:relative;inset:auto;padding:12vw 0 10vw;display:flex;flex-direction:column;align-items:center}
+  .sx-pill,.sx-h,.sx-sub,.sx-col{position:relative;left:auto;right:auto;top:auto}
+  .sx-pill{width:78vw}
+  .sx-pill span{font-size:4.6vw;letter-spacing:.3em}
+  .sx-h{flex-direction:column;margin-top:3vw;font-size:9.2vw}
+  .sx-h i{display:none}
+  .sx-sub{margin:3vw 6vw 7vw;font-size:4vw}
+  .sx-col{width:78vw!important;margin-bottom:20vw}
+  .sx-lb{top:auto;bottom:-15vw;left:50%!important;transform:translateX(-50%);width:94vw!important}
+  .sx-lb span{font-size:4.6vw}
+  .c1 .sx-lb span{left:30%}.c2 .sx-lb span{left:21%}.c3 .sx-lb span{left:24%}
+}
