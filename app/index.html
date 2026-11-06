@@ -1292,8 +1292,8 @@ function settingsSheet(){
    <div class="field"><label>Personagem</label><div class="sexp"><button type="button" class="${(window.__sexPick||sexOf())==='m'?'on':''}" data-a="pickSex" data-v="m">♂ Herói</button><button type="button" class="${(window.__sexPick||sexOf())==='f'?'on':''}" data-a="pickSex" data-v="f">♀ Heroína</button></div></div>
    <div class="field"><label>Classe</label><div class="classes">${classCards(S.cls)}</div></div>
    <button class="btn full" style="margin-top:16px" data-a="saveSettings">Salvar</button>
-   <h2 style="font-size:15px">Herói com a minha foto</h2>
-   <div class="card row between"><span style="display:flex;align-items:center;gap:10px">${S.avatar?`<img src="${S.avatar}" style="width:42px;height:42px;border-radius:50%;object-fit:cover;border:1.5px solid #8fe6ff">`:'📸'}${S.avatar?'Seu herói personalizado':'Transforme sua foto em herói anime'}</span><button class="btn sm" data-a="avOpen">${S.avatar?'Refazer':'Criar'}</button></div>
+   ${AV_ON?`   <h2 style="font-size:15px">Herói com a minha foto</h2>
+   <div class="card row between"><span style="display:flex;align-items:center;gap:10px">${S.avatar?`<img src="${S.avatar}" style="width:42px;height:42px;border-radius:50%;object-fit:cover;border:1.5px solid #8fe6ff">`:'📸'}${S.avatar?'Seu herói personalizado':'Transforme sua foto em herói anime'}</span><button class="btn sm" data-a="avOpen">${S.avatar?'Refazer':'Criar'}</button></div>`:''}
    <h2 style="font-size:15px">Horário do treino</h2>
    <div class="card row between"><span>${S.treinoHora?('🔔 '+S.treinoHora+(S.pushOn?' · lembrete ligado':' · lembrete desligado')):'Ainda não definido'}</span><button class="btn sm" data-a="horaOpen">Alterar</button></div>
    <h2 style="font-size:15px">Plano</h2>
@@ -1358,9 +1358,10 @@ function pushToast(r,hora){
 const AV_FN='https://lpdicrpetxqnoxceozfa.supabase.co/functions/v1/fh-avatar';
 let AV={img:null,res:null,busy:false,info:null,err:''};
 const AV_COST=300;
+const AV_ON=false; // ligar quando a chave da OpenAI estiver configurada
 const avCost=()=>AV.info&&AV.info.used>0?AV_COST:0;
 function avPromo(){
-  if(S.avatar||S.avHide) return '';
+  if(!AV_ON||S.avatar||S.avHide) return '';
   return `<div class="pv horapromo"><span class="hp-ic">📸</span><div><b>[SISTEMA] Crie seu herói com a sua foto</b><small>A IA transforma você num personagem anime da sua classe.</small></div><button class="btn sm" data-a="avOpen">Criar</button><button class="hp-x" data-a="avHide" aria-label="Fechar">✕</button></div>`;
 }
 async function avToken(){const {data:{session}}=await FH.auth.getSession();return session&&session.access_token}
