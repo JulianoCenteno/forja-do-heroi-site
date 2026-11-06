@@ -9,691 +9,292 @@
 <meta property="og:description" content="Ganhe XP a cada série, cumpra missões e derrote chefes com seus recordes. Escolha sua classe e evolua de verdade.">
 <meta property="og:image" content="https://forja-do-heroi.vercel.app/img/v2/logo-full.webp">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#05070d">
+<meta name="theme-color" content="#060914">
 <link rel="icon" type="image/png" href="/app/icons/favicon-64.png">
 <link rel="apple-touch-icon" href="/app/icons/apple-touch-icon.png">
-<link rel="preload" as="image" href="img/v2/hero-art.webp">
+<link rel="preload" as="image" href="img/v3/bg-hero.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,700;1,800;1,900&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#05070d;--ink:#eef4ff;--mute:#b6c6de;--cy:#4fd2ff;--cy2:#9fe6ff;--gd:#ffcc4d;--gd2:#f0a81a;--pu:#a35cff;--pu2:#7a3cff;--gr:#3fe08a;--rd:#ff4d6a}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:'Exo 2',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:17px;line-height:1.5;overflow-x:hidden}
-img{max-width:100%;height:auto;display:block}
-a{color:inherit;text-decoration:none}
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-.wrap{max-width:1240px;margin:0 auto;padding:0 22px}
-.it{font-style:italic;font-weight:800;letter-spacing:.01em;text-transform:uppercase}
-.gold{background:linear-gradient(180deg,#fff3b0 0%,#ffd04d 45%,#e8960c 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(255,180,40,.45))}
-.silver{background:linear-gradient(180deg,#ffffff 0%,#dfe9f7 55%,#9fb3cf 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 0 rgba(0,0,0,.4))}
-.cy{color:var(--cy)}
-section{position:relative;padding:90px 0;overflow:hidden}
-.grid-bg{background-image:linear-gradient(rgba(79,210,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(79,210,255,.035) 1px,transparent 1px);background-size:44px 44px}
-/* raios roxos */
-.wisp{position:absolute;pointer-events:none;width:620px;height:300px;filter:blur(2px);opacity:.75;background:radial-gradient(closest-side,rgba(163,92,255,.55),transparent 70%);mix-blend-mode:screen;animation:wisp 9s ease-in-out infinite alternate}
-.wisp:after{content:"";position:absolute;inset:30% 5%;border-top:2px solid rgba(200,150,255,.7);border-radius:50%;filter:blur(1px);transform:rotate(-8deg)}
-@keyframes wisp{0%{transform:translateX(-30px) scale(1);opacity:.5}100%{transform:translateX(30px) scale(1.12);opacity:.85}}
-/* reveal */
-.rv{opacity:0;transform:translateY(34px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
-.rv.in{opacity:1;transform:none}
-.rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}
-@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}*{animation:none!important}}
-/* etiqueta angulada */
-.chip{display:inline-flex;align-items:center;gap:10px;padding:9px 34px;border:1.5px solid rgba(140,220,255,.9);clip-path:polygon(4% 0,96% 0,100% 50%,96% 100%,4% 100%,0 50%);background:linear-gradient(180deg,rgba(18,46,96,.9),rgba(6,16,38,.95));font-weight:800;font-style:italic;letter-spacing:.24em;font-size:15px;color:#fff;text-shadow:0 0 10px rgba(120,220,255,.8);box-shadow:inset 0 0 14px rgba(79,210,255,.35)}
-.chip.g{border-color:#ffcc4d;color:#ffd65a;text-shadow:0 0 10px rgba(255,190,60,.6);background:linear-gradient(180deg,rgba(60,40,8,.9),rgba(20,14,4,.95));box-shadow:inset 0 0 14px rgba(255,190,60,.3)}
-.lined{display:flex;align-items:center;gap:22px;justify-content:center}
-.lined:before,.lined:after{content:"";flex:1;max-width:340px;height:2px;background:linear-gradient(90deg,transparent,var(--lc,#4fd2ff));box-shadow:0 0 8px var(--lc,#4fd2ff)}
-.lined:after{background:linear-gradient(90deg,var(--lc,#4fd2ff),transparent)}
-.h2{font-size:clamp(34px,5.2vw,64px);line-height:1.02;font-style:italic;font-weight:900;text-transform:uppercase;letter-spacing:.005em}
-.sub{font-style:italic;font-size:clamp(16px,1.6vw,20px);color:#e2ebf8}
-.center{text-align:center}
-/* botões */
-.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:18px 44px;clip-path:polygon(5% 0,95% 0,100% 50%,95% 100%,5% 100%,0 50%);font-style:italic;font-weight:900;font-size:20px;letter-spacing:.04em;text-transform:uppercase;transition:transform .2s,filter .2s}
-.btn:hover{transform:translateY(-2px) scale(1.02);filter:brightness(1.08)}
-.btn.g{background:linear-gradient(180deg,#ffe27a,#f5b324 55%,#dc8d0c);color:#2a1600;box-shadow:0 0 0 2px #ffeab0 inset}
-.btn.b{background:linear-gradient(180deg,rgba(20,60,120,.95),rgba(6,22,52,.95));color:#fff;box-shadow:0 0 0 2px #7fe0ff inset;text-shadow:0 0 10px rgba(120,220,255,.7)}
-.gw{position:relative;display:inline-block;filter:drop-shadow(0 0 16px rgba(255,180,40,.65))}
-.gw.b{filter:drop-shadow(0 0 14px rgba(79,210,255,.6))}
-.gw:after{content:"";position:absolute;inset:0;pointer-events:none;clip-path:polygon(5% 0,95% 0,100% 50%,95% 100%,5% 100%,0 50%);background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);background-size:250% 100%;animation:shine 3.6s ease-in-out infinite}
-@keyframes shine{0%,60%{background-position:150% 0}100%{background-position:-60% 0}}
-.btn svg{width:26px;height:26px}
-/* painel neon */
-.pn{position:relative;border:1.5px solid rgba(110,200,255,.7);clip-path:polygon(18px 0,calc(100% - 18px) 0,100% 18px,100% calc(100% - 18px),calc(100% - 18px) 100%,18px 100%,0 calc(100% - 18px),0 18px);background:linear-gradient(180deg,rgba(10,22,48,.92),rgba(5,12,28,.94))}
-.pnw{filter:drop-shadow(0 0 10px rgba(79,195,255,.45))}
-
-/* ===== NAV ===== */
-.nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,box-shadow .3s}
-.nav.solid{background:rgba(5,8,18,.92);backdrop-filter:blur(8px);box-shadow:0 1px 0 rgba(79,210,255,.25)}
-.nav .wrap{display:flex;align-items:center;gap:26px;height:84px;max-width:1440px}
-.logo{position:relative;display:flex;align-items:center;gap:12px;padding:8px 54px 8px 18px;background:linear-gradient(90deg,rgba(10,26,60,.95),rgba(10,26,60,.6) 75%,transparent);clip-path:polygon(0 0,100% 0,88% 100%,0 100%);border-bottom:2px solid rgba(79,210,255,.75)}
-.logo img{width:46px;height:46px;object-fit:cover;border-radius:6px}
-.logo b{display:block;font-weight:800;font-size:26px;letter-spacing:.06em;color:#8fe6ff;text-shadow:0 0 14px rgba(79,210,255,.8);line-height:1}
-.logo small{display:block;font-size:12px;letter-spacing:.5em;color:#a9d4f2;margin-top:4px}
-.links{display:flex;gap:6px;margin-left:auto}
-.links a{padding:10px 18px;font-weight:600;font-size:17px;color:#dfe9f7;position:relative}
-.links a.on,.links a:hover{color:#7fe3ff}
-.links a.on:after{content:"";position:absolute;left:18px;right:18px;bottom:2px;height:3px;background:#4fd2ff;box-shadow:0 0 8px #4fd2ff;border-radius:2px}
-.navsep{width:1px;height:36px;background:rgba(200,225,255,.3)}
-.nav .btn{padding:12px 26px;font-size:16px}
-.burger{display:none;margin-left:auto;font-size:28px;padding:6px 10px}
-@media(max-width:980px){.links{position:absolute;top:84px;left:0;right:0;flex-direction:column;background:rgba(5,8,18,.97);padding:10px 22px 20px;display:none;border-bottom:1px solid rgba(79,210,255,.3)}.links.open{display:flex}.navsep,.nav .gw{display:none}.burger{display:block}.logo b{font-size:20px}.logo{padding-right:40px}}
-
-/* ===== HERO ===== */
-.hero{padding:0;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;background:#05070d}
-.hero .art{position:absolute;inset:0 0 auto 0;height:74%;background:url(img/v2/hero-art.webp) center 20%/cover no-repeat;animation:kb 22s ease-in-out infinite alternate}
-.hero .art:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,13,.55) 0%,transparent 22%,transparent 55%,#05070d 100%)}
-@keyframes kb{0%{transform:scale(1)}100%{transform:scale(1.06)}}
-.hero .in{position:relative;z-index:2;padding:0 22px 56px;text-align:center}
-.hero h1{font-style:italic;font-weight:900;text-transform:uppercase;line-height:.95}
-.hero h1 .l1{display:block;font-size:clamp(40px,6.6vw,92px)}
-.hero h1 .l2{display:flex;align-items:center;justify-content:center;gap:24px;font-size:clamp(56px,10vw,140px)}
-.hero h1 .l2:before,.hero h1 .l2:after{content:"";width:min(18vw,220px);height:3px;background:linear-gradient(90deg,transparent,#ffcc4d);box-shadow:0 0 10px #ffcc4d}
-.hero h1 .l2:after{background:linear-gradient(90deg,#ffcc4d,transparent)}
-.hero p.lead{max-width:820px;margin:18px auto 30px;font-style:italic;font-size:clamp(17px,1.9vw,24px);color:#f0f5ff;text-shadow:0 2px 10px #000}
-.hero .ctas{display:flex;gap:22px;justify-content:center;flex-wrap:wrap}
-.feat{margin:38px auto 0;max-width:1000px;display:flex;align-items:center;justify-content:space-around;padding:14px 40px;border:1.5px solid rgba(110,200,255,.7);clip-path:polygon(4% 0,96% 0,100% 50%,96% 100%,4% 100%,0 50%);background:linear-gradient(180deg,rgba(10,24,52,.9),rgba(5,12,28,.92));box-shadow:inset 0 0 18px rgba(79,210,255,.2)}
-.feat div{display:flex;align-items:center;gap:14px;font-weight:600;font-size:19px}
-.feat img{width:58px;height:58px;mix-blend-mode:lighten}
-.feat i{width:1px;height:40px;background:rgba(200,225,255,.3)}
-@media(max-width:760px){.hero .art{height:64%;background-position:50% 10%;background-size:auto 100%}.feat{flex-direction:column;align-items:flex-start;gap:4px;clip-path:none;border-radius:14px;padding:12px 20px}.feat i{display:none}.feat img{width:44px;height:44px}.hero .btn{width:100%}.hero .gw{width:100%}}
-
-/* ===== PROBLEMA + LOOP ===== */
-.prob .top{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
-.prob h2{font-size:clamp(44px,6.4vw,92px);font-style:italic;font-weight:900;text-transform:uppercase;line-height:.92;margin:22px 0 10px}
-.prob h2 .gold{display:block}
-.prob .bar{height:3px;width:min(560px,90%);background:linear-gradient(90deg,transparent,#ffcc4d 30%,transparent);margin:6px 0 22px;box-shadow:0 0 10px #ffcc4d}
-.prob p{font-style:italic;font-size:clamp(17px,1.7vw,22px);color:#f0f5ff;max-width:640px}
-.prob p b{color:#ffd65a;font-weight:800}
-.chipline{display:flex;align-items:center;gap:20px}
-.chipline:after{content:"";flex:1;max-width:200px;height:2px;background:linear-gradient(90deg,#4fd2ff,transparent);box-shadow:0 0 8px #4fd2ff}
-.loop{margin-top:70px}
-.loop .lined{margin-bottom:12px}
-.lcards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:34px}
-.lc{display:flex;align-items:center;gap:20px;padding:30px 26px;min-height:190px}
-.lc .ic{width:100px;flex:none;mix-blend-mode:lighten;animation:float 4s ease-in-out infinite}
-.lc .tx{border-left:1.5px solid rgba(200,225,255,.35);padding-left:20px}
-.lc h3{font-style:italic;font-weight:900;font-size:24px;line-height:1.1;text-transform:uppercase;color:#fff}
-.lc p{font-style:italic;font-size:16.5px;color:#dce6f5;margin-top:8px}
-.lc .cr{position:absolute;top:16px;right:22px;width:46px;height:28px;border-radius:5px;background:linear-gradient(180deg,#ffe07a,#f2b21f);display:grid;place-items:center;font-size:15px}
-.lc.c2{background:radial-gradient(60% 90% at 100% 100%,rgba(60,220,130,.25),transparent 70%),linear-gradient(180deg,rgba(10,22,48,.92),rgba(5,12,28,.94))}
-.lc.c1,.lc.c3{background:radial-gradient(60% 90% at 100% 100%,rgba(163,92,255,.28),transparent 70%),linear-gradient(180deg,rgba(10,22,48,.92),rgba(5,12,28,.94))}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@media(max-width:900px){.prob .top{grid-template-columns:1fr}.lcards{grid-template-columns:1fr}}
-/* celular com o app */
-.phone{position:relative;width:min(330px,78vw);aspect-ratio:9/19;border-radius:46px;padding:12px;background:linear-gradient(145deg,#2b3550,#0b1020 40%,#1a2340);box-shadow:0 0 0 2px #6c7ea8,0 0 0 4px #121a2e,0 0 40px rgba(79,195,255,.45),0 40px 80px rgba(0,0,0,.7)}
-.phone:before{content:"";position:absolute;top:22px;left:50%;transform:translateX(-50%);width:90px;height:24px;border-radius:14px;background:#000;z-index:3}
-.phone .scr{position:relative;width:100%;height:100%;border-radius:36px;overflow:hidden;background:#05070d}
-.phone .scr img{width:100%;animation:scr var(--d,18s) ease-in-out infinite alternate}
-@keyframes scr{0%,12%{transform:translateY(0)}88%,100%{transform:translateY(var(--y,0%))}}
-.phone.tilt{transform:perspective(1200px) rotateY(-14deg) rotateX(4deg) rotateZ(4deg)}
-.orbit{position:absolute;inset:-10% -14%;border-radius:50%;border:3px solid rgba(255,190,60,.55);filter:blur(1px);box-shadow:0 0 30px rgba(255,180,40,.6),inset 0 0 30px rgba(255,180,40,.4);animation:orb 8s linear infinite;pointer-events:none}
-.orbit.o2{inset:-4% -22%;border-color:rgba(255,210,90,.35);animation-duration:12s;animation-direction:reverse}
-@keyframes orb{0%{transform:rotate(0) scaleY(.32)}100%{transform:rotate(360deg) scaleY(.32)}}
-.phwrap{position:relative;display:grid;place-items:center;padding:30px 0}
-
-/* ===== SISTEMA ===== */
-.sys{background:radial-gradient(1000px 520px at 50% 40%,rgba(80,40,170,.35),transparent 70%)}
-.sys h2{font-size:clamp(36px,5.6vw,78px);margin-top:20px}
-.phones{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:40px;justify-items:center;align-items:start}
-.phones .phone{width:min(320px,100%)}
-.phones .phone:nth-child(2){transform:translateY(-14px)}
-.plabel{margin-top:36px}
-.plabel .btn{padding:14px 34px;font-size:18px;cursor:default}
-.ph-col{display:flex;flex-direction:column;align-items:center}
-.ph-col .refl{width:80%;height:30px;margin-top:-6px;background:radial-gradient(closest-side,rgba(255,190,60,.55),transparent);filter:blur(6px)}
-.more{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px}
-.more button{padding:10px 20px;border-radius:99px;border:1px solid rgba(140,200,255,.5);background:rgba(8,16,36,.9);font-weight:700}
-.more button.on{border-color:#ffcc4d;color:#ffd65a;box-shadow:0 0 12px rgba(255,190,60,.4)}
-@media(max-width:900px){.phones{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:20px;padding:10px 10vw 20px;margin:30px -22px 0;justify-content:flex-start}.ph-col{scroll-snap-align:center;flex:none;width:72vw}.phones .phone{width:100%}.phones .phone:nth-child(2){transform:none}}
-
-/* ===== CLASSES ===== */
-.cls{background:radial-gradient(900px 500px at 50% 50%,rgba(30,40,90,.5),transparent 70%)}
-.cls h2{margin-top:18px}
-.ccards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:44px;align-items:center}
-.cc{--c:#3fe0b0;position:relative;padding:0 0 26px;border:2px solid var(--c);border-radius:4px;clip-path:polygon(24px 0,calc(100% - 24px) 0,100% 24px,100% calc(100% - 24px),calc(100% - 24px) 100%,24px 100%,0 calc(100% - 24px),0 24px);background:linear-gradient(180deg,rgba(6,14,30,.2),rgba(6,14,30,.95) 52%);transition:transform .3s}
-.ccw{filter:drop-shadow(0 0 16px var(--g))}
-.cc:hover{transform:translateY(-6px)}
-.cc .art{display:block;width:100%;aspect-ratio:2/1.1;object-fit:cover;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
-.cc h3{margin-top:-30px;position:relative;text-align:center;font-style:italic;font-weight:900;font-size:clamp(24px,2.5vw,34px);text-transform:uppercase;color:#fff;text-shadow:0 2px 0 #000,0 0 18px rgba(0,0,0,.8)}
-.cc .tg{display:table;margin:10px auto 18px;padding:6px 28px;border:1.5px solid var(--c);clip-path:polygon(8% 0,92% 0,100% 50%,92% 100%,8% 100%,0 50%);font-style:italic;font-weight:700;color:var(--c);background:rgba(0,0,0,.45)}
-.st{display:grid;grid-template-columns:28px 120px 1fr;align-items:center;gap:10px;padding:7px 28px;border-top:1px solid rgba(255,255,255,.06)}
-.st span{font-weight:600;letter-spacing:.04em;font-size:15.5px}
-.st svg{width:22px;height:22px}
-.st .tr{height:13px;border-radius:99px;border:1.5px solid rgba(255,255,255,.35);padding:2px}
-.st .tr i{display:block;height:100%;width:0;border-radius:99px;background:var(--c);box-shadow:0 0 8px var(--c);transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
-.cc.mid{transform:scale(1.05)}
-.cc.mid:hover{transform:scale(1.05) translateY(-6px)}
-@media(max-width:900px){.ccards{grid-template-columns:1fr}.cc.mid{transform:none}}
-
-/* ===== ALQUIMIA ===== */
-.alq .grid{display:grid;grid-template-columns:1.12fr 1fr;gap:40px;align-items:center}
-.alq .artw{border:1.5px solid rgba(110,200,255,.6);clip-path:polygon(0 0,92% 0,100% 7%,100% 100%,8% 100%,0 93%);box-shadow:0 0 30px rgba(79,195,255,.3)}
-.alq h2{font-size:clamp(36px,4.6vw,64px);font-style:italic;font-weight:900;text-transform:uppercase;line-height:1;margin:20px 0 18px}
-.alq .desc{border-left:3px solid #ffcc4d;padding-left:18px;color:#dfe8f6;font-size:17.5px}
-.atiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0 34px}
-.at{display:flex;align-items:center;gap:12px;padding:14px;border:1.5px solid rgba(110,200,255,.6);clip-path:polygon(10px 0,calc(100% - 10px) 0,100% 10px,100% calc(100% - 10px),calc(100% - 10px) 100%,10px 100%,0 calc(100% - 10px),0 10px);background:rgba(8,18,40,.9);font-weight:700;font-size:16px;line-height:1.15}
-.at img{width:46px;mix-blend-mode:lighten;flex:none}
-@media(max-width:900px){.alq .grid{grid-template-columns:1fr}.atiles{grid-template-columns:repeat(2,1fr)}}
-
-/* ===== RANKING ===== */
-.rk .frame{padding:56px 40px 46px;border:2px solid rgba(110,200,255,.6);clip-path:polygon(0 60px,60px 0,calc(100% - 60px) 0,100% 60px,100% calc(100% - 60px),calc(100% - 60px) 100%,60px 100%,0 calc(100% - 60px));background:radial-gradient(700px 300px at 50% 40%,rgba(255,190,60,.12),transparent 70%),rgba(6,12,28,.85)}
-.rk h2{font-size:clamp(34px,5.2vw,72px);margin-top:18px}
-.podium{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:24px;align-items:end;margin-top:30px}
-.pd{text-align:center}
-.pd img{margin:0 auto;width:100%;max-width:330px;animation:float 5s ease-in-out infinite}
-.pd.p1 img{max-width:420px;animation-delay:-1.5s}
-.pd.p3 img{animation-delay:-3s}
-.pd .np{display:inline-block;margin-top:-6px;min-width:80%;padding:10px 20px 12px;clip-path:polygon(10% 0,90% 0,100% 100%,0 100%);background:linear-gradient(180deg,rgba(14,30,64,.95),rgba(6,14,32,.95));border-top:2px solid var(--pc,#7fe0ff)}
-.pd .np b{display:block;font-style:italic;font-weight:900;font-size:26px;text-transform:uppercase}
-.pd .np span{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:22px;color:#ffd65a}
-.pd .xpc{display:inline-grid;place-items:center;width:30px;height:30px;border:2px solid #ffcc4d;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);font-size:11px;font-weight:900}
-.pd.p1 .np{--pc:#ffcc4d;min-width:90%}
-.pd.p1 .np b{font-size:30px}
-.pd.p3 .np{--pc:#ff8a6a}
-.champ{display:inline-block;margin-top:8px;padding:5px 26px;clip-path:polygon(6% 0,94% 0,100% 50%,94% 100%,6% 100%,0 50%);background:linear-gradient(180deg,#ffe07a,#f0a81a);color:#2a1600;font-weight:800;font-size:13px;letter-spacing:.08em}
-.rwr{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
-.rwr div{display:flex;align-items:center;gap:16px;padding:14px 18px;border:1.5px solid rgba(110,200,255,.6);clip-path:polygon(12px 0,calc(100% - 12px) 0,100% 12px,100% calc(100% - 12px),calc(100% - 12px) 100%,12px 100%,0 calc(100% - 12px),0 12px);background:rgba(8,18,40,.9);text-align:left}
-.rwr img{width:62px;mix-blend-mode:lighten;flex:none}
-.rwr b{display:block;font-size:19px}.rwr small{font-size:14px;color:#c9d6ea}
-.illu{font-size:13px;color:#8ea3c4;font-style:italic;margin-top:10px}
-@media(max-width:900px){.podium{grid-template-columns:1fr;gap:10px}.pd.p1{order:-1}.rwr{grid-template-columns:1fr}.rk .frame{padding:40px 16px}}
-
-/* ===== GARANTIA ===== */
-.gar{background:radial-gradient(800px 400px at 25% 50%,rgba(79,140,255,.18),transparent 70%),linear-gradient(180deg,#05070d,#0b0a24 60%,#05070d)}
-.gar .grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;align-items:center}
-.gar .shield{animation:float 5s ease-in-out infinite;filter:drop-shadow(0 0 30px rgba(79,170,255,.5))}
-.gar h2{font-size:clamp(34px,4.8vw,68px);font-style:italic;font-weight:900;text-transform:uppercase;line-height:1;margin:22px 0 22px}
-.gar p{font-size:clamp(17px,1.6vw,22px);color:#eef3fb;max-width:720px;margin:0 auto}
-.gar p b{color:#4fd2ff}
-.gtiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
-.gt{display:flex;align-items:center;gap:14px;padding:18px;border:1.5px solid rgba(140,150,255,.75);clip-path:polygon(12px 0,calc(100% - 12px) 0,100% 12px,100% calc(100% - 12px),calc(100% - 12px) 100%,12px 100%,0 calc(100% - 12px),0 12px);background:rgba(8,14,40,.9);text-align:left}
-.gt svg{width:46px;height:46px;flex:none;color:#4fd2ff}
-.gt b{display:block;font-size:20px;font-weight:800}.gt span{font-size:15px;color:#dbe5f5}
-@media(max-width:900px){.gar .grid{grid-template-columns:1fr}.gar .shield{max-width:340px;margin:0 auto}.gtiles{grid-template-columns:1fr}}
-
-/* ===== PLANOS ===== */
-.pl{background:radial-gradient(800px 500px at 50% 30%,rgba(30,60,140,.35),transparent 70%)}
-.pl .side{position:absolute;bottom:0;height:88%;width:auto;max-width:none;pointer-events:none;opacity:.95;-webkit-mask-image:linear-gradient(90deg,#000 60%,transparent);mask-image:linear-gradient(90deg,#000 60%,transparent)}
-.pl .side.l{left:0}
-.pl .side.r{right:0;-webkit-mask-image:linear-gradient(270deg,#000 60%,transparent);mask-image:linear-gradient(270deg,#000 60%,transparent)}
-.pl h2{font-size:clamp(38px,5.6vw,80px);margin-top:16px}
-.plans{position:relative;z-index:2;display:grid;grid-template-columns:repeat(2,minmax(0,460px));gap:30px;justify-content:center;margin-top:60px}
-.plan{position:relative;padding:58px 34px 32px;text-align:center}
-.planw{filter:drop-shadow(0 0 14px var(--g))}
-.planw{position:relative}.plan .top{}
-.plan h3{font-style:italic;font-weight:900;font-size:40px;text-transform:uppercase;line-height:1}
-.plan .for{font-weight:600;letter-spacing:.06em;font-size:15px;color:#dbe6f6;margin:6px 0 18px;text-transform:uppercase}
-.plan ul{list-style:none;text-align:left;display:grid;gap:12px;padding:18px 0;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
-.plan li{display:flex;gap:12px;align-items:flex-start;font-size:17px}
-.plan li svg{width:24px;height:24px;flex:none;margin-top:1px}
-.plan li.off{opacity:.45;text-decoration:line-through}
-.plan .lbl{margin-top:20px;font-weight:700;letter-spacing:.14em;font-size:13px;color:#ffd65a}
-.plan .price{display:flex;align-items:flex-start;justify-content:center;gap:4px;font-style:italic;font-weight:900;line-height:1;margin:6px 0 2px}
-.plan .price small{font-size:30px;margin-top:22px}
-.plan .price b{font-size:96px}
-.plan .price em{font-size:46px;margin-top:10px;font-style:italic}
-.plan .once{font-style:italic;font-size:17px;color:#cfe0f5;margin-bottom:22px}
-.plan .btn{width:100%;padding:16px 20px;font-size:19px}
-.plan.r{border:2px solid #4fa8ff;background:linear-gradient(180deg,rgba(8,20,48,.96),rgba(4,10,26,.97))}
-.plan.e{border:2px solid #ffcc4d;background:linear-gradient(180deg,rgba(24,18,6,.96),rgba(10,8,4,.97))}
-.plan .bdg{position:absolute;top:14px;right:16px;padding:4px 12px;clip-path:polygon(8% 0,100% 0,92% 100%,0 100%);background:#ffcc4d;color:#2a1600;font-weight:800;font-size:12px;letter-spacing:.06em}
-@media(max-width:1100px){.pl .side{opacity:.25}}
-@media(max-width:860px){.plans{grid-template-columns:1fr}.pl .side{display:none}.plan{margin-top:40px}}
-
-/* ===== FAQ ===== */
-.faq{background:radial-gradient(800px 500px at 70% 30%,rgba(30,80,170,.3),transparent 70%)}
-.faq .hero-l{position:absolute;left:0;bottom:0;height:92%;width:auto;max-width:none;-webkit-mask-image:linear-gradient(90deg,#000 55%,transparent);mask-image:linear-gradient(90deg,#000 55%,transparent);pointer-events:none}
-.faq .ban{position:absolute;right:2%;top:0;width:150px;opacity:.8;pointer-events:none}
-.faq .col{position:relative;z-index:2;max-width:1000px;margin-left:auto}
-.faq h2{font-size:clamp(38px,5.4vw,76px);margin-top:16px}
-.diam{display:flex;align-items:center;gap:12px;justify-content:center;margin:12px 0 28px;color:#4fd2ff}
-.diam:before,.diam:after{content:"";width:220px;height:1px;background:linear-gradient(90deg,transparent,#4fd2ff)}
-.diam:after{background:linear-gradient(90deg,#4fd2ff,transparent)}
-.qa{margin-top:14px;border:1.5px solid rgba(79,190,255,.75);clip-path:polygon(10px 0,calc(100% - 10px) 0,100% 10px,100% calc(100% - 10px),calc(100% - 10px) 100%,10px 100%,0 calc(100% - 10px),0 10px);background:rgba(6,14,32,.92);transition:border-color .3s}
-.qa[open]{border-color:#ffcc4d;box-shadow:inset 0 0 20px rgba(255,190,60,.15)}
-.qa summary{list-style:none;display:flex;align-items:center;gap:18px;padding:18px 26px;font-weight:700;font-size:clamp(17px,1.7vw,22px);cursor:pointer}
-.qa summary::-webkit-details-marker{display:none}
-.qa summary svg.q{width:36px;height:36px;flex:none;color:#4fd2ff}
-.qa[open] summary svg.q{color:#ffcc4d}
-.qa summary .ch{margin-left:auto;width:22px;height:22px;flex:none;transition:transform .3s;color:#9fe6ff}
-.qa[open] summary .ch{transform:rotate(180deg)}
-.qa p{padding:0 26px 22px 80px;color:#e3ebf7;font-size:16.5px}
-@media(max-width:900px){.faq .hero-l{opacity:.18}.qa p{padding-left:26px}}
-
-/* ===== FINAL / FOOTER ===== */
-.final{text-align:center;padding:80px 0;background:radial-gradient(700px 360px at 50% 50%,rgba(255,180,40,.12),transparent 70%)}
-footer{position:relative;padding:70px 0 30px;background:linear-gradient(180deg,#05070d,#070a22 40%,#0d0830);border-top:1px solid rgba(79,190,255,.2)}
-.fgrid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1.3fr;gap:30px;align-items:start}
-.fgrid .brand img{width:260px;filter:drop-shadow(0 0 20px rgba(255,180,40,.35))}
-.fgrid .brand p{margin-top:10px;font-size:19px;text-align:center;max-width:300px}
-.fgrid h4{display:flex;align-items:center;gap:12px;font-size:20px;font-weight:800;text-transform:uppercase;padding-bottom:12px;border-bottom:1px solid rgba(79,190,255,.35);margin-bottom:14px}
-.fgrid h4 svg{width:30px;height:30px;color:#4fd2ff}
-.fgrid ul{list-style:none;display:grid;gap:10px}
-.fgrid li a{display:flex;gap:10px;align-items:center;color:#dfe8f6}
-.fgrid li a:before{content:"›";color:#4fd2ff;font-size:22px;line-height:1}
-.fgrid li a:hover{color:#7fe3ff}
-.secbox{display:flex;gap:14px;padding:14px;border:1.5px solid rgba(79,190,255,.7);border-radius:12px;background:rgba(6,16,38,.85)}
-.secbox div{display:flex;gap:10px;align-items:center;font-size:14px;line-height:1.2}
-.secbox svg{width:30px;height:30px;color:#4fd2ff;flex:none}
-.pays{display:flex;gap:10px;margin-top:12px}
-.pays span{display:flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid rgba(160,190,230,.45);border-radius:9px;font-weight:700;font-size:15px}
-.fbot{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;margin-top:50px;padding-top:22px;border-top:1px solid rgba(79,190,255,.5);box-shadow:0 -1px 10px rgba(79,190,255,.2);font-size:14.5px;color:#c9d6ea}
-.fbot a{color:#9fb6d6}
-@media(max-width:900px){.fgrid{grid-template-columns:1fr 1fr}.fgrid .brand{grid-column:1/-1;display:flex;flex-direction:column;align-items:center}}
-@media(max-width:560px){.fgrid{grid-template-columns:1fr}}
-
-/* ===== POPUP ===== */
-.pop{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:16px;background:rgba(2,4,10,.82);backdrop-filter:blur(4px)}
-.pop[hidden]{display:none}
-.pop-box{position:relative;width:min(520px,100%);max-height:94vh;overflow:auto;border:2px solid #ffcc4d;border-radius:14px;background:linear-gradient(180deg,#120e06,#06070d);box-shadow:0 0 40px rgba(255,190,60,.45)}
-.pop-x{position:absolute;top:10px;right:12px;font-size:22px;z-index:2;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.6)}
-.pop-art{position:relative}
-.pop-art img{width:100%;height:170px;object-fit:cover}
-.pop-tag{position:absolute;left:14px;bottom:12px;padding:5px 12px;border:1px solid #fff;background:rgba(0,0,0,.6);font-weight:700;font-size:12px;letter-spacing:.12em}
-.pop-body{padding:20px 22px 22px;text-align:center}
-.pop-body h3{font-style:italic;font-weight:900;font-size:32px;text-transform:uppercase}
-.pop-sub{margin:6px 0 10px;color:#dfe8f6}
-.pop-price{display:flex;align-items:baseline;justify-content:center;gap:14px}
-.pp-old{text-decoration:line-through;color:#9aa8bf;font-size:20px}
-.pp-new{font-style:italic;font-weight:900;font-size:58px;color:#ffd65a}.pp-new small{font-size:22px}.pp-new em{font-size:30px}
-.pop-list{list-style:none;text-align:left;display:grid;gap:7px;margin:12px 0 16px}
-.pop-list li:before{content:"✓ ";color:#ffcc4d;font-weight:800}
-.pbtn{display:flex;flex-direction:column;align-items:center;width:100%;padding:14px;border-radius:10px;margin-top:10px}
-.pbtn b{font-size:18px;font-weight:900;font-style:italic}.pbtn small{font-size:13px}
-.pop-yes{background:linear-gradient(180deg,#ffe27a,#f0a81a);color:#2a1600;box-shadow:0 0 18px rgba(255,180,40,.5)}
-.pop-no{border:1px solid rgba(160,190,230,.45);color:#c9d6ea}
-
-/* ===== MÚSICA ===== */
-.mus{position:fixed;left:18px;bottom:18px;z-index:60;display:flex;align-items:center;gap:10px;padding:10px 16px 10px 12px;border-radius:99px;border:1.5px solid rgba(255,200,90,.85);background:rgba(10,8,4,.88);box-shadow:0 0 16px rgba(255,180,40,.45);font-weight:800;font-size:14px;letter-spacing:.04em}
-.mus .eq{display:flex;gap:3px;align-items:flex-end;height:18px}
-.mus .eq i{width:4px;height:5px;background:#ffcc4d;border-radius:2px}
-.mus.on .eq i{animation:eq .9s ease-in-out infinite alternate}
-.mus.on .eq i:nth-child(2){animation-delay:-.3s}.mus.on .eq i:nth-child(3){animation-delay:-.6s}
-@keyframes eq{0%{height:4px}100%{height:18px}}
-.mus:not(.on){animation:pulse 2.4s ease-in-out infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 10px rgba(255,180,40,.35)}50%{box-shadow:0 0 24px rgba(255,180,40,.8)}}
-.mus[hidden]{display:none}
-
-/* ajustes v2.1 */
-.hero{min-height:auto;padding-top:84px}
-.hero .art{position:relative;inset:auto;height:auto;aspect-ratio:1672/362;background-size:100% auto;background-position:center top}
-.hero .art:after{background:linear-gradient(180deg,rgba(5,7,13,.35) 0%,transparent 18%,transparent 70%,#05070d 100%)}
-.hero .in{margin-top:-4.5vw;padding-bottom:70px}
-@media(max-width:760px){.hero .art{aspect-ratio:auto;height:62vw;min-height:300px;background-size:cover;background-position:50% 0}.hero .in{margin-top:-40px}}
-.phone .scr{position:absolute;inset:12px;width:auto;height:auto}
-.alq h2{font-size:clamp(32px,3.7vw,58px)}
-.pd img,.gar .shield,.plan .top{mix-blend-mode:lighten}
-.gar h2{font-size:clamp(30px,3.7vw,60px)}
-.plan h3{line-height:1.2;padding-bottom:2px}
-.plan li{font-size:18px}
-.faq .col{max-width:1080px}
-.qa summary{font-size:clamp(17px,1.8vw,23px)}
-.qa p{font-size:18px}
-footer{overflow:hidden}
-footer .cas{position:absolute;top:0;bottom:0;width:300px;height:100%;object-fit:cover;opacity:.55;pointer-events:none}
-footer .cas.l{left:0;-webkit-mask-image:linear-gradient(90deg,#000 40%,transparent);mask-image:linear-gradient(90deg,#000 40%,transparent)}
-footer .cas.r{right:0;-webkit-mask-image:linear-gradient(270deg,#000 40%,transparent);mask-image:linear-gradient(270deg,#000 40%,transparent)}
-footer .wrap{position:relative;z-index:2}
-.fgrid .brand img{mix-blend-mode:lighten;-webkit-mask-image:radial-gradient(closest-side,#000 75%,transparent);mask-image:radial-gradient(closest-side,#000 75%,transparent)}
-.lc .cr{z-index:2}
-
-.hero .in{margin-top:-2.2vw}
-.feat{margin-top:50px}
-.ph-col{width:100%}
-.phones .phone{width:min(350px,100%)}
-.sys .cas{position:absolute;top:8%;height:84%;width:auto;max-width:none;opacity:.6;pointer-events:none}
-.sys .cas.l{left:0;-webkit-mask-image:linear-gradient(90deg,#000 30%,transparent);mask-image:linear-gradient(90deg,#000 30%,transparent)}
-.sys .cas.r{right:0;-webkit-mask-image:linear-gradient(270deg,#000 30%,transparent);mask-image:linear-gradient(270deg,#000 30%,transparent)}
-.sys .wrap{position:relative;z-index:2}
-.fgrid .brand img{width:300px}
-@media(max-width:900px){.sys .cas{opacity:.25}.ph-col{width:72vw}}
-
-@media(max-width:760px){
- .hero h1 .l2{font-size:clamp(56px,17vw,80px);gap:0}.hero h1 .l2:before,.hero h1 .l2:after{display:none}
- .hero h1 .l1{font-size:clamp(34px,10vw,48px)}
- .hero .btn{font-size:17px;padding:16px 24px}
- .hero h1 span{line-height:1.02}.hero p.lead{margin:12px auto 22px}
- .lc .cr{display:none}.lc{padding:24px 20px;min-height:0}.lc .ic{width:76px}
- .logo b{font-size:17px;white-space:nowrap}.logo small{font-size:10px;letter-spacing:.4em}.logo img{width:38px;height:38px}
- section{padding:70px 0}
- .chip{font-size:13px;padding:8px 26px;letter-spacing:.16em}
- .plan .price b{font-size:80px}
- .mus{left:12px;bottom:12px;padding:8px 12px 8px 10px}
- #musL{font-size:12px}
-}
-.hero h1 .l2{margin-top:-.14em}.hero p.lead{margin-top:6px}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css?v=3">
 <!-- Meta Pixel: Forjo do Heroes -->
 <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1141320428608400');fbq('track','PageView');fbq('track','ViewContent',{content_name:'Forja do Heroi',value:9.90,currency:'BRL'});</script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1141320428608400&ev=PageView&noscript=1" alt=""></noscript>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset=".5" stop-color="#ffc83a"/><stop offset="1" stop-color="#d47b06"/></linearGradient><linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d6f6ff"/><stop offset="1" stop-color="#2a9be0"/></linearGradient><linearGradient id="gp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2c8ff"/><stop offset="1" stop-color="#7a3cff"/></linearGradient><linearGradient id="gt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8fff0"/><stop offset="1" stop-color="#16b48c"/></linearGradient></defs></svg>
+<canvas id="fx" aria-hidden="true"></canvas>
 
 <header class="nav" id="nav">
-  <div class="wrap">
-    <a class="logo" href="#topo" aria-label="Forja do Herói"><img src="img/v2/logo-square.webp" alt="" width="46" height="46"><span><b>FORJA DO HERÓI</b><small>TREINO RPG</small></span></a>
+  <div class="navin">
+    <a class="logo" href="#topo" aria-label="Forja do Herói"><span class="lg-bar"></span><span class="lg-t"><b>FORJA DO HERÓI</b><small>TREINO RPG</small></span></a>
     <nav class="links" id="links" aria-label="Seções">
       <a href="#topo" class="on">Início</a><a href="#classes">Classes</a><a href="#sistema">Recursos</a><a href="#planos">Planos</a><a href="#faq">FAQ</a>
     </nav>
     <span class="navsep"></span>
-    <span class="gw"><a class="btn g" href="#planos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 4l11 11M15 15l-2 4M15 15l4-2M20 4L9 15M9 15l2 4M9 15l-4-2"/></svg>Começar agora</a></span>
-    <button class="burger" id="burger" aria-label="Abrir menu">☰</button>
+    <a class="btn gold sm hide-m" href="#planos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/><path d="M9.5 6.5L21 3v3l-11.5 11.5M11 19l-6-6M8 16l-4 4M5 21l-2-2" opacity=".9"/></svg>Começar agora</a>
+    <button class="burger" id="burger" aria-label="Abrir menu"><i></i><i></i><i></i></button>
   </div>
 </header>
 
-<!-- HERO -->
+<!-- 1. HERO -->
 <section class="hero" id="topo">
-  <div class="art" role="img" aria-label="Monge, Paladino e Guerreiro diante do portal da dungeon"></div>
-  <div class="in">
-    <h1><span class="l1 silver rv">Seu treino virou</span><span class="l2 rv d1"><span class="gold">um RPG.</span></span></h1>
+  <div class="hero-bg" aria-hidden="true"><img src="img/v3/bg-hero.webp" alt=""></div>
+  <div class="mist m1" aria-hidden="true"></div><div class="mist m2" aria-hidden="true"></div>
+  <div class="hero-chars" aria-hidden="true">
+    <div class="ch ch-l"><div class="aura teal"></div><img src="img/v3/char-monge.webp" alt=""></div>
+    <div class="ch ch-c"><div class="aura gold"></div><img src="img/v3/char-paladino.webp" alt=""></div>
+    <div class="ch ch-r"><div class="aura red"></div><img src="img/v3/char-guerreiro.webp" alt=""></div>
+  </div>
+  <div class="hero-txt">
+    <h1><span class="t-silver l1 rv">Seu treino virou</span><span class="l2 rv d1"><i class="gl"></i><span class="t-gold">um RPG.</span><i class="gl r"></i></span></h1>
     <p class="lead rv d2">Treine na vida real, ganhe XP a cada série, derrote chefes com seus recordes e evolua seu herói dentro do jogo.</p>
     <div class="ctas rv d3">
-      <span class="gw"><a class="btn g" href="#planos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 4l11 11M15 15l-2 4M15 15l4-2M20 4L9 15M9 15l2 4M9 15l-4-2"/></svg>Despertar meu herói</a></span>
-      <span class="gw b"><a class="btn b" href="#classes"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C7.6 2 5 5.2 5 9.5V15l2 2v4h3v-4h4v4h3v-4l2-2V9.5C19 5.2 16.4 2 12 2zm-4 9h8v3H8z"/></svg>Escolher minha classe</a></span>
+      <a class="btn gold lg" href="#planos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/><path d="M9.5 6.5L21 3v3l-11.5 11.5M11 19l-6-6M8 16l-4 4M5 21l-2-2" opacity=".9"/></svg>Despertar meu herói</a>
+      <a class="btn blue lg" href="#classes"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C7.5 2 4.5 5.4 4.5 10v5.5L7 18v4h3.5v-4.5h3V22H17v-4l2.5-2.5V10C19.5 5.4 16.5 2 12 2zm-5 9.5h10V14h-3.5v-1.5h-3V14H7z"/></svg>Escolher minha classe</a>
     </div>
-    <div class="feat rv d3">
-      <div><img src="img/v2/f-xp.webp" alt="">XP imediato</div><i></i>
-      <div><img src="img/v2/f-scroll.webp" alt="">Missões diárias</div><i></i>
-      <div><img src="img/v2/f-demon.webp" alt="">Chefes épicos</div>
+    <div class="featbar rv d3">
+      <div><svg viewBox="0 0 48 48"><path d="M24 3l18 10.5v21L24 45 6 34.5v-21z" fill="rgba(20,60,130,.85)" stroke="url(#gb)" stroke-width="2.5"/><text x="24" y="30.5" text-anchor="middle" font-family="Exo 2,sans-serif" font-weight="900" font-style="italic" font-size="17" fill="#e8faff">XP</text></svg><span>XP imediato</span></div><i></i>
+      <div><svg viewBox="0 0 48 48" fill="none" stroke="url(#gb)" stroke-width="2.6" stroke-linejoin="round"><path d="M13 8h24a5 5 0 0 1 0 10h-3v18a6 6 0 0 1-6 6H11a5 5 0 0 1 0-10h3V14a6 6 0 0 1 6-6" fill="rgba(20,60,130,.6)"/><path d="M20 20h9M20 26h9M20 32h6" stroke-linecap="round"/></svg><span>Missões diárias</span></div><i></i>
+      <div><svg viewBox="0 0 48 48" fill="none" stroke="url(#gb)" stroke-width="2.4" stroke-linejoin="round"><path d="M8 6c2 6 5 9 9 10M40 6c-2 6-5 9-9 10" stroke-linecap="round"/><path d="M12 18c0-4 5-6 12-6s12 2 12 6v8c0 9-6 16-12 16s-12-7-12-16z" fill="rgba(20,60,130,.6)"/><path d="M17 25l5 2M31 25l-5 2M20 35c2.5-2 5.5-2 8 0" stroke-linecap="round"/></svg><span>Chefes épicos</span></div>
     </div>
   </div>
 </section>
 
-<!-- PROBLEMA + LOOP -->
-<section class="prob grid-bg" id="problema">
-  <div class="wisp" style="left:-200px;top:280px"></div><div class="wisp" style="right:-160px;top:420px;animation-delay:-4s"></div>
+<!-- 2. LACUNA + LOOP -->
+<section class="sec lac grid-bg" id="problema">
+  <div class="bolts" aria-hidden="true"><i class="haze l"></i><i class="haze r"></i><svg class="bl" viewBox="0 0 700 320"><path d="M0 300 L120 250 L105 230 L230 190 L215 168 L340 150 L330 128 L470 110 L455 95 L620 60"/><path class="b2" d="M215 168 L260 120 L250 104 L300 70"/><path class="b2" d="M330 128 L380 190 L372 205 L430 250"/></svg><svg class="br" viewBox="0 0 700 320"><path d="M0 300 L120 250 L105 230 L230 190 L215 168 L340 150 L330 128 L470 110 L455 95 L620 60"/><path class="b2" d="M105 230 L150 280 L140 296 L190 318"/><path class="b2" d="M455 95 L500 40 L492 26 L540 4"/></svg></div>
+  <div class="wisps" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="wrap">
-    <div class="top">
-      <div>
-        <div class="chipline rv"><span class="chip">O VERDADEIRO PROBLEMA</span></div>
-        <h2 class="rv d1"><span class="silver">A lacuna da</span><span class="gold">recompensa</span></h2>
-        <div class="bar rv d1"></div>
+    <div class="lac-top">
+      <div class="lac-txt">
+        <div class="tagline rv"><span class="tag">O verdadeiro problema</span></div>
+        <h2 class="lac-h rv d1"><span class="t-silver">A lacuna da</span><span class="t-gold">recompensa</span></h2>
+        <div class="goldline rv d1"></div>
         <p class="rv d2">Nos jogos, seu cérebro é recompensado em segundos. Já no treino, os resultados levam meses. O Forja do Herói fecha essa lacuna, transformando seu treino em um jogo com <b>feedback instantâneo</b> a cada série.</p>
       </div>
-      <div class="phwrap rv d2">
-        <div class="orbit"></div><div class="orbit o2"></div>
-        <div class="phone tilt"><div class="scr"><img src="img/v2/app-heroi.webp" alt="Tela do Herói no app: status, nível e XP" style="--y:-48%;--d:16s" loading="lazy"></div></div>
+      <div class="lac-ph rv d2">
+        <div class="ring r1"></div><div class="ring r2"></div>
+        <div class="phone tilt"><div class="scr"><img src="img/v2/app-heroi.webp" alt="Tela do Herói dentro do app" style="--y:-46%;--d:16s" loading="lazy"></div></div>
       </div>
     </div>
     <div class="loop">
-      <div class="lined rv"><span class="chip" style="font-size:clamp(18px,2.4vw,30px);padding:12px 48px">O LOOP DO HERÓI</span></div>
-      <p class="sub center rv">Treine, evolua e seja recompensado em um ciclo que te mantém constante e em progresso real.</p>
+      <div class="hrule rv"><span class="tag xl">O loop do herói</span></div>
+      <p class="sub rv">Treine, evolua e seja recompensado em um ciclo que te mantém constante e em progresso real.</p>
       <div class="lcards">
-        <div class="pnw rv"><div class="pn lc c1"><span class="cr">👑</span><img class="ic" src="img/v2/ic-xp.webp" alt=""><div class="tx"><h3>Recompensa imediata</h3><p>Ganhe XP a cada série concluída. A barra sobe e seus atributos evoluem na hora.</p></div></div></div>
-        <div class="pnw rv d1"><div class="pn lc c2"><span class="cr">👑</span><img class="ic" src="img/v2/ic-cal.webp" alt="" style="animation-delay:-1.3s"><div class="tx"><h3>Recompensa diária</h3><p>Complete missões e mantenha sua sequência: até +50% de XP por dias seguidos.</p></div></div></div>
-        <div class="pnw rv d2"><div class="pn lc c3"><span class="cr">👑</span><img class="ic" src="img/v2/ic-demon.webp" alt="" style="animation-delay:-2.6s"><div class="tx"><h3>Recompensa épica</h3><p>Enfrente chefes e supere seus recordes pessoais. Cada recorde derruba um monstro.</p></div></div></div>
+        <div class="card lc p rv"><span class="crown-chip"><svg viewBox="0 0 24 24" fill="#5a3400"><path d="M3 18h18l-1.6-10.5-4.6 4.2L12 5.5l-2.8 6.2-4.6-4.2z"/><rect x="3" y="19.3" width="18" height="2.2" rx="1"/></svg></span><div class="lc-ic pu"><svg viewBox="0 0 96 96"><defs></defs><path d="M48 6l36 20v44L48 90 12 70V26z" fill="rgba(60,24,130,.55)" stroke="url(#gp)" stroke-width="4"/><path d="M48 16l27 15v34L48 80 21 65V31z" fill="none" stroke="rgba(220,190,255,.45)" stroke-width="2"/><text x="48" y="59" text-anchor="middle" font-family="Exo 2,sans-serif" font-weight="900" font-style="italic" font-size="32" fill="#f4eaff" style="filter:drop-shadow(0 0 6px #a35cff)">XP</text></svg></div><div class="lc-tx"><h3>Recompensa imediata</h3><p>Ganhe XP a cada série concluída.</p></div></div>
+        <div class="card lc g rv d1"><span class="crown-chip"><svg viewBox="0 0 24 24" fill="#5a3400"><path d="M3 18h18l-1.6-10.5-4.6 4.2L12 5.5l-2.8 6.2-4.6-4.2z"/><rect x="3" y="19.3" width="18" height="2.2" rx="1"/></svg></span><div class="lc-ic tl"><svg viewBox="0 0 96 96" fill="none"><rect x="14" y="20" width="68" height="62" rx="8" fill="rgba(10,80,70,.6)" stroke="url(#gt)" stroke-width="4"/><path d="M14 36h68" stroke="url(#gt)" stroke-width="4"/><path d="M30 12v14M66 12v14" stroke="url(#gt)" stroke-width="5" stroke-linecap="round"/><path d="M34 58l9 9 18-20" stroke="#b8fff0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 6px #35e0b4)"/></svg></div><div class="lc-tx"><h3>Recompensa diária</h3><p>Complete missões e mantenha sua sequência.</p></div></div>
+        <div class="card lc p rv d2"><span class="crown-chip"><svg viewBox="0 0 24 24" fill="#5a3400"><path d="M3 18h18l-1.6-10.5-4.6 4.2L12 5.5l-2.8 6.2-4.6-4.2z"/><rect x="3" y="19.3" width="18" height="2.2" rx="1"/></svg></span><div class="lc-ic pu"><svg viewBox="0 0 96 96" fill="none" stroke="url(#gp)" stroke-width="4" stroke-linejoin="round"><path d="M14 10c4 12 10 18 18 20M82 10c-4 12-10 18-18 20" stroke-linecap="round"/><path d="M22 36c0-8 10-12 26-12s26 4 26 12v14c0 18-12 32-26 32S22 68 22 50z" fill="rgba(60,24,130,.55)"/><path d="M33 48l10 4M63 48l-10 4" stroke="#ffd6ff" stroke-width="5" stroke-linecap="round" style="filter:drop-shadow(0 0 5px #ff5aa0)"/><path d="M38 68c6-5 14-5 20 0" stroke-linecap="round"/></svg></div><div class="lc-tx"><h3>Recompensa épica</h3><p>Enfrente chefes e supere seus recordes pessoais.</p></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- VEJA O SISTEMA -->
-<section class="sys" id="sistema">
-  <img class="cas l" src="img/v2/castle-l.webp" alt="" aria-hidden="true" loading="lazy"><img class="cas r" src="img/v2/castle-r.webp" alt="" aria-hidden="true" loading="lazy">
+<!-- 3. VEJA O SISTEMA -->
+<section class="sec sys" id="sistema">
+  <div class="bolts" aria-hidden="true"><i class="haze l"></i><i class="haze r"></i><svg class="bl" viewBox="0 0 700 320"><path d="M0 300 L120 250 L105 230 L230 190 L215 168 L340 150 L330 128 L470 110 L455 95 L620 60"/><path class="b2" d="M215 168 L260 120 L250 104 L300 70"/><path class="b2" d="M330 128 L380 190 L372 205 L430 250"/></svg><svg class="br" viewBox="0 0 700 320"><path d="M0 300 L120 250 L105 230 L230 190 L215 168 L340 150 L330 128 L470 110 L455 95 L620 60"/><path class="b2" d="M105 230 L150 280 L140 296 L190 318"/><path class="b2" d="M455 95 L500 40 L492 26 L540 4"/></svg></div>
+  <div class="ruins" aria-hidden="true"><img class="rl" src="img/v3/bg-ruins.webp" alt=""><img class="rr" src="img/v3/bg-ruins.webp" alt=""></div>
   <div class="wrap center">
-    <div class="lined rv"><span class="chip" style="letter-spacing:.32em">VEJA O SISTEMA</span></div>
-    <h2 class="h2 rv d1"><span class="silver">Seu treino,</span> <span class="gold">como num jogo</span></h2>
-    <p class="sub rv d2" style="margin-top:12px">Acompanhe seu herói, entre em dungeons e cumpra missões diárias sem sair do treino. Estas são telas reais do app.</p>
+    <div class="hrule rv"><span class="tag">Veja o sistema</span></div>
+    <h2 class="h2 rv d1"><i class="gl"></i><span class="t-silver">Seu treino,</span>&nbsp;<span class="t-gold">como num jogo</span><i class="gl r"></i></h2>
+    <p class="sub rv d2">Acompanhe seu herói, entre em dungeons e cumpra missões diárias sem sair do treino.</p>
     <div class="phones" id="phones">
-      <div class="ph-col rv"><div class="phone"><div class="scr"><img data-k="heroi" src="img/v2/app-heroi.webp" alt="Tela do Herói" style="--y:-45%;--d:15s" loading="lazy"></div></div><div class="refl"></div><div class="plabel"><span class="gw"><span class="btn g">🛡️ Herói e status</span></span></div></div>
-      <div class="ph-col rv d1"><div class="phone"><div class="scr"><img data-k="dungeon" src="img/v2/app-dungeon.webp" alt="Tela da Dungeon" style="--y:-12%;--d:12s" loading="lazy"></div></div><div class="refl"></div><div class="plabel"><span class="gw"><span class="btn g">🏛️ Dungeons e incursões</span></span></div></div>
-      <div class="ph-col rv d2"><div class="phone"><div class="scr"><img data-k="missoes" src="img/v2/app-missoes.webp" alt="Tela de Missões" style="--y:-12%;--d:12s" loading="lazy"></div></div><div class="refl"></div><div class="plabel"><span class="gw"><span class="btn g">📜 Missões e evolução</span></span></div></div>
+      <div class="phc rv"><div class="phone"><div class="scr"><img src="img/v2/app-heroi.webp" alt="Tela do Herói" style="--y:-46%;--d:15s" loading="lazy"></div></div><div class="plat"></div><span class="btn gold md lbl"><svg viewBox="0 0 24 24" fill="#5a3400"><path d="M12 2l8 3v6.5c0 5.2-3.4 8.8-8 10.5-4.6-1.7-8-5.3-8-10.5V5z"/></svg><span>Herói e status</span></span></div>
+      <div class="phc rv d1"><div class="phone"><div class="scr"><img src="img/v2/app-dungeon.webp" alt="Tela da Dungeon" style="--y:-12%;--d:12s" loading="lazy"></div></div><div class="plat"></div><span class="btn gold md lbl"><svg viewBox="0 0 24 24" fill="#5a3400"><path d="M3 21V9l9-6 9 6v12h-5v-7a4 4 0 0 0-8 0v7z"/></svg><span>Dungeons e incursões</span></span></div>
+      <div class="phc rv d2"><div class="phone"><div class="scr"><img src="img/v2/app-missoes.webp" alt="Tela de Missões" style="--y:-12%;--d:12s" loading="lazy"></div></div><div class="plat"></div><span class="btn gold md lbl"><svg viewBox="0 0 24 24" fill="none" stroke="#5a3400" stroke-width="2.6" stroke-linecap="round"><path d="M5 4h14v16H5zM9 9h6M9 13h6M9 17h3"/></svg><span>Missões e evolução</span></span></div>
     </div>
-    <div class="more rv" role="tablist" aria-label="Trocar telas">
-      <button class="on" data-set="a">Herói · Dungeon · Missões</button>
-      <button data-set="b">Treinar · Chefes · Taverna</button>
-    </div>
+    <div class="swap rv"><button class="on" data-set="a">Herói · Dungeon · Missões</button><button data-set="b">Treinar · Chefes · Taverna</button></div>
   </div>
 </section>
 
-<!-- CLASSES -->
-<section class="cls grid-bg" id="classes">
-  <div class="wisp" style="left:-220px;top:120px;background:radial-gradient(closest-side,rgba(60,220,170,.45),transparent 70%)"></div><div class="wisp" style="right:-200px;bottom:80px;animation-delay:-5s"></div>
+<!-- 4. CLASSES -->
+<section class="sec cls grid-bg" id="classes">
+  <div class="bolts" aria-hidden="true"><i class="haze l"></i><i class="haze r"></i><svg class="bl" viewBox="0 0 700 320"><path d="M0 300 L120 250 L105 230 L230 190 L215 168 L340 150 L330 128 L470 110 L455 95 L620 60"/><path class="b2" d="M215 168 L260 120 L250 104 L300 70"/><path class="b2" d="M330 128 L380 190 L372 205 L430 250"/></svg><svg class="br" viewBox="0 0 700 320"><path d="M0 300 L120 250 L105 230 L230 190 L215 168 L340 150 L330 128 L470 110 L455 95 L620 60"/><path class="b2" d="M105 230 L150 280 L140 296 L190 318"/><path class="b2" d="M455 95 L500 40 L492 26 L540 4"/></svg></div>
+  <div class="wisps" aria-hidden="true"><i class="tl"></i><i></i></div>
   <div class="wrap center">
-    <div class="lined rv" style="--lc:#ffcc4d"><span class="chip g">⚔️ ESCOLHA SUA CLASSE</span></div>
-    <h2 class="h2 silver rv d1">Escolha quem você vai se tornar</h2>
-    <p class="sub rv d2" style="margin-top:8px">Cada classe muda a fantasia da sua jornada, enquanto a evolução acontece no treino real.</p>
+    <div class="hrule gold rv"><span class="tag gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/><path d="M9.5 6.5L21 3v3l-11.5 11.5M11 19l-6-6M8 16l-4 4M5 21l-2-2" opacity=".9"/></svg>Escolha sua classe</span></div>
+    <h2 class="h2 t-silver rv d1">Escolha quem você vai se tornar</h2>
+    <p class="sub rv d2">Cada classe muda a fantasia da sua jornada, enquanto a evolução acontece no treino real.</p>
     <div class="ccards">
-      <div class="ccw rv" style="--g:rgba(60,224,176,.5)"><div class="cc" style="--c:#3fe0b0"><img class="art" src="img/v2/cls-monge.webp" alt="Monge das Barras nas argolas" loading="lazy"><h3>Monge das Barras</h3><span class="tg">🤸 Calistenia</span><div class="stats" data-v="62,70,92,75"></div></div></div>
-      <div class="ccw rv d1" style="--g:rgba(255,200,60,.6)"><div class="cc mid" style="--c:#ffcc4d"><img class="art" src="img/v2/cls-paladino.webp" alt="Paladino Híbrido com anilha e manopla" loading="lazy"><h3>Paladino Híbrido</h3><span class="tg">👑 Híbrido</span><div class="stats" data-v="78,78,72,80"></div></div></div>
-      <div class="ccw rv d2" style="--g:rgba(255,77,106,.5)"><div class="cc" style="--c:#ff4d6a"><img class="art" src="img/v2/cls-guerreiro.webp" alt="Guerreiro do Ferro com a barra nas costas" loading="lazy"><h3>Guerreiro do Ferro</h3><span class="tg">🏋️ Musculação</span><div class="stats" data-v="96,66,48,74"></div></div></div>
+      <div class="ccw rv" style="--g:rgba(53,224,180,.5)"><div class="cc card" style="--c:#35e0b4;--sg:rgba(53,224,180,.35);--bc1:#35e0b4;--bc2:#35e0b488"><div class="scene"><img class="bgr" src="img/v3/bg-hero.webp" alt="" loading="lazy"><div class="aura teal"></div><img class="hero-img" src="img/v3/char-monge.webp" alt="Monge das Barras" loading="lazy"></div><h3>Monge das Barras</h3><span class="ctag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="7" cy="16" r="4"/><circle cx="17" cy="16" r="4"/><path d="M7 12V3M17 12V3"/></svg>Calistenia</span><div class="st"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M2 12h2M20 12h2M7 7v10M17 7v10M4 9v6M20 9v6M7 12h10"/></svg><span>FORÇA</span><div class="tr"><i data-w="62"></i></div></div><div class="st"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 20s-8-5-8-11a4.5 4.5 0 0 1 8-2.6A4.5 4.5 0 0 1 20 9c0 6-8 11-8 11z"/><path d="M5 11h4l1.5-2 2 4 1.5-2h4" stroke-linecap="round"/></svg><span>RESISTÊNCIA</span><div class="tr"><i data-w="70"></i></div></div><div class="st"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="15" cy="4" r="2"/><path d="M13.5 7l-4 2-2 4 1.6.8 1.6-3.1 1.6-.7-1.5 4.5 3.2 3.5V22h2v-5.5l-2.6-2.9 1-3 1.5 2.4H20v-2h-2.8z"/></svg><span>AGILIDADE</span><div class="tr"><i data-w="92"></i></div></div><div class="st"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg><span>VIGOR</span><div class="tr"><i data-w="75"></i></div></div></div></div><div class="ccw rv d1" style="--g:rgba(255,190,60,.6)"><div class="cc card mid" style="--c:#ffcc4d;--sg:rgba(255,190,60,.35);--bc1:#ffcc4d;--bc2:#ffcc4d88"><div class="scene"><img class="bgr" src="img/v3/bg-hero.webp" alt="" loading="lazy"><div class="aura gold"></div><img class="hero-img" src="img/v3/char-paladino.webp" alt="Paladino Híbrido" loading="lazy"></div><h3>Paladino Híbrido</h3><span class="ctag"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18l-1.6-10.5-4.6 4.2L12 5.5l-2.8 6.2-4.6-4.2z"/></svg>Híbrido</span><div class="st"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M2 12h2M20 12h2M7 7v10M17 7v10M4 9v6M20 9v6M7 12h10"/></svg><span>FORÇA</span><div class="tr"><i data-w="78"></i></div></div><div class="st"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 20s-8-5-8-11a4.5 4.5 0 0 1 8-2.6A4.5 4.5 0 0 1 20 9c0 6-8 11-8 11z"/><path d="M5 11h4l1.5-2 2 4 1.5-2h4" stroke-linecap="round"/></svg><span>RESISTÊNCIA</span><div class="tr"><i data-w="78"></i></div></div><div class="st"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="15" cy="4" r="2"/><path d="M13.5 7l-4 2-2 4 1.6.8 1.6-3.1 1.6-.7-1.5 4.5 3.2 3.5V22h2v-5.5l-2.6-2.9 1-3 1.5 2.4H20v-2h-2.8z"/></svg><span>AGILIDADE</span><div class="tr"><i data-w="72"></i></div></div><div class="st"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg><span>VIGOR</span><div class="tr"><i data-w="80"></i></div></div></div></div><div class="ccw rv d2" style="--g:rgba(255,77,106,.5)"><div class="cc card" style="--c:#ff4d6a;--sg:rgba(255,77,106,.35);--bc1:#ff4d6a;--bc2:#ff4d6a88"><div class="scene"><img class="bgr" src="img/v3/bg-hero.webp" alt="" loading="lazy"><div class="aura red"></div><img class="hero-img" src="img/v3/char-guerreiro.webp" alt="Guerreiro do Ferro" loading="lazy"></div><h3>Guerreiro do Ferro</h3><span class="ctag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M2 12h20M5 8v8M19 8v8M8 6v12M16 6v12"/></svg>Musculação</span><div class="st"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M2 12h2M20 12h2M7 7v10M17 7v10M4 9v6M20 9v6M7 12h10"/></svg><span>FORÇA</span><div class="tr"><i data-w="96"></i></div></div><div class="st"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 20s-8-5-8-11a4.5 4.5 0 0 1 8-2.6A4.5 4.5 0 0 1 20 9c0 6-8 11-8 11z"/><path d="M5 11h4l1.5-2 2 4 1.5-2h4" stroke-linecap="round"/></svg><span>RESISTÊNCIA</span><div class="tr"><i data-w="66"></i></div></div><div class="st"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="15" cy="4" r="2"/><path d="M13.5 7l-4 2-2 4 1.6.8 1.6-3.1 1.6-.7-1.5 4.5 3.2 3.5V22h2v-5.5l-2.6-2.9 1-3 1.5 2.4H20v-2h-2.8z"/></svg><span>AGILIDADE</span><div class="tr"><i data-w="48"></i></div></div><div class="st"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg><span>VIGOR</span><div class="tr"><i data-w="74"></i></div></div></div></div>
     </div>
-    <div style="margin-top:46px" class="rv"><span class="gw"><a class="btn g" href="#planos" style="padding:20px 60px;font-size:24px">⚔️ Escolher minha classe »</a></span></div>
+    <div class="rv" style="margin-top:44px"><a class="btn gold xl" href="#planos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/><path d="M9.5 6.5L21 3v3l-11.5 11.5M11 19l-6-6M8 16l-4 4M5 21l-2-2" opacity=".9"/></svg>Escolher minha classe <b class="chev">»</b></a></div>
   </div>
 </section>
 
-<!-- ALQUIMIA -->
-<section class="alq" id="alquimia">
-  <div class="wisp" style="left:-200px;top:0"></div><div class="wisp" style="right:-200px;bottom:0;animation-delay:-3s"></div>
-  <div class="wrap grid">
-    <div class="artw rv"><img src="img/v2/alq-art.webp" alt="Paladino com shake proteico e uma mesa de receitas anabólicas" loading="lazy"></div>
-    <div>
-      <span class="chip g rv" style="letter-spacing:.08em;font-style:normal">🎁 BÔNUS DO CAÇADOR ELITE</span>
-      <h2 class="rv d1"><span class="silver">Alquimia do Herói:</span><br><span class="gold">50 receitas</span><br><span class="silver">anabólicas</span></h2>
-      <p class="desc rv d2">O app inclui 50 receitas práticas e ricas em proteína, feitas com ingredientes acessíveis do supermercado, para alimentar seu treino, apoiar sua recuperação e ajudar o herói a evoluir de verdade. Cada receita mostra proteína, calorias e modo de preparo, e vale XP quando você prepara.</p>
+<!-- 5. ALQUIMIA -->
+<section class="sec alq" id="alquimia">
+  <div class="bolts" aria-hidden="true"><i class="haze l"></i><i class="haze r"></i><svg class="bl" viewBox="0 0 700 320"><path d="M0 300 L120 250 L105 230 L230 190 L215 168 L340 150 L330 128 L470 110 L455 95 L620 60"/><path class="b2" d="M215 168 L260 120 L250 104 L300 70"/><path class="b2" d="M330 128 L380 190 L372 205 L430 250"/></svg><svg class="br" viewBox="0 0 700 320"><path d="M0 300 L120 250 L105 230 L230 190 L215 168 L340 150 L330 128 L470 110 L455 95 L620 60"/><path class="b2" d="M105 230 L150 280 L140 296 L190 318"/><path class="b2" d="M455 95 L500 40 L492 26 L540 4"/></svg></div>
+  <div class="wisps" aria-hidden="true"><i></i><i></i></div>
+  <div class="wrap alq-g">
+    <div class="alq-art rv">
+      <div class="frame-img"><img src="img/v3/alq-scene.webp" alt="Paladino com shake proteico diante de uma mesa de receitas anabólicas" loading="lazy"></div>
+      <span class="ftag" style="left:4%;top:50%"><svg viewBox="0 0 40 40"><path d="M13 9h14l-2 27H15z" fill="rgba(120,80,40,.85)" stroke="url(#gb)" stroke-width="2"/><rect x="12" y="4" width="16" height="6" rx="2" fill="#1c2438" stroke="url(#gb)" stroke-width="2"/><path d="M15 20h10" stroke="#e8c09a" stroke-width="2"/></svg>Shakes<br>proteicos</span>
+      <span class="ftag" style="left:44%;top:59%"><svg viewBox="0 0 40 40"><ellipse cx="20" cy="30" rx="15" ry="5" fill="#b06a20"/><ellipse cx="20" cy="25" rx="14" ry="5" fill="#e0a050"/><ellipse cx="20" cy="20" rx="13" ry="5" fill="#f0bd6a"/><circle cx="16" cy="18" r="3" fill="#fff3b0"/><circle cx="23" cy="17" r="3" fill="#fff3b0"/><path d="M12 20c3 3 13 3 16 0" stroke="#c87010" stroke-width="2" fill="none"/></svg>Panquecas<br>com banana</span>
+      <span class="ftag" style="right:2%;top:59%"><svg viewBox="0 0 40 40"><path d="M6 18h28c0 9-6 15-14 15S6 27 6 18z" fill="rgba(30,40,70,.9)" stroke="url(#gb)" stroke-width="2"/><path d="M8 18c2-6 22-6 24 0" fill="#6a3a1c"/><circle cx="20" cy="12" r="3" fill="#ff5a6a"/></svg>Mousse<br>de chocolate</span>
+      <span class="ftag" style="left:12%;bottom:8%"><svg viewBox="0 0 40 40"><path d="M6 18h28c0 9-6 15-14 15S6 27 6 18z" fill="#c08a50" stroke="url(#gb)" stroke-width="2"/><ellipse cx="20" cy="18" rx="14" ry="4" fill="#f0dcb0"/></svg>Aveia</span>
+      <span class="ftag" style="left:36%;bottom:4%"><svg viewBox="0 0 40 40"><ellipse cx="20" cy="22" rx="11" ry="13" fill="#fff"/><circle cx="20" cy="24" r="6" fill="#ffb21c"/></svg>Ovos</span>
+      <span class="ftag" style="left:58%;bottom:6%"><svg viewBox="0 0 40 40"><ellipse cx="20" cy="27" rx="16" ry="6" fill="rgba(30,40,70,.9)" stroke="url(#gb)" stroke-width="2"/><ellipse cx="14" cy="24" rx="7" ry="4" fill="#f4f0e6"/><path d="M20 22c2-4 10-4 12 0s-2 6-6 5-6-2-6-5z" fill="#c8782c"/></svg>Frango<br>com arroz</span>
+    </div>
+    <div class="alq-tx">
+      <span class="tag gold-s rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12" rx="1.5"/><path d="M12 9v12M3 13h18M12 9c-2-4-7-4-6-1 .5 1.5 3 1 6 1zm0 0c2-4 7-4 6-1-.5 1.5-3 1-6 1z"/></svg>Bônus do Caçador Elite</span>
+      <h2 class="alq-h rv d1"><span class="t-silver">Alquimia do Herói:</span><span class="t-gold">50 receitas</span><span class="t-silver">anabólicas</span></h2>
+      <p class="bar-p rv d2">O app inclui 50 receitas práticas e ricas em proteína, feitas com ingredientes acessíveis do supermercado, para alimentar seu treino, apoiar sua recuperação e ajudar o herói a evoluir de verdade.</p>
       <div class="atiles rv d2">
-        <div class="at"><img src="img/v2/alq-i1.webp" alt="">Shakes proteicos</div>
-        <div class="at"><img src="img/v2/alq-i2.webp" alt="">Panquecas anabólicas</div>
-        <div class="at"><img src="img/v2/alq-i3.webp" alt="">Mousses e sobremesas</div>
-        <div class="at"><img src="img/v2/alq-i4.webp" alt="">Comida de verdade</div>
-        <div class="at"><img src="img/v2/alq-i5.webp" alt="">Fácil de fazer</div>
-        <div class="at"><img src="img/v2/alq-i6.webp" alt="">Ricas em proteína</div>
+        <div class="at"><svg viewBox="0 0 40 40"><path d="M13 9h14l-2 27H15z" fill="rgba(120,80,40,.85)" stroke="url(#gb)" stroke-width="2"/><rect x="12" y="4" width="16" height="6" rx="2" fill="#1c2438" stroke="url(#gb)" stroke-width="2"/><path d="M15 20h10" stroke="#e8c09a" stroke-width="2"/></svg><span>Shakes proteicos</span></div>
+        <div class="at"><svg viewBox="0 0 40 40"><ellipse cx="20" cy="30" rx="15" ry="5" fill="#b06a20"/><ellipse cx="20" cy="25" rx="14" ry="5" fill="#e0a050"/><ellipse cx="20" cy="20" rx="13" ry="5" fill="#f0bd6a"/><circle cx="16" cy="18" r="3" fill="#fff3b0"/><circle cx="23" cy="17" r="3" fill="#fff3b0"/><path d="M12 20c3 3 13 3 16 0" stroke="#c87010" stroke-width="2" fill="none"/></svg><span>Panquecas anabólicas</span></div>
+        <div class="at"><svg viewBox="0 0 40 40"><path d="M6 18h28c0 9-6 15-14 15S6 27 6 18z" fill="rgba(30,40,70,.9)" stroke="url(#gb)" stroke-width="2"/><path d="M8 18c2-6 22-6 24 0" fill="#6a3a1c"/><circle cx="20" cy="12" r="3" fill="#ff5a6a"/></svg><span>Mousses e sobremesas</span></div>
+        <div class="at"><svg viewBox="0 0 40 40"><path d="M6 18h28c0 9-6 15-14 15S6 27 6 18z" fill="rgba(30,40,70,.9)" stroke="url(#gb)" stroke-width="2"/><ellipse cx="15" cy="17" rx="7" ry="4" fill="#f4f0e6"/><path d="M20 17c1-4 10-4 11 0s-3 4-6 3-5-1-5-3z" fill="#c8782c"/><circle cx="12" cy="13" r="2" fill="#4caf50"/></svg><span>Comida de verdade</span></div>
+        <div class="at"><svg viewBox="0 0 40 40" fill="none" stroke="url(#gb)" stroke-width="2.4" stroke-linejoin="round"><path d="M12 22a7 7 0 1 1 4-12 7 7 0 0 1 12 2 6 6 0 1 1 0 10v10H12z" fill="rgba(240,248,255,.92)"/><path d="M12 28h16"/></svg><span>Fácil de fazer</span></div>
+        <div class="at"><svg viewBox="0 0 40 40"><path d="M8 30c0-8 4-12 8-16l4-6c2-2 6 0 4 3l-3 5c5-1 10 2 11 7 1 6-4 10-10 10H12a4 4 0 0 1-4-3z" fill="#e0a06a" stroke="url(#gb)" stroke-width="2"/></svg><span>Ricas em proteína</span></div>
       </div>
-      <div class="rv d3"><span class="gw"><a class="btn g" href="#planos" style="font-style:normal">Quero evoluir com a dieta →</a></span></div>
+      <div class="rv d3"><a class="btn gold lg" href="#planos">Quero evoluir com a dieta <b class="arr">→</b></a></div>
     </div>
   </div>
 </section>
 
-<!-- RANKING -->
-<section class="rk" id="ranking">
-  <div class="wisp" style="left:-240px;top:40px"></div><div class="wisp" style="right:-220px;bottom:40px;animation-delay:-4s"></div>
-  <div class="wrap center">
-    <div class="frame rv">
-      <span class="chip g" style="letter-spacing:.1em">🏆 RANKING DA TEMPORADA</span>
-      <h2 class="h2"><span class="silver">Suba no</span> <span class="gold">ranking da temporada</span></h2>
-      <p class="sub" style="font-style:normal;margin-top:10px">Ganhe XP, conclua missões e dispute com outros heróis Elite o topo do ranking do mês.</p>
+<!-- 6. RANKING -->
+<section class="sec rk grid-bg" id="ranking">
+  <div class="bolts" aria-hidden="true"><i class="haze l"></i><i class="haze r"></i><svg class="bl" viewBox="0 0 700 320"><path d="M0 300 L120 250 L105 230 L230 190 L215 168 L340 150 L330 128 L470 110 L455 95 L620 60"/><path class="b2" d="M215 168 L260 120 L250 104 L300 70"/><path class="b2" d="M330 128 L380 190 L372 205 L430 250"/></svg><svg class="br" viewBox="0 0 700 320"><path d="M0 300 L120 250 L105 230 L230 190 L215 168 L340 150 L330 128 L470 110 L455 95 L620 60"/><path class="b2" d="M105 230 L150 280 L140 296 L190 318"/><path class="b2" d="M455 95 L500 40 L492 26 L540 4"/></svg></div>
+  <div class="wisps" aria-hidden="true"><i></i><i></i></div>
+  <div class="wrap">
+    <div class="rk-frame rv">
+      <span class="rk-tag"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 3h10v3h4v2a5 5 0 0 1-4.6 5A5 5 0 0 1 13 15.9V19h3v2H8v-2h3v-3.1A5 5 0 0 1 7.6 13 5 5 0 0 1 3 8V6h4zm-2 5a3 3 0 0 0 2 2.8V8zm14 0h-2v2.8A3 3 0 0 0 19 8z"/></svg>Ranking da temporada</span>
+      <h2 class="h2 center"><span class="t-silver">Suba no</span> <span class="t-gold">ranking da temporada</span></h2>
+      <p class="sub rk-sub">Ganhe XP, conclua missões e dispute com outros heróis Elite o topo do ranking do mês.</p>
       <div class="podium">
-        <div class="pd p2 rv d1"><img src="img/v2/rk-2.webp" alt="Segundo lugar" loading="lazy"><div class="np"><b>Rafael</b><span><i class="xpc">XP</i><em class="cnt" data-n="1033420">0</em> XP</span></div></div>
-        <div class="pd p1 rv"><img src="img/v2/rk-1.webp" alt="Primeiro lugar" loading="lazy"><div class="np"><b>Juliano</b><span><i class="xpc">XP</i><em class="cnt" data-n="1248750">0</em> XP</span></div><div><span class="champ">CAMPEÃO DA TEMPORADA</span></div></div>
-        <div class="pd p3 rv d2"><img src="img/v2/rk-3.webp" alt="Terceiro lugar" loading="lazy"><div class="np"><b>Caio</b><span><i class="xpc">XP</i><em class="cnt" data-n="987230">0</em> XP</span></div></div>
+        <div class="pd p2 rv d1"><div class="med"><div class="ring2"><img src="img/v3/char-monge.webp" alt="" loading="lazy"></div><img class="lau" src="img/v3/laurel.webp" alt="" loading="lazy"><span class="rank">2º</span></div><div class="np"><b>Rafael</b><span><i class="xpc">XP</i><em class="cnt" data-n="1033420">0</em> XP</span></div></div><div class="pd p1 rv"><div class="med"><div class="ring2"><img src="img/v3/char-paladino.webp" alt="" loading="lazy"></div><img class="lau" src="img/v3/laurel.webp" alt="" loading="lazy"><span class="rank">1º</span></div><div class="np"><b>Juliano</b><span><i class="xpc">XP</i><em class="cnt" data-n="1248750">0</em> XP</span></div><span class=champ>CAMPEÃO DA TEMPORADA</span></div><div class="pd p3 rv d2"><div class="med"><div class="ring2"><img src="img/v3/char-guerreiro.webp" alt="" loading="lazy"></div><img class="lau" src="img/v3/laurel.webp" alt="" loading="lazy"><span class="rank">3º</span></div><div class="np"><b>Caio</b><span><i class="xpc">XP</i><em class="cnt" data-n="987230">0</em> XP</span></div></div>
       </div>
-      <p class="illu">Exemplo ilustrativo do ranking.</p>
-      <div class="lined" style="margin-top:26px"><span class="chip" style="font-size:16px;letter-spacing:.08em">RECOMPENSAS DA TEMPORADA</span></div>
+      <div class="hrule sm"><span class="tag sm">Recompensas da temporada</span></div>
       <div class="rwr">
-        <div><img src="img/v2/rw-crown.webp" alt=""><span><b>Título exclusivo</b><small>Os primeiros colocados ganham títulos que nunca mais voltam</small></span></div>
-        <div><img src="img/v2/rw-coins.webp" alt=""><span><b>Todo XP conta</b><small>Séries, missões, chefes e Dungeon somam pontos</small></span></div>
-        <div><img src="img/v2/rw-laurel.webp" alt=""><span><b>Prestígio na Taverna</b><small>Coroa dourada e destaque nos seus posts</small></span></div>
+        <div class="rwc"><svg viewBox="0 0 56 56"><path d="M8 40h40l-4-24-10 9-6-14-6 14-10-9z" fill="url(#gg)" stroke="#fff3b0" stroke-width="1.2"/><rect x="8" y="42" width="40" height="5" rx="2" fill="url(#gg)"/><circle cx="28" cy="31" r="3.5" fill="#4fd2ff"/></svg><span><b>Título exclusivo</b><small>Destaque seu status de herói</small></span></div>
+        <div class="rwc"><svg viewBox="0 0 56 56"><ellipse cx="22" cy="40" rx="14" ry="6" fill="#b06a06"/><ellipse cx="22" cy="36" rx="14" ry="6" fill="url(#gg)"/><ellipse cx="34" cy="28" rx="14" ry="6" fill="#b06a06"/><ellipse cx="34" cy="24" rx="14" ry="6" fill="url(#gg)"/><ellipse cx="28" cy="16" rx="14" ry="6" fill="#b06a06"/><ellipse cx="28" cy="12" rx="14" ry="6" fill="url(#gg)"/><text x="28" y="15" text-anchor="middle" font-size="7" font-weight="900" fill="#7a4400">XP</text></svg><span><b>Todo XP conta</b><small>Séries, missões e chefes somam pontos</small></span></div>
+        <div class="rwc"><svg viewBox="0 0 56 56" fill="none" stroke="url(#gg)" stroke-width="3" stroke-linecap="round"><path d="M18 46c-8-6-10-18-4-28M38 46c8-6 10-18 4-28"/><path d="M14 38l-6-2M12 30l-6-4M13 22l-4-6M42 38l6-2M44 30l6-4M43 22l4-6"/><path d="M28 14l3.5 7 7.5 1-5.5 5 1.5 7.5L28 31l-7 3.5L22.5 27 17 22l7.5-1z" fill="url(#gg)" stroke="none"/></svg><span><b>Prestígio da temporada</b><small>Coroa dourada na Taverna</small></span></div>
       </div>
-      <div style="margin-top:34px"><span class="gw"><a class="btn g" href="#planos" style="font-style:normal">Quero subir no ranking →</a></span></div>
+      <div class="center"><a class="btn gold lg" href="#planos">Quero subir no ranking <b class="arr">→</b></a></div>
+      <p class="illu">Exemplo ilustrativo do ranking.</p>
     </div>
   </div>
 </section>
 
-<!-- GARANTIA -->
-<section class="gar" id="garantia">
-  <div class="wrap grid">
-    <img class="shield rv" src="img/v2/gar-shield.webp" alt="Selo de garantia incondicional de 7 dias" loading="lazy">
-    <div class="center">
-      <div class="lined rv"><span class="chip" style="letter-spacing:.12em">FORJA DO HERÓI</span></div>
-      <h2 class="rv d1"><span class="silver">Garantia incondicional</span><br><span class="gold">de 7 dias</span></h2>
-      <p class="rv d2">Teste o Forja do Herói por <b>7 dias completos</b>. Se você sentir que o aplicativo não é para você, basta solicitar o reembolso, sem burocracia e sem perguntas.</p>
+<!-- 7. GARANTIA (acima da oferta) -->
+<section class="sec gar" id="garantia">
+  <div class="bolts" aria-hidden="true"><i class="haze l"></i><i class="haze r"></i><svg class="bl" viewBox="0 0 700 320"><path d="M0 300 L120 250 L105 230 L230 190 L215 168 L340 150 L330 128 L470 110 L455 95 L620 60"/><path class="b2" d="M215 168 L260 120 L250 104 L300 70"/><path class="b2" d="M330 128 L380 190 L372 205 L430 250"/></svg><svg class="br" viewBox="0 0 700 320"><path d="M0 300 L120 250 L105 230 L230 190 L215 168 L340 150 L330 128 L470 110 L455 95 L620 60"/><path class="b2" d="M105 230 L150 280 L140 296 L190 318"/><path class="b2" d="M455 95 L500 40 L492 26 L540 4"/></svg></div>
+  <div class="wrap gar-g">
+    <div class="seal rv">
+      <div class="seal-glow"></div>
+      <img src="img/v3/shield-seal.webp" alt="" aria-hidden="true">
+      <div class="seal-t"><b class="t-gold">7</b><span class="t-gold">DIAS</span></div>
+      <div class="seal-rib"><span>Garantia incondicional</span></div>
+    </div>
+    <div class="gar-tx center">
+      <div class="hrule rv"><span class="tag">Forja do Herói</span></div>
+      <h2 class="gar-h rv d1"><span class="t-silver">Garantia incondicional</span><span class="t-gold">de 7 dias</span></h2>
+      <p class="rv d2">Teste o Forja do Herói por <b>7 dias completos</b>.<br>Se você sentir que o aplicativo não é para você,<br class="hide-m"> basta solicitar o reembolso, sem burocracia e sem perguntas.</p>
       <div class="gtiles rv d3">
-        <div class="gt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M7 14h2M11 14h2M15 14h2M7 17h2M11 17h2"/></svg><span><b>7 DIAS</b>para testar tudo</span></div>
-        <div class="gt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 11a8 8 0 0 0-14.6-4.5M4 4v4h4M4 13a8 8 0 0 0 14.6 4.5M20 20v-4h-4"/></svg><span><b>REEMBOLSO</b>total, 100% do valor</span></div>
-        <div class="gt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2.5l8 3v6c0 5-3.4 8.6-8 10.5-4.6-1.9-8-5.5-8-10.5v-6z"/><path d="M8 12l3 3 5-6"/></svg><span><b>SEM</b>burocracia</span></div>
+        <div class="gt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M7 14h2M11 14h2M15 14h2M7 17h2M11 17h2"/></svg><span><b>7 dias</b>para testar tudo</span></div>
+        <div class="gt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 11a8 8 0 0 0-14.6-4.5M4 4v4h4M4 13a8 8 0 0 0 14.6 4.5M20 20v-4h-4"/><path d="M12 8v8M10 10h3a1.5 1.5 0 0 1 0 3h-2a1.5 1.5 0 0 0 0 3h3"/></svg><span><b>Reembolso</b>total, 100% do valor</span></div>
+        <div class="gt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2.5l8 3v6c0 5-3.4 8.6-8 10.5-4.6-1.9-8-5.5-8-10.5v-6z"/><path d="M8 12l3 3 5-6" stroke-linecap="round"/></svg><span><b>Sem</b>burocracia</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PLANOS -->
-<section class="pl" id="planos">
-  <img class="side l" src="img/v2/pl-left.webp" alt="" aria-hidden="true" loading="lazy"><img class="side r" src="img/v2/pl-right.webp" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap center" style="position:relative;z-index:2">
-    <div class="lined rv"><span class="chip" style="letter-spacing:.12em">FORJA DO HERÓI</span></div>
-    <h2 class="h2 silver rv d1">Escolha sua jornada</h2>
-    <p class="sub rv d2" style="margin-top:8px">Desperte seu potencial e evolua no seu ritmo. Pagamento único, sem mensalidade.</p>
+<!-- 8. PLANOS -->
+<section class="sec pl" id="planos">
+  <div class="bolts" aria-hidden="true"><i class="haze l"></i><i class="haze r"></i><svg class="bl" viewBox="0 0 700 320"><path d="M0 300 L120 250 L105 230 L230 190 L215 168 L340 150 L330 128 L470 110 L455 95 L620 60"/><path class="b2" d="M215 168 L260 120 L250 104 L300 70"/><path class="b2" d="M330 128 L380 190 L372 205 L430 250"/></svg><svg class="br" viewBox="0 0 700 320"><path d="M0 300 L120 250 L105 230 L230 190 L215 168 L340 150 L330 128 L470 110 L455 95 L620 60"/><path class="b2" d="M105 230 L150 280 L140 296 L190 318"/><path class="b2" d="M455 95 L500 40 L492 26 L540 4"/></svg></div>
+  <div class="pl-side l" aria-hidden="true"><div class="aura gold"></div><img src="img/v3/char-paladino.webp" alt=""></div>
+  <div class="pl-side r" aria-hidden="true"><div class="aura red"></div><img src="img/v3/char-guerreiro.webp" alt=""></div>
+  <div class="wrap center rel">
+    <div class="hrule rv"><span class="tag">Forja do Herói</span></div>
+    <h2 class="h2 t-silver rv d1">Escolha sua jornada</h2>
+    <p class="sub rv d2">Desperte seu potencial e evolua no seu ritmo.</p>
     <div class="plans">
-      <div class="planw rv" style="--g:rgba(79,168,255,.55)"><img class="top" src="img/v2/pl-shield.webp" alt="" style="position:absolute;top:-46px;left:50%;transform:translateX(-50%);width:96px;z-index:4"><div class="plan r pn" style="clip-path:polygon(22px 0,calc(100% - 22px) 0,100% 22px,100% calc(100% - 22px),calc(100% - 22px) 100%,22px 100%,0 calc(100% - 22px),0 22px)">
-        <h3 class="silver">Recruta</h3><div class="for">O essencial para começar</div>
+      <div class="plan blue rv">
+        <img class="pl-top" src="img/v3/ico-shield.webp" alt="" aria-hidden="true">
+        <h3 class="t-silver">Recruta</h3><div class="pl-for">O essencial para começar</div>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="#4fa8ff" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round"/></svg>App com 3 classes e 45+ exercícios</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="#4fa8ff" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round"/></svg>Sistema de treino em RPG: XP, níveis e atributos</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="#4fa8ff" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round"/></svg>Missões diárias, sequências e loja</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="#4fa8ff" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round"/></svg>9 batalhas de chefes e 16 conquistas</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="#4fa8ff" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round"/></svg>Taverna da comunidade</li>
-          <li class="off"><svg viewBox="0 0 24 24" fill="none" stroke="#7389ab" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>Dungeon de 30 dias e bônus Alquimia</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#5fb4ff" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round" stroke-linejoin="round"/></svg>App com 3 classes e 45+ exercícios</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#5fb4ff" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round" stroke-linejoin="round"/></svg>Sistema de treino em RPG</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#5fb4ff" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round" stroke-linejoin="round"/></svg>Missões diárias e sequências</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#5fb4ff" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round" stroke-linejoin="round"/></svg>Batalhas de chefes</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#5fb4ff" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round" stroke-linejoin="round"/></svg>Acompanhamento de evolução</li>
         </ul>
-        <div class="lbl">PREÇO DE LANÇAMENTO</div>
-        <div class="price silver"><small>R$</small><b>9</b><em>,90</em></div>
-        <div class="once">pagamento único</div>
-        <span class="gw b" style="display:block"><a class="btn b" data-plan="recruta" href="https://appdigitalhub.com.br/c/43752C6D">Começar como Recruta ›</a></span>
-      </div></div>
-      <div class="planw rv d1" style="--g:rgba(255,190,60,.6)"><img class="top" src="img/v2/pl-crown.webp" alt="" style="position:absolute;top:-50px;left:50%;transform:translateX(-50%);width:100px;z-index:4"><div class="plan e pn" style="clip-path:polygon(22px 0,calc(100% - 22px) 0,100% 22px,100% calc(100% - 22px),calc(100% - 22px) 100%,22px 100%,0 calc(100% - 22px),0 22px)">
-        <span class="bdg">👑 RECOMENDADO</span>
-        <h3 class="gold">Caçador Elite</h3><div class="for">A experiência completa</div>
+        <div class="pl-old">Preço de lançamento · pagamento único</div>
+        <div class="price t-silver"><small>R$</small><b>9</b><em>,90</em></div>
+        <a class="btn blue lg full" data-plan="recruta" href="https://appdigitalhub.com.br/c/43752C6D">Começar como Recruta <b class="chev">›</b></a>
+      </div>
+      <div class="plan gold rv d1">
+        <span class="pl-badge"><svg viewBox="0 0 24 24" fill="#5a3400"><path d="M3 18h18l-1.6-10.5-4.6 4.2L12 5.5l-2.8 6.2-4.6-4.2z"/><rect x="3" y="19.3" width="18" height="2.2" rx="1"/></svg>Recomendado</span>
+        <img class="pl-top" src="img/v3/ico-crown.webp" alt="" aria-hidden="true">
+        <h3 class="t-gold">Caçador Elite</h3><div class="pl-for">A experiência completa</div>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="#ffcc4d" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round"/></svg>Tudo do plano Recruta</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="#ffcc4d" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round"/></svg><span><b>Dungeon de 30 dias:</b> o treino de cada dia pronto</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="#ffcc4d" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round"/></svg><span><b>Bônus Alquimia:</b> 50 receitas anabólicas</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="#ffcc4d" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round"/></svg>Guia de Progressão e Planilha do Guerreiro</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="#ffcc4d" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round"/></svg>Temporada mensal com ranking</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="#ffcc4d" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round"/></svg>Taverna VIP, coroa e título de fundador</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#ffcc4d" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round" stroke-linejoin="round"/></svg>Tudo do plano Recruta</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#ffcc4d" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round" stroke-linejoin="round"/></svg>Dungeon de 30 dias: treino pronto</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#ffcc4d" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round" stroke-linejoin="round"/></svg>Alquimia: 50 receitas anabólicas</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#ffcc4d" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round" stroke-linejoin="round"/></svg>Guia de Progressão e Planilha</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#ffcc4d" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round" stroke-linejoin="round"/></svg>Temporada mensal com ranking</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#ffcc4d" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7" stroke-linecap="round" stroke-linejoin="round"/></svg>Selos, título e Taverna VIP</li>
         </ul>
-        <div class="lbl">PREÇO DE LANÇAMENTO</div>
-        <div class="price gold"><small>R$</small><b>19</b><em>,90</em></div>
-        <div class="once">pagamento único</div>
-        <span class="gw" style="display:block"><a class="btn g" data-plan="elite" href="https://appdigitalhub.com.br/c/1C7E51FE">👑 Evoluir para Elite ›</a></span>
-      </div></div>
+        <div class="pl-old">Preço de lançamento · pagamento único</div>
+        <div class="price t-gold"><small>R$</small><b>19</b><em>,90</em></div>
+        <a class="btn gold lg full" data-plan="elite" href="https://appdigitalhub.com.br/c/1C7E51FE"><svg viewBox="0 0 24 24" fill="#5a3400"><path d="M3 18h18l-1.6-10.5-4.6 4.2L12 5.5l-2.8 6.2-4.6-4.2z"/><rect x="3" y="19.3" width="18" height="2.2" rx="1"/></svg>Evoluir para Elite <b class="chev">›</b></a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="faq" id="faq">
-  <img class="hero-l" src="img/v2/faq-hero.webp" alt="" aria-hidden="true" loading="lazy"><img class="ban" src="img/v2/faq-banner.webp" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap"><div class="col">
-    <div class="center"><div class="lined rv"><span class="chip" style="letter-spacing:.12em">FORJA DO HERÓI</span></div>
-    <h2 class="h2 silver rv d1">Perguntas frequentes</h2>
-    <p class="sub rv d2" style="margin-top:6px">Tire suas dúvidas e veja tudo o que você precisa saber.</p>
-    <div class="diam">✦</div></div>
-    <details class="qa rv" open><summary><svg class="q" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2.5l8 3v6c0 5-3.4 8.6-8 10.5-4.6-1.9-8-5.5-8-10.5v-6z"/><path d="M9.6 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.4M12 16.5v.2" stroke-linecap="round"/></svg><span>O que é o Forja do Herói?</span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary><p>O Forja do Herói é um aplicativo de treino gamificado, inspirado em RPGs e animes de evolução, que transforma sua evolução física em uma jornada de herói: cada série vira XP, com missões diárias, chefes, recompensas e progressão de nível.</p></details><details class="qa rv"><summary><svg class="q" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2" stroke-linecap="round"/></svg><span>Preciso ir para a academia para usar o app?</span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary><p>Não. A classe Monge treina só com o peso do corpo, em casa ou no parque. Se você treina na academia, o Guerreiro registra carga e ganha mais XP por peso levantado. O Paladino mistura os dois.</p></details><details class="qa rv"><summary><svg class="q" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M2 12h2M20 12h2M7 7v10M17 7v10M4 9v6M20 9v6M7 12h10"/></svg><span>O app já vem com os treinos prontos?</span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary><p>No Caçador Elite, sim: a Dungeon de 30 dias traz o treino de cada dia pronto para a sua classe, começando leve e subindo toda semana. No Recruta, você escolhe os exercícios (são mais de 45, com níveis de I a V) e o app transforma cada série em XP, missões e chefes.</p></details><details class="qa rv"><summary><svg class="q" viewBox="0 0 24 24" fill="#ffcc4d"><path d="M3 18h18l-1.5-10-4.5 4-3-6-3 6-4.5-4z"/><rect x="3" y="19.5" width="18" height="2" rx="1"/></svg><span>Qual a diferença entre o plano Recruta e o Caçador Elite?</span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary><p>O Recruta é para quem já sabe montar o próprio treino: você registra as séries e o app transforma tudo em XP, missões, chefes e conquistas. O Caçador Elite inclui tudo isso e mais a Dungeon de 30 dias, o bônus Alquimia do Herói (50 receitas anabólicas), o Guia de Progressão, a Planilha do Guerreiro, a Temporada com ranking e a Taverna VIP.</p></details><details class="qa rv"><summary><svg class="q" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M7 14h2M11 14h2M15 14h2M7 17h2M11 17h2"/></svg><span>Tem mensalidade? Preciso cancelar depois?</span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary><p>Não. Você paga uma única vez e o app é seu, com as atualizações incluídas. Não existe assinatura nem cobrança recorrente para cancelar.</p></details><details class="qa rv"><summary><svg class="q" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2.5l8 3v6c0 5-3.4 8.6-8 10.5-4.6-1.9-8-5.5-8-10.5v-6z"/><path d="M8 12l3 3 5-6" stroke-linecap="round"/></svg><span>A compra é segura?</span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary><p>Sim. O pagamento é feito em ambiente seguro, por Pix ou cartão, na plataforma Digital Hub. E você ainda tem 7 dias de garantia incondicional: se não gostar, pede o reembolso e recebe 100% do valor.</p></details><details class="qa rv"><summary><svg class="q" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Como recebo o acesso e instalo no celular?</span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary><p>Logo após a confirmação do pagamento você recebe o link do app no e-mail. Abra, toque em “Primeiro acesso”, use o mesmo e-mail da compra e crie uma senha. Dentro do app tem um tutorial para colocar o ícone na tela do celular (iPhone e Android). Seu progresso fica salvo na sua conta.</p></details><details class="qa rv"><summary><svg class="q" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2.5l8 3v6c0 5-3.4 8.6-8 10.5-4.6-1.9-8-5.5-8-10.5v-6z"/><path d="M9.6 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.4M12 16.5v.2" stroke-linecap="round"/></svg><span>Nunca treinei. Consigo começar do zero?</span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary><p>Sim. Escolha a classe Monge (treino em casa, sem equipamento) e comece pelos exercícios de nível I, como flexão com apoio, agachamento e prancha. Se quiser o caminho pronto dia a dia, o Caçador Elite traz a Dungeon de 30 dias.</p></details><details class="qa rv"><summary><svg class="q" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M9 3h6M10 3v5L5 18a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-10V3"/><path d="M7.5 14h9"/></svg><span>O que é o bônus Alquimia do Herói?</span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary><p>É a área de receitas anabólicas do app: shakes, panquecas, refeições, lanches e sobremesas ricos em proteína, feitos com ingredientes de mercado. Cada receita mostra proteína, calorias e modo de preparo, e vale XP quando você prepara. É um bônus exclusivo do Caçador Elite.</p></details><details class="qa rv"><summary><svg class="q" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2.5l8 3v6c0 5-3.4 8.6-8 10.5-4.6-1.9-8-5.5-8-10.5v-6z"/><path d="M8 12l3 3 5-6" stroke-linecap="round"/></svg><span>Como peço o reembolso?</span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary><p>Em até 7 dias após a compra, fale com o suporte ou peça direto na plataforma de pagamento, informando o e-mail usado na compra. Devolvemos 100% do valor, sem perguntas.</p></details>
+<!-- 9. FAQ -->
+<section class="sec faq" id="faq">
+  <div class="bolts" aria-hidden="true"><i class="haze l"></i><i class="haze r"></i><svg class="bl" viewBox="0 0 700 320"><path d="M0 300 L120 250 L105 230 L230 190 L215 168 L340 150 L330 128 L470 110 L455 95 L620 60"/><path class="b2" d="M215 168 L260 120 L250 104 L300 70"/><path class="b2" d="M330 128 L380 190 L372 205 L430 250"/></svg><svg class="br" viewBox="0 0 700 320"><path d="M0 300 L120 250 L105 230 L230 190 L215 168 L340 150 L330 128 L470 110 L455 95 L620 60"/><path class="b2" d="M105 230 L150 280 L140 296 L190 318"/><path class="b2" d="M455 95 L500 40 L492 26 L540 4"/></svg></div>
+  <div class="faq-hero" aria-hidden="true"><div class="aura gold"></div><img src="img/v3/char-paladino.webp" alt=""></div>
+  <div class="ruins one" aria-hidden="true"><img class="rr" src="img/v3/bg-ruins.webp" alt=""></div>
+  <div class="wrap rel"><div class="faq-col">
+    <div class="center">
+      <div class="hrule rv"><span class="tag">Forja do Herói</span></div>
+      <h2 class="h2 t-silver rv d1">Perguntas frequentes</h2>
+      <p class="sub rv d2">Tire suas dúvidas e veja tudo o que você precisa saber.</p>
+      <div class="diam"><i>✦</i></div>
+    </div>
+    <details class="qa rv" open><summary><svg class="qi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2.5l8 3v6c0 5-3.4 8.6-8 10.5-4.6-1.9-8-5.5-8-10.5v-6z"/><path d="M9.6 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.4M12 16.5v.2" stroke-linecap="round"/></svg><span>O que é o Forja do Herói?</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary><p>O Forja do Herói é um aplicativo de treino gamificado, inspirado em RPGs e animes de evolução, que transforma sua evolução física em uma jornada de herói: cada série vira XP, com missões diárias, chefes, recompensas e progressão de nível.</p></details><details class="qa rv"><summary><svg class="qi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2" stroke-linecap="round"/></svg><span>Preciso ir para a academia para usar o app?</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary><p>Não. A classe Monge treina só com o peso do corpo, em casa ou no parque. Se você treina na academia, o Guerreiro registra carga e ganha mais XP por peso levantado. O Paladino mistura os dois.</p></details><details class="qa rv"><summary><svg class="qi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M2 12h2M20 12h2M7 7v10M17 7v10M4 9v6M20 9v6M7 12h10"/></svg><span>O app já vem com os treinos prontos?</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary><p>No Caçador Elite, sim: a Dungeon de 30 dias traz o treino de cada dia pronto para a sua classe, começando leve e subindo toda semana. No Recruta, você escolhe os exercícios (são mais de 45, com níveis de I a V) e o app transforma cada série em XP, missões e chefes.</p></details><details class="qa rv"><summary><svg class="qi" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18l-1.5-10-4.5 4-3-6-3 6-4.5-4z"/><rect x="3" y="19.5" width="18" height="2" rx="1"/></svg><span>Qual a diferença entre o plano Recruta e o Caçador Elite?</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary><p>O Recruta é para quem já sabe montar o próprio treino: você registra as séries e o app transforma tudo em XP, missões, chefes e conquistas. O Caçador Elite inclui tudo isso e mais a Dungeon de 30 dias, o bônus Alquimia do Herói (50 receitas anabólicas), o Guia de Progressão, a Planilha do Guerreiro, a Temporada com ranking e a Taverna VIP.</p></details><details class="qa rv"><summary><svg class="qi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M7 14h2M11 14h2M15 14h2"/></svg><span>Tem mensalidade? Preciso cancelar depois?</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary><p>Não. Você paga uma única vez e o app é seu, com as atualizações incluídas. Não existe assinatura nem cobrança recorrente para cancelar.</p></details><details class="qa rv"><summary><svg class="qi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2.5l8 3v6c0 5-3.4 8.6-8 10.5-4.6-1.9-8-5.5-8-10.5v-6z"/><path d="M8 12l3 3 5-6" stroke-linecap="round"/></svg><span>A compra é segura?</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary><p>Sim. O pagamento é feito em ambiente seguro, por Pix ou cartão. E você ainda tem 7 dias de garantia incondicional: se não gostar, pede o reembolso e recebe 100% do valor.</p></details><details class="qa rv"><summary><svg class="qi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Como recebo o acesso e instalo no celular?</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary><p>Logo após a confirmação do pagamento você recebe o link do app no e-mail. Abra, toque em “Primeiro acesso”, use o mesmo e-mail da compra e crie uma senha. Dentro do app tem um tutorial para colocar o ícone na tela do celular (iPhone e Android).</p></details><details class="qa rv"><summary><svg class="qi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M9 3h6M10 3v5L5 18a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-10V3"/><path d="M7.5 14h9"/></svg><span>O que é o bônus Alquimia do Herói?</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary><p>É a área de receitas anabólicas do app: shakes, panquecas, refeições, lanches e sobremesas ricos em proteína, feitos com ingredientes de mercado. Cada receita mostra proteína, calorias e modo de preparo, e vale XP quando você prepara. Exclusivo do Caçador Elite.</p></details><details class="qa rv"><summary><svg class="qi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2.5l8 3v6c0 5-3.4 8.6-8 10.5-4.6-1.9-8-5.5-8-10.5v-6z"/><path d="M8 12l3 3 5-6" stroke-linecap="round"/></svg><span>Como peço o reembolso?</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary><p>Em até 7 dias após a compra, fale com o suporte ou peça direto na plataforma de pagamento, informando o e-mail usado na compra. Devolvemos 100% do valor, sem perguntas.</p></details>
   </div></div>
 </section>
 
-<section class="final">
-  <div class="wrap">
-    <h2 class="h2 rv"><span class="silver">Daqui a 30 dias você pode estar no</span> <span class="gold">nível 20</span></h2>
-    <p class="sub rv d1" style="margin:14px auto 30px">O treino é o mesmo. O que muda é ter uma recompensa esperando por você a cada série.</p>
-    <span class="gw rv d2"><a class="btn g" href="#planos" style="font-size:24px;padding:20px 60px">⚔️ Despertar meu herói agora</a></span>
-  </div>
-</section>
-
-<footer>
-  <img class="cas l" src="img/v2/castle-l.webp" alt="" aria-hidden="true" loading="lazy"><img class="cas r" src="img/v2/castle-r.webp" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap">
+<!-- 10. RODAPÉ -->
+<footer class="foot">
+  <div class="ruins" aria-hidden="true"><img class="rl" src="img/v3/bg-ruins.webp" alt=""><img class="rr" src="img/v3/bg-ruins.webp" alt=""></div>
+  <div class="wrap rel">
     <div class="fgrid">
-      <div class="brand"><img src="img/v2/logo-emblem.webp" alt="Forja do Herói · Treino RPG" loading="lazy"><p>Transforme seu treino em uma jornada de evolução real.</p></div>
-      <div><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 4l11 11M15 15l-2 4M15 15l4-2M20 4L9 15M9 15l2 4M9 15l-4-2"/></svg>Navegação</h4>
-        <ul><li><a href="#topo">Início</a></li><li><a href="#sistema">Recursos</a></li><li><a href="#planos">Planos</a></li><li><a href="#garantia">Garantia</a></li><li><a href="#faq">Perguntas frequentes</a></li></ul></div>
-      <div><h4><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 7h10a5 5 0 0 1 5 5v2a3 3 0 0 1-5.4 1.8L15 14H9l-1.6 1.8A3 3 0 0 1 2 14v-2a5 5 0 0 1 5-5zm0 3v1.2H5.8v1.6H7V14h1.6v-1.2h1.2v-1.6H8.6V10zm9.5.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>O app</h4>
-        <ul><li><a href="#problema">Treinos em RPG</a></li><li><a href="#sistema">Missões diárias</a></li><li><a href="#sistema">Batalhas de chefes</a></li><li><a href="#alquimia">Alquimia anabólica</a></li><li><a href="#ranking">Ranking e temporada</a></li></ul></div>
-      <div><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2.5l8 3v6c0 5-3.4 8.6-8 10.5-4.6-1.9-8-5.5-8-10.5v-6z"/><path d="M8 12l3 3 5-6"/></svg>Compra segura</h4>
-        <div class="secbox"><div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V7a5 5 0 0 1 10 0v3h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2zm2 0h6V7a3 3 0 0 0-6 0z"/></svg>Ambiente 100% seguro</div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>Pagamento protegido</div></div>
-        <div class="pays"><span>◆ Pix</span><span>💳 Cartão</span></div>
-        <p style="font-size:13.5px;color:#9fb2cf;margin-top:10px">Garantia de 7 dias: peça o reembolso pelo suporte ou direto na plataforma de pagamento, com o e-mail da compra.</p></div>
+      <div class="fbrand"><img src="img/v3/logo-emblem.webp" alt="Forja do Herói · Treino RPG" loading="lazy"><p>Transforme seu treino em uma jornada de evolução real.</p><div class="goldline c"></div></div>
+      <div class="fcol"><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/><path d="M9.5 6.5L21 3v3l-11.5 11.5M11 19l-6-6M8 16l-4 4M5 21l-2-2" opacity=".9"/></svg>Navegação</h4><ul><li><a href="#topo">Início</a></li><li><a href="#sistema">Recursos</a></li><li><a href="#planos">Planos</a></li><li><a href="#garantia">Garantia</a></li><li><a href="#faq">Perguntas frequentes</a></li></ul></div>
+      <div class="fcol"><h4><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 7h10a5 5 0 0 1 5 5v2a3 3 0 0 1-5.4 1.8L15 14H9l-1.6 1.8A3 3 0 0 1 2 14v-2a5 5 0 0 1 5-5zm0 3v1.2H5.8v1.6H7V14h1.6v-1.2h1.2v-1.6H8.6V10zm9.5.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>O app</h4><ul><li><a href="#problema">Treinos em RPG</a></li><li><a href="#sistema">Missões diárias</a></li><li><a href="#sistema">Batalhas de chefes</a></li><li><a href="#alquimia">Alquimia anabólica</a></li><li><a href="#ranking">Ranking e temporada</a></li></ul></div>
+      <div class="fcol"><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2.5l8 3v6c0 5-3.4 8.6-8 10.5-4.6-1.9-8-5.5-8-10.5v-6z"/><path d="M8 12l3 3 5-6" stroke-linecap="round"/></svg>Compra segura</h4>
+        <div class="secbox"><div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V7a5 5 0 0 1 10 0v3h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2zm2 0h6V7a3 3 0 0 0-6 0z"/></svg><span>Ambiente 100%<br>seguro</span></div><i></i><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg><span>Pagamento<br>protegido</span></div></div>
+        <div class="pays"><span><svg viewBox="0 0 24 24" fill="#32bcad"><path d="M12 2.5l4.2 4.2-2.6 2.6a2.3 2.3 0 0 0-3.2 0L7.8 6.7zM6.7 7.8l2.6 2.6a2.3 2.3 0 0 0 0 3.2l-2.6 2.6L2.5 12zm10.6 0L21.5 12l-4.2 4.2-2.6-2.6a2.3 2.3 0 0 0 0-3.2zM10.4 14.7a2.3 2.3 0 0 0 3.2 0l2.6 2.6L12 21.5l-4.2-4.2z"/></svg>pix</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>Cartão</span></div>
+      </div>
     </div>
-    <div class="fbot"><span id="footInfo">© 2026 Forja do Herói. Todos os direitos reservados.</span><span><a href="https://appdigitalhub.com.br/termos" target="_blank" rel="noopener">Termos de uso</a> · <a href="https://appdigitalhub.com.br/privacidade" target="_blank" rel="noopener">Privacidade</a> · Trilha: “Adventurer's Path” (CC0)</span></div>
+    <div class="fline"><i>✦</i></div>
+    <div class="fbot"><span id="footInfo">© 2026 Forja do Herói. Todos os direitos reservados.</span><span class="flegal"><a href="https://appdigitalhub.com.br/termos" target="_blank" rel="noopener">Termos</a> · <a href="https://appdigitalhub.com.br/privacidade" target="_blank" rel="noopener">Privacidade</a> · Garantia de 7 dias pela plataforma de pagamento</span></div>
   </div>
 </footer>
 
-<button class="mus" id="mus" aria-pressed="false" hidden><span class="eq"><i></i><i></i><i></i></span><span id="musL">TRILHA SONORA</span></button>
+<button class="mus" id="mus" aria-pressed="false" hidden><span class="eq"><i></i><i></i><i></i></span><span id="musL">Trilha sonora</span></button>
 <audio id="aud" preload="none" loop src="https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh-audio/adventure.mp3"></audio>
 
 <div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="popT" hidden>
   <div class="pop-box">
     <button class="pop-x" id="popX" aria-label="Fechar">✕</button>
-    <div class="pop-art"><img src="img/v2/hero-art.webp" alt="" width="1400" height="303"><span class="pop-tag">[ SISTEMA ] · OFERTA ÚNICA</span></div>
+    <div class="pop-art"><img src="img/v3/bg-hero.webp" alt=""><img class="pop-ch" src="img/v3/char-paladino.webp" alt=""><span class="pop-tag">[ Sistema ] · Oferta única</span></div>
     <div class="pop-body">
-      <h3 id="popT" class="gold">Espera, herói!</h3>
-      <p class="pop-sub">Só nesta tela: leve o <b style="color:#ffd65a">Caçador Elite</b> completo por apenas <b style="color:#fff">R$ 5 a mais</b>.</p>
-      <div class="pop-price"><span class="pp-old">R$ 19,90</span><span class="pp-new"><small>R$</small>14<em>,90</em></span></div>
-      <ul class="pop-list">
-        <li>Dungeon de 30 Dias: treino guiado todo dia</li>
-        <li><b>BÔNUS:</b> 50 bebidas e alimentos anabólicos</li>
-        <li>Guia de Progressão e Planilha do Guerreiro</li>
-        <li>Temporadas com ranking e Taverna VIP</li>
-        <li>Título exclusivo “Fundador da Forja”</li>
-      </ul>
-      <a class="pbtn pop-yes" id="popYes" href="https://appdigitalhub.com.br/c/1D6785B5"><b>✓ SIM, QUERO O ELITE</b><small>por R$ 14,90 · economize R$ 5</small></a>
-      <a class="pbtn pop-no" id="popNo" href="https://appdigitalhub.com.br/c/43752C6D"><b>✕ NÃO, QUERO SÓ O RECRUTA</b><small>por R$ 9,90 · sem Dungeon e bônus</small></a>
+      <h3 id="popT" class="t-gold">Espera, herói!</h3>
+      <p class="pop-sub">Só nesta tela: leve o <b>Caçador Elite</b> completo por apenas <b class="w">R$ 5 a mais</b>.</p>
+      <div class="pop-price"><span class="pp-old">R$ 19,90</span><span class="pp-new t-gold"><small>R$</small>14<em>,90</em></span></div>
+      <ul class="pop-list"><li>Dungeon de 30 dias: treino guiado todo dia</li><li><b>Bônus:</b> 50 receitas anabólicas</li><li>Guia de Progressão e Planilha do Guerreiro</li><li>Temporadas com ranking e Taverna VIP</li><li>Título exclusivo “Fundador da Forja”</li></ul>
+      <a class="pbtn yes" id="popYes" href="https://appdigitalhub.com.br/c/1D6785B5"><b>✓ Sim, quero o Elite</b><small>por R$ 14,90 · economize R$ 5</small></a>
+      <a class="pbtn no" id="popNo" href="https://appdigitalhub.com.br/c/43752C6D"><b>✕ Não, quero só o Recruta</b><small>por R$ 9,90 · sem Dungeon e bônus</small></a>
     </div>
   </div>
 </div>
 
-<script>
-/* ====== LINKS DE PAGAMENTO ====== */
-const CHECKOUT = {
-  recruta: 'https://appdigitalhub.com.br/c/43752C6D',     // Recruta R$ 9,90
-  elite: 'https://appdigitalhub.com.br/c/1C7E51FE',       // Caçador Elite R$ 19,90
-  elitePopup: 'https://appdigitalhub.com.br/c/1D6785B5'   // Caçador Elite R$ 14,90 (oferta do pop-up)
-};
-const withQs=u=>{try{const q=location.search;if(!q||!u)return u;const x=new URL(u);new URLSearchParams(q).forEach((v,k)=>{if(!x.searchParams.has(k))x.searchParams.set(k,v)});return x.toString()}catch(e){return u}};
-const ic=(v,n)=>{try{fbq('track','InitiateCheckout',{value:v,currency:'BRL',content_name:n})}catch(e){}};
-const go=(u,v,n)=>{if(u){ic(v||9.9,n||'Forja do Heroi');location.href=withQs(u)}};
-document.querySelectorAll('[data-plan="elite"]').forEach(a=>{a.href=withQs(CHECKOUT.elite);a.addEventListener('click',()=>ic(19.9,'Cacador Elite'))});
-const pop=document.getElementById('pop');let lastFocus=null;
-function openPop(){lastFocus=document.activeElement;pop.hidden=false;document.body.style.overflow='hidden';document.getElementById('popYes').focus()}
-function closePop(){pop.hidden=true;document.body.style.overflow='';lastFocus&&lastFocus.focus()}
-document.querySelectorAll('[data-plan="recruta"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();openPop()}));
-document.getElementById('popYes').addEventListener('click',e=>{e.preventDefault();go(CHECKOUT.elitePopup||CHECKOUT.elite,14.9,'Cacador Elite popup')});
-document.getElementById('popNo').addEventListener('click',e=>{e.preventDefault();go(CHECKOUT.recruta,9.9,'Recruta')});
-document.getElementById('popX').addEventListener('click',closePop);
-pop.addEventListener('click',e=>{if(e.target===pop)closePop()});
-addEventListener('keydown',e=>{if(e.key==='Escape'&&!pop.hidden)closePop()});
-
-/* ====== DADOS DO RODAPÉ (preencha) ====== */
-const EMPRESA = { nome: '', documento: '', suporte: '' };
-(()=>{const p=[EMPRESA.nome,EMPRESA.documento,EMPRESA.suporte&&('Suporte: '+EMPRESA.suporte)].filter(Boolean);if(p.length)document.getElementById('footInfo').textContent='© 2026 Forja do Herói · '+p.join(' · ')})();
-
-/* nav */
-const nav=document.getElementById('nav');
-addEventListener('scroll',()=>nav.classList.toggle('solid',scrollY>40),{passive:true});
-document.getElementById('burger').onclick=()=>document.getElementById('links').classList.toggle('open');
-document.querySelectorAll('#links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('links').classList.remove('open')));
-const secs=['topo','classes','sistema','planos','faq'].map(id=>document.getElementById(id));
-const spy=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)document.querySelectorAll('#links a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
-secs.forEach(s=>s&&spy.observe(s));
-
-/* barras das classes */
-const ICS=['<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M2 12h2M20 12h2M7 7v10M17 7v10M4 9v6M20 9v6M7 12h10"/></svg>','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 20s-8-5-8-11a4.5 4.5 0 0 1 8-2.6A4.5 4.5 0 0 1 20 9c0 6-8 11-8 11z"/><path d="M5 11h4l1.5-2 2 4 1.5-2h4" stroke-linecap="round"/></svg>','<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="15" cy="4" r="2"/><path d="M13.5 7l-4 2-2 4 1.6.8 1.6-3.1 1.6-.7-1.5 4.5 3.2 3.5V22h2v-5.5l-2.6-2.9 1-3 1.5 2.4H20v-2h-2.8z"/><path d="M8 16l-3 3 1.4 1.4 3.4-3.4z"/></svg>','<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg>'];
-const LBL=['FORÇA','RESISTÊNCIA','AGILIDADE','VIGOR'];
-document.querySelectorAll('.stats').forEach(s=>{const v=s.dataset.v.split(',');s.innerHTML=v.map((x,i)=>`<div class="st">${ICS[i]}<span>${LBL[i]}</span><div class="tr"><i data-w="${x}"></i></div></div>`).join('')});
-
-/* contadores de XP */
-function count(el){const n=+el.dataset.n,t0=performance.now(),D=1800;const f=t=>{const p=Math.min(1,(t-t0)/D),e=1-Math.pow(1-p,3);el.textContent=Math.round(n*e).toLocaleString('pt-BR');if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
-
-/* reveal */
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const t=e.target;t.classList.add('in');
-  t.querySelectorAll('.tr i').forEach(i=>i.style.width=i.dataset.w+'%');t.querySelectorAll('.cnt').forEach(count);io.unobserve(t)}),{threshold:.15});
-document.querySelectorAll('.rv').forEach(el=>io.observe(el));
-
-/* trocar telas do app */
-const SETS={a:[['heroi','-45%',15],['dungeon','-12%',12],['missoes','-12%',12]],b:[['treinar','-55%',18],['chefes','-15%',12],['taverna','-20%',13]]};
-const LABELS={a:['🛡️ Herói e status','🏛️ Dungeons e incursões','📜 Missões e evolução'],b:['⚔️ Treino e XP','🐉 Batalhas de chefe','🍺 Taverna da comunidade']};
-document.querySelectorAll('.more button').forEach(b=>b.onclick=()=>{
-  document.querySelectorAll('.more button').forEach(x=>x.classList.toggle('on',x===b));
-  const set=SETS[b.dataset.set];document.querySelectorAll('#phones .ph-col').forEach((c,i)=>{const img=c.querySelector('.scr img');img.style.opacity=0;
-    setTimeout(()=>{img.src='img/v2/app-'+set[i][0]+'.webp';img.style.setProperty('--y',set[i][1]);img.style.setProperty('--d',set[i][2]+'s');img.style.animation='none';void img.offsetWidth;img.style.animation='';img.style.opacity=1},250);
-    c.querySelector('.plabel .btn').textContent=LABELS[b.dataset.set][i]})});
-document.querySelectorAll('#phones .scr img').forEach(i=>i.style.transition='opacity .25s');
-
-/* trilha sonora (só toca quando o visitante liga) */
-const aud=document.getElementById('aud'),mus=document.getElementById('mus');
-aud.volume=.35;
-fetch(aud.src,{method:'HEAD'}).then(r=>{if(r.ok)mus.hidden=false}).catch(()=>{});
-mus.onclick=()=>{if(aud.paused){aud.play().then(()=>{mus.classList.add('on');mus.setAttribute('aria-pressed','true');document.getElementById('musL').textContent='TOCANDO'}).catch(()=>{})}else{aud.pause();mus.classList.remove('on');mus.setAttribute('aria-pressed','false');document.getElementById('musL').textContent='TRILHA SONORA'}};
-</script>
+<script src="site.js?v=3"></script>
 </body>
 </html>
