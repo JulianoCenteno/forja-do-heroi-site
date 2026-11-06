@@ -12,10 +12,11 @@
 <meta name="theme-color" content="#060914">
 <link rel="icon" type="image/png" href="/app/icons/favicon-64.png">
 <link rel="apple-touch-icon" href="/app/icons/apple-touch-icon.png">
-<link rel="preload" as="image" href="img/v3/bg-hero.webp">
+<link rel="preload" as="image" href="img/v3/hero-d.webp" media="(min-width:761px)"><link rel="preload" as="image" href="img/v3/hero-m.webp" media="(max-width:760px)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css?v=3">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Fira+Sans:ital,wght@0,400;0,500;1,400;1,500&family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css?v=4">
+<link rel="stylesheet" href="hero.css?v=1">
 <!-- Meta Pixel: Forjo do Heroes -->
 <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1141320428608400');fbq('track','PageView');fbq('track','ViewContent',{content_name:'Forja do Heroi',value:9.90,currency:'BRL'});</script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1141320428608400&ev=PageView&noscript=1" alt=""></noscript>
@@ -24,39 +25,28 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset=".5" stop-color="#ffc83a"/><stop offset="1" stop-color="#d47b06"/></linearGradient><linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d6f6ff"/><stop offset="1" stop-color="#2a9be0"/></linearGradient><linearGradient id="gp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2c8ff"/><stop offset="1" stop-color="#7a3cff"/></linearGradient><linearGradient id="gt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8fff0"/><stop offset="1" stop-color="#16b48c"/></linearGradient></defs></svg>
 <canvas id="fx" aria-hidden="true"></canvas>
 
-<header class="nav" id="nav">
-  <div class="navin">
-    <a class="logo" href="#topo" aria-label="Forja do Herói"><span class="lg-bar"></span><span class="lg-t"><b>FORJA DO HERÓI</b><small>TREINO RPG</small></span></a>
-    <nav class="links" id="links" aria-label="Seções">
-      <a href="#topo" class="on">Início</a><a href="#classes">Classes</a><a href="#sistema">Recursos</a><a href="#planos">Planos</a><a href="#faq">FAQ</a>
-    </nav>
-    <span class="navsep"></span>
-    <a class="btn gold sm hide-m" href="#planos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/><path d="M9.5 6.5L21 3v3l-11.5 11.5M11 19l-6-6M8 16l-4 4M5 21l-2-2" opacity=".9"/></svg>Começar agora</a>
-    <button class="burger" id="burger" aria-label="Abrir menu"><i></i><i></i><i></i></button>
-  </div>
+<header class="hnav" id="nav">
+  <a class="hn-logo" href="#topo" aria-label="Forja do Herói · Treino RPG"><img src="img/v3/logo-nav.webp" alt="Forja do Herói · Treino RPG"></a>
+  <nav class="hn-links" id="links" aria-label="Seções">
+    <a href="#topo" class="on">Início</a><a href="#classes">Classes</a><a href="#sistema">Recursos</a><a href="#planos">Planos</a><a href="#faq">FAQ</a>
+  </nav>
+  <span class="hn-sep"></span>
+  <a class="ibtn hnb" href="#planos"><img src="img/v3/btn-nav.webp" alt=""><span>Começar agora</span></a>
+  <button class="hn-burger" id="burger" aria-label="Abrir menu"><i></i><i></i><i></i></button>
 </header>
 
 <!-- 1. HERO -->
-<section class="hero" id="topo">
-  <div class="hero-bg" aria-hidden="true"><img src="img/v3/bg-hero.webp" alt=""></div>
-  <div class="mist m1" aria-hidden="true"></div><div class="mist m2" aria-hidden="true"></div>
-  <div class="hero-chars" aria-hidden="true">
-    <div class="ch ch-l"><div class="aura teal"></div><img src="img/v3/char-monge.webp" alt=""></div>
-    <div class="ch ch-c"><div class="aura gold"></div><img src="img/v3/char-paladino.webp" alt=""></div>
-    <div class="ch ch-r"><div class="aura red"></div><img src="img/v3/char-guerreiro.webp" alt=""></div>
-  </div>
-  <div class="hero-txt">
-    <h1><span class="t-silver l1 rv">Seu treino virou</span><span class="l2 rv d1"><i class="gl"></i><span class="t-gold">um RPG.</span><i class="gl r"></i></span></h1>
-    <p class="lead rv d2">Treine na vida real, ganhe XP a cada série, derrote chefes com seus recordes e evolua seu herói dentro do jogo.</p>
-    <div class="ctas rv d3">
-      <a class="btn gold lg" href="#planos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/><path d="M9.5 6.5L21 3v3l-11.5 11.5M11 19l-6-6M8 16l-4 4M5 21l-2-2" opacity=".9"/></svg>Despertar meu herói</a>
-      <a class="btn blue lg" href="#classes"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C7.5 2 4.5 5.4 4.5 10v5.5L7 18v4h3.5v-4.5h3V22H17v-4l2.5-2.5V10C19.5 5.4 16.5 2 12 2zm-5 9.5h10V14h-3.5v-1.5h-3V14H7z"/></svg>Escolher minha classe</a>
+<section class="hx" id="topo">
+  <picture class="hx-bg"><source media="(max-width:760px)" srcset="img/v3/hero-m.webp"><img src="img/v3/hero-d.webp" alt="Monge, Paladino e Guerreiro diante do portal da dungeon"></picture>
+  <div class="hx-in">
+    <h1 class="hx-h1"><span class="l1">Seu treino virou</span><span class="l2"><i></i><b>um RPG.</b><i></i></span></h1>
+    <p class="hx-p">Treine na vida real, ganhe XP a cada série, derrote chefes com<br class="br-d"> seus recordes e evolua seu herói dentro do jogo.</p>
+    <div class="hx-ctas">
+      <a class="ibtn gold" href="#planos"><img src="img/v3/btn-gold.webp" alt=""><span>Despertar meu herói</span></a>
+      <a class="ibtn blue" href="#classes"><img src="img/v3/btn-blue.webp" alt=""><span>Escolher minha classe</span></a>
     </div>
-    <div class="featbar rv d3">
-      <div><svg viewBox="0 0 48 48"><path d="M24 3l18 10.5v21L24 45 6 34.5v-21z" fill="rgba(20,60,130,.85)" stroke="url(#gb)" stroke-width="2.5"/><text x="24" y="30.5" text-anchor="middle" font-family="Exo 2,sans-serif" font-weight="900" font-style="italic" font-size="17" fill="#e8faff">XP</text></svg><span>XP imediato</span></div><i></i>
-      <div><svg viewBox="0 0 48 48" fill="none" stroke="url(#gb)" stroke-width="2.6" stroke-linejoin="round"><path d="M13 8h24a5 5 0 0 1 0 10h-3v18a6 6 0 0 1-6 6H11a5 5 0 0 1 0-10h3V14a6 6 0 0 1 6-6" fill="rgba(20,60,130,.6)"/><path d="M20 20h9M20 26h9M20 32h6" stroke-linecap="round"/></svg><span>Missões diárias</span></div><i></i>
-      <div><svg viewBox="0 0 48 48" fill="none" stroke="url(#gb)" stroke-width="2.4" stroke-linejoin="round"><path d="M8 6c2 6 5 9 9 10M40 6c-2 6-5 9-9 10" stroke-linecap="round"/><path d="M12 18c0-4 5-6 12-6s12 2 12 6v8c0 9-6 16-12 16s-12-7-12-16z" fill="rgba(20,60,130,.6)"/><path d="M17 25l5 2M31 25l-5 2M20 35c2.5-2 5.5-2 8 0" stroke-linecap="round"/></svg><span>Chefes épicos</span></div>
-    </div>
+    <img class="hx-feat d" src="img/v3/featbar.webp" alt="XP imediato · Missões diárias · Chefes épicos">
+    <div class="hx-feat m"><span><img src="img/v3/ic-xp.webp" alt="">XP imediato</span><span><img src="img/v3/ic-scroll.webp" alt="">Missões diárias</span><span><img src="img/v3/ic-demon.webp" alt="">Chefes épicos</span></div>
   </div>
 </section>
 
