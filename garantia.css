@@ -1,0 +1,34 @@
+/* ===================== GARANTIA · fiel ao layout (base 1920×819) ===================== */
+.gx{position:relative;width:100%;aspect-ratio:1920/819;overflow:hidden;padding:0;background:#030719;container-type:inline-size;font-family:'Montserrat','Exo 2',sans-serif}
+.gx-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.gx .mo{display:none}
+.gb{position:absolute;container-type:inline-size;display:block;z-index:3}
+.gb>span,.gb>b,.gb>small{position:absolute;white-space:nowrap;transform:translateY(-50%)}
+.g-pill{left:55.208%;top:4.884%;width:21.615%;aspect-ratio:415/72}
+.g-pill span{left:0;right:0;text-align:center;top:51.4%;font-weight:800;font-size:7.45cqw;color:#4cc8ff;text-transform:uppercase;letter-spacing:.07em;text-shadow:0 0 1.6cqw rgba(40,170,255,.55)}
+.g-h{position:absolute;inset:0;margin:0;z-index:3;pointer-events:none}
+.g-h span{position:absolute;left:66.8%;white-space:nowrap;font-style:italic;font-weight:900;text-transform:uppercase;line-height:1;-webkit-background-clip:text;background-clip:text;color:transparent;padding:0 .5cqw}
+.g-h .w{top:19.54%;font-size:4.38cqw;transform:translate(-50%,-50%) scaleX(.86);background-image:linear-gradient(180deg,#fff 0%,#f3f6fb 45%,#c3cede 60%,#eef2f8 78%,#a8b5c8 100%);filter:drop-shadow(0 .16cqw 0 rgba(20,30,60,.8)) drop-shadow(0 0 1.2cqw rgba(60,160,255,.55))}
+.g-h .g{top:30.6%;left:66.95%;font-size:5.95cqw;transform:translate(-50%,-50%) scaleX(.86);background-image:linear-gradient(180deg,#fff7c8 0%,#ffe066 30%,#ffbf24 55%,#ffd65c 70%,#e08a00 100%);filter:drop-shadow(0 .16cqw 0 rgba(80,40,0,.8)) drop-shadow(0 0 1.4cqw rgba(255,170,30,.5))}
+.g-p{position:absolute;left:66.7%;top:40.6%;transform:translateX(-50%);margin:0;text-align:center;font-weight:500;font-size:1.7cqw;line-height:1.42;color:#eef2f8;white-space:nowrap;z-index:3}
+.g-p b{color:#2ec4ff;font-weight:700;font-size:1.17em}
+.g-c b{top:39.5%;font-weight:800;color:#fff;text-transform:uppercase}
+.g-c small{top:61.7%;font-weight:500;color:#e3e9f3}
+.g-c.c1{left:39.06%;top:63.25%;width:17.97%;aspect-ratio:345/162}.c1 b,.c1 small{left:40%}.c1 b{font-size:8.4cqw}.c1 small{font-size:6.67cqw}
+.g-c.c2{left:58.07%;top:63.25%;width:19.11%;aspect-ratio:367/162}.c2 b,.c2 small{left:39%}.c2 b{font-size:7.9cqw}.c2 small{font-size:6.27cqw}
+.g-c.c3{left:78.23%;top:63.25%;width:17.6%;aspect-ratio:338/162}.c3 b,.c3 small{left:46.2%}.c3 b{font-size:8.58cqw}.c3 small{font-size:6.8cqw}
+@media (max-width:760px){
+  .gx{aspect-ratio:auto;display:flex;flex-direction:column;align-items:center;padding:6vw 0 10vw;background:radial-gradient(120% 60% at 50% 100%,rgba(120,50,220,.35),transparent 60%),#030719}
+  .gx-bg{display:none}
+  .gx .mo{display:block;width:100%}
+  .gx .g-badge{width:82%}
+  .gx .gb,.gx .g-h,.gx .g-p{position:relative;left:auto;top:auto;transform:none;inset:auto}
+  .g-pill{width:66%;margin-top:4vw}
+  .g-h{width:100%;margin-top:2vw;text-align:center}
+  .g-h span{position:static;display:block;transform:none!important}
+  .g-h .w{font-size:6.5vw;letter-spacing:-.02em}
+  .g-h .g{font-size:12vw;margin-top:1vw}
+  .g-p{white-space:normal;width:88%;margin-top:4vw;font-size:4.1vw;line-height:1.45}
+  .g-p br{display:none}
+  .gx .g-c{width:72%!important;margin-top:3vw}
+}
