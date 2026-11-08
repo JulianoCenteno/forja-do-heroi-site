@@ -1,0 +1,31 @@
+/* ===================== TAVERNA · comunidade ===================== */
+.tx{position:relative;padding:72px 20px 80px;overflow:hidden;background:radial-gradient(ellipse at 50% 0%,rgba(255,165,22,.16),transparent 60%),radial-gradient(ellipse at 50% 100%,rgba(79,210,255,.10),transparent 60%),#040817;text-align:center}
+.tx-in{max-width:1120px;margin:0 auto}
+.tx-pill{display:inline-block;padding:7px 18px;border:1.5px solid rgba(255,204,77,.7);border-radius:999px;font-style:italic;font-weight:800;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:#ffe08a;background:rgba(255,165,22,.08);box-shadow:0 0 18px rgba(255,165,22,.25)}
+.tx-h{margin:18px 0 10px;font-family:'Montserrat','Exo 2',sans-serif;font-style:italic;font-weight:900;text-transform:uppercase;font-size:clamp(28px,5vw,52px);line-height:1.05}
+.tx-h span{display:inline-block;-webkit-background-clip:text;background-clip:text;color:transparent}
+.tx-h .w{background-image:linear-gradient(180deg,#fff 0%,#f3f6fb 45%,#c3cede 60%,#eef2f8 78%,#a8b5c8 100%)}
+.tx-h .g{background-image:linear-gradient(180deg,#fff7c8 0%,#ffe066 30%,#ffbf24 55%,#ffd65c 70%,#e08a00 100%);filter:drop-shadow(0 0 14px rgba(255,170,30,.4))}
+.tx-p{max-width:640px;margin:0 auto;color:var(--mute);font-size:17px}
+.tx-ph{display:flex;justify-content:center;align-items:flex-end;gap:22px;margin:42px 0 36px}
+.tx-ph figure{margin:0;width:min(29%,280px);border-radius:28px;padding:7px;background:linear-gradient(160deg,#ffd65c,#7a4a00 40%,#4fd2ff 100%);box-shadow:0 20px 50px rgba(0,0,0,.6),0 0 30px rgba(255,170,30,.18)}
+.tx-ph figure:nth-child(2){width:min(33%,320px);transform:translateY(-18px)}
+.tx-ph img{display:block;width:100%;height:auto;border-radius:22px}
+.tx-ph figcaption{margin-top:9px;font-weight:700;font-size:14px;color:#ffe08a}
+.tx-li{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:980px;margin:0 auto 34px;padding:0;list-style:none}
+.tx-li li{padding:16px 14px;border:1px solid rgba(127,224,255,.35);border-radius:14px;background:rgba(12,24,52,.7);text-align:left;font-size:15px;color:#dfe6f2}
+.tx-li b{display:block;margin-bottom:4px;font-size:16px;color:#fff}
+.tx-btn{display:inline-flex;align-items:center;gap:10px;padding:17px 34px;border-radius:12px;font-style:italic;font-weight:800;font-size:18px;text-transform:uppercase;color:#2a1600;text-decoration:none;background:linear-gradient(180deg,#ffe066,#ffb21e 60%,#e08a00);box-shadow:0 8px 24px rgba(255,165,22,.35);transition:filter .2s,transform .2s}
+.tx-btn:hover{filter:brightness(1.08);transform:translateY(-2px)}
+.tx-note{margin-top:12px;font-size:12px;color:#7d8aa3}
+@media (max-width:760px){
+  .tx{padding:56px 14px 64px}
+  .tx-ph{gap:8px;margin:30px -6px 28px}
+  .tx-ph figure{width:31%;padding:4px;border-radius:16px}
+  .tx-ph figure:nth-child(2){width:36%;transform:translateY(-10px)}
+  .tx-ph img{border-radius:13px}
+  .tx-ph figcaption{font-size:11px}
+  .tx-li{grid-template-columns:1fr 1fr;gap:10px}
+  .tx-li li{font-size:13.5px;padding:12px}
+  .tx-btn{font-size:16px;padding:15px 22px}
+}

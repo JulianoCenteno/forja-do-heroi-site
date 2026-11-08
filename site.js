@@ -2,8 +2,8 @@
 /* ====== LINKS DE PAGAMENTO ====== */
 const CHECKOUT = {
   recruta: 'https://appdigitalhub.com.br/c/43752C6D',     // Recruta R$ 9,90
-  elite: 'https://appdigitalhub.com.br/c/1C7E51FE',       // Caçador Elite R$ 19,90
-  elitePopup: 'https://appdigitalhub.com.br/c/1D6785B5'   // Caçador Elite R$ 14,90 (oferta do pop-up)
+  elite: 'https://appdigitalhub.com.br/c/1C7E51FE',       // Caçador Elite R$ 26,90
+  elitePopup: 'https://appdigitalhub.com.br/c/1D6785B5'   // Caçador Elite R$ 19,90 (oferta do pop-up)
 };
 const withQs=u=>{try{const q=location.search;if(!q||!u)return u;const x=new URL(u);new URLSearchParams(q).forEach((v,k)=>{if(!x.searchParams.has(k))x.searchParams.set(k,v)});return x.toString()}catch(e){return u}};
 /* Digital Hub Tracker (tracker.js): leva UTMs + ID do visitante ao checkout e já envia o InitiateCheckout
