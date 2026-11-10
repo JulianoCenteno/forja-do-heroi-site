@@ -514,6 +514,28 @@ body{background:radial-gradient(900px 600px at 50% -120px,#13224a 0%,transparent
 .brow .hp{display:flex;justify-content:space-between;font-size:13px;color:#e2ebf8;margin-top:4px}
 .brow.dead img{filter:grayscale(1) brightness(.6)}
 .brow .slain{font-size:11px;font-weight:800;letter-spacing:.1em;color:#7dff9b;border:1px solid #3e8f3c;padding:2px 6px;border-radius:4px}
+/* MESTRES & CORRIDA */
+.mt-hero{position:relative;margin-top:10px;border-radius:16px;overflow:hidden;border:1px solid rgba(110,200,255,.55);min-height:120px;background:linear-gradient(135deg,#0b1d3c,#071026)}
+.mt-hero img{width:100%;height:170px;object-fit:cover;display:block;opacity:.9}
+.mt-ht{position:absolute;left:0;right:0;bottom:0;padding:14px;background:linear-gradient(0deg,rgba(4,10,24,.95),transparent)}
+.mt-ht h2{margin:2px 0;font-size:22px}.mt-ht small{color:#bcd0ea;font-size:13px}
+.mt-pick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.mt-c{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 6px 10px;border-radius:14px;border:1px solid rgba(110,200,255,.35);background:linear-gradient(180deg,rgba(18,40,80,.85),rgba(8,18,40,.9));color:#fff;text-align:center}
+.mt-c img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:10px}
+.mt-c b{font-size:13px}.mt-c small{font-size:10.5px;color:#9fb4d4;line-height:1.2}
+.mt-c.on{border-color:var(--mc);box-shadow:0 0 14px color-mix(in srgb,var(--mc) 55%,transparent)}
+.mt-say{display:flex;gap:10px;align-items:center;margin-top:12px;padding:10px;border-radius:14px;border:1px solid var(--mc);background:rgba(8,18,40,.85)}
+.mt-say img{width:58px;height:58px;border-radius:50%;object-fit:cover;object-position:50% 8%;transform:scale(1);border:2px solid var(--mc);flex:none}
+.mt-say b{color:var(--mc)}.mt-say p{margin:2px 0 0;font-size:14px;font-style:italic;color:#dfe8f7}
+.tr-sc{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 2px}
+.tr-sc button{position:relative;display:flex;align-items:center;gap:8px;padding:8px;border-radius:12px;border:1px solid rgba(255,204,77,.55);background:linear-gradient(180deg,rgba(40,30,10,.7),rgba(12,14,30,.9));color:#fff;text-align:left}
+.tr-sc img{width:40px;height:40px;border-radius:10px;object-fit:cover;object-position:50% 10%;flex:none}
+.tr-sc b{display:block;font-size:13.5px}.tr-sc small{font-size:11px;color:#c9b98a}.tr-sc i{position:absolute;top:4px;right:6px;font-style:normal;font-size:12px}
+.run-box{margin-top:12px;padding:16px;text-align:center}
+.run-big{font-family:Jost,sans-serif;font-weight:800}.run-big span{font-size:64px;line-height:1;color:#fff;text-shadow:0 0 18px rgba(255,122,74,.6)}.run-big small{font-size:18px;color:#ffb38f;margin-left:6px}
+.run-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.run-row b{display:block;font-size:20px}.run-row small{font-size:11px;color:#9fb4d4;text-transform:uppercase;letter-spacing:.08em}
+.run-msg{font-size:13px;color:#bcd0ea;min-height:18px;margin:4px 0 10px}
+.run-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 /* DUNGEON */
 .portal{display:flex;margin-top:14px;border:2px solid #ffcc4d;border-radius:14px;overflow:hidden;box-shadow:0 0 18px rgba(255,190,50,.45);background:linear-gradient(90deg,rgba(30,20,6,.95),rgba(20,14,30,.95))}
 .portal img{width:43%;object-fit:cover;flex:none;clip-path:polygon(0 0,100% 0,88% 100%,0 100%)}
@@ -1561,7 +1583,7 @@ function tvPost(text,kind,data,replyTo,vip){
 }
 function workoutShare(){
   const es=todayEntries();if(!es.length) return null;
-  const items=es.map(e=>{const ex=EXM[e.ex]||{n:e.ex};return {n:ex.n,s:e.s,r:e.r,kg:ex.t==='mus'?e.kg:0,u:ex.u?'s':''}}).slice(0,12);
+  const items=es.map(e=>{const ex=EXM[e.ex]||{n:e.ex};if(ex.t==='run')return {n:'Corrida '+(e.r/1000).toFixed(2).replace('.',',')+' km em '+fmtDur(e.sec||0),s:0,r:0,kg:0,u:''};return {n:ex.n,s:e.s,r:e.r,kg:ex.t==='mus'?e.kg:0,u:ex.u?'s':''}}).slice(0,12);
   return {xp:sum(es,e=>e.xp),items};
 }
 function ago(ts){
@@ -1679,6 +1701,144 @@ function dgComplete(){
   sfx(d===30?'dungeonfinal':'dungeon');toast('🗺️','Dia '+d+' da Dungeon concluído!','+'+xp+' XP · +40 ouro');
   if(d===30){S.bonusXP+=1000;if(!S.titles.includes('Conquistador da Dungeon'))S.titles.push('Conquistador da Dungeon');toast('👑','DUNGEON CONQUISTADA!','+1.000 XP e o título “Conquistador da Dungeon”')}
   afterProgress(prev);render();
+}
+
+/* ================== MESTRES ================== */
+const MESTRES={
+  monge:{n:'Mestre Kaito',t:'Mestre da Calistenia',img:'m-monge',cor:'#3fe08a',type:['cal'],
+    fala:['O corpo é a sua academia, aprendiz. Hoje forjamos força com o seu próprio peso.','Controle vence pressa. Cada repetição perfeita vale mais que dez apressadas.','Quem domina o próprio corpo domina qualquer barra. Vamos ao treino.']},
+  guerreiro:{n:'Mestre Brutus',t:'Mestre do Ferro',img:'m-guerreiro',cor:'#ff7a4a',type:['mus'],
+    fala:['O ferro não mente, guerreiro. Ou você levanta, ou ele te ensina.','Hoje é dia de construir músculo. Carga certa, execução limpa.','Cada quilo a mais na barra é uma vitória no seu diário. Ao trabalho.']},
+  paladino:{n:'Mestra Aurora',t:'Mestra Híbrida',img:'m-paladino',cor:'#4fd2ff',type:['mus','cal'],
+    fala:['Barra e ferro, equilíbrio e poder. Hoje treinamos os dois mundos.','Um paladino não escolhe lado: une a força do ferro à agilidade do corpo.','Disciplina é a armadura mais forte. Vamos forjá-la juntos.']}
+};
+// dia da semana (0=domingo) -> [nome do treino, grupos]
+const M_SPLIT={
+  monge:[['Descanso ativo',['Core','Cardio']],['Empurrar',['Empurrar']],['Puxar',['Puxar']],['Pernas e Core',['Pernas','Core']],['Empurrar e Habilidade',['Empurrar','Core']],['Puxar e Core',['Puxar','Core']],['Pernas e Cardio',['Pernas','Cardio']]],
+  guerreiro:[['Descanso ativo',['Core','Cardio']],['Peito e Tríceps',['Peito','Braços:t']],['Costas e Bíceps',['Costas','Braços:b']],['Pernas',['Pernas']],['Ombros e Braços',['Ombros','Braços']],['Peito e Costas',['Peito','Costas']],['Pernas e Panturrilha',['Pernas']]],
+  paladino:[['Descanso ativo',['Core','Cardio']],['Peito + Empurrar',['Peito','Empurrar']],['Costas + Puxar',['Costas','Puxar']],['Pernas Híbrido',['Pernas']],['Ombros + Core',['Ombros','Core']],['Empurrar e Puxar',['Empurrar','Puxar']],['Pernas e Cardio',['Pernas','Cardio']]]
+};
+const TRI=['triceps','triceps_testa'],BI=['rosca','martelo'];
+function mtTier(){const L=levelInfo().L;return Math.min(5,1+Math.floor(L/6))}
+function mtPlan(key){
+  const M=MESTRES[key];const dow=new Date().getDay();const [name,groups]=M_SPLIT[key][dow];
+  const rest=dow===0;const r=rng(hash(ymd()+key+(S.name||'')));const tier=mtTier();const L=levelInfo().L;
+  const picks=[];const want=rest?3:(groups.length>1?5:4);
+  const per=groups.map((g,i)=>Math.ceil((want-picks.length)/(groups.length-i)));
+  groups.forEach((g0,gi)=>{
+    const [g,sub]=g0.split(':');
+    let pool=EX.filter(e=>e.g===g&&e.t!=='run'&&(rest?e.t==='cal':M.type.includes(e.t))&&(e.t!=='cal'||(e.tier||1)<=tier));
+    if(sub==='t')pool=pool.filter(e=>TRI.includes(e.id));if(sub==='b')pool=pool.filter(e=>BI.includes(e.id));
+    pool=pool.filter(e=>!picks.includes(e.id));
+    pool.sort((a,b)=>((b.tier||1)-(a.tier||1))+(r()-.5)*2.2);
+    let n=Math.min(per[gi],pool.length);if(key==='paladino'&&!rest&&gi===0)n=Math.max(n,Math.min(pool.length,3));
+    for(let i=0;i<n&&picks.length<want;i++)picks.push(pool[i].id);
+  });
+  const w=Math.min(4,1+Math.floor(L/8));
+  const items=picks.map(id=>{const ex=EXM[id];let s=ex.t==='mus'?4:3,rr;
+    if(ex.u==='s') rr=(ex.tier>=3?10:25)+(ex.tier>=3?4:10)*(w-1);
+    else if(ex.t==='mus') rr=[12,10,10,8][w-1];
+    else {const base=ex.tier>=4?3:ex.tier===3?6:ex.tier===2?10:15;rr=Math.round(base*(1+0.2*(w-1)))}
+    let kg=0;const l=S.last[id];if(ex.t==='mus'){kg=l?l.kg+(l.r>=rr?2.5:0):0}
+    return {ex:id,s,r:rr,kg}});
+  return {key,name,rest,items,fala:M.fala[Math.floor(r()*M.fala.length)]};
+}
+function mtItemDone(it){return sum(todayEntries().filter(e=>e.ex===it.ex),e=>e.s)>=it.s}
+function mtBonus(){const L=levelInfo().L;return {xp:Math.round(150+L*6),gold:40}}
+function viewMestres(){
+  const head=`<div class="mt-hero"><img src="${UI}m-trio.webp" alt="Os mestres do Forja" onerror="this.style.display='none'"><div class="mt-ht"><span class="cap">[ SISTEMA ]</span><h2>Mestres do Forja</h2><small>Um treino novo por dia, passado pelo mestre da sua classe</small></div></div>`;
+  if(!isElite()) return backMais()+head+lockedView('Mestres do Forja','Três mestres passam o seu treino do dia: Mestre Kaito na calistenia, Mestre Brutus no ferro (um grupo muscular por dia) e Mestra Aurora no treino híbrido.',ART.keyart,['Treino do dia pronto, com séries, repetições e carga','Carga sugerida a partir dos seus recordes','Bênção do mestre: XP e ouro extra ao completar']);
+  S.mt=S.mt&&S.mt.d===ymd()?S.mt:{d:ymd(),sel:(S.mt&&S.mt.sel)||S.cls,bonus:null};
+  const sel=S.mt.sel||S.cls;const M=MESTRES[sel];const P=mtPlan(sel);const all=P.items.every(mtItemDone);const rw=mtBonus();
+  return backMais()+head+`<div class="mt-pick">${Object.entries(MESTRES).map(([k,m])=>`<button class="mt-c ${k===sel?'on':''}" style="--mc:${m.cor}" data-a="mtSel" data-v="${k}"><img src="${UI}${m.img}.webp" alt="${m.n}"><b>${m.n}</b><small>${m.t}${k===S.cls?' · sua classe':''}</small></button>`).join('')}</div>
+  <div class="mt-say" style="--mc:${M.cor}"><img src="${UI}${M.img}.webp" alt=""><div><b>${M.n}</b><p>“${esc(P.fala)}”</p></div></div>
+  <div class="missub" style="margin-top:12px">TREINO DE HOJE · ${P.name.toUpperCase()}</div>
+  <div class="pv mispanel">
+   ${P.items.map(it=>{const ex=EXM[it.ex];const done=sum(todayEntries().filter(e=>e.ex===it.ex),e=>e.s);const ok=done>=it.s;
+    return `<div class="qcard ${ok?'done':''}"><span class="qi em">${GROUP_ICON[ex.g]||'⚔️'}</span><div class="tx"><div class="tt"><b>${esc(ex.n)}</b><span>${ok?'✓':done?done+'/'+it.s:''}</span></div>
+     <small>${it.s} séries × ${it.r}${ex.u?'s':' reps'}${ex.t==='mus'?(it.kg?' · carga sugerida '+fmt(it.kg)+' kg':' · escolha uma carga desafiadora'):''}</small>
+     ${ok?'':`<button class="btn sm" data-a="mtLog" data-id="${it.ex}" data-s="${it.s}" data-r="${it.r}" data-kg="${it.kg}">Registrar</button>`}</div></div>`}).join('')}
+   <div class="qreward"><img src="${UI}q-reward.webp" alt=""><div>Bênção do mestre: <b>+${rw.xp} XP</b> e <b>${rw.gold} ouro</b> ao completar o treino de hoje</div></div>
+   ${S.mt.bonus?`<p class="qwarn" style="color:#7dff9b">✓ Bênção recebida hoje. Volte amanhã para um novo treino.</p>`:`<button class="goldbtn" style="width:100%;margin-top:14px" ${all?'':'disabled'} data-a="mtDone">${all?'⚔️ RECEBER A BÊNÇÃO DO MESTRE':'COMPLETE O TREINO DO MESTRE'}</button>`}
+  </div>
+  <p class="muted" style="font-size:12px;text-align:center;margin-top:10px">O treino muda todo dia e acompanha o seu nível. Você pode treinar com qualquer mestre; a bênção vale uma vez por dia.</p>`;
+}
+function mtComplete(){
+  if(!isElite()||!S.mt||S.mt.d!==ymd()||S.mt.bonus||clockTampered())return;
+  const P=mtPlan(S.mt.sel||S.cls);if(!P.items.every(mtItemDone))return;
+  const prev=levelInfo().L;const rw=mtBonus();S.mt.bonus=rw;S.bonusXP+=rw.xp;S.goldBonus+=rw.gold;
+  sfx('quest');toast('🧙','Bênção de '+MESTRES[S.mt.sel||S.cls].n,'+'+rw.xp+' XP · +'+rw.gold+' ouro');afterProgress(prev);render();
+}
+
+/* ================== CORRIDA (GPS) ================== */
+const RUN={on:false,paused:false,dist:0,moving:0,last:null,watch:null,wake:null,tick:null,lastTick:0,bad:0,acc:null,msg:'',pts:0};
+function hav(a,b){const R=6371e3,t=Math.PI/180;const dLa=(b.la-a.la)*t,dLo=(b.lo-a.lo)*t;const x=Math.sin(dLa/2)**2+Math.cos(a.la*t)*Math.cos(b.la*t)*Math.sin(dLo/2)**2;return 2*R*Math.asin(Math.sqrt(x))}
+function runKmToday(){return sum(todayEntries().filter(e=>e.ex==='corrida'),e=>e.r)/1000}
+function runXPPerKm(){return Math.round(60*(1+Math.min(levelInfo().L,30)*0.02))}
+async function runWake(){try{if('wakeLock' in navigator){RUN.wake=await navigator.wakeLock.request('screen')}}catch(e){}}
+function runStart(){
+  if(!isElite())return eliteModal('Corrida com GPS');
+  if(!('geolocation' in navigator))return toast('⚠️','GPS indisponível','Este aparelho não liberou a localização');
+  if(clockTampered())return toast('🛡️','Relógio do aparelho alterado','Ajuste a data e hora para o automático');
+  Object.assign(RUN,{on:true,paused:false,dist:0,moving:0,last:null,bad:0,acc:null,msg:'Procurando sinal de GPS…',pts:0,lastTick:Date.now()});
+  RUN.watch=navigator.geolocation.watchPosition(runPos,e=>{RUN.msg=e.code===1?'Permita o acesso à localização para marcar a corrida.':'Sem sinal de GPS. Vá para um lugar aberto.';runPaint()},{enableHighAccuracy:true,maximumAge:0,timeout:20000});
+  runWake();
+  clearInterval(RUN.tick);RUN.tick=setInterval(()=>{const n=Date.now();if(RUN.on&&!RUN.paused&&RUN.last)RUN.moving+=(n-RUN.lastTick)/1000;RUN.lastTick=n;runPaint()},1000);
+  render();
+}
+function runPos(p){
+  if(!RUN.on||RUN.paused)return;
+  const c=p.coords;RUN.acc=Math.round(c.accuracy);
+  if(c.accuracy>35){RUN.msg='Sinal fraco ('+RUN.acc+' m). Aguardando precisão melhor…';runPaint();return}
+  const pt={la:c.latitude,lo:c.longitude,t:p.timestamp||Date.now()};
+  if(!RUN.last){RUN.last=pt;RUN.msg='GPS travado. Bora correr!';runPaint();return}
+  const d=hav(RUN.last,pt),dt=(pt.t-RUN.last.t)/1000;if(dt<=0)return;
+  const v=d/dt;
+  if(v>7){RUN.bad+=dt;RUN.last=pt;RUN.msg='Velocidade acima de 25 km/h não conta (carro, moto ou bike).';
+    if(RUN.bad>25){RUN.paused=true;RUN.msg='Corrida pausada: velocidade de veículo detectada.';sfx&&sfx('error')}
+    runPaint();return}
+  RUN.bad=Math.max(0,RUN.bad-dt);
+  if(d<3)return;
+  RUN.dist+=d;RUN.pts++;RUN.last=pt;RUN.msg='Correndo · precisão '+RUN.acc+' m';runPaint();
+}
+function runPause(){RUN.paused=!RUN.paused;if(!RUN.paused){RUN.last=null;RUN.bad=0;RUN.msg='Retomando… aguardando GPS';runWake()}render()}
+function runStop(save){
+  if(RUN.watch!=null)navigator.geolocation.clearWatch(RUN.watch);clearInterval(RUN.tick);try{RUN.wake&&RUN.wake.release()}catch(e){}
+  const km=RUN.dist/1000,sec=RUN.moving;RUN.on=false;RUN.watch=null;
+  if(!save){render();return}
+  if(km<0.2){toast('🏃','Corrida muito curta','Corra pelo menos 200 m para registrar');render();return}
+  const pace=sec/km;
+  if(pace<150){toast('🛡️','Ritmo impossível','Mais rápido que 2:30 por km não é corrida a pé. A corrida não foi registrada.');render();return}
+  const left=Math.max(0,LIM.runKmDay-runKmToday());const ck=Math.min(km,left);
+  const m=multipliers({t:'cal'});const st=m.streak*m.elixir;
+  const xp=Math.round(ck*runXPPerKm()*st);const prev=levelInfo().L;
+  S.log.push({id:uid(),d:ymd(),ts:Date.now(),ex:'corrida',s:1,r:Math.round(km*1000),kg:0,xp,sec:Math.round(sec)});
+  sfx('quest');toast('🏃',(km).toFixed(2).replace('.',',')+' km · +'+fmt(xp)+' XP',ck<km?'Só '+LIM.runKmDay+' km por dia contam XP':'Ritmo médio '+fmtDur(pace)+'/km');
+  afterProgress(prev);render();
+}
+function runPaint(){
+  const g=id=>document.getElementById(id);if(!g('runKm'))return;
+  const km=RUN.dist/1000;g('runKm').textContent=km.toFixed(2).replace('.',',');g('runTime').textContent=fmtDur(RUN.moving);
+  g('runPace').textContent=km>0.05?fmtDur(RUN.moving/km):'--:--';g('runXP').textContent='+'+fmt(Math.round(Math.min(km,Math.max(0,LIM.runKmDay-runKmToday()))*runXPPerKm()));
+  g('runMsg').textContent=RUN.msg||'';
+}
+document.addEventListener('visibilitychange',()=>{if(RUN.on&&document.visibilityState==='visible'){runWake();RUN.last=null;RUN.msg='Voltou! Retomando GPS…'}});
+function viewCorrida(){
+  const head=`<div class="mt-hero run"><img src="${UI}run-ban.webp" alt="Corrida do herói" onerror="this.style.display='none'"><div class="mt-ht"><span class="cap">[ SISTEMA ]</span><h2>Corrida do Herói</h2><small>Cada quilômetro vira XP</small></div></div>`;
+  if(!isElite()) return backMais()+head+lockedView('Corrida com GPS','Marque sua corrida com o GPS do celular e ganhe XP a cada quilômetro. Distância, tempo e ritmo ao vivo.',ART.keyart,['Distância e ritmo em tempo real','XP por quilômetro, com bônus da sua sequência','Velocidade de veículo é bloqueada automaticamente']);
+  const runs=S.log.filter(e=>e.ex==='corrida').slice(-5).reverse();const today=runKmToday();
+  return backMais()+head+`<div class="pv run-box">
+   <div class="run-big"><span id="runKm">${(RUN.dist/1000).toFixed(2).replace('.',',')}</span><small>km</small></div>
+   <div class="run-row"><div><b id="runTime">${fmtDur(RUN.moving)}</b><small>tempo</small></div><div><b id="runPace">--:--</b><small>ritmo /km</small></div><div><b id="runXP">+0</b><small>XP</small></div></div>
+   <p class="run-msg" id="runMsg">${RUN.on?esc(RUN.msg):'Toque em começar com o GPS ligado, num lugar aberto.'}</p>
+   ${RUN.on?`<div class="run-btns"><button class="btn" data-a="runPause">${RUN.paused?'▶ Retomar':'⏸ Pausar'}</button><button class="btn gold" data-a="runStop">🏁 Finalizar</button></div><button class="btn ghost full sm" style="margin-top:8px" data-a="runCancel">Descartar corrida</button>`
+   :`<button class="goldbtn" style="width:100%;margin-top:6px" data-a="runStart">🏃 COMEÇAR CORRIDA</button>`}
+  </div>
+  <div class="pv" style="padding:12px;margin-top:12px;font-size:13px"><b>Como funciona</b><ul class="elist" style="margin-top:6px">
+   <li><span>✦</span>Mantenha o Forja aberto na tela durante a corrida. A tela fica ligada sozinha; se trocar de app ou bloquear, o GPS pausa.</li>
+   <li><span>✦</span>+${runXPPerKm()} XP por km (com bônus de sequência). Até ${LIM.runKmDay} km por dia contam XP · hoje: ${today.toFixed(1).replace('.',',')} km.</li>
+   <li><span>✦</span>Velocidade acima de 25 km/h não conta. Carro, moto e bike pausam a corrida.</li></ul></div>
+  ${runs.length?`<div class="sechead">Últimas corridas</div><div class="pv today">${runs.map(entryRow).join('')}</div>`:''}`;
 }
 /* ================== TEMPORADA ================== */
 function seasonKey(){return ymd().slice(0,7)}
@@ -1865,7 +2025,7 @@ function render(){
   if(!S.created){ $('#nav').hidden=true; $('#app').classList.remove('z'); $('#app').innerHTML=viewCreate(); return; }
   ensureQuests();
   $('#nav').hidden=false;
-  const views={heroi:viewHero,treinar:viewTrain,dungeon:viewDungeon,missoes:viewQuests,chefes:viewBosses,taverna:viewTaverna,mais:viewMais,loja:viewShop,diario:viewLog,temporada:viewSeason,progressao:viewProgress,planilha:viewSheet,alquimia:viewAlquimia};
+  const views={mestres:viewMestres,corrida:viewCorrida,heroi:viewHero,treinar:viewTrain,dungeon:viewDungeon,missoes:viewQuests,chefes:viewBosses,taverna:viewTaverna,mais:viewMais,loja:viewShop,diario:viewLog,temporada:viewSeason,progressao:viewProgress,planilha:viewSheet,alquimia:viewAlquimia};
   $('#app').classList.toggle('z',['heroi','treinar','dungeon','missoes','chefes','taverna','mais'].includes(tab));
   $('#app').innerHTML=topBar()+(tab==='heroi'?installBanner():'')+(MUS.tracks[tab]?musicBtn():'')+views[tab]()+(tab==='mais'?'':`<div class="sync" id="sync">${syncLabel()}</div>`);
   renderNav();
@@ -1923,7 +2083,8 @@ function viewTrain(){
   if(!groups.includes(trainGroup)) trainGroup='Todos';
   const list=EX.filter(e=>e.t===trainType&&(trainGroup==='Todos'||e.g===trainGroup));
   const es=todayEntries().slice().reverse();
-  return `<div class="pv rest"><span class="ic">⏱️</span><div><b>Descanso</b><small>Timer entre séries</small></div>
+  return `<div class="tr-sc"><button data-tab="mestres"><img src="${UI}m-${S.cls}.webp" alt=""><span><b>Treino do Mestre</b><small>${MESTRES[S.cls].n} · hoje</small></span>${isElite()?'':'<i>👑</i>'}</button><button data-tab="corrida"><img src="${UI}ic-run.webp" alt=""><span><b>Corrida</b><small>GPS · XP por km</small></span>${isElite()?'':'<i>👑</i>'}</button></div>
+  <div class="pv rest"><span class="ic">⏱️</span><div><b>Descanso</b><small>Timer entre séries</small></div>
     <div class="sp"><span class="clock2" id="clock">--:--</span><button class="tb" data-a="timer" data-v="60">60s</button><button class="tb" data-a="timer" data-v="90">90s</button><button class="tb" data-a="timer" data-v="120">2m</button></div></div>
   <div class="sechead">Escolha o exercício</div>
   <div class="seg2"><button class="${trainType==='cal'?'on':''}" data-a="type" data-v="cal">🤸 Calistenia</button><button class="${trainType==='mus'?'on':''}" data-a="type" data-v="mus">🏋️ Musculação</button></div>
@@ -2073,7 +2234,9 @@ function threadSheet(key){
 
 /* ---------- MAIS ---------- */
 function viewMais(){
-  const T=[['temporada','ic-trophy','Temporada','Ranking do mês',1,'#ffcc4d','rgba(255,190,60,.3)'],
+  const T=[['mestres','ic-mestre','Mestres','Treino do dia',1,'#3fe08a','rgba(60,220,130,.3)'],
+    ['corrida','ic-run','Corrida','GPS e XP por km',1,'#ff7a4a','rgba(255,120,70,.3)'],
+    ['temporada','ic-trophy','Temporada','Ranking do mês',1,'#ffcc4d','rgba(255,190,60,.3)'],
     ['progressao','ic-tree','Progressão','Árvore de habilidade',1,'#4fd2ff','rgba(79,210,255,.3)'],
     ['alquimia','ic-potion','Alquimia','Bônus: receitas anabólicas',1,'#3fe08a','rgba(60,220,130,.28)'],
     ['planilha','ic-chart','Planilha','Cargas e recordes',1,'#a35cff','rgba(160,90,255,.32)'],
@@ -2171,6 +2334,13 @@ document.addEventListener('click',ev=>{
       startTimer(ex.t==='mus'?90:60);break}
     case 'del': confirmModal('Apagar este registro? O XP e o ouro dele serão removidos.',()=>deleteEntry(b.dataset.id),'Apagar'); break;
     case 'claim': claimQuest(b.dataset.id);render();break;
+    case 'mtSel': S.mt=S.mt&&S.mt.d===ymd()?S.mt:{d:ymd(),bonus:null};S.mt.sel=b.dataset.v;save();render();break;
+    case 'mtLog':{const id=b.dataset.id;const l=S.last[id]||{};exerciseSheet(id,{s:+b.dataset.s,r:+b.dataset.r,kg:+b.dataset.kg||l.kg||20});break}
+    case 'mtDone': mtComplete();break;
+    case 'runStart': runStart();break;
+    case 'runPause': runPause();break;
+    case 'runStop': runStop(true);break;
+    case 'runCancel': confirmModal('Descartar esta corrida? Ela não vai ser registrada.',()=>runStop(false),'Descartar');break;
     case 'buy': buy(b.dataset.id);break;
     case 'timer': startTimer(+b.dataset.v);break;
     case 'elite': eliteModal(b.dataset.f||'');break;
