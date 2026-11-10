@@ -2399,7 +2399,7 @@ setInterval(()=>{ if(S.created&&S.q.d&&S.q.d!==ymd()){render()} },60000);
 /* ================== CONTA (Supabase) ================== */
 const FH_URL='https://lpdicrpetxqnoxceozfa.supabase.co';
 const FH_KEY='sb_publishable_ceGy_dHSjG3cngC8mVAPLg_R4sxr5kA';
-const FH_SITE='https://forja-do-heroi.vercel.app/#planos';
+const FH_SITE='https://forjadoheroi.com/#planos';
 const FH=window.supabase.createClient(FH_URL,FH_KEY,{auth:{persistSession:true,autoRefreshToken:true,storageKey:'fh-auth'}});
 let FH_TAB='login',FH_BUSY=false,FH_MSG='';
 function fhShim(uid,admin){
@@ -2465,7 +2465,7 @@ async function fhAfterLogin(){
 }
 
 /* ================== DUELOS (PVP entre amigos) ================== */
-const DUEL_URL='https://forja-do-heroi.vercel.app/app/?duelo=';
+const DUEL_URL='https://forjadoheroi.com/app/?duelo=';
 const DUEL={list:[],at:0,loading:false,heroes:null,form:{kind:'reps',ex:'flexao',day:'hoje'},share:null};
 const DUEL_WIN=100,DUEL_TIE=40,DUEL_PART=25;
 function duelExName(d){return d.kind==='xp'?'XP':(EXM[d.ex]?EXM[d.ex].n:d.ex)}
