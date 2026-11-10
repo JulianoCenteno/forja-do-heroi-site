@@ -29,3 +29,24 @@
   .tx-li li{font-size:13.5px;padding:12px}
   .tx-btn{font-size:16px;padding:15px 22px}
 }
+/* ===================== MESTRES + CORRIDA ===================== */
+.mx{background:radial-gradient(ellipse at 50% 0%,rgba(79,210,255,.14),transparent 60%),radial-gradient(ellipse at 50% 100%,rgba(255,122,74,.10),transparent 60%),#040817}
+.mx-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:980px;margin:40px auto 30px}
+.mx-c{margin:0;border-radius:22px;padding:6px;background:linear-gradient(160deg,var(--mc),#0b1530 55%,var(--mc));box-shadow:0 18px 44px rgba(0,0,0,.55),0 0 26px color-mix(in srgb,var(--mc) 30%,transparent);text-align:left}
+.mx-c img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:17px}
+.mx-c figcaption{padding:12px 10px 10px;margin-top:6px;border-radius:14px;background:rgba(6,12,28,.92)}.mx-c b{display:block;font-family:'Montserrat','Exo 2',sans-serif;font-style:italic;font-weight:900;text-transform:uppercase;font-size:19px;color:var(--mc)}
+.mx-c small{display:block;font-size:13px;color:#cfdcf0;margin:2px 0 6px}.mx-c p{margin:0;font-size:14px;color:#dfe6f2;line-height:1.45}
+.mx-row{display:grid;grid-template-columns:1.25fr 1fr;gap:18px;max-width:980px;margin:0 auto 34px;text-align:left}
+.mx-run{display:flex;gap:16px;align-items:center;padding:14px;border-radius:18px;border:1px solid rgba(255,122,74,.55);background:linear-gradient(135deg,rgba(40,16,8,.85),rgba(10,16,36,.92))}
+.mx-run img{width:130px;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:12px;flex:none}
+.mx-run h3,.mx-pl h3{margin:0 0 6px;font-family:'Montserrat','Exo 2',sans-serif;font-style:italic;font-weight:900;text-transform:uppercase;font-size:20px}
+.mx-run h3{color:#ffb38f}.mx-run p,.mx-pl p{margin:0;font-size:14.5px;color:#dfe6f2;line-height:1.45}
+.mx-pl{display:flex;gap:14px;align-items:center;padding:14px;border-radius:18px;border:1px solid rgba(30,215,96,.55);background:linear-gradient(135deg,rgba(8,36,20,.88),rgba(10,16,36,.92));color:#fff;text-decoration:none}
+.mx-pl img{width:96px;height:96px;border-radius:12px;object-fit:cover;flex:none}.mx-pl h3{color:#1ed760}.mx-pl .go{display:inline-block;margin-top:8px;font-size:13px;font-weight:800;color:#06150c;background:#1ed760;border-radius:999px;padding:5px 12px}
+@media (max-width:760px){
+  .mx-cards{grid-template-columns:1fr 1fr 1fr;gap:8px;margin:28px -6px 22px}
+  .mx-c{padding:4px;border-radius:14px}.mx-c img{border-radius:11px}
+  .mx-c figcaption{padding:7px 5px 6px;margin-top:4px;border-radius:9px}.mx-c b{font-size:12.5px}.mx-c small{font-size:10.5px}.mx-c p{display:none}
+  .mx-row{grid-template-columns:1fr;gap:10px}
+  .mx-run img{width:96px}.mx-run h3,.mx-pl h3{font-size:17px}.mx-run p,.mx-pl p{font-size:13.5px}.mx-pl img{width:80px;height:80px}
+}
