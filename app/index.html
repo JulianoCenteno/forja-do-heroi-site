@@ -1014,6 +1014,7 @@ const EX = [
   {id:'triceps',n:'Tríceps pulley',t:'mus',g:'Braços',m:.8},
   {id:'triceps_testa',n:'Tríceps testa',t:'mus',g:'Braços',m:.9},
 ];
+EX.push({id:'corrida',n:'Corrida (GPS)',t:'run',g:'Cardio',u:'m',m:0,a:{RES:.7,AGI:.3}});
 EX.forEach(e=>{ if(e.t==='mus'){ e.a=e.a||{FOR:.75,RES:.25}; } });
 const EXM = Object.fromEntries(EX.map(e=>[e.id,e]));
 const GROUP_ICON = {Empurrar:'🫸',Puxar:'🧗',Pernas:'🦵',Core:'🧱',Cardio:'🔥',Peito:'🛡️',Costas:'🪽',Ombros:'⛰️',Braços:'💪'};
@@ -1097,7 +1098,7 @@ try{const raw=localStorage.getItem(KEY); if(raw) S=migrate(JSON.parse(raw));}cat
 
 let dbRef=null, syncState='local', saveTimer=null, saving=false, saveAgain=false;
 function save(){
-  S.updated=Date.now();
+  S.updated=Date.now();S.lastSeen=Math.max(S.lastSeen||0,Date.now());
   try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}
   clearTimeout(saveTimer); saveTimer=setTimeout(saveRemote,900);
 }
@@ -1231,19 +1232,69 @@ function afterProgress(prevLevel){
 }
 function logExercise(exId,s,r,kg){
   const ex=EXM[exId];const prev=levelInfo().L;
+  const chk=antiCheat(ex,s,r,kg);
+  if(!chk.ok){sfx&&sfx('error');toast('🛡️',chk.t,chk.m);return false}
   const m=multipliers(ex);
-  const xp=Math.max(1,Math.round(baseXP(ex,s,r,kg)*m.total));
+  let xp=Math.max(1,Math.round(baseXP(ex,s,r,kg)*m.total));
+  const room=Math.max(0,LIM.xpDay-trainXPToday());
+  if(xp>room){xp=room;setTimeout(()=>toast('🛡️','Teto diário de XP de treino','Hoje você já chegou a '+fmt(LIM.xpDay)+' XP de treino. O resto conta no diário, sem XP.'),400)}
   S.log.push({id:uid(),d:ymd(),ts:Date.now(),ex:exId,s,r,kg:ex.t==='mus'?kg:0,xp});
   S.last[exId]={s,r,kg};
   sfx('xp');toast('✨','+'+fmt(xp)+' XP · +'+Math.floor(xp/20)+' ouro',ex.n+' — '+s+'×'+r+(ex.u?'s':'')+(ex.t==='mus'?' · '+kg+' kg':''));
   afterProgress(prev);
+  return true;
+}
+/* ================== ANTITRAPAÇA ================== */
+const LIM={sets:10,setsHour:40,setsDay:80,kg:600,xpDay:3000,runKmDay:15};
+function fmtDur(sec){sec=Math.round(sec);const h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),x=sec%60;return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(x).padStart(2,'0')}
+function repLimit(ex){
+  if(ex.u==='s') return ex.tier>=5?60:ex.tier>=3?120:ex.id==='corda'?900:600;
+  if(ex.t==='mus') return 50;
+  return ex.tier>=5?15:ex.tier>=4?30:ex.tier>=3?50:ex.tier>=2?120:200;
+}
+function trainXPToday(){return sum(todayEntries().filter(e=>EXM[e.ex]?.t!=='run'),e=>e.xp)}
+function clockTampered(){return Date.now()<(S.lastSeen||0)-10*60e3}
+function antiCheat(ex,s,r,kg){
+  if(clockTampered()) return {ok:false,t:'Relógio do aparelho alterado',m:'A data ou hora do celular voltou no tempo. Ajuste para o horário automático e tente de novo.'};
+  if(s>LIM.sets) return {ok:false,t:'Muitas séries de uma vez',m:'Registre no máximo '+LIM.sets+' séries por vez.'};
+  const rl=repLimit(ex);
+  if(r>rl) return {ok:false,t:'Número fora do realista',m:ex.n+': máximo de '+rl+(ex.u?' segundos':' repetições')+' por série.'};
+  if(ex.t==='mus'&&kg>LIM.kg) return {ok:false,t:'Carga fora do realista',m:'O máximo aceito é '+LIM.kg+' kg.'};
+  const now=Date.now();
+  const hour=sum(S.log.filter(e=>EXM[e.ex]?.t!=='run'&&now-e.ts<36e5&&e.ts<=now),e=>e.s);
+  if(hour+s>LIM.setsHour) return {ok:false,t:'Calma, herói!',m:'Você registrou '+hour+' séries na última hora. O corpo precisa de tempo entre as séries: tente de novo daqui a pouco.'};
+  const day=sum(todayEntries().filter(e=>EXM[e.ex]?.t!=='run'),e=>e.s);
+  if(day+s>LIM.setsDay) return {ok:false,t:'Limite diário de séries',m:'Hoje você já fez '+day+' séries. Descanso também é treino: volte amanhã.'};
+  return {ok:true};
+}
+/* desfaz recompensas que dependiam de séries apagadas */
+function revalidateToday(){
+  const es=todayEntries();
+  if(S.q.d===ymd()){
+    S.q.rw=S.q.rw||{};
+    for(const id of S.q.claimed.slice()){
+      const q=QUESTS.find(x=>x.id===id);if(!q||q.f(es)>=q.goal)continue;
+      const rw=S.q.rw[id]||questReward();
+      S.q.claimed=S.q.claimed.filter(x=>x!==id);S.qTotal=Math.max(0,S.qTotal-1);S.bonusXP-=rw.xp;S.goldBonus-=rw.gold;delete S.q.rw[id];
+      if(S.q.allB){S.q.allB=false;S.bonusXP-=100;S.goldBonus-=50}
+      toast('↩️','Recompensa de missão removida',q.t+': as séries que cumpriam a missão foram apagadas');
+    }
+  }
+  if(typeof mtPlan==='function'&&S.mt&&S.mt.d===ymd()&&S.mt.bonus&&!mtPlan(S.mt.sel||S.cls).items.every(mtItemDone)){
+    S.bonusXP-=S.mt.bonus.xp;S.goldBonus-=S.mt.bonus.gold;S.mt.bonus=null;toast('↩️','Bênção do mestre removida','O treino do mestre ficou incompleto');
+  }
+  for(const [d,dt] of Object.entries(S.dg.done)){
+    if(dt!==ymd())continue;const day=dgDay(+d);
+    if(!day.items.every(dgItemDone)){delete S.dg.done[d];S.bonusXP-=120+(+d)*8;S.goldBonus-=40;toast('↩️','Dia da Dungeon desfeito','Dia '+d+': as séries do dia foram apagadas')}
+  }
 }
 function claimQuest(id){
-  if(S.q.claimed.includes(id)) return;
+  if(S.q.claimed.includes(id)||!S.q.ids.includes(id)) return;
+  const q=QUESTS.find(x=>x.id===id);if(!q||q.f(todayEntries())<q.goal||clockTampered()) return;
   const prev=levelInfo().L;const rw=questReward();
-  S.q.claimed.push(id);S.qTotal++;S.bonusXP+=rw.xp;S.goldBonus+=rw.gold;
+  S.q.claimed.push(id);S.qTotal++;S.bonusXP+=rw.xp;S.goldBonus+=rw.gold;S.q.rw=S.q.rw||{};S.q.rw[id]=rw;
   sfx('quest');toast('📯','Missão cumprida!','+'+rw.xp+' XP · +'+rw.gold+' ouro');
-  if(S.q.ids.every(q=>S.q.claimed.includes(q))){S.bonusXP+=100;S.goldBonus+=50;setTimeout(()=>sfx('allquests'),900);toast('🏆','Todas as missões do dia!','Bônus: +100 XP · +50 ouro')}
+  if(S.q.ids.every(q=>S.q.claimed.includes(q))){S.q.allB=true;S.bonusXP+=100;S.goldBonus+=50;setTimeout(()=>sfx('allquests'),900);toast('🏆','Todas as missões do dia!','Bônus: +100 XP · +50 ouro')}
   afterProgress(prev);
 }
 function buy(id){
@@ -1252,7 +1303,7 @@ function buy(id){
   else { if(S.titles.includes(it.v)) return; S.titles.push(it.v); S.title=it.v; }
   S.goldSpent+=it.p; sfx('coin'); toast(it.e,'Comprado!',it.n); save(); render();
 }
-function deleteEntry(id){S.log=S.log.filter(e=>e.id!==id);save();render()}
+function deleteEntry(id){S.log=S.log.filter(e=>e.id!==id);revalidateToday();save();render()}
 
 /* ================== UI: TOAST / MODAL ================== */
 function toast(e,t,sub){
@@ -1437,7 +1488,7 @@ function horaPromo(){
 
 const ICO={FOR:'<path d="M6 7v10M3 9.5v5M18 7v10M21 9.5v5M6 12h12"/>',RES:'<path d="M12 2.5l7.5 3v6.2c0 4.6-3.1 8-7.5 9.8-4.4-1.8-7.5-5.2-7.5-9.8V5.5z"/>',AGI:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',VIG:'<path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-3 2-4 2-7 1 1 2 2 3 3z"/>'};
 const svgI=(d,sz=22)=>`<svg width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="#dff4ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
-function entryRow(e){const ex=EXM[e.ex]||{n:e.ex};return `<div class="entry"><div><div class="n">${esc(ex.n)}</div><div class="d">${e.s} × ${e.r}${ex.u?'s':''}${ex.t==='mus'?' · '+e.kg+' kg':''}</div></div><span class="x">+${fmt(e.xp)} XP</span><button class="del" data-a="del" data-id="${e.id}" title="Apagar">✕</button></div>`}
+function entryRow(e){const ex=EXM[e.ex]||{n:e.ex};return `<div class="entry"><div><div class="n">${esc(ex.n)}</div><div class="d">${ex.t==='run'?(e.r/1000).toFixed(2).replace('.',',')+' km · '+fmtDur(e.sec||0):`${e.s} × ${e.r}${ex.u?'s':''}${ex.t==='mus'?' · '+e.kg+' kg':''}`}</div></div><span class="x">+${fmt(e.xp)} XP</span><button class="del" data-a="del" data-id="${e.id}" title="Apagar">✕</button></div>`}
 
 function viewShop(){
   const g=gold();
@@ -1818,6 +1869,11 @@ function render(){
   $('#app').classList.toggle('z',['heroi','treinar','dungeon','missoes','chefes','taverna','mais'].includes(tab));
   $('#app').innerHTML=topBar()+(tab==='heroi'?installBanner():'')+(MUS.tracks[tab]?musicBtn():'')+views[tab]()+(tab==='mais'?'':`<div class="sync" id="sync">${syncLabel()}</div>`);
   renderNav();
+  if(S.cheat&&!S.cheat.seen){S.cheat.seen=Date.now();save();queueModal(()=>openModal(`<div class="lvup"><div style="font-size:60px">🛡️</div><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ff5a6e">TRAPAÇA DETECTADA</div>
+   <h3 style="margin-top:10px;color:#ff8a9a">Você burlou o sistema</h3>
+   <p class="muted" style="margin:10px 0 6px">O Sistema encontrou registros impossíveis no seu herói${S.cheat.why?' ('+esc(S.cheat.why)+')':''}. Para manter o ranking justo para todos os caçadores, seu progresso foi zerado e você voltou ao <b>nível 1</b>.</p>
+   <p class="muted" style="margin:0 0 18px">Treine de verdade e suba de novo. Registros fora do realista agora são bloqueados automaticamente.</p>
+   <button class="btn full" data-a="close">Entendi, recomeçar</button></div>`,true))}
   if(tab==='treinar') tickTimer();
   try{musicSync()}catch(e){}
 }
@@ -2110,7 +2166,8 @@ document.addEventListener('click',ev=>{
     case 'step':{const inp=$('#'+b.dataset.t);const d=+b.dataset.d;inp.value=Math.max(0,Math.round(((+inp.value||0)+d)*100)/100);updatePreview();break}
     case 'log':{
       const {ex,s,r,kg}=readSheet();if(!s||!r){toast('⚠️','Informe séries e repetições');return}
-      closeModal();logExercise(ex.id,s,r,kg);render();
+      if(!logExercise(ex.id,s,r,kg))return;
+      closeModal();render();
       startTimer(ex.t==='mus'?90:60);break}
     case 'del': confirmModal('Apagar este registro? O XP e o ouro dele serão removidos.',()=>deleteEntry(b.dataset.id),'Apagar'); break;
     case 'claim': claimQuest(b.dataset.id);render();break;
