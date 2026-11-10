@@ -536,6 +536,10 @@ body{background:radial-gradient(900px 600px at 50% -120px,#13224a 0%,transparent
 .run-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.run-row b{display:block;font-size:20px}.run-row small{font-size:11px;color:#9fb4d4;text-transform:uppercase;letter-spacing:.08em}
 .run-msg{font-size:13px;color:#bcd0ea;min-height:18px;margin:4px 0 10px}
 .run-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mt-big{display:flex;gap:12px;align-items:center;width:100%;margin-top:10px;padding:10px;border-radius:16px;border:1.5px solid var(--mc);background:linear-gradient(180deg,rgba(18,40,80,.85),rgba(8,18,40,.92));color:#fff;text-align:left;box-shadow:0 0 14px color-mix(in srgb,var(--mc) 35%,transparent)}
+.mt-big img{width:96px;height:120px;object-fit:cover;border-radius:12px;flex:none}
+.mt-big b{display:block;font-size:18px;color:var(--mc)}.mt-big small{display:block;font-size:12.5px;color:#bcd0ea}.mt-big em{display:block;margin-top:6px;font-size:13px;color:#dfe8f7}
+.nv-list{list-style:none;padding:0;margin:12px 0;text-align:left}.nv-list li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid rgba(110,200,255,.18);font-size:14px}.nv-list li img{width:44px;height:44px;border-radius:10px;object-fit:cover;object-position:50% 10%;flex:none}
 /* DUNGEON */
 .portal{display:flex;margin-top:14px;border:2px solid #ffcc4d;border-radius:14px;overflow:hidden;box-shadow:0 0 18px rgba(255,190,50,.45);background:linear-gradient(90deg,rgba(30,20,6,.95),rgba(20,14,30,.95))}
 .portal img{width:43%;object-fit:cover;flex:none;clip-path:polygon(0 0,100% 0,88% 100%,0 100%)}
@@ -1302,9 +1306,8 @@ function revalidateToday(){
       toast('↩️','Recompensa de missão removida',q.t+': as séries que cumpriam a missão foram apagadas');
     }
   }
-  if(typeof mtPlan==='function'&&S.mt&&S.mt.d===ymd()&&S.mt.bonus&&!mtPlan(S.mt.sel||S.cls).items.every(mtItemDone)){
-    S.bonusXP-=S.mt.bonus.xp;S.goldBonus-=S.mt.bonus.gold;S.mt.bonus=null;toast('↩️','Bênção do mestre removida','O treino do mestre ficou incompleto');
-  }
+  if(typeof mtPlan==='function'&&S.mt&&S.mt.p){for(const [k,pr] of Object.entries(S.mt.p)){const d=pr.day-1;if(d<1||pr.done[d]!==ymd())continue;
+    if(!mtPlan(k,d).items.every(mtItemDone)){const rw=(pr.rw&&pr.rw[d])||mtBonus();delete pr.done[d];pr.day=d;S.bonusXP-=rw.xp;S.goldBonus-=rw.gold;toast('↩️','Dia do mestre desfeito','As séries do treino do mestre foram apagadas')}}}
   for(const [d,dt] of Object.entries(S.dg.done)){
     if(dt!==ymd())continue;const day=dgDay(+d);
     if(!day.items.every(dgItemDone)){delete S.dg.done[d];S.bonusXP-=120+(+d)*8;S.goldBonus-=40;toast('↩️','Dia da Dungeon desfeito','Dia '+d+': as séries do dia foram apagadas')}
@@ -1720,9 +1723,10 @@ const M_SPLIT={
 };
 const TRI=['triceps','triceps_testa'],BI=['rosca','martelo'];
 function mtTier(){const L=levelInfo().L;return Math.min(5,1+Math.floor(L/6))}
-function mtPlan(key){
-  const M=MESTRES[key];const dow=new Date().getDay();const [name,groups]=M_SPLIT[key][dow];
-  const rest=dow===0;const r=rng(hash(ymd()+key+(S.name||'')));const tier=mtTier();const L=levelInfo().L;
+function mtProg(key){S.mt=S.mt||{};S.mt.p=S.mt.p||{};return S.mt.p[key]=S.mt.p[key]||{day:1,done:{}}}
+function mtPlan(key,day){
+  const M=MESTRES[key];day=day||mtProg(key).day;const dow=day%7;const [name,groups]=M_SPLIT[key][dow];
+  const rest=dow===0;const r=rng(hash('d'+day+key+(S.name||'')));const tier=mtTier();const L=levelInfo().L;
   const picks=[];const want=rest?3:(groups.length>1?5:4);
   const per=groups.map((g,i)=>Math.ceil((want-picks.length)/(groups.length-i)));
   groups.forEach((g0,gi)=>{
@@ -1741,33 +1745,42 @@ function mtPlan(key){
     else {const base=ex.tier>=4?3:ex.tier===3?6:ex.tier===2?10:15;rr=Math.round(base*(1+0.2*(w-1)))}
     let kg=0;const l=S.last[id];if(ex.t==='mus'){kg=l?l.kg+(l.r>=rr?2.5:0):0}
     return {ex:id,s,r:rr,kg}});
-  return {key,name,rest,items,fala:M.fala[Math.floor(r()*M.fala.length)]};
+  return {key,day,name,rest,items,fala:M.fala[Math.floor(r()*M.fala.length)]};
 }
+function mtAvail(key){const pr=mtProg(key);const prev=pr.done[pr.day-1];return pr.day===1||(!!prev&&prev<ymd())}
 function mtItemDone(it){return sum(todayEntries().filter(e=>e.ex===it.ex),e=>e.s)>=it.s}
 function mtBonus(){const L=levelInfo().L;return {xp:Math.round(150+L*6),gold:40}}
 function viewMestres(){
   const head=`<div class="mt-hero"><img src="${UI}m-trio.webp" alt="Os mestres do Forja" onerror="this.style.display='none'"><div class="mt-ht"><span class="cap">[ SISTEMA ]</span><h2>Mestres do Forja</h2><small>Um treino novo por dia, passado pelo mestre da sua classe</small></div></div>`;
   if(!isElite()) return backMais()+head+lockedView('Mestres do Forja','Três mestres passam o seu treino do dia: Mestre Kaito na calistenia, Mestre Brutus no ferro (um grupo muscular por dia) e Mestra Aurora no treino híbrido.',ART.keyart,['Treino do dia pronto, com séries, repetições e carga','Carga sugerida a partir dos seus recordes','Bênção do mestre: XP e ouro extra ao completar']);
-  S.mt=S.mt&&S.mt.d===ymd()?S.mt:{d:ymd(),sel:(S.mt&&S.mt.sel)||S.cls,bonus:null};
-  const sel=S.mt.sel||S.cls;const M=MESTRES[sel];const P=mtPlan(sel);const all=P.items.every(mtItemDone);const rw=mtBonus();
+  if(!S.mt||!S.mt.p){S.mt={sel:(S.mt&&S.mt.sel)||null,p:{}}}
+  if(!S.mt.sel) return backMais()+head+mtChooser();
+  const sel=S.mt.sel;const M=MESTRES[sel];const pr=mtProg(sel);const P=mtPlan(sel);const avail=mtAvail(sel);const all=P.items.every(mtItemDone);const rw=mtBonus();const doneToday=pr.done[pr.day-1]===ymd();
   return backMais()+head+`<div class="mt-pick">${Object.entries(MESTRES).map(([k,m])=>`<button class="mt-c ${k===sel?'on':''}" style="--mc:${m.cor}" data-a="mtSel" data-v="${k}"><img src="${UI}${m.img}.webp" alt="${m.n}"><b>${m.n}</b><small>${m.t}${k===S.cls?' · sua classe':''}</small></button>`).join('')}</div>
   <div class="mt-say" style="--mc:${M.cor}"><img src="${UI}${M.img}.webp" alt=""><div><b>${M.n}</b><p>“${esc(P.fala)}”</p></div></div>
-  <div class="missub" style="margin-top:12px">TREINO DE HOJE · ${P.name.toUpperCase()}</div>
+  <div class="missub" style="margin-top:12px">DIA ${P.day} · ${P.name.toUpperCase()}</div>
   <div class="pv mispanel">
+   ${avail?'':`<p class="qwarn">${doneToday?'<span style="color:#7dff9b">✓ Treino do dia '+(P.day-1)+' concluído.</span> ':''}<b>O DIA ${P.day} ABRE AMANHÃ.</b> O mestre só libera o próximo treino depois de você cumprir o atual, um por dia.</p>`}
    ${P.items.map(it=>{const ex=EXM[it.ex];const done=sum(todayEntries().filter(e=>e.ex===it.ex),e=>e.s);const ok=done>=it.s;
     return `<div class="qcard ${ok?'done':''}"><span class="qi em">${GROUP_ICON[ex.g]||'⚔️'}</span><div class="tx"><div class="tt"><b>${esc(ex.n)}</b><span>${ok?'✓':done?done+'/'+it.s:''}</span></div>
      <small>${it.s} séries × ${it.r}${ex.u?'s':' reps'}${ex.t==='mus'?(it.kg?' · carga sugerida '+fmt(it.kg)+' kg':' · escolha uma carga desafiadora'):''}</small>
-     ${ok?'':`<button class="btn sm" data-a="mtLog" data-id="${it.ex}" data-s="${it.s}" data-r="${it.r}" data-kg="${it.kg}">Registrar</button>`}</div></div>`}).join('')}
-   <div class="qreward"><img src="${UI}q-reward.webp" alt=""><div>Bênção do mestre: <b>+${rw.xp} XP</b> e <b>${rw.gold} ouro</b> ao completar o treino de hoje</div></div>
-   ${S.mt.bonus?`<p class="qwarn" style="color:#7dff9b">✓ Bênção recebida hoje. Volte amanhã para um novo treino.</p>`:`<button class="goldbtn" style="width:100%;margin-top:14px" ${all?'':'disabled'} data-a="mtDone">${all?'⚔️ RECEBER A BÊNÇÃO DO MESTRE':'COMPLETE O TREINO DO MESTRE'}</button>`}
+     ${ok?'':`<button class="btn sm" ${avail?'':'disabled'} data-a="mtLog" data-id="${it.ex}" data-s="${it.s}" data-r="${it.r}" data-kg="${it.kg}">Registrar</button>`}</div></div>`}).join('')}
+   <div class="qreward"><img src="${UI}q-reward.webp" alt=""><div>Bênção do mestre: <b>+${rw.xp} XP</b> e <b>${rw.gold} ouro</b> ao concluir cada dia</div></div>
+   <button class="goldbtn" style="width:100%;margin-top:14px" ${avail&&all?'':'disabled'} data-a="mtDone">${!avail?'VOLTE AMANHÃ':all?'⚔️ CONCLUIR O DIA '+P.day:'COMPLETE O TREINO DO DIA '+P.day}</button>
   </div>
-  <p class="muted" style="font-size:12px;text-align:center;margin-top:10px">O treino muda todo dia e acompanha o seu nível. Você pode treinar com qualquer mestre; a bênção vale uma vez por dia.</p>`;
+  <div class="sechead">Sua jornada com ${M.n}</div><div class="pv" style="padding:12px"><div class="dggrid">${Array.from({length:Math.max(14,Math.ceil((pr.day+3)/7)*7)},(_,i)=>{const n=i+1;return `<span class="dgc ${pr.done[n]?'ok':n===pr.day?'cur':''}">${pr.done[n]?'✓':n}</span>`}).join('')}</div></div>
+  <p class="muted" style="font-size:12px;text-align:center;margin-top:10px">Cada dia tem um treino diferente. O próximo só abre quando você cumpre o atual (um por dia). Trocar de mestre mantém o progresso de cada um.</p>`;
+}
+function mtChooser(){
+  return `<div class="sechead">Escolha o seu mestre</div><p class="muted" style="font-size:14px">Ele vai passar o seu treino, dia após dia. Você pode trocar depois.</p>
+  ${Object.entries(MESTRES).map(([k,m])=>`<button class="mt-big" style="--mc:${m.cor}" data-a="mtSel" data-v="${k}"><img src="${UI}${m.img}.webp" alt="${m.n}"><span><b>${m.n}</b><small>${m.t}${k===S.cls?' · combina com sua classe':''}</small><em>“${esc(m.fala[0])}”</em></span></button>`).join('')}`;
 }
 function mtComplete(){
-  if(!isElite()||!S.mt||S.mt.d!==ymd()||S.mt.bonus||clockTampered())return;
-  const P=mtPlan(S.mt.sel||S.cls);if(!P.items.every(mtItemDone))return;
-  const prev=levelInfo().L;const rw=mtBonus();S.mt.bonus=rw;S.bonusXP+=rw.xp;S.goldBonus+=rw.gold;
-  sfx('quest');toast('🧙','Bênção de '+MESTRES[S.mt.sel||S.cls].n,'+'+rw.xp+' XP · +'+rw.gold+' ouro');afterProgress(prev);render();
+  if(!isElite()||!S.mt||!S.mt.sel||clockTampered())return;
+  const k=S.mt.sel;const pr=mtProg(k);if(!mtAvail(k))return;
+  const P=mtPlan(k);if(!P.items.every(mtItemDone))return;
+  const prev=levelInfo().L;const rw=mtBonus();pr.done[pr.day]=ymd();pr.rw=pr.rw||{};pr.rw[pr.day]=rw;pr.day++;S.bonusXP+=rw.xp;S.goldBonus+=rw.gold;
+  sfx('quest');toast('🧙','Dia '+P.day+' concluído com '+MESTRES[k].n,'+'+rw.xp+' XP · +'+rw.gold+' ouro · o dia '+pr.day+' abre amanhã');afterProgress(prev);render();
 }
 
 /* ================== CORRIDA (GPS) ================== */
@@ -2029,6 +2042,14 @@ function render(){
   $('#app').classList.toggle('z',['heroi','treinar','dungeon','missoes','chefes','taverna','mais'].includes(tab));
   $('#app').innerHTML=topBar()+(tab==='heroi'?installBanner():'')+(MUS.tracks[tab]?musicBtn():'')+views[tab]()+(tab==='mais'?'':`<div class="sync" id="sync">${syncLabel()}</div>`);
   renderNav();
+  if(!S.nov1&&!S.cheat){S.nov1=Date.now();save();queueModal(()=>openModal(`<div class="lvup"><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ffc65a">NOVA ATUALIZAÇÃO</div>
+   <h3 style="margin-top:8px">Os Mestres chegaram à Forja</h3>
+   <ul class="nv-list">
+    <li><img src="${UI}m-trio.webp" alt=""><span><b>Escolha seu mestre.</b> Kaito (calistenia), Brutus (ferro) ou Aurora (híbrida) passam o seu treino, dia após dia. O próximo dia só abre quando você cumpre o atual.</span></li>
+    <li><img src="${UI}ic-run.webp" alt=""><span><b>Corrida com GPS.</b> Corra com o Forja aberto e ganhe XP a cada quilômetro.</span></li>
+    <li><span style="font-size:30px;width:44px;text-align:center">🛡️</span><span><b>Ranking justo.</b> Registros impossíveis agora são bloqueados e quem trapacear volta ao nível 1.</span></li>
+   </ul>
+   <button class="btn gold full" data-a="mtGo">⚔️ Escolher meu mestre</button><button class="btn ghost full sm" style="margin-top:8px" data-a="close">Depois</button></div>`,true))}
   if(S.cheat&&!S.cheat.seen){S.cheat.seen=Date.now();save();queueModal(()=>openModal(`<div class="lvup"><div style="font-size:60px">🛡️</div><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ff5a6e">TRAPAÇA DETECTADA</div>
    <h3 style="margin-top:10px;color:#ff8a9a">Você burlou o sistema</h3>
    <p class="muted" style="margin:10px 0 6px">O Sistema encontrou registros impossíveis no seu herói${S.cheat.why?' ('+esc(S.cheat.why)+')':''}. Para manter o ranking justo para todos os caçadores, seu progresso foi zerado e você voltou ao <b>nível 1</b>.</p>
@@ -2334,7 +2355,8 @@ document.addEventListener('click',ev=>{
       startTimer(ex.t==='mus'?90:60);break}
     case 'del': confirmModal('Apagar este registro? O XP e o ouro dele serão removidos.',()=>deleteEntry(b.dataset.id),'Apagar'); break;
     case 'claim': claimQuest(b.dataset.id);render();break;
-    case 'mtSel': S.mt=S.mt&&S.mt.d===ymd()?S.mt:{d:ymd(),bonus:null};S.mt.sel=b.dataset.v;save();render();break;
+    case 'mtSel': if(!S.mt||!S.mt.p)S.mt={p:{}};S.mt.sel=b.dataset.v;mtProg(b.dataset.v);save();sfx&&sfx('quest');render();window.scrollTo(0,0);break;
+    case 'mtGo': closeModal();tab='mestres';render();window.scrollTo(0,0);break;
     case 'mtLog':{const id=b.dataset.id;const l=S.last[id]||{};exerciseSheet(id,{s:+b.dataset.s,r:+b.dataset.r,kg:+b.dataset.kg||l.kg||20});break}
     case 'mtDone': mtComplete();break;
     case 'runStart': runStart();break;
