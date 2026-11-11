@@ -65,7 +65,7 @@ if(matchMedia('(pointer:fine)').matches){addEventListener('mousemove',e=>{tx=(e.
 (()=>{
   const cv=document.getElementById('fx');if(!cv||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
   const cx=cv.getContext('2d');let W,H,DPR;const P=[],S=[];
-  const mob=innerWidth<760;const NP=mob?46:110,NS=mob?7:14;
+  const mob=innerWidth<760;const NP=110,NS=mob?10:14;
   function size(){DPR=Math.min(devicePixelRatio||1,2);W=cv.width=innerWidth*DPR;H=cv.height=innerHeight*DPR}
   size();addEventListener('resize',size);
   const COL=[[255,200,80],[255,170,40],[160,110,255],[90,210,255],[255,230,150]];

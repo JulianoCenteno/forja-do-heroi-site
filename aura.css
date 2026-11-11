@@ -8,5 +8,5 @@
 @keyframes smk{0%{transform:translateX(-18%) scale(1)}50%{opacity:.45}100%{transform:translateX(18%) scale(1.15)}}
 .fxl .em{position:absolute;width:var(--s);height:var(--s);border-radius:50%;background:var(--c);box-shadow:0 0 calc(var(--s)*3) var(--c),0 0 calc(var(--s)*1.2) #fff;opacity:0;animation:emb var(--d) linear infinite;animation-delay:var(--dl)}
 @keyframes emb{0%{opacity:0;transform:translate(0,0)}12%{opacity:.95}70%{opacity:.7}100%{opacity:0;transform:translate(var(--dx),-14cqw)}}
-@media (max-width:760px){.fxl{display:none}}
+@media (max-width:760px){.fxl .em{width:calc(var(--s)*2.4);height:calc(var(--s)*2.4)}.fxl .fl{transform:translate(-50%,-50%) scale(1.6)}.fxl .gw{opacity:.32}}
 @media (prefers-reduced-motion:reduce){.fxl{display:none}}
