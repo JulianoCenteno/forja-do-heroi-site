@@ -542,6 +542,11 @@ body{background:radial-gradient(900px 600px at 50% -120px,#13224a 0%,transparent
 .nv-list{list-style:none;padding:0;margin:12px 0;text-align:left}.nv-list li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid rgba(110,200,255,.18);font-size:14px}.nv-list li img{width:44px;height:44px;border-radius:10px;object-fit:cover;object-position:50% 10%;flex:none}
 .spl{display:flex;align-items:center;gap:12px;margin-top:12px;padding:10px;border-radius:14px;border:1px solid rgba(30,215,96,.6);background:linear-gradient(90deg,rgba(10,40,24,.92),rgba(8,18,40,.92));color:#fff;text-decoration:none;box-shadow:0 0 14px rgba(30,215,96,.25)}
 .spl img{width:58px;height:58px;border-radius:10px;object-fit:cover;flex:none}.spl span{flex:1;min-width:0}.spl small{display:block;font-size:10.5px;letter-spacing:.12em;color:#1ed760;font-weight:700}.spl b{display:block;font-size:16px}.spl em{display:block;font-size:12px;color:#bcd0ea;font-style:normal}.spl i{width:36px;height:36px;border-radius:50%;background:#1ed760;color:#06150c;display:grid;place-items:center;font-style:normal;font-size:15px;flex:none}
+.iso{--p:0%;position:relative;margin:12px 0 4px;padding:14px;border-radius:14px;border:1px solid rgba(110,200,255,.5);background:linear-gradient(90deg,rgba(79,210,255,.22) var(--p),rgba(8,18,40,.9) var(--p));text-align:center;transition:background .1s}
+.iso.hit{border-color:#7dff9b;background:linear-gradient(90deg,rgba(80,255,140,.25) var(--p),rgba(8,18,40,.9) var(--p))}
+.iso-t{font-family:Jost,sans-serif;font-weight:800;font-size:54px;line-height:1;color:#fff;text-shadow:0 0 16px rgba(79,210,255,.6)}.iso-t small{font-size:20px;margin-left:3px;color:#9fd8ff}
+.iso-g{font-size:13px;color:#cfe3f7;margin:6px 0 10px}.iso-n{font-size:12px;color:#9fb4d4;margin-top:8px;min-height:14px}
+#isoB.stop{background:linear-gradient(180deg,#ff6b6b,#d63a3a);color:#fff}
 /* DUNGEON */
 .portal{display:flex;margin-top:14px;border:2px solid #ffcc4d;border-radius:14px;overflow:hidden;box-shadow:0 0 18px rgba(255,190,50,.45);background:linear-gradient(90deg,rgba(30,20,6,.95),rgba(20,14,30,.95))}
 .portal img{width:43%;object-fit:cover;flex:none;clip-path:polygon(0 0,100% 0,88% 100%,0 100%)}
@@ -1369,11 +1374,42 @@ function exerciseSheet(id,preset){
   const unit=ex.u?'Segundos por série':'Repetições por série';
   openModal(`<div class="row between"><div><h3>${esc(ex.n)}</h3><div class="muted">${GROUP_ICON[ex.g]||''} ${ex.g} · ${ex.t==='cal'?'Calistenia':'Musculação'}${ex.tier?` <span class="tier t${ex.tier}">NÍVEL ${ROMAN[ex.tier]}</span>`:''}</div></div><button class="iconbtn" data-a="close">✕</button></div>
     <div class="field"><label>Séries</label>${stepper('f_s',l.s,1)}</div>
+    ${ex.u==='s'?`<div class="iso"><div class="iso-t" id="isoT">0,0<small>s</small></div><div class="iso-g" id="isoG">Meta: ${l.r}s · toque para começar</div>
+      <button class="btn full" data-a="isoGo" id="isoB">▶ Iniciar cronômetro</button><div class="iso-n" id="isoN"></div></div>`:''}
     <div class="field"><label>${unit}</label>${stepper('f_r',l.r,ex.u?5:1)}</div>
     ${ex.t==='mus'?`<div class="field"><label>Carga (kg)</label>${stepper('f_kg',l.kg,2.5)}</div>`:''}
     <div class="preview"><div><div class="muted" style="font-size:13px">Recompensa estimada</div><div class="dim" style="font-size:12px" id="f_mult"></div></div><b id="f_xp">0 XP</b></div>
     <button class="btn full" style="margin-top:14px" data-a="log" data-id="${id}">⚔️ Registrar série</button>`);
-  window.__sheetEx=id; updatePreview();
+  window.__sheetEx=id; ISO.n=0;ISO.best=0;isoReset(); updatePreview();
+}
+/* cronômetro de isometria */
+const ISO={run:false,cd:0,t0:0,int:null,hit:false,n:0,best:0,wake:null};
+function isoBeep(f,d){try{const A=window.__isoAC||(window.__isoAC=new (window.AudioContext||window.webkitAudioContext)());const o=A.createOscillator(),g=A.createGain();o.frequency.value=f;o.type='square';g.gain.value=.08;o.connect(g);g.connect(A.destination);o.start();o.stop(A.currentTime+(d||.12))}catch(e){}}
+function isoReset(){clearInterval(ISO.int);ISO.run=false;ISO.cd=0;try{ISO.wake&&ISO.wake.release()}catch(e){}ISO.wake=null}
+function isoTick(){
+  const T=$('#isoT');if(!T){isoReset();return}
+  if(ISO.cd>0)return;
+  const el=(Date.now()-ISO.t0)/1000;const goal=+($('#f_r')?.value||0);
+  T.innerHTML=el.toFixed(1).replace('.',',')+'<small>s</small>';
+  const pct=goal?Math.min(100,el/goal*100):0;T.parentElement.style.setProperty('--p',pct+'%');
+  if(goal&&el>=goal&&!ISO.hit){ISO.hit=true;isoBeep(1320,.35);navigator.vibrate&&navigator.vibrate([200,80,200]);$('#isoG').textContent='🔥 META BATIDA! Segure mais se aguentar';T.parentElement.classList.add('hit')}
+}
+function isoGo(){
+  const B=$('#isoB'),G=$('#isoG');if(!B)return;
+  if(ISO.run){ // parar
+    const el=Math.floor((Date.now()-ISO.t0)/1000);isoReset();
+    B.textContent='▶ Próxima série';B.classList.remove('stop');
+    if(el>0){ISO.n++;ISO.best=Math.max(ISO.best,el);$('#f_r').value=ISO.best;$('#f_s').value=Math.max(+$('#f_s').value||0,ISO.n);updatePreview()}
+    G.textContent=el>0?`Série ${ISO.n}: ${el}s registrados abaixo`:'Muito curto, tente de novo';
+    $('#isoN').textContent=ISO.n?`Séries cronometradas: ${ISO.n} · melhor: ${ISO.best}s`:'';navigator.vibrate&&navigator.vibrate(120);return}
+  if(ISO.cd>0)return;
+  ISO.hit=false;const box=B.parentElement;box.classList.remove('hit');box.style.setProperty('--p','0%');
+  try{navigator.wakeLock&&navigator.wakeLock.request('screen').then(w=>ISO.wake=w).catch(()=>{})}catch(e){}
+  ISO.cd=3;$('#isoT').innerHTML='3';isoBeep(660);G.textContent='Prepare-se…';B.textContent='⏹ Parar';B.classList.add('stop');ISO.run=true;
+  clearInterval(ISO.int);ISO.int=setInterval(()=>{
+    if(!$('#isoT')){isoReset();return}
+    if(ISO.cd>0){ISO.cd--;if(ISO.cd>0){$('#isoT').innerHTML=ISO.cd;isoBeep(660)}else{ISO.t0=Date.now();isoBeep(990,.25);$('#isoG').textContent='SEGURE! Meta: '+($('#f_r').value||0)+'s'}return}
+    isoTick()},100);
 }
 function stepper(id,v,step){return `<div class="stepper"><button data-a="step" data-t="${id}" data-d="-${step}">−</button><input id="${id}" type="number" inputmode="decimal" min="0" step="${step}" value="${v}"><button data-a="step" data-t="${id}" data-d="${step}">+</button></div>`}
 function readSheet(){
@@ -2352,7 +2388,8 @@ document.addEventListener('click',ev=>{
     case 'alqCat': alqCat=b.dataset.v;render();break;
     case 'alqDone': closeModal();alqDone(b.dataset.id);break;
     case 'step':{const inp=$('#'+b.dataset.t);const d=+b.dataset.d;inp.value=Math.max(0,Math.round(((+inp.value||0)+d)*100)/100);updatePreview();break}
-    case 'log':{
+    case 'isoGo': isoGo();break;
+    case 'log':{isoReset();
       const {ex,s,r,kg}=readSheet();if(!s||!r){toast('⚠️','Informe séries e repetições');return}
       if(!logExercise(ex.id,s,r,kg))return;
       closeModal();render();
