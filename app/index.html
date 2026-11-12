@@ -2088,6 +2088,12 @@ function render(){
     <li><span style="font-size:30px;width:44px;text-align:center">🛡️</span><span><b>Ranking justo.</b> Registros impossíveis agora são bloqueados e quem trapacear volta ao nível 1.</span></li>
    </ul>
    <button class="btn gold full" data-a="mtGo">⚔️ Escolher meu mestre</button><button class="btn ghost full sm" style="margin-top:8px" data-a="close">Depois</button></div>`,true))}
+  else if(S.nov1&&!S.nov2&&!S.cheat){S.nov2=Date.now();save();queueModal(()=>openModal(`<div class="lvup"><div style="font-size:56px">⏱️</div><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ffc65a">NOVA HABILIDADE DESBLOQUEADA</div>
+   <h3 style="margin-top:8px">Caçadores, o Sistema evoluiu</h3>
+   <p class="muted" style="margin:10px 0 6px">Fala, caçadores! O <b>Cronômetro de Isometria</b> foi forjado e já está no seu arsenal. Prancha, L-sit, parada de mão, front lever: agora o Sistema conta cada segundo que você aguenta.</p>
+   <ul class="nv-list"><li><span style="font-size:24px;width:34px;text-align:center">⚔️</span><span>3, 2, 1… o Sistema dá o sinal e o desafio começa</span></li><li><span style="font-size:24px;width:34px;text-align:center">🔥</span><span>Bateu a meta? O Sistema avisa. Os fortes seguram mais</span></li><li><span style="font-size:24px;width:34px;text-align:center">✨</span><span>Cada segundo vira XP direto na sua série</span></li></ul>
+   <p class="muted" style="margin:6px 0 16px;font-style:italic">Quantos segundos você aguenta, caçador?</p>
+   <button class="btn gold full" data-a="isoTry">⏱️ Aceitar o desafio</button><button class="btn ghost full sm" style="margin-top:8px" data-a="close">Depois</button></div>`,true))}
   if(S.cheat&&!S.cheat.seen){S.cheat.seen=Date.now();save();queueModal(()=>openModal(`<div class="lvup"><div style="font-size:60px">🛡️</div><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ff5a6e">TRAPAÇA DETECTADA</div>
    <h3 style="margin-top:10px;color:#ff8a9a">Você burlou o sistema</h3>
    <p class="muted" style="margin:10px 0 6px">O Sistema encontrou registros impossíveis no seu herói${S.cheat.why?' ('+esc(S.cheat.why)+')':''}. Para manter o ranking justo para todos os caçadores, seu progresso foi zerado e você voltou ao <b>nível 1</b>.</p>
@@ -2389,6 +2395,7 @@ document.addEventListener('click',ev=>{
     case 'alqDone': closeModal();alqDone(b.dataset.id);break;
     case 'step':{const inp=$('#'+b.dataset.t);const d=+b.dataset.d;inp.value=Math.max(0,Math.round(((+inp.value||0)+d)*100)/100);updatePreview();break}
     case 'isoGo': isoGo();break;
+    case 'isoTry': closeModal();setTimeout(()=>exerciseSheet('prancha'),250);break;
     case 'log':{isoReset();
       const {ex,s,r,kg}=readSheet();if(!s||!r){toast('⚠️','Informe séries e repetições');return}
       if(!logExercise(ex.id,s,r,kg))return;
