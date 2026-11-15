@@ -160,7 +160,7 @@
       <div class="mx-run"><img src="/img/mestres/corrida.webp" alt="Héroe corriendo con una ruta de GPS brillante" loading="lazy" width="400" height="500"><div><h3>🏃 Carrera con GPS</h3><p>Corre con la Forja y mira distancia, tiempo y ritmo en vivo. <b>Cada kilómetro se convierte en XP</b> para tu héroe.</p></div></div>
       <a class="mx-pl" href="https://open.spotify.com/playlist/6OAbGqCVLckhjCGq1KevSU" target="_blank" rel="noopener"><img src="/img/mestres/playlist.webp" alt="Portada de la playlist" loading="lazy" width="400" height="400"><div><h3>🎧 Playlist oficial</h3><p>Openings de anime y bandas sonoras de RPG para entrenar en modo jefe final.</p><span class="go">▶ Escuchar en Spotify</span></div></a>
     </div>
-    <a class="tx-btn" href="#planos">Quiero entrenar con un maestro<svg width="20" height="16" viewBox="0 0 24 20" aria-hidden="true"><path d="M2 10h17M12 3l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a class="tx-btn" href="#planos">Entrenar con un maestro<svg width="20" height="16" viewBox="0 0 24 20" aria-hidden="true"><path d="M2 10h17M12 3l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     <p class="tx-note">Maestros y carrera incluidos en el plan Cazador Élite. Ranking justo: los registros imposibles se bloquean.</p>
   </div>
 </section>
@@ -278,10 +278,19 @@
 
 <script>window.FH={cur:'USD',name:'La Forja del Heroe',brand:'La Forja del Héroe',playing:'Reproduciendo',track:'Banda sonora',num:'es',price:{recruta:4.9,elite:9.9,popup:6.9},
  checkout:{recruta:'https://appdigitalhub.com.br/c/ES_RECLUTA',elite:'https://appdigitalhub.com.br/c/ES_ELITE',elitePopup:'https://appdigitalhub.com.br/c/ES_ELITE_POPUP'}};</script>
-<style>@media(max-width:760px){.lx-pill2 span{letter-spacing:.12em!important;font-size:.9em}}</style>
+<script>/* textos traduzidos dentro de pílulas, placas e botões: reduz a letra até caber (mesma proporção do PT) */
+(function(){const C=[['.lx-pill2 span','C',.37],['.sx-pill span','C',.80],['.sx-lb span','R',.885],['.p-pill span','C',.82],['.g-pill span','C',.74],['.f-pill span','C',.82],['.k-pill span','R',.91],['.ibtn span','C',.70]];
+const tw=e=>{const r=document.createRange();r.selectNodeContents(e);return r.getBoundingClientRect()};
+function run(){C.forEach(([sel,m,k])=>document.querySelectorAll(sel).forEach(el=>{const p=el.parentElement;el.style.fontSize='';
+ let fs=parseFloat(getComputedStyle(el).fontSize),i=0;const ok=()=>{const q=p.getBoundingClientRect();if(!q.width)return true;const r=tw(el);return m==='C'?r.width<=q.width*k:(r.right-q.left)<=q.width*k};
+ while(!ok()&&fs>8&&i++<60){fs*=.96;el.style.fontSize=fs+'px'}}));
+ ['.sx-lb span'].forEach(sel=>{const L=[...document.querySelectorAll(sel)].filter(e=>e.offsetParent);const mn=Math.min(...L.map(e=>parseFloat(getComputedStyle(e).fontSize)));L.forEach(e=>e.style.fontSize=mn+'px')});
+ document.querySelectorAll('.hx-feat.m').forEach(box=>{const sp=[...box.querySelectorAll('span')];sp.forEach(e=>e.style.fontSize='');let fs=parseFloat(getComputedStyle(sp[0]).fontSize),i=0;
+  const over=()=>box.scrollWidth>box.clientWidth+1||sp.some(e=>e.scrollWidth>e.clientWidth+1);while(over()&&fs>8&&i++<40){fs*=.95;sp.forEach(e=>e.style.fontSize=fs+'px')}})}
+addEventListener('load',run);addEventListener('resize',()=>{clearTimeout(window.__f2);window.__f2=setTimeout(run,150)});document.fonts&&document.fonts.ready.then(run)})();</script>
 <script>/* encaixa títulos longos (ES/EN) na largura da tela */
 (function(){const sel='.hx-h1 .l1,.hx-h1 .l2 b,.lx-h span,.sx-h,.cx-h,.ap-h span,.k-h,.tx-h,.p-h,.f-h';
-function fit(){document.querySelectorAll(sel).forEach(el=>{el.style.fontSize='';if(innerWidth>=760)return;const max=Math.min(el.parentElement.clientWidth,innerWidth-24);let fs=parseFloat(getComputedStyle(el).fontSize),i=0;
+function fit(){document.querySelectorAll(sel).forEach(el=>{el.style.fontSize='';if(innerWidth>=760)return;const max=Math.min(el.parentElement.clientWidth,innerWidth-44);let fs=parseFloat(getComputedStyle(el).fontSize),i=0;
  el.style.whiteSpace=el.style.whiteSpace||'';const W=()=>Math.max(el.scrollWidth,el.getBoundingClientRect().width);while(W()>max&&fs>12&&i++<40){fs*=0.95;el.style.fontSize=fs+'px'}})}
 addEventListener('load',fit);addEventListener('resize',()=>{clearTimeout(window.__ft);window.__ft=setTimeout(fit,150)});document.fonts&&document.fonts.ready.then(fit)})();</script>
 <script src="/site.js?v=6"></script>

@@ -118,7 +118,7 @@ T = [
 ('<h3>🎧 Playlist oficial</h3><p>Aberturas de anime e trilhas de RPG para treinar no modo chefão.</p><span class="go">▶ Ouvir no Spotify</span>',
  '<h3>🎧 Playlist oficial</h3><p>Openings de anime y bandas sonoras de RPG para entrenar en modo jefe final.</p><span class="go">▶ Escuchar en Spotify</span>',
  '<h3>🎧 Official playlist</h3><p>Anime openings and RPG soundtracks for training in final-boss mode.</p><span class="go">▶ Listen on Spotify</span>'),
-('Quero treinar com um mestre<svg', 'Quiero entrenar con un maestro<svg', 'Train with a master<svg'),
+('Quero treinar com um mestre<svg', 'Entrenar con un maestro<svg', 'Train with a master<svg'),
 ('Mestres e corrida inclusos no plano Caçador Elite. Ranking justo: registros impossíveis são bloqueados.', 'Maestros y carrera incluidos en el plan Cazador Élite. Ranking justo: los registros imposibles se bloquean.', 'Masters and running included in the Elite Hunter plan. Fair leaderboard: impossible logs are blocked.'),
 ('🍺 Taverna · comunidade no app', '🍺 Taberna · comunidad en la app', '🍺 Tavern · in-app community'),
 ('<span class="w">Quer fazer parte</span> <span class="g">da comunidade?</span>', '<span class="w">¿Quieres ser parte</span> <span class="g">de la comunidad?</span>', '<span class="w">Want to join</span> <span class="g">the community?</span>'),
