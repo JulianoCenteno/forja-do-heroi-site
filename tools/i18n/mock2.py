@@ -6,7 +6,7 @@ from playwright.async_api import async_playwright
 R = '/home/claude/forja-do-heroi-site'
 st = json.load(open('/home/claude/tav/state.json')); st.update(nov1=1, nov2=1)
 # nome: (aba, retângulo da tela no mockup)
-JOBS = {'sys-ph1': ('heroi', (13, 19, 349, 634)), 'sys-ph2': ('dungeon', (19, 19, 365, 634)), 'sys-ph3': ('missoes', (18, 19, 355, 634))}
+JOBS = {'sys-ph1': ('heroi', (22, 22, 342, 626)), 'sys-ph2': ('dungeon', (24, 20, 358, 630)), 'sys-ph3': ('missoes', (19, 19, 355, 630))}
 PREP = ("S.log=[];S.bonusXP=0;S.goldBonus=50;S.goldSpent=0;S.titles=[];S.title='';S.bosses={};S.q={};S.qTotal=0;"
         "S.cls='paladino';S.name='Juliano';S.horaHide=1;S.avHide=1;")
 
@@ -16,10 +16,10 @@ async def main():
     try:
         async with async_playwright() as p:
             b = await p.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
-            for lang in ['es', 'en']:
+            for lang in ['es']:
                 for name, (tab, (x0, y0, x1, y1)) in JOBS.items():
-                    W = 392; Hh = round(W * (y1 - y0) / (x1 - x0))
-                    pg = await b.new_page(viewport={'width': W, 'height': Hh}, device_scale_factor=2)
+                    W = 372; Hh = round(W * (y1 - y0) / (x1 - x0))
+                    pg = await b.new_page(viewport={'width': W, 'height': Hh}, device_scale_factor=3)
                     await pg.add_init_script(f"localStorage.setItem('forja_heroi_v1', {json.dumps(json.dumps(st))});localStorage.setItem('fh_install_hide','1');")
                     await pg.route('https://fonts.googleapis.com/**', lambda r: r.fulfill(body=open('/home/claude/fonts.css').read(), content_type='text/css'))
                     await pg.route('**/*supabase.co/rest/**', lambda r: r.abort())

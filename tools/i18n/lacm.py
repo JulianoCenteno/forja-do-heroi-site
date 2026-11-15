@@ -14,15 +14,15 @@ mask=np.zeros(d.shape[:2],np.uint8);mask[0:520,1050:1480]=255
 Hpd,a1,b1=H(pt,d);Hdm,a2,b2=H(d,m,mask);print(a1,b1,a2,b2)
 Hpm=Hdm@Hpd
 h,w=pt.shape[:2]
-sm=np.zeros((h,w),np.uint8);cv2.rectangle(sm,(0,0),(w,808),255,-1)
+sm=np.zeros((h,w),np.uint8);cv2.rectangle(sm,(0,0),(w,852),255,-1)
 def comp(base,Hx,out_name):
     wm=cv2.warpPerspective(sm,Hx,(base.shape[1],base.shape[0]))
     mk=cv2.GaussianBlur(cv2.erode(wm,np.ones((3,3),np.uint8)),(5,5),0).astype(np.float32)[...,None]/255
     # o fim do conteúdo some suavemente (como no original)
-    for l in ['es','en']:
+    for l in ['es']:
         tr=L(f'/tmp/lac-{l}.png');wp=cv2.warpPerspective(tr,Hx,(base.shape[1],base.shape[0]),flags=cv2.INTER_AREA)
         Image.fromarray((wp*mk+base*(1-mk)).astype(np.uint8)).save(f'{R}/img/{l}/{out_name}.webp',quality=90)
-src=np.float32([[0,0],[w,0],[w,808],[0,808]])
-dst=np.float32([[1060,34],[1428,40],[1392,500],[1034,512]])
+src=np.float32([[0,0],[w,0],[w,852],[0,852]])
+dst=np.float32([[1090,48],[1450,36],[1408,500],[1033,500]])
 Hq=cv2.getPerspectiveTransform(src,dst)
-comp(d,Hq,'lac-d');comp(m,Hdm@Hq,'lac-m')
+comp(d,Hq,'lac-d');comp(m,cv2.getPerspectiveTransform(src,np.float32([[292,60],[746,48],[700,636],[214,640]])),'lac-m')

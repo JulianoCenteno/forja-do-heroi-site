@@ -8,9 +8,10 @@ CFG={
  checkout:{recruta:'https://appdigitalhub.com.br/c/ES_RECLUTA',elite:'https://appdigitalhub.com.br/c/ES_ELITE',elitePopup:'https://appdigitalhub.com.br/c/ES_ELITE_POPUP'}};</script>""",
  'en':"""<script>window.FH={cur:'USD',name:'Heros Forge',brand:"Hero's Forge",playing:'Now playing',track:'Soundtrack',num:'en-US',price:{recruta:7.99,elite:14.99,popup:10.99},
  checkout:{recruta:'https://appdigitalhub.com.br/c/EN_RECRUIT',elite:'https://appdigitalhub.com.br/c/EN_ELITE',elitePopup:'https://appdigitalhub.com.br/c/EN_ELITE_POPUP'}};</script>"""}
-FIT='''<script>/* encaixa títulos longos (ES/EN) na largura da tela */
-(function(){const sel='.hx-h1 .l1,.hx-h1 .l2 b,.lx-h span,.sx-h,.cx-h,.ap-h span,.k-h,.tx-h,.g-h span,.p-h,.f-h';
-function fit(){document.querySelectorAll(sel).forEach(el=>{el.style.fontSize='';const box=el.closest('section')||document.body;const max=Math.min(box.clientWidth,innerWidth)-24;let fs=parseFloat(getComputedStyle(el).fontSize),i=0;
+FIT='''<style>@media(max-width:760px){.lx-pill2 span{letter-spacing:.12em!important;font-size:.9em}}</style>
+<script>/* encaixa títulos longos (ES/EN) na largura da tela */
+(function(){const sel='.hx-h1 .l1,.hx-h1 .l2 b,.lx-h span,.sx-h,.cx-h,.ap-h span,.k-h,.tx-h,.p-h,.f-h';
+function fit(){document.querySelectorAll(sel).forEach(el=>{el.style.fontSize='';if(innerWidth>=760)return;const max=Math.min(el.parentElement.clientWidth,innerWidth-24);let fs=parseFloat(getComputedStyle(el).fontSize),i=0;
  el.style.whiteSpace=el.style.whiteSpace||'';const W=()=>Math.max(el.scrollWidth,el.getBoundingClientRect().width);while(W()>max&&fs>12&&i++<40){fs*=0.95;el.style.fontSize=fs+'px'}})}
 addEventListener('load',fit);addEventListener('resize',()=>{clearTimeout(window.__ft);window.__ft=setTimeout(fit,150)});document.fonts&&document.fonts.ready.then(fit)})();</script>
 '''
