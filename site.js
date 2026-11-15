@@ -5,29 +5,32 @@ const CHECKOUT = {
   elite: 'https://appdigitalhub.com.br/c/1C7E51FE',       // Caçador Elite R$ 26,90
   elitePopup: 'https://appdigitalhub.com.br/c/1D6785B5'   // Caçador Elite R$ 19,90 (oferta do pop-up)
 };
+/* versões em outros idiomas (/es, /en) definem window.FH antes de carregar este arquivo */
+const FH=Object.assign({cur:'BRL',name:'Forja do Heroi',playing:'Tocando',track:'Trilha sonora',num:'pt-BR',price:{recruta:9.9,elite:19.9,popup:14.9}},window.FH||{});
+if(FH.checkout)Object.assign(CHECKOUT,FH.checkout);
 const withQs=u=>{try{const q=location.search;if(!q||!u)return u;const x=new URL(u);new URLSearchParams(q).forEach((v,k)=>{if(!x.searchParams.has(k))x.searchParams.set(k,v)});return x.toString()}catch(e){return u}};
 /* Digital Hub Tracker (tracker.js): leva UTMs + ID do visitante ao checkout e já envia o InitiateCheckout
    (pixel + servidor, sem duplicar). Só disparamos o nosso se o tracker não carregou. */
 const RT=()=>window.Rastreio&&window.Rastreio.loaded?window.Rastreio:null;
 const dec=u=>{const r=RT();return r?r.decorate(withQs(u)):withQs(u)};
-const ic=(v,n,u)=>{const r=RT();if(r){r.initiateCheckout(u);return}try{fbq('track','InitiateCheckout',{value:v,currency:'BRL',content_name:n})}catch(e){}};
-const go=(u,v,n)=>{if(u){ic(v||9.9,n||'Forja do Heroi',u);location.href=dec(u)}};
-document.querySelectorAll('[data-plan="elite"]').forEach(a=>{a.href=withQs(CHECKOUT.elite);a.addEventListener('click',()=>{if(!RT())ic(19.9,'Cacador Elite')})});
+const ic=(v,n,u)=>{const r=RT();if(r){r.initiateCheckout(u);return}try{fbq('track','InitiateCheckout',{value:v,currency:FH.cur,content_name:n})}catch(e){}};
+const go=(u,v,n)=>{if(u){ic(v||FH.price.recruta,n||FH.name,u);location.href=dec(u)}};
+document.querySelectorAll('[data-plan="elite"]').forEach(a=>{a.href=withQs(CHECKOUT.elite);a.addEventListener('click',()=>{if(!RT())ic(FH.price.elite,'Cacador Elite')})});
 /* o botão do Recruta só abre o pop-up: tira o link do checkout para o tracker não contar o clique como início de compra */
 document.querySelectorAll('[data-plan="recruta"]').forEach(a=>a.setAttribute('href','#planos'));
 const pop=document.getElementById('pop');let lastFocus=null;
 function openPop(){lastFocus=document.activeElement;pop.hidden=false;document.body.style.overflow='hidden';document.getElementById('popYes').focus()}
 function closePop(){pop.hidden=true;document.body.style.overflow='';lastFocus&&lastFocus.focus()}
 document.querySelectorAll('[data-plan="recruta"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();openPop()}));
-document.getElementById('popYes').addEventListener('click',e=>{e.preventDefault();go(CHECKOUT.elitePopup||CHECKOUT.elite,14.9,'Cacador Elite popup')});
-document.getElementById('popNo').addEventListener('click',e=>{e.preventDefault();go(CHECKOUT.recruta,9.9,'Recruta')});
+document.getElementById('popYes').addEventListener('click',e=>{e.preventDefault();go(CHECKOUT.elitePopup||CHECKOUT.elite,FH.price.popup,'Cacador Elite popup')});
+document.getElementById('popNo').addEventListener('click',e=>{e.preventDefault();go(CHECKOUT.recruta,FH.price.recruta,'Recruta')});
 document.getElementById('popX').addEventListener('click',closePop);
 pop.addEventListener('click',e=>{if(e.target===pop)closePop()});
 addEventListener('keydown',e=>{if(e.key==='Escape'&&!pop.hidden)closePop()});
 
 /* ====== DADOS DO RODAPÉ (preencha) ====== */
 const EMPRESA = { nome: '', documento: '', suporte: '' };
-(()=>{const p=[EMPRESA.nome,EMPRESA.documento,EMPRESA.suporte&&('Suporte: '+EMPRESA.suporte)].filter(Boolean);if(p.length)document.getElementById('footInfo').textContent='© 2026 Forja do Herói · '+p.join(' · ')})();
+(()=>{const p=[EMPRESA.nome,EMPRESA.documento,EMPRESA.suporte&&('Suporte: '+EMPRESA.suporte)].filter(Boolean);if(p.length)document.getElementById('footInfo').textContent='© 2026 '+(FH.brand||'Forja do Herói')+' · '+p.join(' · ')})();
 
 /* ====== navegação ====== */
 const nav=document.getElementById('nav'),links=document.getElementById('links');
@@ -38,7 +41,7 @@ const spy=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.
 ['topo','classes','sistema','planos','faq'].forEach(id=>{const s=document.getElementById(id);s&&spy.observe(s)});
 
 /* ====== aparecer ao rolar + barras + contadores ====== */
-function count(el){const n=+el.dataset.n,t0=performance.now(),D=1800;const f=t=>{const p=Math.min(1,(t-t0)/D),e=1-Math.pow(1-p,3);el.textContent=Math.round(n*e).toLocaleString('pt-BR');if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
+function count(el){const n=+el.dataset.n,t0=performance.now(),D=1800;const f=t=>{const p=Math.min(1,(t-t0)/D),e=1-Math.pow(1-p,3);el.textContent=Math.round(n*e).toLocaleString(FH.num);if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const t=e.target;t.classList.add('in');
   t.querySelectorAll('.tr i').forEach(i=>i.style.width=i.dataset.w+'%');t.querySelectorAll('.cnt').forEach(count);io.unobserve(t)}),{threshold:.14});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
@@ -96,7 +99,7 @@ if(matchMedia('(pointer:fine)').matches){addEventListener('mousemove',e=>{tx=(e.
 const aud=document.getElementById('aud'),mus=document.getElementById('mus');
 aud.volume=.35;
 fetch(aud.src,{method:'HEAD'}).then(r=>{if(r.ok)mus.hidden=false}).catch(()=>{});
-const musUI=on=>{mus.classList.toggle('on',on);mus.setAttribute('aria-pressed',on?'true':'false');document.getElementById('musL').textContent=on?'Tocando':'Trilha sonora'};
+const musUI=on=>{mus.classList.toggle('on',on);mus.setAttribute('aria-pressed',on?'true':'false');document.getElementById('musL').textContent=on?FH.playing:FH.track};
 let musOff=false;try{musOff=localStorage.getItem('fhMus')==='off'}catch(e){}
 const EV=['pointerdown','touchstart','keydown','click'];
 const kick=()=>{if(musOff||!aud.paused)return unhook();aud.play().then(()=>{musUI(true);unhook()}).catch(()=>{})};

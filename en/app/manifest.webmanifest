@@ -1,0 +1,33 @@
+{
+  "name": "Hero's Forge",
+  "short_name": "Hero's Forge",
+  "description": "Your workout just became an RPG: earn XP, level up and evolve your hero.",
+  "id": "/en/app/",
+  "start_url": "/en/app/",
+  "scope": "/en/app/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#05070d",
+  "theme_color": "#05070d",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/app/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/app/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/app/icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero's Forge — Your workout just became an RPG | Calisthenics & Weightlifting</title>
+<meta name="description" content="Train in real life, earn XP with every set, complete daily quests, defeat bosses with your personal records and level up your hero. RPG workout app from $7.99, one-time payment.">
+<meta property="og:title" content="Hero's Forge — Your workout just became an RPG">
+<meta property="og:description" content="Earn XP with every set, complete quests and defeat bosses with your records. Pick your class and actually level up.">
+<meta property="og:image" content="https://forjadoheroi.com/img/en/logo-full.webp">
+<meta property="og:type" content="website">
+<link rel="alternate" hreflang="pt-BR" href="https://forjadoheroi.com/"><link rel="alternate" hreflang="es" href="https://forjadoheroi.com/es/"><link rel="alternate" hreflang="en" href="https://forjadoheroi.com/en/">
+<meta name="theme-color" content="#060914">
+<link rel="icon" type="image/png" href="/app/icons/favicon-64.png">
+<link rel="apple-touch-icon" href="/app/icons/apple-touch-icon.png">
+<link rel="preload" as="image" href="/img/v3/hero-d.webp" media="(min-width:761px)"><link rel="preload" as="image" href="/img/v3/hero-m.webp" media="(max-width:760px)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,800;1,900&family=Cinzel:wght@800;900&family=Fira+Sans:ital,wght@0,400;0,500;1,400;1,500&family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/site.css?v=4">
+<link rel="stylesheet" href="/hero.css?v=2">
+<link rel="stylesheet" href="/lacuna.css?v=2">
+<link rel="stylesheet" href="/classes.css?v=2">
+<link rel="stylesheet" href="/sistema.css?v=2">
+<link rel="stylesheet" href="/alquimia.css?v=2">
+<link rel="stylesheet" href="/ranking.css?v=1">
+<link rel="stylesheet" href="/garantia.css?v=1">
+<link rel="stylesheet" href="/planos.css?v=1">
+<link rel="stylesheet" href="/taverna.css?v=3">
+<link rel="stylesheet" href="/faq.css?v=1">
+<link rel="stylesheet" href="/carousel.css?v=2">
+<link rel="stylesheet" href="/aura.css?v=2">
+<link rel="stylesheet" href="/popup.css?v=1">
+<!-- Meta Pixel: Forjo do Heroes -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1141320428608400');fbq('track','PageView');fbq('track','ViewContent',{content_name:'Heros Forge',value:7.99,currency:'USD'});</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1141320428608400&ev=PageView&noscript=1" alt=""></noscript>
+<!-- Digital Hub Tracker -->
+<script src="https://tracker.appdigitalhub.com.br/tracker.js" async data-endpoint="https://tracker.appdigitalhub.com.br" data-checkout="appdigitalhub.com.br/c/"></script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset=".5" stop-color="#ffc83a"/><stop offset="1" stop-color="#d47b06"/></linearGradient><linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d6f6ff"/><stop offset="1" stop-color="#2a9be0"/></linearGradient><linearGradient id="gp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2c8ff"/><stop offset="1" stop-color="#7a3cff"/></linearGradient><linearGradient id="gt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8fff0"/><stop offset="1" stop-color="#16b48c"/></linearGradient></defs></svg>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<header class="hnav" id="nav">
+  <a class="hn-logo" href="#topo" aria-label="Hero's Forge · RPG Training"><img src="/img/en/logo-nav.webp" alt="Hero's Forge · RPG Training"></a>
+  <nav class="hn-links" id="links" aria-label="Sections">
+    <a href="#topo" class="on">Home</a><a href="#classes">Classes</a><a href="#sistema">Features</a><a href="#planos">Plans</a><a href="#faq">FAQ</a>
+  </nav>
+  <span class="hn-sep"></span>
+  <a class="ibtn hnb" href="#planos"><img src="/img/v3/btn-nav.webp" alt=""><span>Start now</span></a>
+  <button class="hn-burger" id="burger" aria-label="Open menu"><i></i><i></i><i></i></button>
+</header>
+
+<!-- 1. HERO -->
+<section class="hx" id="topo">
+  <picture class="hx-bg"><source media="(max-width:760px)" srcset="/img/v3/hero-m.webp"><img src="/img/v3/hero-d.webp" alt="Monk, Paladin and Warrior in front of the dungeon portal"></picture>
+  <div class="hx-in">
+    <h1 class="hx-h1"><span class="l1">Your workout just became</span><span class="l2"><i></i><b>an RPG.</b><i></i></span></h1>
+    <p class="hx-p">Train in real life, earn XP with every set, defeat bosses with<br class="br-d"> your personal records and level up your hero inside the game.</p>
+    <div class="hx-ctas">
+      <a class="ibtn gold" href="#planos"><img src="/img/v3/btn-gold.webp" alt=""><span>Awaken my hero</span></a>
+      <a class="ibtn blue" href="#classes"><img src="/img/v3/btn-blue.webp" alt=""><span>Choose my class</span></a>
+    </div>
+    <img class="hx-feat d" src="/img/en/featbar.webp" alt="Instant XP · Daily quests · Epic bosses">
+    <div class="hx-feat m"><span><img src="/img/v3/ic-xp.webp" alt="">Instant XP</span><span><img src="/img/v3/ic-scroll.webp" alt="">Daily quests</span><span><img src="/img/v3/ic-demon.webp" alt="">Epic bosses</span></div>
+  </div>
+</section>
+
+<!-- 2. LACUNA + LOOP -->
+<section class="lx" id="problema">
+  <picture class="lx-bg"><source media="(max-width:760px)" srcset="/img/en/lac-m.webp"><img src="/img/en/lac-d.webp" alt="Hero screen inside the app" loading="lazy"></picture>
+  <div class="lx-in">
+    <div class="lx-pill1"><img src="/img/v3/pill-prob.webp" alt=""><span>The real problem</span></div>
+    <h2 class="lx-h"><span class="w">The reward</span><span class="g">gap</span></h2>
+    <i class="lx-line"></i>
+    <p class="lx-p">In games, your brain gets rewarded in seconds.<br class="br-d"> In the gym, results take months. Hero's Forge<br class="br-d"> closes that gap by turning your workout into a game<br class="br-d"> with <b>instant feedback</b> on every set.</p>
+    <div class="lx-pill2"><img src="/img/v3/pill-loop.webp" alt=""><span>The hero loop</span></div>
+    <p class="lx-sub">Train, level up and get rewarded in a loop that keeps you consistent and making real progress.</p>
+    <div class="lx-cards">
+      <div class="lx-card"><img src="/img/v3/loop-card0.webp" alt=""><div class="t"><h3>Instant<br>reward</h3><p>Earn XP for every set<br>you finish.</p></div></div>
+      <div class="lx-card"><img src="/img/v3/loop-card1.webp" alt=""><div class="t"><h3>Daily<br>reward</h3><p>Complete quests and<br>keep your streak.</p></div></div>
+      <div class="lx-card"><img src="/img/v3/loop-card2.webp" alt=""><div class="t"><h3>Epic<br>reward</h3><p>Face bosses and beat<br>your personal records.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. VEJA O SISTEMA -->
+<section class="sx" id="sistema">
+  <img class="sx-bg" src="/img/v3/sys-bg.webp" alt="" aria-hidden="true" loading="lazy">
+  <div class="sx-in">
+    <div class="sx-pill"><img src="/img/v3/sys-pill.webp" alt=""><span>See the system</span></div>
+    <h2 class="sx-h"><i></i><span class="w">Your workout,</span>&nbsp;<span class="g">like a game</span><i></i></h2>
+    <p class="sx-sub">Track your hero, enter dungeons and complete daily quests without leaving your workout.</p>
+    <div class="car sx-car" data-car>
+    <div class="sx-col c1"><img class="sx-ph" src="/img/en/sys-ph1.webp" alt="Hero and stats screen in the app" loading="lazy"><div class="sx-lb"><img src="/img/v3/sys-lb1.webp" alt=""><span>Hero and stats</span></div></div>
+    <div class="sx-col c2"><img class="sx-ph" src="/img/en/sys-ph2.webp" alt="Dungeon screen in the app" loading="lazy"><div class="sx-lb"><img src="/img/v3/sys-lb2.webp" alt=""><span>Dungeons and raids</span></div></div>
+    <div class="sx-col c3"><img class="sx-ph" src="/img/en/sys-ph3.webp" alt="Quests screen in the app" loading="lazy"><div class="sx-lb"><img src="/img/v3/sys-lb3.webp" alt=""><span>Quests and progress</span></div></div>
+    </div>
+    <div class="car-ui" aria-hidden="false"><button class="car-ar prev" aria-label="Previous">‹</button><div class="car-dots"><button aria-label="Screen 1"></button><button aria-label="Screen 2"></button><button aria-label="Screen 3"></button></div><button class="car-ar next" aria-label="Next">›</button></div>
+  </div>
+</section>
+
+<!-- 4. CLASSES -->
+<section class="cx" id="classes">
+  <img class="cx-bg" src="/img/v3/cls-bg.webp" alt="" aria-hidden="true" loading="lazy">
+  <div class="cx-in">
+    <div class="cx-pill"><img src="/img/v3/cls-pill.webp" alt=""><span>Pick your class</span></div>
+    <h2 class="cx-h">Choose who you will become</h2>
+    <p class="cx-sub">Each class changes the fantasy of your journey, while the progress happens in your real workouts.</p>
+    <div class="cx-cards car" data-car>
+      <a class="cx-card m" href="#planos"><img src="/img/en/cls-card-monge.webp" alt="Bar Monk · Calisthenics · Strength, Endurance, Agility and Vigor" loading="lazy"></a>
+      <a class="cx-card p" href="#planos"><img src="/img/en/cls-card-paladino.webp" alt="Hybrid Paladin · Hybrid · Strength, Endurance, Agility and Vigor" loading="lazy"></a>
+      <a class="cx-card g" href="#planos"><img src="/img/en/cls-card-guerreiro.webp" alt="Iron Warrior · Weightlifting · Strength, Endurance, Agility and Vigor" loading="lazy"></a>
+    </div>
+    <div class="car-ui" aria-hidden="false"><button class="car-ar prev" aria-label="Previous">‹</button><div class="car-dots"><button aria-label="Class 1"></button><button aria-label="Class 2"></button><button aria-label="Class 3"></button></div><button class="car-ar next" aria-label="Next">›</button></div>
+    <a class="cx-btn" href="#planos"><img src="/img/v3/cls-btn.webp" alt=""><span>Choose my class</span></a>
+  </div>
+</section>
+
+<!-- 5. ALQUIMIA -->
+<section class="ax" id="alquimia">
+  <img class="ax-bg" src="/img/en/alq-d.webp" alt="Paladin with a protein shake and a table of recipes: shakes, pancakes, mousse, oats, eggs and chicken with rice" loading="lazy">
+  <img class="ax-art-m" src="/img/en/alq-art-m.webp" alt="" aria-hidden="true" loading="lazy">
+  <div class="ap">
+    <span class="ap-pill">Extra bonus</span>
+    <h2 class="ap-h"><span class="w">Hero's Alchemy:</span><span class="g">50 high-protein</span><span class="w">recipes</span></h2>
+    <p class="ap-p">The app includes 50 easy, protein-packed recipes made with affordable grocery-store ingredients, to fuel your training, support your recovery and help your hero truly level up.</p>
+    <span class="ap-t t1">Protein<br>shakes</span><span class="ap-t t2">Protein<br>pancakes</span><span class="ap-t t3">Mousses &amp;<br>desserts</span>
+    <span class="ap-t t4">Real<br>food</span><span class="ap-t t5">Easy<br>to make</span><span class="ap-t t6">High in<br>protein</span>
+    <a class="ap-btn" href="#planos">Level up my diet <b>→</b></a>
+  </div>
+</section>
+
+<!-- 6. RANKING -->
+<section class="kx" id="ranking">
+  <img class="kx-bg" src="/img/en/rk-d.webp" alt="Season podium: Juliano 1st with 1,248,750 XP, Rafael 2nd with 1,033,420 XP and Caio 3rd with 987,230 XP" loading="lazy">
+  <div class="kb k-pill"><img class="mo" src="/img/v3/rk-pill.webp" alt="" loading="lazy"><span>Season ranking</span></div>
+  <h2 class="k-h"><span class="w">Climb the</span> <span class="g">season leaderboard</span></h2>
+  <p class="k-p">Earn XP, finish quests and compete with other heroes for prestige and monthly rewards.</p>
+  <div class="k-pod" aria-hidden="true"><img class="p1" src="/img/en/rk-p1.webp" alt="" loading="lazy"><div class="row"><img src="/img/v3/rk-p2.webp" alt="" loading="lazy"><img src="/img/v3/rk-p3.webp" alt="" loading="lazy"></div></div>
+  <div class="kb k-rec"><img class="mo" src="/img/v3/rk-rec.webp" alt="" loading="lazy"><span>Season rewards</span></div>
+  <div class="kb k-r r1"><img class="mo" src="/img/v3/rk-r1.webp" alt="" loading="lazy"><b>Exclusive title</b><small>Show off your hero status</small></div>
+  <div class="kb k-r r2"><img class="mo" src="/img/v3/rk-r2.webp" alt="" loading="lazy"><b>Gold bonus</b><small>Special season coins</small></div>
+  <div class="kb k-r r3"><img class="mo" src="/img/v3/rk-r3.webp" alt="" loading="lazy"><b>Season prestige</b><small>Recognition and unique perks</small></div>
+  <a class="kb k-btn" href="#planos"><img class="mo" src="/img/v3/rk-btn.webp" alt="" loading="lazy"><span>I want to climb the ranks<svg viewBox="0 0 24 20" aria-hidden="true"><path d="M2 10h17M12 3l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+  <p class="k-note">Illustrative leaderboard example.</p>
+</section>
+
+<!-- 6a. MESTRES + CORRIDA -->
+<section class="tx mx" id="mestres">
+  <div class="tx-in">
+    <span class="tx-pill">🧙 New · Forge Masters</span>
+    <h2 class="tx-h"><span class="w">Choose your</span> <span class="g">master</span></h2>
+    <p class="tx-p">Three masters give you your workout, <b>day after day</b>. Every day is a different session with sets, reps and suggested weight. The next one only unlocks when you finish the current one.</p>
+    <div class="mx-cards">
+      <figure class="mx-c" style="--mc:#3fe08a"><img src="/img/mestres/monge.webp" alt="Master Kaito, master of calisthenics" loading="lazy" width="560" height="700"><figcaption><b>Master Kaito</b><small>Master of Calisthenics</small><p>Bodyweight training at home or at the park, from beginner to advanced.</p></figcaption></figure>
+      <figure class="mx-c" style="--mc:#ff7a4a"><img src="/img/mestres/guerreiro.webp" alt="Master Brutus, master of iron" loading="lazy" width="560" height="700"><figcaption><b>Master Brutus</b><small>Master of Iron</small><p>Weightlifting with one muscle group a day: chest, back, legs, shoulders and arms.</p></figcaption></figure>
+      <figure class="mx-c" style="--mc:#4fd2ff"><img src="/img/mestres/paladino.webp" alt="Master Aurora, hybrid master" loading="lazy" width="560" height="700"><figcaption><b>Master Aurora</b><small>Hybrid Master</small><p>Bars and iron in the same session: strength, definition and agility together.</p></figcaption></figure>
+    </div>
+    <div class="mx-row">
+      <div class="mx-run"><img src="/img/mestres/corrida.webp" alt="Hero running along a glowing GPS route" loading="lazy" width="400" height="500"><div><h3>🏃 GPS running</h3><p>Run with the Forge and see distance, time and pace live. <b>Every kilometer turns into XP</b> for your hero.</p></div></div>
+      <a class="mx-pl" href="https://open.spotify.com/playlist/6OAbGqCVLckhjCGq1KevSU" target="_blank" rel="noopener"><img src="/img/mestres/playlist.webp" alt="Playlist cover" loading="lazy" width="400" height="400"><div><h3>🎧 Official playlist</h3><p>Anime openings and RPG soundtracks for training in final-boss mode.</p><span class="go">▶ Listen on Spotify</span></div></a>
+    </div>
+    <a class="tx-btn" href="#planos">Train with a master<svg width="20" height="16" viewBox="0 0 24 20" aria-hidden="true"><path d="M2 10h17M12 3l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <p class="tx-note">Masters and running included in the Elite Hunter plan. Fair leaderboard: impossible logs are blocked.</p>
+  </div>
+</section>
+
+<!-- 6b. TAVERNA · comunidade -->
+<section class="tx" id="taverna">
+  <div class="tx-in">
+    <span class="tx-pill">🍺 Tavern · in-app community</span>
+    <h2 class="tx-h"><span class="w">Want to join</span> <span class="g">the community?</span></h2>
+    <p class="tx-p">Inside the app there's the <b>Tavern</b>: the wall where heroes post today's workout, celebrate PRs, challenge friends to duels and keep each other accountable.</p>
+    <div class="tx-ph">
+      <figure><img src="/img/en/tav-1.webp" alt="Tavern screen in the app: duels and posting area" loading="lazy" width="588" height="1140"><figcaption>Duels with friends</figcaption></figure>
+      <figure><img src="/img/en/tav-2.webp" alt="Tavern feed with workout posts, levels and PRs" loading="lazy" width="588" height="1140"><figcaption>Heroes feed</figcaption></figure>
+      <figure><img src="/img/en/tav-3.webp" alt="Tavern VIP hall with weekly challenges" loading="lazy" width="588" height="1140"><figcaption>Elite VIP Hall</figcaption></figure>
+    </div>
+    <ul class="tx-li">
+      <li><b>💪 Share workouts</b>Post today's workout and the XP you earned in one tap.</li>
+      <li><b>⚔️ Duels</b>Challenge a friend: whoever does more wins the gold.</li>
+      <li><b>👑 VIP Hall</b>Group challenges and a golden crown on your posts.</li>
+      <li><b>🔥 Motivation</b>Likes and comments from people who train like you.</li>
+    </ul>
+    <a class="tx-btn" href="#planos">Enter the Tavern<svg width="20" height="16" viewBox="0 0 24 20" aria-hidden="true"><path d="M2 10h17M12 3l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <p class="tx-note">Included in the Elite Hunter plan. Real app screens; sample posts.</p>
+  </div>
+</section>
+
+<!-- 7. GARANTIA (acima da oferta) -->
+<section class="gx" id="garantia">
+  <img class="gx-bg" src="/img/en/gar-d.webp" alt="Gold seal: 7-day unconditional guarantee" loading="lazy">
+  <img class="mo g-badge" src="/img/en/gar-badge.webp" alt="Gold seal: 7-day unconditional guarantee" loading="lazy">
+  <div class="gb g-pill"><img class="mo" src="/img/v3/gar-pill.webp" alt="" loading="lazy"><span>Hero's Forge</span></div>
+  <h2 class="g-h"><span class="w">7-day unconditional</span><span class="g">guarantee</span></h2>
+  <p class="g-p">Try Hero's Forge for <b>7 full days</b>. <br>If you feel the app isn't for you, <br>just request a refund. No hassle, no questions asked.</p>
+  <div class="gb g-c c1"><img class="mo" src="/img/v3/gar-c1.webp" alt="" loading="lazy"><b>7 days</b><small>to try everything</small></div>
+  <div class="gb g-c c2"><img class="mo" src="/img/v3/gar-c2.webp" alt="" loading="lazy"><b>Refund</b><small>full and fast</small></div>
+  <div class="gb g-c c3"><img class="mo" src="/img/v3/gar-c3.webp" alt="" loading="lazy"><b>No</b><small>hassle</small></div>
+</section>
+
+<!-- 8. PLANOS -->
+<section class="px" id="planos">
+  <img class="px-bg" src="/img/en/pl-d.webp" alt="Paladin and Warrior next to the Recruit and Elite Hunter plans" loading="lazy">
+  <div class="pb p-pill"><img class="mo" src="/img/v3/pl-pill.webp" alt="" loading="lazy"><span>Hero's Forge</span></div>
+  <h2 class="p-h">Choose your journey</h2>
+  <p class="p-s">Unlock your potential and level up at your own pace.</p>
+  <div class="pb pc c1">
+    <img class="mo" src="/img/v3/pl-c1.webp" alt="" loading="lazy">
+    <h3>Recruit</h3><span class="for">The essentials to get started</span>
+    <ul><li>Full app access</li><li>RPG training system</li><li>Daily and weekly quests</li><li>Boss battles</li><li>Progress tracking</li></ul>
+    <span class="old"><s>$24.99</s></span>
+    <span class="pr"><small>$</small>7<sup>.99<em>one-time payment</em></sup></span>
+    <a class="bt" data-plan="recruta" href="https://appdigitalhub.com.br/c/43752C6D">Start as a Recruit<svg viewBox="0 0 12 18" aria-hidden="true"><path d="M3 2l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+  <div class="pb pc c2">
+    <img class="mo" src="/img/en/pl-c2.webp" alt="" loading="lazy">
+    <h3>Elite Hunter</h3><span class="for">The full experience</span>
+    <ul><li>Everything in Recruit</li><li>Masters: daily guided workouts</li><li>GPS running that earns XP</li><li>Tavern: in-app community</li><li>Alchemy: exclusive high-protein recipes</li><li>30-day Dungeon and leaderboard</li></ul>
+    <span class="old"><s>$49.99</s></span>
+    <span class="pr"><small>$</small>14<sup>.99<em>one-time payment</em></sup></span>
+    <a class="bt" data-plan="elite" href="https://appdigitalhub.com.br/c/1C7E51FE">Go Elite<svg viewBox="0 0 12 18" aria-hidden="true"><path d="M3 2l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+</section>
+
+<!-- 9. FAQ -->
+<section class="fx" id="faq">
+  <img class="fx-bg" src="/img/v3/fq-d.webp" alt="" aria-hidden="true" loading="lazy">
+  <img class="mo f-hero" src="/img/v3/fq-hero-m.webp" alt="" aria-hidden="true" loading="lazy">
+  <div class="f-pill"><img class="mo" src="/img/v3/fq-pill.webp" alt="" loading="lazy"><span>Hero's Forge</span></div>
+  <h2 class="f-h">Frequently asked questions</h2>
+  <p class="f-s">Get your answers and everything you need to know.</p>
+  <div class="f-list">
+    <details class="fq" name="faq" open><summary><img src="/img/v3/fq-i1.webp" alt="" aria-hidden="true"><span>What is Hero's Forge?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></summary><p>Hero's Forge is a gamified workout app inspired by RPGs and leveling anime. It turns your physical progress into a hero's journey with workouts, quests, bosses, rewards and level-ups.</p></details>
+    <details class="fq" name="faq"><summary><img src="/img/v3/fq-i2.webp" alt="" aria-hidden="true"><span>Do I need a gym to use the app?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></summary><p>No. The Monk class trains with bodyweight only, at home or at the park. If you train at a gym, the Warrior logs weight and earns more XP for what you lift. The Paladin mixes both.</p></details>
+    <details class="fq" name="faq"><summary><img src="/img/v3/fq-i3.webp" alt="" aria-hidden="true"><span>Does the app come with ready-made workouts?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></summary><p>With Elite Hunter, yes: the 30-day Dungeon gives you each day's workout ready for your class, starting light and ramping up every week. With Recruit, you pick the exercises (45+, with levels I to V) and the app turns every set into XP, quests and bosses.</p></details>
+    <details class="fq" name="faq"><summary><img src="/img/v3/fq-i4.webp" alt="" aria-hidden="true"><span>What's the difference between Recruit and Elite Hunter?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></summary><p>Recruit has the essentials: you log your workouts and the app turns everything into XP, quests, bosses and progress. Elite Hunter includes all of that plus the Masters, GPS running, the Tavern, Hero's Alchemy (high-protein recipes), workout sheets and advanced protocols.</p></details>
+    <details class="fq" name="faq"><summary><img src="/img/v3/fq-i5.webp" alt="" aria-hidden="true"><span>Can I cancel anytime?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></summary><p>There's no subscription to cancel: you pay once and the access is yours. And if you don't like it, request a refund within the first 7 days and get 100% back, no hassle.</p></details>
+    <details class="fq" name="faq"><summary><img src="/img/v3/fq-i6.webp" alt="" aria-hidden="true"><span>Is checkout secure?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></summary><p>Yes. Payment is processed in a secure environment by card. And you get a 7-day unconditional guarantee: if you don't like it, request a refund and get 100% back.</p></details>
+  </div>
+</section>
+
+<!-- 10. RODAPÉ -->
+<footer class="foot">
+  <div class="ruins" aria-hidden="true"><img class="rl" src="/img/v3/bg-ruins.webp" alt=""><img class="rr" src="/img/v3/bg-ruins.webp" alt=""></div>
+  <div class="wrap rel">
+    <div class="fgrid">
+      <div class="fbrand"><img src="/img/en/logo-emblem.webp" alt="Hero's Forge · RPG Training" loading="lazy"><p>Turn your workout into a real leveling journey.</p><div class="goldline c"></div></div>
+      <div class="fcol"><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/><path d="M9.5 6.5L21 3v3l-11.5 11.5M11 19l-6-6M8 16l-4 4M5 21l-2-2" opacity=".9"/></svg>Navigation</h4><ul><li><a href="#topo">Home</a></li><li><a href="#sistema">Features</a></li><li><a href="#planos">Plans</a></li><li><a href="#garantia">Guarantee</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+      <div class="fcol"><h4><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 7h10a5 5 0 0 1 5 5v2a3 3 0 0 1-5.4 1.8L15 14H9l-1.6 1.8A3 3 0 0 1 2 14v-2a5 5 0 0 1 5-5zm0 3v1.2H5.8v1.6H7V14h1.6v-1.2h1.2v-1.6H8.6V10zm9.5.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>The app</h4><ul><li><a href="#problema">RPG workouts</a></li><li><a href="#sistema">Daily quests</a></li><li><a href="#sistema">Boss battles</a></li><li><a href="#mestres">Masters and running</a></li><li><a href="#alquimia">Protein alchemy</a></li><li><a href="#ranking">Season leaderboard</a></li></ul></div>
+      <div class="fcol"><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2.5l8 3v6c0 5-3.4 8.6-8 10.5-4.6-1.9-8-5.5-8-10.5v-6z"/><path d="M8 12l3 3 5-6" stroke-linecap="round"/></svg>Secure checkout</h4>
+        <div class="secbox"><div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V7a5 5 0 0 1 10 0v3h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2zm2 0h6V7a3 3 0 0 0-6 0z"/></svg><span>100% secure<br>checkout</span></div><i></i><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg><span>Protected<br>payment</span></div></div>
+        <div class="pays"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>Card</span></div>
+      </div>
+    </div>
+    <div class="fline"><i>✦</i></div>
+    <div class="fbot"><span id="footInfo">© 2026 Hero's Forge. All rights reserved.</span><span class="flegal"><a href="https://appdigitalhub.com.br/termos" target="_blank" rel="noopener">Terms</a> · <a href="https://appdigitalhub.com.br/privacidade" target="_blank" rel="noopener">Privacy</a> · 7-day guarantee through the payment platform</span></div>
+  </div>
+</footer>
+
+<button class="mus" id="mus" aria-pressed="false" hidden><span class="eq"><i></i><i></i><i></i></span><span id="musL">Soundtrack</span></button>
+<audio id="aud" preload="auto" loop src="https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh-audio/adventure.mp3"></audio>
+
+<div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="popT" hidden>
+  <div class="pop-box">
+    <button class="pop-x" id="popX" aria-label="Close">✕</button>
+    <div class="pop-top"><img src="/img/v3/pop-top.webp" alt="Paladin with a golden aura"><span class="pop-rib">One-time offer</span></div>
+    <div class="pop-body">
+      <h3 id="popT">Wait, hero!</h3>
+      <p class="pop-sub">This screen only: get the full <b>Elite Hunter</b> for just <b class="w">$3 more</b>.</p>
+      <div class="pop-price"><s>$14.99</s><span class="pp-new"><small>$</small>10<sup>.99</sup></span></div>
+      <ul class="pop-list"><li>Masters: a new workout every day</li><li>GPS running and the 30-day Dungeon</li><li><b>Bonus:</b> 50 protein recipes and VIP Tavern</li></ul>
+      <a class="pop-yes" id="popYes" href="https://appdigitalhub.com.br/c/1D6785B5"><img src="/img/v3/btn-gold.webp" alt=""><span>Yes, I want Elite</span></a>
+      <a class="pop-no" id="popNo" href="https://appdigitalhub.com.br/c/43752C6D">No, just the Recruit for $7.99</a>
+    </div>
+  </div>
+</div>
+
+<script>window.FH={cur:'USD',name:'Heros Forge',brand:"Hero's Forge",playing:'Now playing',track:'Soundtrack',num:'en-US',price:{recruta:7.99,elite:14.99,popup:10.99},
+ checkout:{recruta:'https://appdigitalhub.com.br/c/EN_RECRUIT',elite:'https://appdigitalhub.com.br/c/EN_ELITE',elitePopup:'https://appdigitalhub.com.br/c/EN_ELITE_POPUP'}};</script>
+<script>/* encaixa títulos longos (ES/EN) na largura da tela */
+(function(){const sel='.hx-h1 .l1,.hx-h1 .l2 b,.lx-h span,.sx-h,.cx-h,.ap-h span,.k-h,.tx-h,.g-h span,.p-h,.f-h';
+function fit(){document.querySelectorAll(sel).forEach(el=>{el.style.fontSize='';const box=el.closest('section')||document.body;const max=Math.min(box.clientWidth,innerWidth)-24;let fs=parseFloat(getComputedStyle(el).fontSize),i=0;
+ el.style.whiteSpace=el.style.whiteSpace||'';const W=()=>Math.max(el.scrollWidth,el.getBoundingClientRect().width);while(W()>max&&fs>12&&i++<40){fs*=0.95;el.style.fontSize=fs+'px'}})}
+addEventListener('load',fit);addEventListener('resize',()=>{clearTimeout(window.__ft);window.__ft=setTimeout(fit,150)});document.fonts&&document.fonts.ready.then(fit)})();</script>
+<script src="/site.js?v=6"></script>
+</body>
+</html>

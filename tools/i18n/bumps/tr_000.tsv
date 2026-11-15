@@ -1,0 +1,196 @@
+0	Grimorio de la Alimentación del Héroe	The Hero's Nutrition Grimoire
+2	ORDER BUMP · OBJETO LEGENDARIO	ORDER BUMP · LEGENDARY ITEM
+3	Grimorio de la	The Hero's
+4	Alimentación	Nutrition
+5	del Héroe	Grimoire
+6	Menús de 7 días para ganar masa o definir, lista de compras económica y recetas rápidas con comida del súper.	7-day meal plans to bulk or cut, a budget shopping list and quick recipes made with grocery-store food.
+7	[ SISTEMA ] · LEE PRIMERO	[ SYSTEM ] · READ FIRST
+8	Entrenar sin comer es XP desperdiciado	Training without eating is wasted XP
+9	En La Forja del Héroe, cada serie se vuelve XP. Pero el músculo nuevo y el cuerpo más definido no se hacen en el entrenamiento: se hacen a la hora de comer y de dormir. Este Grimorio convierte la parte de la comida en algo tan simple como una misión diaria.	In Hero's Forge, every set becomes XP. But new muscle and a leaner body aren't built during the workout: they're built when you eat and sleep. This Grimoire turns the food part into something as simple as a daily quest.
+10	Nada de dietas de moda, suplementos caros ni comida que no encuentras en el súper del barrio. Aquí hay arroz, frijoles, huevo, pollo, banana y avena, combinados de la forma correcta.	No fad diets, pricey supplements or food you can't find at your local store. Just rice, beans, eggs, chicken, bananas and oats, put together the right way.
+11	Modo Volumen	Bulk Mode
+12	Para quien quiere ganar masa y fuerza. Comes un poco	For anyone who wants to gain muscle and strength. You eat a little
+13	más	more
+14	de lo que gastas, con bastante proteína.	than you burn, with plenty of protein.
+15	Clases que más lo usan: Guerrero del Hierro y Paladín.	Classes that use it most: Iron Warrior and Paladin.
+16	Modo Definición	Cut Mode
+17	Para quien quiere perder grasa sin perder músculo. Comes un poco	For anyone who wants to lose fat without losing muscle. You eat a little
+18	menos	less
+19	de lo que gastas, manteniendo la proteína alta.	than you burn, keeping protein high.
+20	Clases que más lo usan: Monje de las Barras y Paladín.	Classes that use it most: Bar Monk and Paladin.
+21	Cómo usar este Grimorio	How to use this Grimoire
+22	Elige tu modo: Volumen o Definición.	Pick your mode: Bulk or Cut.
+23	Calcula tu meta de energía y proteína en la página siguiente (toma 1 minuto).	Work out your energy and protein target on the next page (takes 1 minute).
+24	Sigue el menú de 7 días de tu modo, ajustando las porciones según tu meta.	Follow the 7-day plan for your mode, adjusting portions to your target.
+25	Usa la lista de compras para hacer el súper de la semana de una sola vez.	Use the shopping list to do the week's groceries in one trip.
+26	Repite la semana cambiando las recetas. Pesarte 1 vez por semana, siempre a la misma hora, ya basta para hacer el seguimiento.	Repeat the week, swapping recipes. Weighing yourself once a week, always at the same time, is enough to track progress.
+27	Importante:	Important:
+28	este material trae orientaciones generales de alimentación para adultos sanos. No reemplaza a un nutricionista ni a un médico. Si tienes alguna condición de salud, alergia, estás embarazada o tomas medicación continua, consulta a un profesional antes de cambiar tu alimentación.	this material offers general nutrition guidance for healthy adults. It does not replace a dietitian or doctor. If you have a health condition or allergy, are pregnant, or take ongoing medication, talk to a professional before changing your diet.
+29	Grimorio de la Alimentación	Nutrition Grimoire
+31	MISIÓN 1	QUEST 1
+32	Calcula tu meta	Work out your target
+33	Usa la cuenta de abajo como punto de partida. No es exacta para nadie, y por eso la vas a ajustar con la báscula en las primeras semanas.	Use the formula below as a starting point. It isn't exact for anyone, which is why you'll adjust it with the scale over the first few weeks.
+34	1. Energía del día	1. Daily energy
+35	Tu día a día	Your daily routine
+36	Cuenta para MANTENER el peso	Formula to MAINTAIN weight
+37	Poco activo (trabajo sentado) + entrenamiento 3x/semana	Not very active (desk job) + training 3x/week
+38	peso × 30	weight (kg) × 30
+39	kcal	kcal
+40	Activo (camina bastante) + entrenamiento 4 a 5x/semana	Active (walks a lot) + training 4 to 5x/week
+41	peso × 33	weight (kg) × 33
+42	Muy activo (trabajo físico) + entrenamiento frecuente	Very active (physical job) + frequent training
+43	peso × 36	weight (kg) × 36
+44	Modo Volumen:	Bulk Mode:
+45	suma	add
+46	+300 kcal	+300 kcal
+47	Modo Definición:	Cut Mode:
+48	resta	subtract
+49	−400 kcal	−400 kcal
+50	2. Proteína del día	2. Daily protein
+51	Para quien entrena, el rango más usado es de	For people who train, the most common range is
+52	1,6 a 2,2 g de proteína por kilo	1.6 to 2.2 g of protein per kilo
+53	de peso. Usa	of bodyweight. Use
+54	peso × 2	weight (kg) × 2
+55	para simplificar.	to keep it simple.
+56	Ejemplo: héroe de 75 kg, activo, Modo Volumen	Example: 75 kg (165 lb) hero, active, Bulk Mode
+57	Energía: 75 × 33 = 2.475 + 300 =	Energy: 75 × 33 = 2,475 + 300 =
+58	~2.800 kcal	~2,800 kcal
+59	·  Proteína: 75 × 2 =	·  Protein: 75 × 2 =
+60	150 g	150 g
+61	Ese es exactamente el menú del Modo Volumen de este Grimorio. El menú del Modo Definición suma ~1.600 kcal y ~130 g de proteína: si tu meta da más que eso, suma 2 cdas. de arroz en el almuerzo y la cena y 1 fruta en la merienda.	That's exactly the Bulk Mode plan in this Grimoire. The Cut Mode plan adds up to ~1,600 kcal and ~130 g of protein: if your target is higher, add 2 tbsp of rice at lunch and dinner and 1 piece of fruit at snack time.
+62	Ajusta con la báscula (la regla de las 2 semanas)	Adjust with the scale (the 2-week rule)
+63	Modo	Mode
+64	Si en 2 semanas…	If after 2 weeks…
+65	Haz esto	Do this
+66	Volumen	Bulk
+67	el peso no subió	your weight didn't go up
+68	agrega 1 merienda (ej.: pan + crema de maní)	add 1 snack (e.g. bread + peanut butter)
+69	subió más de 1 kg por semana	it went up more than 1 kg (2 lb) per week
+70	quita la mitad del pre-entreno	cut the pre-workout meal in half
+71	Definición	Cut
+72	el peso no bajó	your weight didn't go down
+73	quita 2 cdas. de arroz en el almuerzo y la cena	remove 2 tbsp of rice at lunch and dinner
+74	bajó más de 1 kg por semana y estás sin fuerza	it dropped more than 1 kg (2 lb) per week and you feel weak
+75	vuelve a poner una fruta en la merienda	add a piece of fruit back at snack time
+77	MISIÓN 2	QUEST 2
+78	El Plato del Héroe	The Hero's Plate
+79	¿Sin báscula de cocina? Usa las manos. Son de tu tamaño, así que la porción también lo es.	No kitchen scale? Use your hands. They're your size, so the portion is too.
+80	Proteína	Protein
+81	Volumen:	Bulk:
+82	2 palmas de la mano por comida	2 palms per meal
+83	Definición:	Cut:
+84	1 palma y media	1½ palms
+85	Pollo, carne molida, huevos, pescado, sardina, hígado, yogur, leche.	Chicken, ground beef, eggs, fish, sardines, liver, yogurt, milk.
+86	Carbohidrato	Carbs
+87	2 manos en forma de cuenco	2 cupped hands
+88	1 mano en forma de cuenco	1 cupped hand
+89	Arroz, frijoles, papa, camote, yuca, pasta, cuscús de maíz, pan, avena, frutas.	Rice, beans, potatoes, sweet potatoes, cassava, pasta, cornmeal, bread, oats, fruit.
+90	Verduras	Vegetables
+91	Los dos modos:	Both modes:
+92	2 puños cerrados, o la mitad del plato	2 fists, or half the plate
+93	Lechuga, tomate, zanahoria, calabacín, brócoli, repollo, pepino.	Lettuce, tomato, carrot, zucchini, broccoli, cabbage, cucumber.
+94	Grasa buena	Healthy fat
+95	2 pulgares	2 thumbs
+96	1 pulgar	1 thumb
+97	Aceite de oliva, crema de maní, maní, nueces, aguacate.	Olive oil, peanut butter, peanuts, nuts, avocado.
+98	Las 6 leyes del Grimorio	The 6 laws of the Grimoire
+99	Proteína en cada comida.	Protein at every meal.
+100	Es lo que sostiene el músculo y el hambre.	It's what holds on to muscle and keeps hunger away.
+101	Agua: peso × 35 ml por día.	Water: weight (kg) × 35 ml a day.
+102	Héroe de 75 kg: ~2,6 litros. Lleva una botella al entrenamiento.	75 kg hero: ~2.6 liters (~88 oz). Bring a bottle to the gym.
+103	Arroz con frijoles es un combo legendario.	Rice and beans is a legendary combo.
+104	Barato, nutritivo y con fibra.	Cheap, nutritious and full of fiber.
+105	Fruta todos los días.	Fruit every day.
+106	Una banana antes de entrenar es el elixir más barato que existe.	A banana before training is the cheapest elixir there is.
+107	Refresco, dulces y frituras: solo como recompensa	Soda, sweets and fried food: only as a reward
+108	, 1 o 2 veces por semana.	, once or twice a week.
+109	Dormir de 7 a 9 horas.	Sleep 7 to 9 hours.
+110	Es durante el sueño cuando el cuerpo usa la comida para recuperarse.	Sleep is when your body uses food to recover.
+112	MENÚ · ~2.800 KCAL · ~150 G PROTEÍNA	MEAL PLAN · ~2,800 KCAL · ~150 G PROTEIN
+113	Modo Volumen: 7 días	Bulk Mode: 7 days
+114	Valores aproximados para un héroe de ~75 kg. "cda." = cucharada sopera llena. Arroz y frijoles cocidos. Para ajustar a tu meta, aumenta o reduce las porciones de carbohidrato (arroz, pan, papa, avena).	Approximate values for a ~75 kg (165 lb) hero. "tbsp" = heaping tablespoon. Rice and beans are cooked. To match your target, increase or reduce the carb portions (rice, bread, potatoes, oats).
+115	Día	Day
+116	Desayuno	Breakfast
+117	Merienda	Snack
+118	Almuerzo	Lunch
+119	Lun	Mon
+120	3 huevos revueltos · 2 rebanadas de pan integral · 1 banana · café con leche (300 ml)	3 scrambled eggs · 2 slices whole-wheat bread · 1 banana · coffee with milk (300 ml)
+121	Yogur natural (170 g) + 3 cdas. de avena + 1 cda. de miel	Plain yogurt (170 g) + 3 tbsp oats + 1 tbsp honey
+122	6 cdas. de arroz · 1 cucharón de frijoles · 150 g de pollo a la plancha · ensalada · 1 cda. de aceite de oliva	6 tbsp rice · 1 ladle beans · 150 g grilled chicken · salad · 1 tbsp olive oil
+123	Mar	Tue
+124	Panqueque de banana y avena (receta) · café con leche	Banana oat pancake (recipe) · coffee with milk
+125	1 pan blanco + 2 huevos duros	1 bread roll + 2 hard-boiled eggs
+126	6 cdas. de arroz · 1 cucharón de frijoles · 150 g de carne molida · ensalada	6 tbsp rice · 1 ladle beans · 150 g ground beef · salad
+127	Mié	Wed
+128	2 rebanadas de pan + 3 huevos + 1 rebanada de queso · 1 naranja	2 slices bread + 3 eggs + 1 slice cheese · 1 orange
+129	Banana + 2 cdas. de crema de maní	Banana + 2 tbsp peanut butter
+130	6 cdas. de arroz · 1 cucharón de frijoles · 150 g de pollo deshebrado · verduras	6 tbsp rice · 1 ladle beans · 150 g shredded chicken · vegetables
+131	Jue	Thu
+132	Crepa de tapioca con pollo (receta) · café con leche	Tapioca crepe with chicken (recipe) · coffee with milk
+133	Yogur + 3 cdas. de avena + fruta	Yogurt + 3 tbsp oats + fruit
+134	6 cdas. de arroz · 1 cucharón de frijoles · 150 g de bistec magro · ensalada	6 tbsp rice · 1 ladle beans · 150 g lean steak · salad
+135	Vie	Fri
+136	3 huevos revueltos · cuscús de maíz (2 porciones) · 1 banana · café con leche	3 scrambled eggs · cornmeal couscous (2 servings) · 1 banana · coffee with milk
+137	1 pan blanco + 2 rebanadas de queso + fruta	1 bread roll + 2 slices cheese + fruit
+138	Tupper del Héroe (receta) · ensalada	Hero's Meal Prep (recipe) · salad
+139	Sáb	Sat
+140	Panqueque de banana y avena · café con leche	Banana oat pancake · coffee with milk
+141	2 huevos duros + 1 fruta	2 hard-boiled eggs + 1 fruit
+142	Libre con moderación: arma tu plato según el Plato del Héroe	Free meal in moderation: build it using the Hero's Plate
+143	Dom	Sun
+144	Pan con 3 huevos y queso · papaya · café con leche	Bread with 3 eggs and cheese · papaya · coffee with milk
+145	Yogur + avena + miel	Yogurt + oats + honey
+146	6 cdas. de arroz · 1 cucharón de frijoles · 150 g de carne asada · harina de yuca tostada (2 cdas.) · ensalada	6 tbsp rice · 1 ladle beans · 150 g roast beef · toasted cassava flour (2 tbsp) · salad
+147	(continuación)	(continued)
+148	Pre-entreno / Merienda 2	Pre-workout / Snack 2
+149	Cena	Dinner
+150	Antes de dormir	Before bed
+151	2 rebanadas de pan + 2 cdas. de crema de maní + 1 banana	2 slices bread + 2 tbsp peanut butter + 1 banana
+152	200 g de camote · 150 g de carne molida con verduras	200 g sweet potato · 150 g ground beef with vegetables
+153	300 ml de leche + 2 cdas. de avena	300 ml milk + 2 tbsp oats
+154	Licuado: 300 ml de leche + banana + 3 cdas. de avena	Smoothie: 300 ml milk + banana + 3 tbsp oats
+155	Pasta (2 porciones) con 1 lata de sardinas y tomate	Pasta (2 servings) with 1 can sardines and tomato
+156	Yogur + 1 puñado de maní	Yogurt + 1 handful peanuts
+157	Cuscús de maíz (2 porciones) con 2 huevos	Cornmeal couscous (2 servings) with 2 eggs
+158	200 g de yuca cocida · 150 g de pescado (tilapia) · ensalada · 1 cda. de aceite de oliva	200 g boiled cassava · 150 g fish (tilapia) · salad · 1 tbsp olive oil
+159	Omelette de 3 huevos con verduras · 2 rebanadas de pan · ensalada	3-egg omelet with vegetables · 2 slices bread · salad
+160	Licuado de banana con leche	Banana milk smoothie
+161	200 g de papa · 150 g de pollo en cubos con verduras	200 g potatoes · 150 g cubed chicken with vegetables
+162	2 rebanadas de pan + crema de maní	2 slices bread + peanut butter
+163	Hamburguesa casera del Héroe (receta) con ensalada	Hero's homemade burger (recipe) with salad
+164	Banana + maní	Banana + peanuts
+165	Sopa de verduras con 150 g de carne molida + 2 rebanadas de pan	Vegetable soup with 150 g ground beef + 2 slices bread
+166	¿Entrenas en la mañana?	Train in the morning?
+167	Haz el "pre-entreno" 40 minutos antes de entrenar y pasa el desayuno para después.	Have the "pre-workout" 40 minutes before training and move breakfast to after.
+168	¿Entrenas en la noche?	Train at night?
+169	Déjalo como está.	Keep it as is.
+170	MENÚ · ~1.600 KCAL · ~130 G PROTEÍNA	MEAL PLAN · ~1,600 KCAL · ~130 G PROTEIN
+171	Modo Definición: 7 días	Cut Mode: 7 days
+172	Valores aproximados para un héroe de ~75 kg. Si tu meta es mayor a 1.600 kcal, suma 2 cdas. de arroz en el almuerzo y la cena y 1 fruta en la merienda. Las verduras y la ensalada son libres. Si te da mucha hambre, aumenta primero la ensalada y las verduras.	Approximate values for a ~75 kg (165 lb) hero. If your target is above 1,600 kcal, add 2 tbsp of rice at lunch and dinner and 1 fruit at snack time. Vegetables and salad are unlimited. If you get very hungry, increase salad and vegetables first.
+173	2 huevos revueltos · 1 rebanada de pan integral · café con leche descremada	2 scrambled eggs · 1 slice whole-wheat bread · coffee with skim milk
+174	Yogur natural (170 g) + 1 fruta	Plain yogurt (170 g) + 1 fruit
+175	4 cdas. de arroz · ½ cucharón de frijoles · 150 g de pollo a la plancha · ensalada a gusto	4 tbsp rice · ½ ladle beans · 150 g grilled chicken · salad as you like
+176	Crepa de tapioca sencilla (receta) · café	Plain tapioca crepe (recipe) · coffee
+177	1 manzana + 1 puñado pequeño de maní	1 apple + 1 small handful peanuts
+178	4 cdas. de arroz · ½ cucharón de frijoles · 150 g de carne molida · ensalada	4 tbsp rice · ½ ladle beans · 150 g ground beef · salad
+179	2 huevos duros · 1 rebanada de pan · 1 naranja	2 hard-boiled eggs · 1 slice bread · 1 orange
+180	Yogur natural	Plain yogurt
+181	100 g de camote · 150 g de pollo deshebrado · ensalada · 1 chorrito de aceite de oliva	100 g sweet potato · 150 g shredded chicken · salad · a drizzle of olive oil
+182	Panqueque de banana y avena (media receta) · café	Banana oat pancake (half recipe) · coffee
+183	1 fruta + 1 huevo duro	1 fruit + 1 hard-boiled egg
+184	4 cdas. de arroz · ½ cucharón de frijoles · 150 g de pescado · verduras	4 tbsp rice · ½ ladle beans · 150 g fish · vegetables
+185	2 huevos revueltos · 1 porción de cuscús de maíz · café con leche descremada	2 scrambled eggs · 1 serving cornmeal couscous · coffee with skim milk
+186	Yogur natural + 1 fruta	Plain yogurt + 1 fruit
+187	Tupper del Héroe (porción Definición) · ensalada a gusto	Hero's Meal Prep (Cut portion) · salad as you like
+188	Crepa de tapioca con pollo · café	Tapioca crepe with chicken · coffee
+189	1 fruta	1 fruit
+190	Libre con moderación: Plato del Héroe versión Definición	Free meal in moderation: Hero's Plate, Cut version
+191	2 huevos · 1 rebanada de pan · papaya · café	2 eggs · 1 slice bread · papaya · coffee
+192	Yogur + 2 cdas. de avena	Yogurt + 2 tbsp oats
+193	4 cdas. de arroz · ½ cucharón de frijoles · 150 g de carne asada · ensalada	4 tbsp rice · ½ ladle beans · 150 g roast beef · salad
+194	1 banana + 1 huevo duro	1 banana + 1 hard-boiled egg
+195	150 g de calabacín y zanahoria salteados · 150 g de carne molida magra	150 g sautéed zucchini and carrot · 150 g lean ground beef
+196	Té + 1 yogur (opcional)	Tea + 1 yogurt (optional)
+197	Omelette de 3 huevos con verduras · ensalada grande	3-egg omelet with vegetables · large salad
+198	1 banana	1 banana
+199	1 lata de sardinas · ensalada grande con tomate y pepino · 1 rebanada de pan	1 can sardines · large salad with tomato and cucumber · 1 slice bread

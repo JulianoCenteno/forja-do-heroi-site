@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Forja del Héroe — Tu entrenamiento se volvió un RPG | Calistenia y Gimnasio</title>
+<meta name="description" content="Entrena en la vida real, gana XP en cada serie, cumple misiones diarias, derrota jefes con tus récords y haz evolucionar a tu héroe. App de entrenamiento RPG desde US$ 4,90, pago único.">
+<meta property="og:title" content="La Forja del Héroe — Tu entrenamiento se volvió un RPG">
+<meta property="og:description" content="Gana XP en cada serie, cumple misiones y derrota jefes con tus récords. Elige tu clase y evoluciona de verdad.">
+<meta property="og:image" content="https://forjadoheroi.com/img/es/logo-full.webp">
+<meta property="og:type" content="website">
+<link rel="alternate" hreflang="pt-BR" href="https://forjadoheroi.com/"><link rel="alternate" hreflang="es" href="https://forjadoheroi.com/es/"><link rel="alternate" hreflang="en" href="https://forjadoheroi.com/en/">
+<meta name="theme-color" content="#060914">
+<link rel="icon" type="image/png" href="/app/icons/favicon-64.png">
+<link rel="apple-touch-icon" href="/app/icons/apple-touch-icon.png">
+<link rel="preload" as="image" href="/img/v3/hero-d.webp" media="(min-width:761px)"><link rel="preload" as="image" href="/img/v3/hero-m.webp" media="(max-width:760px)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,800;1,900&family=Cinzel:wght@800;900&family=Fira+Sans:ital,wght@0,400;0,500;1,400;1,500&family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/site.css?v=4">
+<link rel="stylesheet" href="/hero.css?v=2">
+<link rel="stylesheet" href="/lacuna.css?v=2">
+<link rel="stylesheet" href="/classes.css?v=2">
+<link rel="stylesheet" href="/sistema.css?v=2">
+<link rel="stylesheet" href="/alquimia.css?v=2">
+<link rel="stylesheet" href="/ranking.css?v=1">
+<link rel="stylesheet" href="/garantia.css?v=1">
+<link rel="stylesheet" href="/planos.css?v=1">
+<link rel="stylesheet" href="/taverna.css?v=3">
+<link rel="stylesheet" href="/faq.css?v=1">
+<link rel="stylesheet" href="/carousel.css?v=2">
+<link rel="stylesheet" href="/aura.css?v=2">
+<link rel="stylesheet" href="/popup.css?v=1">
+<!-- Meta Pixel: Forjo do Heroes -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1141320428608400');fbq('track','PageView');fbq('track','ViewContent',{content_name:'La Forja del Heroe',value:4.90,currency:'USD'});</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1141320428608400&ev=PageView&noscript=1" alt=""></noscript>
+<!-- Digital Hub Tracker -->
+<script src="https://tracker.appdigitalhub.com.br/tracker.js" async data-endpoint="https://tracker.appdigitalhub.com.br" data-checkout="appdigitalhub.com.br/c/"></script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset=".5" stop-color="#ffc83a"/><stop offset="1" stop-color="#d47b06"/></linearGradient><linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d6f6ff"/><stop offset="1" stop-color="#2a9be0"/></linearGradient><linearGradient id="gp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2c8ff"/><stop offset="1" stop-color="#7a3cff"/></linearGradient><linearGradient id="gt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8fff0"/><stop offset="1" stop-color="#16b48c"/></linearGradient></defs></svg>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<header class="hnav" id="nav">
+  <a class="hn-logo" href="#topo" aria-label="La Forja del Héroe · Entrenamiento RPG"><img src="/img/es/logo-nav.webp" alt="La Forja del Héroe · Entrenamiento RPG"></a>
+  <nav class="hn-links" id="links" aria-label="Secciones">
+    <a href="#topo" class="on">Inicio</a><a href="#classes">Clases</a><a href="#sistema">Funciones</a><a href="#planos">Planes</a><a href="#faq">Preguntas</a>
+  </nav>
+  <span class="hn-sep"></span>
+  <a class="ibtn hnb" href="#planos"><img src="/img/v3/btn-nav.webp" alt=""><span>Empezar ahora</span></a>
+  <button class="hn-burger" id="burger" aria-label="Abrir menú"><i></i><i></i><i></i></button>
+</header>
+
+<!-- 1. HERO -->
+<section class="hx" id="topo">
+  <picture class="hx-bg"><source media="(max-width:760px)" srcset="/img/v3/hero-m.webp"><img src="/img/v3/hero-d.webp" alt="Monje, Paladín y Guerrero frente al portal de la mazmorra"></picture>
+  <div class="hx-in">
+    <h1 class="hx-h1"><span class="l1">Tu entrenamiento se volvió</span><span class="l2"><i></i><b>un RPG.</b><i></i></span></h1>
+    <p class="hx-p">Entrena en la vida real, gana XP en cada serie, derrota jefes con<br class="br-d"> tus récords y haz evolucionar a tu héroe dentro del juego.</p>
+    <div class="hx-ctas">
+      <a class="ibtn gold" href="#planos"><img src="/img/v3/btn-gold.webp" alt=""><span>Despertar a mi héroe</span></a>
+      <a class="ibtn blue" href="#classes"><img src="/img/v3/btn-blue.webp" alt=""><span>Elegir mi clase</span></a>
+    </div>
+    <img class="hx-feat d" src="/img/es/featbar.webp" alt="XP inmediato · Misiones diarias · Jefes épicos">
+    <div class="hx-feat m"><span><img src="/img/v3/ic-xp.webp" alt="">XP inmediato</span><span><img src="/img/v3/ic-scroll.webp" alt="">Misiones diarias</span><span><img src="/img/v3/ic-demon.webp" alt="">Jefes épicos</span></div>
+  </div>
+</section>
+
+<!-- 2. LACUNA + LOOP -->
+<section class="lx" id="problema">
+  <picture class="lx-bg"><source media="(max-width:760px)" srcset="/img/es/lac-m.webp"><img src="/img/es/lac-d.webp" alt="Pantalla del Héroe dentro de la app" loading="lazy"></picture>
+  <div class="lx-in">
+    <div class="lx-pill1"><img src="/img/v3/pill-prob.webp" alt=""><span>El verdadero problema</span></div>
+    <h2 class="lx-h"><span class="w">La brecha de la</span><span class="g">recompensa</span></h2>
+    <i class="lx-line"></i>
+    <p class="lx-p">En los juegos, tu cerebro recibe recompensa en segundos.<br class="br-d"> En el entrenamiento, los resultados tardan meses. La Forja del Héroe<br class="br-d"> cierra esa brecha y convierte tu entrenamiento en un juego<br class="br-d"> con <b>feedback instantáneo</b> en cada serie.</p>
+    <div class="lx-pill2"><img src="/img/v3/pill-loop.webp" alt=""><span>El ciclo del héroe</span></div>
+    <p class="lx-sub">Entrena, evoluciona y recibe recompensas en un ciclo que te mantiene constante y progresando de verdad.</p>
+    <div class="lx-cards">
+      <div class="lx-card"><img src="/img/v3/loop-card0.webp" alt=""><div class="t"><h3>Recompensa<br>inmediata</h3><p>Gana XP en cada serie<br>completada.</p></div></div>
+      <div class="lx-card"><img src="/img/v3/loop-card1.webp" alt=""><div class="t"><h3>Recompensa<br>diaria</h3><p>Completa misiones y<br>mantén tu racha.</p></div></div>
+      <div class="lx-card"><img src="/img/v3/loop-card2.webp" alt=""><div class="t"><h3>Recompensa<br>épica</h3><p>Enfrenta jefes y supera<br>tus récords personales.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. VEJA O SISTEMA -->
+<section class="sx" id="sistema">
+  <img class="sx-bg" src="/img/v3/sys-bg.webp" alt="" aria-hidden="true" loading="lazy">
+  <div class="sx-in">
+    <div class="sx-pill"><img src="/img/v3/sys-pill.webp" alt=""><span>Mira el sistema</span></div>
+    <h2 class="sx-h"><i></i><span class="w">Tu entrenamiento,</span>&nbsp;<span class="g">como un juego</span><i></i></h2>
+    <p class="sx-sub">Sigue a tu héroe, entra en mazmorras y cumple misiones diarias sin salir del entrenamiento.</p>
+    <div class="car sx-car" data-car>
+    <div class="sx-col c1"><img class="sx-ph" src="/img/es/sys-ph1.webp" alt="Pantalla del Héroe y estado en la app" loading="lazy"><div class="sx-lb"><img src="/img/v3/sys-lb1.webp" alt=""><span>Héroe y estado</span></div></div>
+    <div class="sx-col c2"><img class="sx-ph" src="/img/es/sys-ph2.webp" alt="Pantalla de la Mazmorra en la app" loading="lazy"><div class="sx-lb"><img src="/img/v3/sys-lb2.webp" alt=""><span>Mazmorras e incursiones</span></div></div>
+    <div class="sx-col c3"><img class="sx-ph" src="/img/es/sys-ph3.webp" alt="Pantalla de Misiones en la app" loading="lazy"><div class="sx-lb"><img src="/img/v3/sys-lb3.webp" alt=""><span>Misiones y evolución</span></div></div>
+    </div>
+    <div class="car-ui" aria-hidden="false"><button class="car-ar prev" aria-label="Anterior">‹</button><div class="car-dots"><button aria-label="Pantalla 1"></button><button aria-label="Pantalla 2"></button><button aria-label="Pantalla 3"></button></div><button class="car-ar next" aria-label="Siguiente">›</button></div>
+  </div>
+</section>
+
+<!-- 4. CLASSES -->
+<section class="cx" id="classes">
+  <img class="cx-bg" src="/img/v3/cls-bg.webp" alt="" aria-hidden="true" loading="lazy">
+  <div class="cx-in">
+    <div class="cx-pill"><img src="/img/v3/cls-pill.webp" alt=""><span>Elige tu clase</span></div>
+    <h2 class="cx-h">Elige en quién te vas a convertir</h2>
+    <p class="cx-sub">Cada clase cambia la fantasía de tu aventura, mientras la evolución ocurre en el entrenamiento real.</p>
+    <div class="cx-cards car" data-car>
+      <a class="cx-card m" href="#planos"><img src="/img/es/cls-card-monge.webp" alt="Monje de las Barras · Calistenia · Fuerza, Resistencia, Agilidad y Vigor" loading="lazy"></a>
+      <a class="cx-card p" href="#planos"><img src="/img/es/cls-card-paladino.webp" alt="Paladín Híbrido · Híbrido · Fuerza, Resistencia, Agilidad y Vigor" loading="lazy"></a>
+      <a class="cx-card g" href="#planos"><img src="/img/es/cls-card-guerreiro.webp" alt="Guerrero del Hierro · Gimnasio · Fuerza, Resistencia, Agilidad y Vigor" loading="lazy"></a>
+    </div>
+    <div class="car-ui" aria-hidden="false"><button class="car-ar prev" aria-label="Anterior">‹</button><div class="car-dots"><button aria-label="Clase 1"></button><button aria-label="Clase 2"></button><button aria-label="Clase 3"></button></div><button class="car-ar next" aria-label="Siguiente">›</button></div>
+    <a class="cx-btn" href="#planos"><img src="/img/v3/cls-btn.webp" alt=""><span>Elegir mi clase</span></a>
+  </div>
+</section>
+
+<!-- 5. ALQUIMIA -->
+<section class="ax" id="alquimia">
+  <img class="ax-bg" src="/img/es/alq-d.webp" alt="Paladín con batido de proteína y mesa de recetas: batidos, panqueques, mousse, avena, huevos y pollo con arroz" loading="lazy">
+  <img class="ax-art-m" src="/img/es/alq-art-m.webp" alt="" aria-hidden="true" loading="lazy">
+  <div class="ap">
+    <span class="ap-pill">Bono extra</span>
+    <h2 class="ap-h"><span class="w">Alquimia del Héroe:</span><span class="g">50 recetas</span><span class="w">anabólicas</span></h2>
+    <p class="ap-p">La app incluye 50 recetas prácticas y ricas en proteína, hechas con ingredientes accesibles del supermercado, para alimentar tu entrenamiento, apoyar tu recuperación y ayudar al héroe a evolucionar de verdad.</p>
+    <span class="ap-t t1">Batidos<br>proteicos</span><span class="ap-t t2">Panqueques<br>anabólicos</span><span class="ap-t t3">Mousses y<br>postres</span>
+    <span class="ap-t t4">Comida<br>de verdad</span><span class="ap-t t5">Fácil<br>de hacer</span><span class="ap-t t6">Ricas en<br>proteína</span>
+    <a class="ap-btn" href="#planos">Quiero evolucionar con la dieta <b>→</b></a>
+  </div>
+</section>
+
+<!-- 6. RANKING -->
+<section class="kx" id="ranking">
+  <img class="kx-bg" src="/img/es/rk-d.webp" alt="Podio de la temporada: Juliano 1º con 1.248.750 XP, Rafael 2º con 1.033.420 XP y Caio 3º con 987.230 XP" loading="lazy">
+  <div class="kb k-pill"><img class="mo" src="/img/v3/rk-pill.webp" alt="" loading="lazy"><span>Ranking de la temporada</span></div>
+  <h2 class="k-h"><span class="w">Sube en el</span> <span class="g">ranking de la temporada</span></h2>
+  <p class="k-p">Gana XP, completa misiones y compite con otros héroes por prestigio y recompensas mensuales.</p>
+  <div class="k-pod" aria-hidden="true"><img class="p1" src="/img/es/rk-p1.webp" alt="" loading="lazy"><div class="row"><img src="/img/v3/rk-p2.webp" alt="" loading="lazy"><img src="/img/v3/rk-p3.webp" alt="" loading="lazy"></div></div>
+  <div class="kb k-rec"><img class="mo" src="/img/v3/rk-rec.webp" alt="" loading="lazy"><span>Recompensas de la temporada</span></div>
+  <div class="kb k-r r1"><img class="mo" src="/img/v3/rk-r1.webp" alt="" loading="lazy"><b>Título exclusivo</b><small>Destaca tu estatus de héroe</small></div>
+  <div class="kb k-r r2"><img class="mo" src="/img/v3/rk-r2.webp" alt="" loading="lazy"><b>Bono de oro</b><small>Monedas especiales de la temporada</small></div>
+  <div class="kb k-r r3"><img class="mo" src="/img/v3/rk-r3.webp" alt="" loading="lazy"><b>Prestigio de la temporada</b><small>Reconocimiento y beneficios únicos</small></div>
+  <a class="kb k-btn" href="#planos"><img class="mo" src="/img/v3/rk-btn.webp" alt="" loading="lazy"><span>Quiero subir en el ranking<svg viewBox="0 0 24 20" aria-hidden="true"><path d="M2 10h17M12 3l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+  <p class="k-note">Ejemplo ilustrativo del ranking.</p>
+</section>
+
+<!-- 6a. MESTRES + CORRIDA -->
+<section class="tx mx" id="mestres">
+  <div class="tx-in">
+    <span class="tx-pill">🧙 Nuevo · Maestros de la Forja</span>
+    <h2 class="tx-h"><span class="w">Elige a tu</span> <span class="g">maestro</span></h2>
+    <p class="tx-p">Tres maestros te dan el entrenamiento, <b>día tras día</b>. Cada día hay un entrenamiento diferente, con series, repeticiones y peso sugerido. El siguiente solo se abre cuando cumples el actual.</p>
+    <div class="mx-cards">
+      <figure class="mx-c" style="--mc:#3fe08a"><img src="/img/mestres/monge.webp" alt="Maestro Kaito, maestro de la calistenia" loading="lazy" width="560" height="700"><figcaption><b>Maestro Kaito</b><small>Maestro de la Calistenia</small><p>Entrenamiento con el peso del cuerpo, en casa o en el parque, de lo básico a lo avanzado.</p></figcaption></figure>
+      <figure class="mx-c" style="--mc:#ff7a4a"><img src="/img/mestres/guerreiro.webp" alt="Maestro Brutus, maestro del hierro" loading="lazy" width="560" height="700"><figcaption><b>Maestro Brutus</b><small>Maestro del Hierro</small><p>Gimnasio con un grupo muscular por día: pecho, espalda, piernas, hombros y brazos.</p></figcaption></figure>
+      <figure class="mx-c" style="--mc:#4fd2ff"><img src="/img/mestres/paladino.webp" alt="Maestra Aurora, maestra híbrida" loading="lazy" width="560" height="700"><figcaption><b>Maestra Aurora</b><small>Maestra Híbrida</small><p>Barra y hierro en el mismo entrenamiento: fuerza, definición y agilidad juntas.</p></figcaption></figure>
+    </div>
+    <div class="mx-row">
+      <div class="mx-run"><img src="/img/mestres/corrida.webp" alt="Héroe corriendo con una ruta de GPS brillante" loading="lazy" width="400" height="500"><div><h3>🏃 Carrera con GPS</h3><p>Corre con la Forja y mira distancia, tiempo y ritmo en vivo. <b>Cada kilómetro se convierte en XP</b> para tu héroe.</p></div></div>
+      <a class="mx-pl" href="https://open.spotify.com/playlist/6OAbGqCVLckhjCGq1KevSU" target="_blank" rel="noopener"><img src="/img/mestres/playlist.webp" alt="Portada de la playlist" loading="lazy" width="400" height="400"><div><h3>🎧 Playlist oficial</h3><p>Openings de anime y bandas sonoras de RPG para entrenar en modo jefe final.</p><span class="go">▶ Escuchar en Spotify</span></div></a>
+    </div>
+    <a class="tx-btn" href="#planos">Quiero entrenar con un maestro<svg width="20" height="16" viewBox="0 0 24 20" aria-hidden="true"><path d="M2 10h17M12 3l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <p class="tx-note">Maestros y carrera incluidos en el plan Cazador Élite. Ranking justo: los registros imposibles se bloquean.</p>
+  </div>
+</section>
+
+<!-- 6b. TAVERNA · comunidade -->
+<section class="tx" id="taverna">
+  <div class="tx-in">
+    <span class="tx-pill">🍺 Taberna · comunidad en la app</span>
+    <h2 class="tx-h"><span class="w">¿Quieres ser parte</span> <span class="g">de la comunidad?</span></h2>
+    <p class="tx-p">Dentro de la app está la <b>Taberna</b>: el muro donde los héroes publican su entrenamiento del día, celebran récords, retan a sus amigos a duelos y se motivan para no parar.</p>
+    <div class="tx-ph">
+      <figure><img src="/img/es/tav-1.webp" alt="Pantalla de la Taberna en la app: duelos y área para publicar" loading="lazy" width="588" height="1140"><figcaption>Duelos con amigos</figcaption></figure>
+      <figure><img src="/img/es/tav-2.webp" alt="Feed de la Taberna con publicaciones de entrenamiento, nivel y récords" loading="lazy" width="588" height="1140"><figcaption>Feed de los héroes</figcaption></figure>
+      <figure><img src="/img/es/tav-3.webp" alt="Salón VIP de la Taberna con desafíos de la semana" loading="lazy" width="588" height="1140"><figcaption>Salón VIP Élite</figcaption></figure>
+    </div>
+    <ul class="tx-li">
+      <li><b>💪 Comparte entrenamientos</b>Publica tu entrenamiento del día y el XP que ganaste con un toque.</li>
+      <li><b>⚔️ Duelos</b>Reta a un amigo: quien haga más gana y se lleva oro.</li>
+      <li><b>👑 Salón VIP</b>Desafíos en grupo y corona dorada en tus publicaciones.</li>
+      <li><b>🔥 Motivación</b>Likes y comentarios de quienes entrenan como tú.</li>
+    </ul>
+    <a class="tx-btn" href="#planos">Quiero entrar a la Taberna<svg width="20" height="16" viewBox="0 0 24 20" aria-hidden="true"><path d="M2 10h17M12 3l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <p class="tx-note">Incluido en el plan Cazador Élite. Pantallas reales de la app; publicaciones ilustrativas.</p>
+  </div>
+</section>
+
+<!-- 7. GARANTIA (acima da oferta) -->
+<section class="gx" id="garantia">
+  <img class="gx-bg" src="/img/es/gar-d.webp" alt="Sello dorado: 7 días de garantía incondicional" loading="lazy">
+  <img class="mo g-badge" src="/img/es/gar-badge.webp" alt="Sello dorado: 7 días de garantía incondicional" loading="lazy">
+  <div class="gb g-pill"><img class="mo" src="/img/v3/gar-pill.webp" alt="" loading="lazy"><span>La Forja del Héroe</span></div>
+  <h2 class="g-h"><span class="w">Garantía incondicional</span><span class="g">de 7 días</span></h2>
+  <p class="g-p">Prueba La Forja del Héroe durante <b>7 días completos</b>. <br>Si sientes que la app no es para ti, <br>solo pide el reembolso, sin trámites y sin preguntas.</p>
+  <div class="gb g-c c1"><img class="mo" src="/img/v3/gar-c1.webp" alt="" loading="lazy"><b>7 días</b><small>para probar todo</small></div>
+  <div class="gb g-c c2"><img class="mo" src="/img/v3/gar-c2.webp" alt="" loading="lazy"><b>Reembolso</b><small>total y rápido</small></div>
+  <div class="gb g-c c3"><img class="mo" src="/img/v3/gar-c3.webp" alt="" loading="lazy"><b>Sin</b><small>trámites</small></div>
+</section>
+
+<!-- 8. PLANOS -->
+<section class="px" id="planos">
+  <img class="px-bg" src="/img/es/pl-d.webp" alt="Paladín y Guerrero junto a los planes Recluta y Cazador Élite" loading="lazy">
+  <div class="pb p-pill"><img class="mo" src="/img/v3/pl-pill.webp" alt="" loading="lazy"><span>La Forja del Héroe</span></div>
+  <h2 class="p-h">Elige tu aventura</h2>
+  <p class="p-s">Despierta tu potencial y evoluciona a tu ritmo.</p>
+  <div class="pb pc c1">
+    <img class="mo" src="/img/v3/pl-c1.webp" alt="" loading="lazy">
+    <h3>Recluta</h3><span class="for">Lo esencial para empezar</span>
+    <ul><li>Acceso a la app completa</li><li>Sistema de entrenamiento RPG</li><li>Misiones diarias y semanales</li><li>Batallas contra jefes</li><li>Seguimiento de tu evolución</li></ul>
+    <span class="old"><s>US$ 14,90</s></span>
+    <span class="pr"><small>US$</small>4<sup>,90<em>pago único</em></sup></span>
+    <a class="bt" data-plan="recruta" href="https://appdigitalhub.com.br/c/43752C6D">Empezar como Recluta<svg viewBox="0 0 12 18" aria-hidden="true"><path d="M3 2l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+  <div class="pb pc c2">
+    <img class="mo" src="/img/es/pl-c2.webp" alt="" loading="lazy">
+    <h3>Cazador Élite</h3><span class="for">La experiencia completa</span>
+    <ul><li>Todo lo del plan Recluta</li><li>Maestros: entrenamiento diario guiado</li><li>Carrera con GPS que suma XP</li><li>Taberna: comunidad dentro de la app</li><li>Alquimia: recetas anabólicas exclusivas</li><li>Mazmorra de 30 días y ranking</li></ul>
+    <span class="old"><s>US$ 29,90</s></span>
+    <span class="pr"><small>US$</small>9<sup>,90<em>pago único</em></sup></span>
+    <a class="bt" data-plan="elite" href="https://appdigitalhub.com.br/c/1C7E51FE">Subir a Élite<svg viewBox="0 0 12 18" aria-hidden="true"><path d="M3 2l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+</section>
+
+<!-- 9. FAQ -->
+<section class="fx" id="faq">
+  <img class="fx-bg" src="/img/v3/fq-d.webp" alt="" aria-hidden="true" loading="lazy">
+  <img class="mo f-hero" src="/img/v3/fq-hero-m.webp" alt="" aria-hidden="true" loading="lazy">
+  <div class="f-pill"><img class="mo" src="/img/v3/fq-pill.webp" alt="" loading="lazy"><span>La Forja del Héroe</span></div>
+  <h2 class="f-h">Preguntas frecuentes</h2>
+  <p class="f-s">Resuelve tus dudas y mira todo lo que necesitas saber.</p>
+  <div class="f-list">
+    <details class="fq" name="faq" open><summary><img src="/img/v3/fq-i1.webp" alt="" aria-hidden="true"><span>¿Qué es La Forja del Héroe?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></summary><p>La Forja del Héroe es una app de entrenamiento gamificada, inspirada en los RPG y en los animes de evolución, que convierte tu progreso físico en una aventura de héroe, con entrenamientos, misiones, jefes, recompensas y subida de nivel.</p></details>
+    <details class="fq" name="faq"><summary><img src="/img/v3/fq-i2.webp" alt="" aria-hidden="true"><span>¿Necesito ir al gimnasio para usar la app?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></summary><p>No. La clase Monje entrena solo con el peso del cuerpo, en casa o en el parque. Si entrenas en el gimnasio, el Guerrero registra el peso y gana más XP por cada kilo levantado. El Paladín mezcla los dos.</p></details>
+    <details class="fq" name="faq"><summary><img src="/img/v3/fq-i3.webp" alt="" aria-hidden="true"><span>¿La app ya trae los entrenamientos listos?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></summary><p>En Cazador Élite, sí: la Mazmorra de 30 días trae el entrenamiento de cada día listo para tu clase, empezando suave y subiendo cada semana. En Recluta, tú eliges los ejercicios (son más de 45, con niveles del I al V) y la app convierte cada serie en XP, misiones y jefes.</p></details>
+    <details class="fq" name="faq"><summary><img src="/img/v3/fq-i4.webp" alt="" aria-hidden="true"><span>¿Cuál es la diferencia entre el plan Recluta y el Cazador Élite?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></summary><p>Recluta tiene lo esencial: registras tus entrenamientos y la app convierte todo en XP, misiones, jefes y evolución. Cazador Élite incluye todo eso y además los Maestros, la carrera con GPS, la Taberna, la Alquimia del Héroe (recetas anabólicas), planillas y protocolos avanzados.</p></details>
+    <details class="fq" name="faq"><summary><img src="/img/v3/fq-i5.webp" alt="" aria-hidden="true"><span>¿Puedo cancelar cuando quiera?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></summary><p>No hay suscripción que cancelar: pagas una sola vez y el acceso es tuyo. Y si no te gusta, en los primeros 7 días pides el reembolso y recibes el 100% del valor, sin trámites.</p></details>
+    <details class="fq" name="faq"><summary><img src="/img/v3/fq-i6.webp" alt="" aria-hidden="true"><span>¿La compra es segura?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></summary><p>Sí. El pago se hace en un entorno seguro, con tarjeta. Y además tienes 7 días de garantía incondicional: si no te gusta, pides el reembolso y recibes el 100% del valor.</p></details>
+  </div>
+</section>
+
+<!-- 10. RODAPÉ -->
+<footer class="foot">
+  <div class="ruins" aria-hidden="true"><img class="rl" src="/img/v3/bg-ruins.webp" alt=""><img class="rr" src="/img/v3/bg-ruins.webp" alt=""></div>
+  <div class="wrap rel">
+    <div class="fgrid">
+      <div class="fbrand"><img src="/img/es/logo-emblem.webp" alt="La Forja del Héroe · Entrenamiento RPG" loading="lazy"><p>Convierte tu entrenamiento en una aventura de evolución real.</p><div class="goldline c"></div></div>
+      <div class="fcol"><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/><path d="M9.5 6.5L21 3v3l-11.5 11.5M11 19l-6-6M8 16l-4 4M5 21l-2-2" opacity=".9"/></svg>Navegación</h4><ul><li><a href="#topo">Inicio</a></li><li><a href="#sistema">Funciones</a></li><li><a href="#planos">Planes</a></li><li><a href="#garantia">Garantía</a></li><li><a href="#faq">Preguntas frecuentes</a></li></ul></div>
+      <div class="fcol"><h4><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 7h10a5 5 0 0 1 5 5v2a3 3 0 0 1-5.4 1.8L15 14H9l-1.6 1.8A3 3 0 0 1 2 14v-2a5 5 0 0 1 5-5zm0 3v1.2H5.8v1.6H7V14h1.6v-1.2h1.2v-1.6H8.6V10zm9.5.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>La app</h4><ul><li><a href="#problema">Entrenamientos RPG</a></li><li><a href="#sistema">Misiones diarias</a></li><li><a href="#sistema">Batallas contra jefes</a></li><li><a href="#mestres">Maestros y carrera</a></li><li><a href="#alquimia">Alquimia anabólica</a></li><li><a href="#ranking">Ranking y temporada</a></li></ul></div>
+      <div class="fcol"><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2.5l8 3v6c0 5-3.4 8.6-8 10.5-4.6-1.9-8-5.5-8-10.5v-6z"/><path d="M8 12l3 3 5-6" stroke-linecap="round"/></svg>Compra segura</h4>
+        <div class="secbox"><div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V7a5 5 0 0 1 10 0v3h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2zm2 0h6V7a3 3 0 0 0-6 0z"/></svg><span>Entorno 100%<br>seguro</span></div><i></i><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg><span>Pago<br>protegido</span></div></div>
+        <div class="pays"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>Tarjeta</span></div>
+      </div>
+    </div>
+    <div class="fline"><i>✦</i></div>
+    <div class="fbot"><span id="footInfo">© 2026 La Forja del Héroe. Todos los derechos reservados.</span><span class="flegal"><a href="https://appdigitalhub.com.br/termos" target="_blank" rel="noopener">Términos</a> · <a href="https://appdigitalhub.com.br/privacidade" target="_blank" rel="noopener">Privacidad</a> · Garantía de 7 días por la plataforma de pago</span></div>
+  </div>
+</footer>
+
+<button class="mus" id="mus" aria-pressed="false" hidden><span class="eq"><i></i><i></i><i></i></span><span id="musL">Banda sonora</span></button>
+<audio id="aud" preload="auto" loop src="https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh-audio/adventure.mp3"></audio>
+
+<div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="popT" hidden>
+  <div class="pop-box">
+    <button class="pop-x" id="popX" aria-label="Cerrar">✕</button>
+    <div class="pop-top"><img src="/img/v3/pop-top.webp" alt="Paladín con aura dorada"><span class="pop-rib">Oferta única</span></div>
+    <div class="pop-body">
+      <h3 id="popT">¡Espera, héroe!</h3>
+      <p class="pop-sub">Solo en esta pantalla: llévate el <b>Cazador Élite</b> completo por apenas <b class="w">US$ 2 más</b>.</p>
+      <div class="pop-price"><s>US$ 9,90</s><span class="pp-new"><small>US$</small>6<sup>,90</sup></span></div>
+      <ul class="pop-list"><li>Maestros: entrenamiento nuevo cada día</li><li>Carrera con GPS y Mazmorra de 30 días</li><li><b>Bono:</b> 50 recetas anabólicas y Taberna VIP</li></ul>
+      <a class="pop-yes" id="popYes" href="https://appdigitalhub.com.br/c/1D6785B5"><img src="/img/v3/btn-gold.webp" alt=""><span>Sí, quiero el Élite</span></a>
+      <a class="pop-no" id="popNo" href="https://appdigitalhub.com.br/c/43752C6D">No, solo quiero el Recluta por US$ 4,90</a>
+    </div>
+  </div>
+</div>
+
+<script>window.FH={cur:'USD',name:'La Forja del Heroe',brand:'La Forja del Héroe',playing:'Reproduciendo',track:'Banda sonora',num:'es',price:{recruta:4.9,elite:9.9,popup:6.9},
+ checkout:{recruta:'https://appdigitalhub.com.br/c/ES_RECLUTA',elite:'https://appdigitalhub.com.br/c/ES_ELITE',elitePopup:'https://appdigitalhub.com.br/c/ES_ELITE_POPUP'}};</script>
+<script>/* encaixa títulos longos (ES/EN) na largura da tela */
+(function(){const sel='.hx-h1 .l1,.hx-h1 .l2 b,.lx-h span,.sx-h,.cx-h,.ap-h span,.k-h,.tx-h,.g-h span,.p-h,.f-h';
+function fit(){document.querySelectorAll(sel).forEach(el=>{el.style.fontSize='';const box=el.closest('section')||document.body;const max=Math.min(box.clientWidth,innerWidth)-24;let fs=parseFloat(getComputedStyle(el).fontSize),i=0;
+ el.style.whiteSpace=el.style.whiteSpace||'';const W=()=>Math.max(el.scrollWidth,el.getBoundingClientRect().width);while(W()>max&&fs>12&&i++<40){fs*=0.95;el.style.fontSize=fs+'px'}})}
+addEventListener('load',fit);addEventListener('resize',()=>{clearTimeout(window.__ft);window.__ft=setTimeout(fit,150)});document.fonts&&document.fonts.ready.then(fit)})();</script>
+<script src="/site.js?v=6"></script>
+</body>
+</html>

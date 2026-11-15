@@ -1,0 +1,215 @@
+0	La Forja del Héroe — Entrenamiento RPG	Hero's Forge — RPG Training
+1	La Forja del Héroe	Hero's Forge
+2	Monja de las Barras	Bar Monk
+3	Guerrera del Hierro	Iron Warrior
+4	Paladina Híbrida	Hybrid Paladin
+5	BONO · Alquimia del Héroe: 50 bebidas y comidas anabólicas	BONUS · Hero's Alchemy: 50 high-protein drinks and meals
+6	Guía de Progresión: de la primera flexión al muscle-up	Progression Guide: from your first push-up to the muscle-up
+7	Planilla del Guerrero: pesos, récords y sugerencia de peso	Warrior's Log: weights, PRs and suggested loads
+8	Temporada mensual con ranking entre héroes Élite	Monthly season with a leaderboard of Elite heroes
+9	Taberna VIP y corona dorada en tus publicaciones	VIP Tavern and a golden crown on your posts
+10	Título exclusivo “Fundador de la Forja” + 300 de oro	Exclusive title “Founder of the Forge” + 300 gold
+11	Monje de las Barras	Bar Monk
+12	Maestro de la calistenia. +20% XP en ejercicios con peso corporal.	Master of calisthenics. +20% XP on bodyweight exercises.
+13	Guerrero del Hierro	Iron Warrior
+14	Señor de las pesas. +20% XP en gimnasio.	Lord of the weights. +20% XP on weightlifting.
+15	Paladín Híbrido	Hybrid Paladin
+16	Equilibrio entre barra y hierro. +10% XP en todo.	Balance between bars and iron. +10% XP on everything.
+17	Fuerza	Strength
+18	Pesos pesados y movimientos difíciles	Heavy loads and hard movements
+19	Resistencia	Endurance
+20	Volumen, repeticiones e isometría	Volume, reps and isometrics
+21	Control, equilibrio y habilidades	Control, balance and skills
+22	Constancia: días entrenados y rachas	Consistency: days trained and streaks
+23	Flexión	Push-up
+24	Flexión diamante	Diamond push-up
+25	Flexión pike	Pike push-up
+26	Flexión arquero	Archer push-up
+27	Flexión a un brazo	One-arm push-up
+28	Flexión en parada de manos	Handstand push-up
+29	Remo australiano	Australian pull-up
+30	Dominadas	Pull-up
+31	Sentadilla libre	Bodyweight squat
+32	Sentadilla búlgara	Bulgarian split squat
+33	Pistol squat	Pistol squat
+34	Elevación de piernas en barra	Hanging leg raise
+35	Parada de manos	Handstand
+36	Front lever	Front lever
+37	Press de banca plano	Flat bench press
+38	Press de banca inclinado	Incline bench press
+39	Peso muerto	Deadlift
+40	Remo con barra	Bent-over row
+41	Jalón al pecho	Lat pulldown
+42	Remo bajo	Seated cable row
+43	Sentadilla con barra	Barbell squat
+44	Prensa de piernas	Leg press
+45	Extensión de piernas	Leg extension
+46	Curl femoral	Leg curl
+47	Elevación lateral	Lateral raise
+48	Curl con barra	Barbell curl
+49	Brazos	Arms
+50	Curl martillo	Hammer curl
+51	Tríceps en polea	Triceps pushdown
+52	Press francés	Skull crusher
+53	Campeón	Champion
+54	Señor de la Guerra	Warlord
+55	Titán	Titan
+56	Dios del Hierro	God of Iron
+57	Golpes de Empuje	Pushing Strikes
+58	Haz 60 repeticiones de empuje (pecho, hombro o flexiones)	Do 60 pushing reps (chest, shoulders or push-ups)
+59	Fuerza de Tracción	Pulling Power
+60	Haz 30 repeticiones de tirón (barra, remo, jalón)	Do 30 pulling reps (pull-ups, rows, pulldowns)
+61	Piernas de Acero	Legs of Steel
+62	Completa 8 series de piernas	Complete 8 leg sets
+63	Núcleo de Piedra	Core of Stone
+64	Completa 5 series de core	Complete 5 core sets
+65	Furia del Guerrero	Warrior's Fury
+66	Gana 400 XP en entrenamientos hoy	Earn 400 training XP today
+67	Batalla Larga	Long Battle
+68	Completa 14 series en total	Complete 14 sets in total
+69	Maestro de Armas	Weapons Master
+70	Entrena 4 ejercicios diferentes	Train 4 different exercises
+71	Estatua Viviente	Living Statue
+72	Acumula 120 segundos de isometría (plancha, L-sit…)	Hold 120 seconds of isometrics in total (plank, L-sit…)
+73	Cargador de Hierro	Iron Hauler
+74	Mueve 3.000 kg de volumen (series × reps × peso)	Move 3,000 kg of volume (sets × reps × weight)
+75	Disciplina del Monje	Monk's Discipline
+76	Haz 100 repeticiones de calistenia	Do 100 calisthenics reps
+77	Desafío del Maestro	Master's Challenge
+78	Haz 3 series de un ejercicio nivel III o más	Do 3 sets of a level III+ exercise
+79	Goblin de las Flexiones	Push-up Goblin
+80	30 flexiones en una sola serie	30 push-ups in a single set
+81	Troll de la Barra	Pull-up Troll
+82	12 dominadas en una serie	12 pull-ups in one set
+83	Gólem del Press	Bench Press Golem
+84	Press de banca con 1× tu peso corporal	Bench press 1× your bodyweight
+85	Hidra de la Sentadilla	Squat Hydra
+86	Sentadilla con 1,5× tu peso corporal	Squat 1.5× your bodyweight
+87	Lich del Pistol	Pistol Lich
+88	5 pistol squats en una serie	5 pistol squats in one set
+89	Espectro del Muscle-up	Muscle-up Wraith
+90	Haz 1 muscle-up	Do 1 muscle-up
+91	Dragón del Peso Muerto	Deadlift Dragon
+92	Peso muerto con 2× tu peso corporal	Deadlift 2× your bodyweight
+93	Wyvern del Front Lever	Front Lever Wyvern
+94	Sostén el front lever por 10 segundos	Hold the front lever for 10 seconds
+95	Rey Demonio	Demon King
+96	5 flexiones en parada de manos en una serie	5 handstand push-ups in one set
+97	Primera Sangre	First Blood
+98	3 días seguidos	3 days in a row
+99	7 días seguidos	7 days in a row
+100	30 días seguidos	30 days in a row
+101	10 días de entrenamiento	10 training days
+102	50 días de entrenamiento	50 training days
+103	1.000 repeticiones	1,000 reps
+104	10.000 repeticiones	10,000 reps
+105	Nivel 10	Level 10
+106	Nivel 25	Level 25
+107	Nivel 50	Level 50
+108	10 misiones	10 quests
+109	Primer jefe	First boss
+110	5 jefes	5 bosses
+111	Todos los jefes	All bosses
+112	10 toneladas	10 tons
+113	Elixir de Furia	Fury Elixir
+114	+50% de XP en todos los entrenamientos de hoy	+50% XP on all of today's workouts
+115	Título: “el Implacable”	Title: “the Relentless”
+116	Aparece debajo de tu nombre	Shows under your name
+117	el Implacable	the Relentless
+118	Título: “Rompe-Barras”	Title: “Bar Breaker”
+119	Título: “Hijo del Hierro”	Title: “Son of Iron”
+120	Hijo del Hierro	Son of Iron
+121	Título: “Sombra del Amanecer”	Title: “Shadow of Dawn”
+122	Para quien entrena a las 5 a. m.	For those who train at 5 a.m.
+123	Sombra del Amanecer	Shadow of Dawn
+124	Título: “Leyenda del Gimnasio”	Title: “Gym Legend”
+125	Solo los fuertes llegan aquí	Only the strong make it here
+126	Leyenda del Gimnasio	Gym Legend
+127	☁️ Progreso guardado en tu cuenta	☁️ Progress saved to your account
+128	💾 Progreso guardado en este dispositivo · haz una copia en la ⚙️ Ficha	💾 Progress saved on this device · back it up in ⚙️ Profile
+129	¡Logro desbloqueado!	Achievement unlocked!
+130	· +30 oro	· +30 gold
+131	Tope diario de XP de entrenamiento	Daily training XP cap
+132	Hoy ya llegaste a	Today you already reached
+133	XP de entrenamiento. El resto cuenta en el diario, sin XP.	training XP. The rest goes in your log, without XP.
+134	XP · +	XP · +
+135	Reloj del dispositivo alterado	Device clock changed
+136	La fecha u hora del celular retrocedió. Ponla en horario automático e inténtalo de nuevo.	Your phone's date or time went back. Set it to automatic and try again.
+137	Demasiadas series a la vez	Too many sets at once
+138	Registra como máximo	Log at most
+139	series por vez.	sets at a time.
+140	Número fuera de lo realista	Unrealistic number
+141	: máximo de	: maximum of
+142	repeticiones	reps
+143	por serie.	per set.
+144	Peso fuera de lo realista	Unrealistic weight
+145	El máximo aceptado es	The maximum allowed is
+146	¡Calma, héroe!	Easy, hero!
+147	Registraste	You logged
+148	series en la última hora. El cuerpo necesita tiempo entre series: inténtalo de nuevo en un rato.	sets in the last hour. Your body needs time between sets: try again in a bit.
+149	Límite diario de series	Daily set limit
+150	Hoy ya hiciste	Today you already did
+151	series. Descansar también es entrenar: vuelve mañana.	sets. Rest is training too: come back tomorrow.
+152	Recompensa de misión retirada	Quest reward removed
+153	: se borraron las series que cumplían la misión	: the sets that completed the quest were deleted
+154	Día del maestro deshecho	Master day undone
+155	Se borraron las series del entrenamiento del maestro	The master's workout sets were deleted
+156	Día de la Mazmorra deshecho	Dungeon day undone
+157	: se borraron las series del día	: the day's sets were deleted
+158	¡Misión cumplida!	Quest complete!
+159	¡Todas las misiones del día!	All of today's quests!
+160	Bono: +100 XP · +50 oro	Bonus: +100 XP · +50 gold
+164	[ SISTEMA ]	[ SYSTEM ]
+165	SUBISTE DE NIVEL	LEVEL UP
+166	Tus atributos se hicieron más fuertes. Sigue forjando.	Your stats got stronger. Keep forging.
+167	[ SISTEMA ] JEFE DERROTADO	[ SYSTEM ] BOSS DEFEATED
+168	XP · +120 oro	XP · +120 gold
+169	¡Gloria!	Glory!
+170	¿Estás seguro?	Are you sure?
+171	Segundos por serie	Seconds per set
+172	Repeticiones por serie	Reps per set
+173	Series	Sets
+174	▶ Iniciar cronómetro	▶ Start timer
+175	Recompensa estimada	Estimated reward
+177	⚔️ Registrar serie	⚔️ Log set
+178	🔥 ¡META SUPERADA! Aguanta más si puedes	🔥 GOAL BEATEN! Hold longer if you can
+179	▶ Siguiente serie	▶ Next set
+180	Serie	Set
+181	Muy corto, inténtalo de nuevo	Too short, try again
+182	Series cronometradas:	Timed sets:
+183	· mejor:	· best:
+184	Prepárate…	Get ready…
+185	⏹ Detener	⏹ Stop
+186	clase ×	class ×
+187	racha ×	streak ×
+189	Bono:	Bonus:
+190	Sin bonos activos	No active bonuses
+191	Ficha del Héroe	Hero Profile
+192	Peso corporal (kg) — se usa en los jefes de fuerza	Bodyweight (kg) — used for strength bosses
+193	Título equipado	Equipped title
+194	— ninguno —	— none —
+195	♂ Héroe	♂ Hero
+196	♀ Heroína	♀ Heroine
+197	Héroe con mi foto	Hero from my photo
+198	Tu héroe personalizado	Your custom hero
+199	Convierte tu foto en un héroe anime	Turn your photo into an anime hero
+200	Horario de entrenamiento	Workout time
+201	Copia tu progreso para guardarlo, o pega una copia para restaurarlo.	Copy your progress to keep it safe, or paste a backup to restore it.
+202	📋 Copiar respaldo	📋 Copy backup
+203	⤵️ Restaurar	⤵️ Restore
+204	🚪 Cerrar sesión	🚪 Log out
+205	Borrar héroe y empezar de nuevo	Delete hero and start over
+206	Todas las funciones desbloqueadas. ¡Gracias por apoyar la Forja!	All features unlocked. Thanks for supporting the Forge!
+207	App completa. Mejora tu plan para desbloquear la Mazmorra, el ranking y más.	Full app. Upgrade to unlock the Dungeon, the leaderboard and more.
+208	👑 Conocer el Cazador Élite	👑 See Elite Hunter
+209	[ SISTEMA ] · NUEVO JUGADOR DETECTADO	[ SYSTEM ] · NEW PLAYER DETECTED
+210	LA FORJA DEL HÉROE	HERO'S FORGE
+211	Cada serie se vuelve XP. Cada entrenamiento, un paso en tu leyenda.	Every set becomes XP. Every workout, a step in your legend.
+212	CLASE ELEGIDA	CHOSEN CLASS
+213	Nombre del héroe	Hero name
+214	Tu personaje	Your character
+215	Elige tu clase	Choose your class
+216	Mejor horario para entrenar	Best time to train
+217	El Sistema te avisará a esa hora y repetirá hasta que registres el entrenamiento del día.	The System will notify you at that time and repeat until you log today's workout.
+218	⚔️ Despertar a mi héroe	⚔️ Awaken my hero
+219	Recordatorio activado	Reminder on
