@@ -74,7 +74,12 @@ body{background:#050a1c radial-gradient(ellipse 120% 60% at 50% 0%,{BG} 0%,#050a
 .bar.p{background:linear-gradient(90deg,#ff3b5c,#ff6a3d)}
 .prog{height:6px;background:#1a2244;border-radius:6px;overflow:hidden;margin:14px 0 22px}
 .prog i{display:block;height:100%;width:{PROG};background:linear-gradient(90deg,var(--a2),var(--a))}
-.logo{display:block;width:160px;margin:0 auto 14px;border-radius:28px;box-shadow:0 0 0 1px rgba(255,255,255,.12),0 6px 18px rgba(0,0,0,.5)}
+.logo{display:block;width:190px;margin:0 auto 10px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.6))}
+.portal{position:relative;width:100vw;max-width:560px;left:50%;transform:translateX(-50%);margin-top:-30px;z-index:0}
+.portal img{display:block;width:100%;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 9%,#000 100%),linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(180deg,transparent 0,#000 9%,#000 100%),linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-composite:intersect}
+@media(max-width:560px){.portal img{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 9%);mask-image:linear-gradient(180deg,transparent 0,#000 9%)}}
+.c.up{position:relative;z-index:1;margin-top:calc(-1 * min(100vw,560px) * .82)}
+.logo{position:relative;z-index:2}
 .k{display:inline-block;border:1px solid var(--a);color:var(--a);font-weight:800;letter-spacing:.3em;font-size:12px;padding:6px 14px 6px 18px;border-radius:30px;background:rgba(0,0,0,.35);box-shadow:0 0 18px var(--glow)}
 .c{text-align:center}
 h1{font-family:Cinzel,serif;font-weight:900;text-transform:uppercase;font-size:clamp(26px,7vw,40px);line-height:1.08;margin:16px 0 10px;background:linear-gradient(180deg,#fff 0%,#fff 45%,var(--a) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 0 rgba(0,0,0,.6))}
@@ -112,11 +117,11 @@ body.has-bg .sub{text-shadow:0 2px 10px #000}body.has-bg h1{filter:drop-shadow(0
 <div class="bar{BARP}">{STEP}</div>
 <div class="w">
 <div class="prog"><i></i></div>
-<img class="logo" src="/img/v2/logo-full.webp" alt="Forja do Herói">
-<div class="c"><span class="k">{KICKER}</span>
+<img class="logo" src="/img/logo-transp.webp" alt="Forja do Herói">{PORTAL}
+<div class="c{CCLS}"><span class="k">{KICKER}</span>
 <h1>{TITLE}</h1>
 <p class="sub">{SUB}</p>
-<img class="hero {IMGCLS}" src="{IMG}" alt=""></div>
+{HEROIMG}</div>
 <p class="lead">{LEAD}</p>
 <div class="perks">{PERKS}</div>
 <div class="offer">
@@ -150,7 +155,10 @@ for p in PAGES:
     rep.update(STEP=p['step'], KICKER=p['kicker'], TITLE=p['title'], SUB=p['sub'], IMG=p['img'], IMGCLS=p['imgcls'],
                LEAD=p['lead'], PERKS=perks, OLD=p['old'], PRICE=p['price'], NOTE=p['note'], YES=p['yes'], NO=p['no'],
                WARN=p['warn'], YES_URL=yes_url, NO_URL=no_url, SLUG=p['slug'],
-               BGLAYER=(f'<div class="bgp"><img src="{p["img"]}" alt=""></div>' if p['theme']=='red' else ''),
+               BGLAYER='',
+               PORTAL=('<div class="portal"><img src="/img/abismo-bg.webp" alt="Portal do Abismo"></div>' if p['theme']=='red' else ''),
+               CCLS=(' up' if p['theme']=='red' else ''),
+               HEROIMG=('' if p['theme']=='red' else f'<img class="hero {p["imgcls"]}" src="{p["img"]}" alt="">'),
                BODYCLS=(' class="has-bg"' if p['theme']=='red' else ''),
                PROG='50%' if not p['slug'].endswith('-2') else '85%', BARP=' p' if p['slug'].endswith('-2') else '')
     html = TPL
