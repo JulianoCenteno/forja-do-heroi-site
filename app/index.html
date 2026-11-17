@@ -555,6 +555,25 @@ body{background:radial-gradient(900px 600px at 50% -120px,#13224a 0%,transparent
 .portal p{font-style:italic;font-size:13.5px;color:#eef3fb;line-height:1.3}
 .goldbtn{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:4px;padding:10px;border:2px solid #ffe9a8;clip-path:polygon(7% 0,93% 0,100% 50%,93% 100%,7% 100%,0 50%);background:linear-gradient(180deg,#ffd75a,#e8a01a);color:#2a1800;font-family:'Exo 2',Jost;font-weight:800;font-style:italic;font-size:20px;letter-spacing:.08em;box-shadow:0 0 14px rgba(255,180,40,.6)}
 .lvup a.btn,.modal a.btn{text-decoration:none}
+.kgs{display:flex;flex-wrap:wrap;gap:6px}
+.kgc{display:flex;flex-direction:column;align-items:center;gap:2px;width:58px}
+.kgc small{font-size:10px;color:#8fa0c8;letter-spacing:.05em}
+.kgc input{width:100%;text-align:center;padding:7px 2px;border-radius:9px;border:1px solid rgba(120,160,255,.28);background:rgba(4,10,30,.7);color:#fff;font:700 14px 'Exo 2',sans-serif}
+.kgc input[data-m="1"]{border-color:#ffc83a;color:#ffd767}
+.kgh{display:flex;align-items:flex-end;gap:6px;height:92px;margin-top:12px;padding-top:6px;border-top:1px dashed rgba(255,255,255,.08)}
+.kgh span{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0}
+.kgh i{display:block;width:70%;max-width:26px;border-radius:5px 5px 2px 2px;background:linear-gradient(180deg,#4fd2ff,#2a6bff);box-shadow:0 0 10px rgba(79,210,255,.35)}
+.kgh span:last-child i{background:linear-gradient(180deg,#ffe57a,#ffb020)}
+.kgh small{font-size:10px;color:#cfe0ff;margin-top:3px;white-space:nowrap}
+.kgh em{font-style:normal;font-size:9px;color:#6f7ea8}
+.mt-obj{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:12px}
+.mt-obj button{display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 4px;border-radius:12px;border:1px solid rgba(120,160,255,.22);background:rgba(8,16,44,.75);color:#b9c6e8;font:700 12.5px 'Exo 2',sans-serif;cursor:pointer}
+.mt-obj button span{font-size:20px}
+.mt-obj button.on{border-color:#ffc83a;color:#fff;background:linear-gradient(180deg,rgba(255,200,58,.18),rgba(8,16,44,.8));box-shadow:0 0 14px rgba(255,190,40,.25)}
+.mt-objd{font-size:12.5px;color:#9fb0d8;text-align:center;margin:6px 0 0}
+.mt-objbig{display:flex;gap:14px;align-items:center;width:100%;text-align:left;margin-bottom:10px;padding:14px;border-radius:14px;border:1px solid rgba(120,160,255,.25);background:linear-gradient(180deg,rgba(20,30,70,.9),rgba(10,16,40,.9));color:#e6ecff;cursor:pointer}
+.mt-objbig .e{font-size:30px;width:50px;height:50px;display:grid;place-items:center;border-radius:12px;background:rgba(0,0,0,.35);border:1px solid #ffc83a;flex:0 0 auto}
+.mt-objbig b{display:block;font-size:17px;color:#ffd767}.mt-objbig small{font-size:13.5px;color:#a9b4d9}
 .dgc2{display:flex;margin-top:12px;border-radius:14px;overflow:hidden;border:1px solid rgba(110,200,255,.6);box-shadow:0 0 12px rgba(79,195,255,.3);background:linear-gradient(180deg,rgba(12,22,46,.96),rgba(6,12,28,.96));text-align:left;width:100%}
 .dgc2.p{border-color:rgba(190,140,255,.75);box-shadow:0 0 12px rgba(160,90,255,.4)}
 .dgc2>img{width:35%;object-fit:cover;flex:none}
@@ -1265,17 +1284,17 @@ function afterProgress(prevLevel){
   }
   save();
 }
-function logExercise(exId,s,r,kg){
-  const ex=EXM[exId];const prev=levelInfo().L;
+function logExercise(exId,s,r,kg,kgs){
+  const ex=EXM[exId];const prev=levelInfo().L;if(ex.t!=='mus'||!kgs||!kgs.length)kgs=null;
   const chk=antiCheat(ex,s,r,kg);
   if(!chk.ok){sfx&&sfx('error');toast('🛡️',chk.t,chk.m);return false}
   const m=multipliers(ex);
-  let xp=Math.max(1,Math.round(baseXP(ex,s,r,kg)*m.total));
+  let xp=Math.max(1,Math.round(baseXP(ex,s,r,kgs?sum(kgs,v=>v)/kgs.length:kg)*m.total));
   const room=Math.max(0,LIM.xpDay-trainXPToday());
   if(xp>room){xp=room;setTimeout(()=>toast('🛡️','Teto diário de XP de treino','Hoje você já chegou a '+fmt(LIM.xpDay)+' XP de treino. O resto conta no diário, sem XP.'),400)}
-  S.log.push({id:uid(),d:ymd(),ts:Date.now(),ex:exId,s,r,kg:ex.t==='mus'?kg:0,xp});
-  S.last[exId]={s,r,kg};
-  sfx('xp');toast('✨','+'+fmt(xp)+' XP · +'+Math.floor(xp/20)+' ouro',ex.n+' — '+s+'×'+r+(ex.u?'s':'')+(ex.t==='mus'?' · '+kg+' kg':''));
+  const en={id:uid(),d:ymd(),ts:Date.now(),ex:exId,s,r,kg:ex.t==='mus'?kg:0,xp};if(kgs)en.kgs=kgs;S.log.push(en);
+  S.last[exId]=kgs?{s,r,kg,kgs}:{s,r,kg};
+  sfx('xp');toast('✨','+'+fmt(xp)+' XP · +'+Math.floor(xp/20)+' ouro',ex.n+' — '+s+'×'+r+(ex.u?'s':'')+(ex.t==='mus'?' · '+kgTxt(en):''));
   afterProgress(prev);
   return true;
 }
@@ -1383,11 +1402,23 @@ function exerciseSheet(id,preset){
     ${ex.u==='s'?`<div class="iso"><div class="iso-t" id="isoT">0,0<small>s</small></div><div class="iso-g" id="isoG">Meta: ${l.r}s · toque para começar</div>
       <button class="btn full" data-a="isoGo" id="isoB">▶ Iniciar cronômetro</button><div class="iso-n" id="isoN"></div></div>`:''}
     <div class="field"><label>${unit}</label>${stepper('f_r',l.r,ex.u?5:1)}</div>
-    ${ex.t==='mus'?`<div class="field"><label>Carga (kg)</label>${stepper('f_kg',l.kg,2.5)}</div>`:''}
+    ${ex.t==='mus'?`<div class="field"><label>Carga (kg)</label>${stepper('f_kg',l.kg,2.5)}</div>
+    <div class="field"><label>Peso de cada série <span class="dim" style="font-weight:400;text-transform:none;letter-spacing:0">· mudou a carga no meio? ajuste aqui</span></label><div class="kgs" id="f_kgs"></div></div>`:''}
     <div class="preview"><div><div class="muted" style="font-size:13px">Recompensa estimada</div><div class="dim" style="font-size:12px" id="f_mult"></div></div><b id="f_xp">0 XP</b></div>
     <button class="btn full" style="margin-top:14px" data-a="log" data-id="${id}">⚔️ Registrar série</button>`);
-  window.__sheetEx=id; ISO.n=0;ISO.best=0;isoReset(); updatePreview();
+  window.__sheetEx=id; window.__kgsPre=(preset&&preset.kgs)||null; ISO.n=0;ISO.best=0;isoReset(); updatePreview();
 }
+function kgsPaint(){
+  const box=$('#f_kgs');if(!box)return;
+  const s=Math.min(LIM.sets,Math.max(0,Math.round(+$('#f_s').value||0)));const kg=Math.max(0,+(+$('#f_kg').value||0));
+  let ins=[...box.querySelectorAll('input')];
+  if(ins.length!==s){const old=ins.map(i=>({v:i.value,m:i.dataset.m}));const pre=window.__kgsPre;window.__kgsPre=null;
+    box.innerHTML=Array.from({length:s},(_,i)=>{const o=old[i];const v=o&&o.m?o.v:(pre&&pre[i]!=null?pre[i]:kg);const m=o&&o.m?'1':(pre&&pre[i]!=null&&+pre[i]!==kg?'1':'');
+      return `<label class="kgc"><small>${i+1}ª</small><input type="number" inputmode="decimal" min="0" step="2.5" value="${v}" data-m="${m}"></label>`}).join('');ins=[...box.querySelectorAll('input')]}
+  ins.forEach(i=>{if(!i.dataset.m)i.value=kg});
+}
+function kgTxt(e){const a=e.kgs&&e.kgs.length?e.kgs:null;return a?a.map(v=>fmtKg(v)).join(' / ')+' kg':fmtKg(e.kg||0)+' kg'}
+function fmtKg(v){return String(Math.round((+v||0)*100)/100).replace('.',',')}
 /* cronômetro de isometria */
 const ISO={run:false,cd:0,t0:0,int:null,hit:false,n:0,best:0,wake:null};
 function isoBeep(f,d){try{const A=window.__isoAC||(window.__isoAC=new (window.AudioContext||window.webkitAudioContext)());const o=A.createOscillator(),g=A.createGain();o.frequency.value=f;o.type='square';g.gain.value=.08;o.connect(g);g.connect(A.destination);o.start();o.stop(A.currentTime+(d||.12))}catch(e){}}
@@ -1421,13 +1452,16 @@ function stepper(id,v,step){return `<div class="stepper"><button data-a="step" d
 function readSheet(){
   const ex=EXM[window.__sheetEx];
   const s=Math.max(0,Math.round(+$('#f_s').value||0)),r=Math.max(0,Math.round(+$('#f_r').value||0));
-  const kg=ex.t==='mus'?Math.max(0,+(+$('#f_kg').value||0).toFixed(2)):0;
-  return {ex,s,r,kg};
+  let kg=ex.t==='mus'?Math.max(0,+(+$('#f_kg').value||0).toFixed(2)):0;let kgs=null;
+  const ki=[...document.querySelectorAll('#f_kgs input')];
+  if(ex.t==='mus'&&ki.length){kgs=ki.slice(0,s).map(i=>Math.max(0,+(+i.value||0).toFixed(2)));if(kgs.length&&kgs.some(v=>v!==kgs[0])){kg=Math.max(...kgs)}else kgs=null}
+  return {ex,s,r,kg,kgs};
 }
 function updatePreview(){
   if(!$('#f_xp'))return;
-  const {ex,s,r,kg}=readSheet();const m=multipliers(ex);
-  $('#f_xp').textContent='+'+fmt(Math.round(baseXP(ex,s,r,kg)*m.total))+' XP';
+  kgsPaint();
+  const {ex,s,r,kg,kgs}=readSheet();const m=multipliers(ex);
+  $('#f_xp').textContent='+'+fmt(Math.round(baseXP(ex,s,r,kgs?sum(kgs,v=>v)/kgs.length:kg)*m.total))+' XP';
   const parts=[];if(m.cls>1)parts.push('classe ×'+m.cls.toFixed(1));if(m.streak>1)parts.push('sequência ×'+m.streak.toFixed(2));if(m.elixir>1)parts.push('elixir ×1.5');
   $('#f_mult').textContent=parts.length?'Bônus: '+parts.join(' · '):'Sem bônus ativos';
 }
@@ -1557,7 +1591,7 @@ function horaPromo(){
 
 const ICO={FOR:'<path d="M6 7v10M3 9.5v5M18 7v10M21 9.5v5M6 12h12"/>',RES:'<path d="M12 2.5l7.5 3v6.2c0 4.6-3.1 8-7.5 9.8-4.4-1.8-7.5-5.2-7.5-9.8V5.5z"/>',AGI:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',VIG:'<path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-3 2-4 2-7 1 1 2 2 3 3z"/>'};
 const svgI=(d,sz=22)=>`<svg width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="#dff4ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
-function entryRow(e){const ex=EXM[e.ex]||{n:e.ex};return `<div class="entry"><div><div class="n">${esc(ex.n)}</div><div class="d">${ex.t==='run'?(e.r/1000).toFixed(2).replace('.',',')+' km · '+fmtDur(e.sec||0):`${e.s} × ${e.r}${ex.u?'s':''}${ex.t==='mus'?' · '+e.kg+' kg':''}`}</div></div><span class="x">+${fmt(e.xp)} XP</span><button class="del" data-a="del" data-id="${e.id}" title="Apagar">✕</button></div>`}
+function entryRow(e){const ex=EXM[e.ex]||{n:e.ex};return `<div class="entry"><div><div class="n">${esc(ex.n)}</div><div class="d">${ex.t==='run'?(e.r/1000).toFixed(2).replace('.',',')+' km · '+fmtDur(e.sec||0):`${e.s} × ${e.r}${ex.u?'s':''}${ex.t==='mus'?' · '+kgTxt(e):''}`}</div></div><span class="x">+${fmt(e.xp)} XP</span><button class="del" data-a="del" data-id="${e.id}" title="Apagar">✕</button></div>`}
 
 function viewShop(){
   const g=gold();
@@ -1572,7 +1606,8 @@ function viewLog(){
   if(!S.log.length) return backMais()+`<h2>Diário de batalha</h2><div class="card"><p class="muted">Seu diário está vazio. Registre seu primeiro treino na aba Treinar.</p></div>`;
   const by={};for(const e of S.log)(by[e.d]=by[e.d]||[]).push(e);
   const days=Object.keys(by).sort().reverse();
-  return backMais()+`<h2>Diário de batalha <span class="sub">${S.log.length} registros</span></h2>`+days.slice(0,60).map(d=>{
+  const hasMus=S.log.some(e=>EXM[e.ex]&&EXM[e.ex].t==='mus');
+  return backMais()+`<h2>Diário de batalha <span class="sub">${S.log.length} registros</span></h2>${hasMus?`<button class="btn full ghost" style="margin:4px 0 12px" data-a="goSheet">📊 Ver a evolução das minhas cargas</button>`:''}`+days.slice(0,60).map(d=>{
     const [y,m,da]=d.split('-');const es=by[d].slice().reverse();
     return `<div class="dayh"><span>${da}/${m}/${y}</span><span>${fmt(sum(es,e=>e.xp))} XP</span></div><div class="card">${es.map(entryRow).join('')}</div>`}).join('');
 }
@@ -1783,30 +1818,40 @@ const M_SPLIT={
   paladino:[['Descanso ativo',['Core','Cardio']],['Peito + Empurrar',['Peito','Empurrar']],['Costas + Puxar',['Costas','Puxar']],['Pernas Híbrido',['Pernas']],['Ombros + Core',['Ombros','Core']],['Empurrar e Puxar',['Empurrar','Puxar']],['Pernas e Cardio',['Pernas','Cardio']]]
 };
 const TRI=['triceps','triceps_testa'],BI=['rosca','martelo'];
+const MT_OBJ={
+  hip:{n:'Hipertrofia',e:'💪',d:'Ganhar músculo: 4 séries de 8 a 12 reps, descanso de 60 a 90 s',rest:[90,60],rt:'60–90 s'},
+  for:{n:'Força',e:'🏋️',d:'Ficar mais forte: 5 séries de 3 a 6 reps com carga pesada, descanso de 2 a 3 min',rest:[150,120],rt:'2–3 min'},
+  emag:{n:'Emagrecimento',e:'🔥',d:'Queimar gordura: 3 séries de 15 a 20 reps, pouco descanso e cardio no final',rest:[45,30],rt:'30–45 s'}
+};
+function mtObj(){return (S.mt&&MT_OBJ[S.mt.obj])?S.mt.obj:'hip'}
 function mtTier(){const L=levelInfo().L;return Math.min(5,1+Math.floor(L/6))}
 function mtProg(key){S.mt=S.mt||{};S.mt.p=S.mt.p||{};return S.mt.p[key]=S.mt.p[key]||{day:1,done:{}}}
-function mtPlan(key,day){
-  const M=MESTRES[key];day=day||mtProg(key).day;const dow=day%7;const [name,groups]=M_SPLIT[key][dow];
-  const rest=dow===0;const r=rng(hash('d'+day+key+(S.name||'')));const tier=mtTier();const L=levelInfo().L;
-  const picks=[];const want=rest?3:(groups.length>1?5:4);
+function mtPlan(key,day,obj){
+  const M=MESTRES[key];const pr0=mtProg(key);day=day||pr0.day;obj=obj||(pr0.o&&pr0.o[day])||mtObj();const dow=day%7;const [name,groups]=M_SPLIT[key][dow];
+  const rest=dow===0;const r=rng(hash('d'+day+key+(S.name||'')+(obj==='hip'?'':obj)));const tier=Math.min(5,mtTier()+(obj==='for'&&!rest?1:0));const L=levelInfo().L;
+  const picks=[];const want=rest?3:obj==='for'?4:(groups.length>1?5:4);
   const per=groups.map((g,i)=>Math.ceil((want-picks.length)/(groups.length-i)));
   groups.forEach((g0,gi)=>{
     const [g,sub]=g0.split(':');
     let pool=EX.filter(e=>e.g===g&&e.t!=='run'&&(rest?e.t==='cal':M.type.includes(e.t))&&(e.t!=='cal'||(e.tier||1)<=tier));
     if(sub==='t')pool=pool.filter(e=>TRI.includes(e.id));if(sub==='b')pool=pool.filter(e=>BI.includes(e.id));
     pool=pool.filter(e=>!picks.includes(e.id));
-    pool.sort((a,b)=>((b.tier||1)-(a.tier||1))+(r()-.5)*2.2);
+    pool.sort((a,b)=>((b.tier||1)-(a.tier||1))*(obj==='for'?2:obj==='emag'?.4:1)+(r()-.5)*2.2);
     let n=Math.min(per[gi],pool.length);if(key==='paladino'&&!rest&&gi===0)n=Math.max(n,Math.min(pool.length,3));
     for(let i=0;i<n&&picks.length<want;i++)picks.push(pool[i].id);
   });
   const w=Math.min(4,1+Math.floor(L/8));
+  if(obj==='emag'&&!rest&&!picks.some(id=>EXM[id].g==='Cardio')){const c=['burpee','polichinelo','corda'].filter(id=>EXM[id]&&!picks.includes(id));if(c.length)picks.push(c[Math.floor(r()*c.length)])}
+  const r25=v=>Math.round(v/2.5)*2.5;
   const items=picks.map(id=>{const ex=EXM[id];let s=ex.t==='mus'?4:3,rr;
     if(ex.u==='s') rr=(ex.tier>=3?10:25)+(ex.tier>=3?4:10)*(w-1);
     else if(ex.t==='mus') rr=[12,10,10,8][w-1];
     else {const base=ex.tier>=4?3:ex.tier===3?6:ex.tier===2?10:15;rr=Math.round(base*(1+0.2*(w-1)))}
-    let kg=0;const l=S.last[id];if(ex.t==='mus'){kg=l?l.kg+(l.r>=rr?2.5:0):0}
+    if(obj==='for'){s=ex.t==='mus'?5:4;if(ex.u==='s')rr=Math.round(rr*1.2);else if(ex.t==='mus')rr=[6,5,5,4][w-1];else rr=Math.max(3,Math.round(rr*.6))}
+    if(obj==='emag'){s=3;if(ex.u==='s')rr=rr+15;else if(ex.t==='mus')rr=[15,15,18,20][w-1];else rr=Math.round(rr*1.5)}
+    let kg=0;const l=S.last[id];if(ex.t==='mus'&&l){kg=l.kg+(l.r>=rr?2.5:0);if(obj==='for'&&l.r>rr+2)kg=r25(l.kg*1.12);if(obj==='emag'&&l.r<rr-3)kg=r25(l.kg*.75)}
     return {ex:id,s,r:rr,kg}});
-  return {key,day,name,rest,items,fala:M.fala[Math.floor(r()*M.fala.length)]};
+  return {key,day,name,rest,obj,items,fala:M.fala[Math.floor(r()*M.fala.length)]};
 }
 function mtAvail(key){const pr=mtProg(key);const prev=pr.done[pr.day-1];return pr.day===1||(!!prev&&prev<ymd())}
 function mtItemDone(it){return sum(todayEntries().filter(e=>e.ex===it.ex),e=>e.s)>=it.s}
@@ -1816,21 +1861,31 @@ function viewMestres(){
   if(!isElite()) return backMais()+head+lockedView('Mestres do Forja','Três mestres passam o seu treino do dia: Mestre Kaito na calistenia, Mestre Brutus no ferro (um grupo muscular por dia) e Mestra Aurora no treino híbrido.',ART.keyart,['Treino do dia pronto, com séries, repetições e carga','Carga sugerida a partir dos seus recordes','Bênção do mestre: XP e ouro extra ao completar']);
   if(!S.mt||!S.mt.p){S.mt={sel:(S.mt&&S.mt.sel)||null,p:{}}}
   if(!S.mt.sel) return backMais()+head+mtChooser();
+  if(!S.mt.obj) return backMais()+head+mtObjChooser();
   const sel=S.mt.sel;const M=MESTRES[sel];const pr=mtProg(sel);const P=mtPlan(sel);const avail=mtAvail(sel);const all=P.items.every(mtItemDone);const rw=mtBonus();const doneToday=pr.done[pr.day-1]===ymd();
   return backMais()+head+`<div class="mt-pick">${Object.entries(MESTRES).map(([k,m])=>`<button class="mt-c ${k===sel?'on':''}" style="--mc:${m.cor}" data-a="mtSel" data-v="${k}"><img src="${UI}${m.img}.webp" alt="${m.n}"><b>${m.n}</b><small>${m.t}${k===S.cls?' · sua classe':''}</small></button>`).join('')}</div>
   <div class="mt-say" style="--mc:${M.cor}"><img src="${UI}${M.img}.webp" alt=""><div><b>${M.n}</b><p>“${esc(P.fala)}”</p></div></div>
-  <div class="missub" style="margin-top:12px">DIA ${P.day} · ${P.name.toUpperCase()}</div>
+  <div class="mt-obj">${Object.entries(MT_OBJ).map(([k,o])=>`<button class="${k===P.obj?'on':''}" data-a="mtObj" data-v="${k}"><span>${o.e}</span>${o.n}</button>`).join('')}</div>
+  <p class="mt-objd">${MT_OBJ[P.obj].d}</p>
+  <div class="missub" style="margin-top:12px">DIA ${P.day} · ${P.name.toUpperCase()} · FICHA DE ${MT_OBJ[P.obj].n.toUpperCase()}</div>
   <div class="pv mispanel">
    ${avail?'':`<p class="qwarn">${doneToday?'<span style="color:#7dff9b">✓ Treino do dia '+(P.day-1)+' concluído.</span> ':''}<b>O DIA ${P.day} ABRE AMANHÃ.</b> O mestre só libera o próximo treino depois de você cumprir o atual, um por dia.</p>`}
    ${P.items.map(it=>{const ex=EXM[it.ex];const done=sum(todayEntries().filter(e=>e.ex===it.ex),e=>e.s);const ok=done>=it.s;
     return `<div class="qcard ${ok?'done':''}"><span class="qi em">${GROUP_ICON[ex.g]||'⚔️'}</span><div class="tx"><div class="tt"><b>${esc(ex.n)}</b><span>${ok?'✓':done?done+'/'+it.s:''}</span></div>
-     <small>${it.s} séries × ${it.r}${ex.u?'s':' reps'}${ex.t==='mus'?(it.kg?' · carga sugerida '+fmt(it.kg)+' kg':' · escolha uma carga desafiadora'):''}</small>
+     <small>${it.s} séries × ${it.r}${ex.u?'s':' reps'}${ex.t==='mus'?(it.kg?' · carga sugerida '+fmtKg(it.kg)+' kg':(P.obj==='for'?' · use uma carga pesada':P.obj==='emag'?' · carga leve, ritmo rápido':' · escolha uma carga desafiadora')):''} · descanso ${MT_OBJ[P.obj].rt}</small>
      ${ok?'':`<button class="btn sm" ${avail?'':'disabled'} data-a="mtLog" data-id="${it.ex}" data-s="${it.s}" data-r="${it.r}" data-kg="${it.kg}">Registrar</button>`}</div></div>`}).join('')}
    <div class="qreward"><img src="${UI}q-reward.webp" alt=""><div>Bênção do mestre: <b>+${rw.xp} XP</b> e <b>${rw.gold} ouro</b> ao concluir cada dia</div></div>
    <button class="goldbtn" style="width:100%;margin-top:14px" ${avail&&all?'':'disabled'} data-a="mtDone">${!avail?'VOLTE AMANHÃ':all?'⚔️ CONCLUIR O DIA '+P.day:'COMPLETE O TREINO DO DIA '+P.day}</button>
   </div>
   <div class="sechead">Sua jornada com ${M.n}</div><div class="pv" style="padding:12px"><div class="dggrid">${Array.from({length:Math.max(14,Math.ceil((pr.day+3)/7)*7)},(_,i)=>{const n=i+1;return `<span class="dgc ${pr.done[n]?'ok':n===pr.day?'cur':''}">${pr.done[n]?'✓':n}</span>`}).join('')}</div></div>
   <p class="muted" style="font-size:12px;text-align:center;margin-top:10px">Cada dia tem um treino diferente. O próximo só abre quando você cumpre o atual (um por dia). Trocar de mestre mantém o progresso de cada um.</p>`;
+}
+function mtObjChooser(){
+  const M=MESTRES[S.mt.sel];
+  return `<div class="mt-say" style="--mc:${M.cor}"><img src="${UI}${M.img}.webp" alt=""><div><b>${M.n}</b><p>“Antes de começarmos, caçador: qual é a sua missão? Eu monto a ficha certa pra ela.”</p></div></div>
+  <div class="sechead">Escolha a sua ficha de treino</div>
+  ${Object.entries(MT_OBJ).map(([k,o])=>`<button class="mt-objbig" data-a="mtObj" data-v="${k}"><span class="e">${o.e}</span><span><b>${o.n}</b><small>${o.d}</small></span></button>`).join('')}
+  <p class="muted" style="font-size:12px;text-align:center;margin-top:10px">Dá pra trocar de ficha depois, a qualquer momento entre um treino e outro.</p>`;
 }
 function mtChooser(){
   return `<div class="sechead">Escolha o seu mestre</div><p class="muted" style="font-size:14px">Ele vai passar o seu treino, dia após dia. Você pode trocar depois.</p>
@@ -1840,7 +1895,7 @@ function mtComplete(){
   if(!isElite()||!S.mt||!S.mt.sel||clockTampered())return;
   const k=S.mt.sel;const pr=mtProg(k);if(!mtAvail(k))return;
   const P=mtPlan(k);if(!P.items.every(mtItemDone))return;
-  const prev=levelInfo().L;const rw=mtBonus();pr.done[pr.day]=ymd();pr.rw=pr.rw||{};pr.rw[pr.day]=rw;pr.day++;S.bonusXP+=rw.xp;S.goldBonus+=rw.gold;
+  const prev=levelInfo().L;const rw=mtBonus();pr.done[pr.day]=ymd();pr.rw=pr.rw||{};pr.rw[pr.day]=rw;pr.o=pr.o||{};pr.o[pr.day]=P.obj;pr.day++;S.bonusXP+=rw.xp;S.goldBonus+=rw.gold;
   sfx('quest');toast('🧙','Dia '+P.day+' concluído com '+MESTRES[k].n,'+'+rw.xp+' XP · +'+rw.gold+' ouro · o dia '+pr.day+' abre amanhã');afterProgress(prev);render();
 }
 
@@ -1965,8 +2020,10 @@ function viewSheet(){
   return backMais()+`<h2>📊 Planilha do Guerreiro</h2>`+ids.map(id=>{const es=S.log.filter(e=>e.ex===id);const ex=EXM[id];
     const best=Math.max(...es.map(e=>e.kg||0));const rm=Math.max(...es.map(e=>(e.kg||0)*(1+e.r/30)));const last=es[es.length-1];
     const sug=last.r>=10?Math.round(((last.kg||0)+2.5)*2)/2:(last.kg||0);
+    const byD={};es.forEach(e=>{byD[e.d]=Math.max(byD[e.d]||0,e.kg||0)});const hist=Object.entries(byD).sort().slice(-8);const hmax=Math.max(1,...hist.map(x=>x[1])),hmin=Math.min(...hist.map(x=>x[1]));
+    const chart=hist.length>1?`<div class="kgh">${hist.map(([d,v])=>`<span title="${d.slice(8)}/${d.slice(5,7)}: ${fmtKg(v)} kg"><i style="height:${hmax>hmin?Math.round(18+62*(v-hmin)/(hmax-hmin)):60}%"></i><small>${fmtKg(v)}</small><em>${d.slice(8)}/${d.slice(5,7)}</em></span>`).join('')}</div>`:'';
     return `<div class="card sheetc"><div class="row between"><b class="glow">${esc(ex.n)}</b><span class="dim" style="font-size:12px">${es.length} ${es.length===1?'treino':'treinos'}</span></div>
-     <div class="sgrid"><div><small>RECORDE</small><b>${fmt(best)} kg</b></div><div><small>1RM ESTIMADO</small><b>${fmt(rm)} kg</b></div><div><small>ÚLTIMO</small><b>${last.s}×${last.r} · ${last.kg||0} kg</b></div><div><small>PRÓXIMO TREINO</small><b class="${sug>(last.kg||0)?'up':''}">${sug} kg ${sug>(last.kg||0)?'↑':''}</b></div></div></div>`}).join('');
+     <div class="sgrid"><div><small>RECORDE</small><b>${fmtKg(best)} kg</b></div><div><small>1RM ESTIMADO</small><b>${fmtKg(Math.round(rm*2)/2)} kg</b></div><div><small>ÚLTIMO</small><b>${last.s}×${last.r} · ${kgTxt(last)}</b></div><div><small>PRÓXIMO TREINO</small><b class="${sug>(last.kg||0)?'up':''}">${sug} kg ${sug>(last.kg||0)?'↑':''}</b></div></div>${chart}</div>`}).join('');
 }
 
 
@@ -2514,15 +2571,20 @@ document.addEventListener('click',ev=>{
     case 'isoGo': isoGo();break;
     case 'isoTry': closeModal();setTimeout(()=>exerciseSheet('prancha'),250);break;
     case 'log':{isoReset();
-      const {ex,s,r,kg}=readSheet();if(!s||!r){toast('⚠️','Informe séries e repetições');return}
-      if(!logExercise(ex.id,s,r,kg))return;
+      const {ex,s,r,kg,kgs}=readSheet();if(!s||!r){toast('⚠️','Informe séries e repetições');return}
+      if(!logExercise(ex.id,s,r,kg,kgs))return;
       closeModal();render();
-      startTimer(ex.t==='mus'?90:60);break}
+      startTimer(tab==='mestres'&&S.mt&&S.mt.obj&&MT_OBJ[S.mt.obj]?MT_OBJ[S.mt.obj].rest[ex.t==='mus'?0:1]:(ex.t==='mus'?90:60));break}
     case 'del': confirmModal('Apagar este registro? O XP e o ouro dele serão removidos.',()=>deleteEntry(b.dataset.id),'Apagar'); break;
     case 'claim': claimQuest(b.dataset.id);render();break;
     case 'mtSel': if(!S.mt||!S.mt.p)S.mt={p:{}};S.mt.sel=b.dataset.v;mtProg(b.dataset.v);save();sfx&&sfx('quest');render();window.scrollTo(0,0);break;
+    case 'goSheet': tab='planilha';render();window.scrollTo(0,0);break;
     case 'mtGo': closeModal();tab='mestres';render();window.scrollTo(0,0);break;
     case 'mtLog':{const id=b.dataset.id;const l=S.last[id]||{};exerciseSheet(id,{s:+b.dataset.s,r:+b.dataset.r,kg:+b.dataset.kg||l.kg||20});break}
+    case 'mtObj':{const v=b.dataset.v;if(!MT_OBJ[v])break;const k=S.mt&&S.mt.sel;
+      if(k&&S.mt.obj&&S.mt.obj!==v){const P=mtPlan(k);const pr=mtProg(k);const started=pr.done[pr.day-1]!==ymd()&&P.items.some(it=>todayEntries().some(e=>e.ex===it.ex));
+        if(started){toast('⏳','Termine o treino de hoje primeiro','A ficha nova começa no próximo dia do mestre');break}}
+      S.mt.obj=v;save();sfx&&sfx('quest');toast(MT_OBJ[v].e,'Ficha de '+MT_OBJ[v].n+' ativada',MT_OBJ[v].d);render();break}
     case 'mtDone': mtComplete();break;
     case 'runStart': runStart();break;
     case 'runPause': runPause();break;
@@ -2558,7 +2620,7 @@ document.addEventListener('click',ev=>{
       confirmModal('Apagar este post da Taverna?',()=>{if(u===TV.me)writeMine(doc=>{doc.posts=doc.posts.filter(p=>p.id!==id)});else modDelete(u,id)},'Apagar');break}
   }
 });
-document.addEventListener('input',ev=>{if(ev.target.closest('.stepper'))updatePreview();if(ev.target.id==='tv_text')TV.draft=ev.target.value});
+document.addEventListener('input',ev=>{if(ev.target.closest('.stepper'))updatePreview();if(ev.target.closest('#f_kgs')){ev.target.dataset.m='1';updatePreview()}if(ev.target.id==='tv_text')TV.draft=ev.target.value});
 setInterval(()=>{if(tab==='taverna')paintFeed()},60000);
 setInterval(()=>{ if(S.created&&S.q.d&&S.q.d!==ymd()){render()} },60000);
 
