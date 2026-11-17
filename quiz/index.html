@@ -2,12 +2,12 @@
 <html lang="pt-BR"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Teste do Despertar · Forja do Herói</title>
-<meta name="description" content="Responda o Teste do Despertar, descubra sua classe de herói e ganhe moedas que viram desconto no seu plano de treino.">
+<meta name="description" content="Responda o Teste do Despertar, descubra sua classe de herói e ganhe moedas que viram crédito no seu plano de treino.">
 <meta name="theme-color" content="#050a1c">
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="/img/v2/logo-square.webp">
 <meta property="og:title" content="Teste do Despertar · Forja do Herói">
-<meta property="og:description" content="Descubra sua classe de herói e ganhe desconto no seu plano de treino.">
+<meta property="og:description" content="Descubra sua classe de herói e ganhe crédito no seu plano de treino.">
 <meta property="og:image" content="https://forjadoheroi.com/img/v2/logo-full.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -299,7 +299,7 @@ function hud(){const s=S[idx];const on=!['intro','load','res'].includes(s.t);$('
 function bumpWallet(){const w=$('#wal');w.classList.remove('bump');void w.offsetWidth;w.classList.add('bump')}
 function reward(c,fromEl){if(!c)return;const before=1+Math.floor(answered()/4);
  W+=c;const r=fromEl?fromEl.getBoundingClientRect():{left:innerWidth/2,top:innerHeight/2,width:0,height:0};
- const pop=document.createElement('div');pop.className='pop';pop.innerHTML='+'+brl(c/100)+'<small>DE DESCONTO</small>';document.body.appendChild(pop);setTimeout(()=>pop.remove(),1150);
+ const pop=document.createElement('div');pop.className='pop';pop.innerHTML='+'+brl(c/100)+'<small>DE CRÉDITO</small>';document.body.appendChild(pop);setTimeout(()=>pop.remove(),1150);
  const wr=$('#wal').getBoundingClientRect();const n=Math.min(9,3+Math.round(c/60));
  for(let i=0;i<n;i++){const k=document.createElement('div');k.className='coin';const sx=r.left+r.width/2+(Math.random()-.5)*60,sy=r.top+r.height/2;k.style.left=sx+'px';k.style.top=sy+'px';document.body.appendChild(k);
   const dx=wr.left+12-sx,dy=wr.top+10-sy;k.animate([{transform:'translate(0,0) scale(.6)',opacity:0},{transform:`translate(${(Math.random()-.5)*80}px,${-40-Math.random()*60}px) scale(1.15)`,opacity:1,offset:.35},{transform:`translate(${dx}px,${dy}px) scale(.55)`,opacity:.9}],{duration:750+i*55,easing:'cubic-bezier(.5,0,.7,1)'}).onfinish=()=>{k.remove();if(i===n-1){bumpWallet();$('#walv').textContent=brl(W/100)}}}
@@ -314,7 +314,7 @@ function next(){go(idx+1)}
 $('#back').onclick=()=>{if(!hist.length)return;const p=hist.pop();const s=S[idx];idx=p;
  const cur=S[idx];if(cur.rw&&A[cur.id]!=null&&cur.t!=='inter'){W-=cur.rw;delete A[cur.id]}save();render()};
 function save(){store.set({A,W,idx,hist})}
-function qhead(s){return `${s.img?`<img class="qban" src="${s.img}" alt="">`:''}<div class="cap">${s.cap}</div><h2>${s.q()}</h2>${s.sub?`<p class="sub">${s.sub}</p>`:''}<div class="qnum">PERGUNTA ${answered()+1} DE ${QN} · vale <b style="color:#ffd767">${brl(s.rw/100)}</b></div>`}
+function qhead(s){return `${s.img?`<img class="qban" src="${s.img}" alt="">`:''}<div class="cap">${s.cap}</div><h2>${s.q()}</h2>${s.sub?`<p class="sub">${s.sub}</p>`:''}<div class="qnum">PERGUNTA ${answered()+1} DE ${QN} · vale <b style="color:#ffd767">${brl(s.rw/100)} de crédito</b></div>`}
 function render(){const s=S[idx];document.body.classList.toggle('res',s.t==='res');$('#sticky').classList.remove('on');hud();
  let h='';
  if(s.t==='intro')h=vIntro();
@@ -346,9 +346,9 @@ function vIntro(){return `<section class="scr on">
  <div class="cap" style="margin-top:16px">[ SISTEMA ] · Novo jogador detectado</div>
  <h1>Descubra sua <em>classe de herói</em></h1>
  <p class="sub">Responda o <b>Teste do Despertar</b> e o Sistema monta um plano de treino feito pro seu corpo, seu objetivo e sua rotina.</p>
- <div class="prize"><img src="/app/img/ui/ic-coin.webp" alt=""><p>Cada resposta vale <b>moedas de ouro</b>. No final, elas viram <b>desconto de verdade</b> no seu plano.</p></div>
+ <div class="prize"><img src="/app/img/ui/ic-coin.webp" alt=""><p>Cada resposta vale <b>moedas de ouro</b>. No final, elas viram <b>crédito de verdade</b> pra usar no seu plano.</p></div>
  <button class="btn pulse" id="start">⚔️ Começar o teste</button>
- <div class="chips"><span>⏱️ 2 minutos</span><span>🎯 ${QN} perguntas</span><span>🪙 até ${brl(TOTAL)} de desconto</span></div>
+ <div class="chips"><span>⏱️ 2 minutos</span><span>🎯 ${QN} perguntas</span><span>🪙 até ${brl(TOTAL)} em crédito</span></div>
 </section>`}
 function vInter(k){
  if(k==='obj'){const o={massa:['ganhar massa','Mestre Brutus é especialista em hipertrofia'],emag:['perder gordura','o Sistema combina treino e cardio pra acelerar a queima'],forca:['ficar mais forte','a ficha de Força trabalha carga pesada e poucas repetições'],def:['definir o corpo','a ficha certa combina força e gasto calórico']}[A.obj]||['evoluir',''];
@@ -363,7 +363,7 @@ function vInter(k){
   <button class="btn blue" id="ok">Continuar o teste →</button></section>`}
 function vLoad(){return `<section class="scr on"><div class="cap">[ SISTEMA ]</div><h2>Forjando o seu plano</h2>
  <div class="scan"><img class="scimg" src="/quiz/img/cls-${profile().cls}${fem()?'-f':''}.webp" alt=""><div class="ring"></div><div class="ring r2"></div><div class="pct" id="pct">0%</div></div><p class="sub" style="margin-top:4px">Classe sendo forjada para <b>${nm()}</b>…</p>
- <div class="steps" id="lsteps">${['Lendo suas respostas','Calculando seus atributos','Definindo sua classe de herói','Escolhendo o seu Mestre','Montando a ficha de treino','Convertendo moedas em desconto'].map(t=>`<div><i></i>${t}</div>`).join('')}</div></section>`}
+ <div class="steps" id="lsteps">${['Lendo suas respostas','Calculando seus atributos','Definindo sua classe de herói','Escolhendo o seu Mestre','Montando a ficha de treino','Convertendo moedas em crédito'].map(t=>`<div><i></i>${t}</div>`).join('')}</div></section>`}
 function runLoad(){const st=[...document.querySelectorAll('#lsteps div')];let p=0;const T=4200,t0=performance.now();
  const tk=now=>{if(!$('#pct'))return;p=Math.min(100,Math.round((now-t0)/T*100));$('#pct').textContent=p+'%';const k=Math.floor(p/100*st.length);st.forEach((d,i)=>{d.classList.toggle('on',i<=k);if(i<k&&!d.classList.contains('ok')){d.classList.add('ok');d.querySelector('i').textContent='✓';sfx.tap()}});
   if(p<100)requestAnimationFrame(tk);else{st.forEach(d=>{d.classList.add('ok','on');d.querySelector('i').textContent='✓'});setTimeout(()=>go(idx+1),500)}};requestAnimationFrame(tk)}
@@ -389,7 +389,7 @@ function vRes(){const p=profile();const probs=A.prob||[];
  <div class="plan"><div><small>SEU MESTRE</small><b>${p.C[1]}</b></div><div><small>FICHA DE TREINO</small><b>${p.ficha}</b></div><div><small>FREQUÊNCIA</small><b>${days==='5'?'5+':days}x por semana</b></div><div><small>ESTILO</small><b>${p.C[2]}</b></div></div>
  ${probs.length?`<div class="sec-h">SEUS INIMIGOS, DERROTADOS</div><div class="mirror">${probs.map(k=>M[k]?`<div><span class="x">✓</span><span><b>${M[k][0]}:</b> ${M[k][1]}</span></div>`:'').join('')}</div>`:''}
  <div class="sec-h" style="margin-top:20px">ESCOLHA SUA JORNADA</div>
- <div class="offer" id="offer"><span class="tag">🪙 SUAS MOEDAS FORAM APLICADAS · RECOMENDADO</span>
+ <div class="offer" id="offer"><span class="tag">🪙 SEU CRÉDITO FOI APLICADO · RECOMENDADO</span>
   <h3>${hero()} Elite + Dungeon do Abismo</h3>
   <div class="inc">
    <div><span><b>${p.C[1]}</b> com a sua ficha de <b>${p.ficha}</b>: treino do dia pronto</span></div>
@@ -401,13 +401,13 @@ function vRes(){const p=profile();const probs=A.prob||[];
    <div><span><b>Playlist do Herói</b>: músicas pra treinar no modo monstro</span></div>
    <div><span><b>Missões, chefes, ranking, duelos e corrida com GPS</b></span></div>
   </div>
-  <div class="calc"><div><span>Valor do plano</span><span class="s">${brl(FULL)}</span></div><div class="m"><span>🪙 Suas moedas do teste</span><span id="coinv">− R$ 0,00</span></div><div class="t"><span>Você paga</span><span id="payv">${brl(FULL)}</span></div></div>
+  <div class="calc"><div><span>Valor do plano</span><span class="s">${brl(FULL)}</span></div><div class="m"><span>🪙 Seu crédito do teste</span><span id="coinv">− R$ 0,00</span></div><div class="t"><span>Você paga</span><span id="payv">${brl(FULL)}</span></div></div>
   <div class="price"><small>R$</small><span id="bigp">${FULL},00</span></div><div class="once">pagamento único · acesso imediato no app</div>
   <a class="btn pulse" id="buy" href="#">⚔️ Resgatar meu plano por R$ 29,90</a>
-  <div class="timer">⏳ Suas moedas expiram em <b id="tmr">15:00</b></div>
+  <div class="timer">⏳ Seu crédito expira em <b id="tmr">15:00</b></div>
  </div>
  <div class="offer2"><div class="o2h"><div><b>Recruta</b><small>O essencial para começar</small></div><div class="o2p"><s>R$ 39,90</s><b>R$ 9,90</b></div></div>
-  <div class="inc sm"><div><span>Acesso ao app com sistema de treino em RPG</span></div><div><span>Missões diárias, chefes e evolução de nível</span></div><div class="no"><span>Sem os Mestres, sem fichas prontas e sem as Dungeons</span></div><div class="no"><span>Sem Taverna, Alquimia e Playlist</span></div><div class="no"><span>Suas moedas do teste não valem neste plano</span></div></div>
+  <div class="inc sm"><div><span>Acesso ao app com sistema de treino em RPG</span></div><div><span>Missões diárias, chefes e evolução de nível</span></div><div class="no"><span>Sem os Mestres, sem fichas prontas e sem as Dungeons</span></div><div class="no"><span>Sem Taverna, Alquimia e Playlist</span></div><div class="no"><span>Seu crédito do teste não vale neste plano</span></div></div>
   <a class="btn ghost" id="buyR" href="#">Começar como Recruta · R$ 9,90</a></div>
  <div class="secure"><span>🔒 Pagamento seguro</span><span>⚡ Pix ou cartão</span><span>📱 Funciona no celular</span></div>
  <div class="sec-h">O QUE TE ESPERA NO APP</div>
@@ -427,7 +427,7 @@ function vRes(){const p=profile();const probs=A.prob||[];
  <div class="sec-h">DÚVIDAS</div>
  <div class="faq">
   <details><summary>Preciso de academia?</summary><p>Não. O app tem treino de calistenia (peso do corpo), musculação e híbrido. ${p.C[1]} já foi escolhido pelo lugar onde você treina.</p></details>
-  <details><summary>É mensalidade?</summary><p>Não. Os dois planos são pagamento único: Elite + Abismo por R$ 29,90 com as suas moedas aplicadas, ou Recruta por R$ 9,90.</p></details>
+  <details><summary>É mensalidade?</summary><p>Não. Os dois planos são pagamento único: Elite + Abismo por R$ 29,90 com o seu crédito aplicado, ou Recruta por R$ 9,90.</p></details>
   <details><summary>Qual a diferença entre os planos?</summary><p>No Recruta você registra seus próprios treinos e o app transforma tudo em XP, missões e chefes. No Elite + Abismo o ${p.C[1]} passa o treino do dia pronto na sua ficha de ${p.ficha}, e você ganha as duas Dungeons (90 dias de plano), a planilha de cargas, a Taverna e a Alquimia.</p></details>
   <details><summary>Como recebo o acesso?</summary><p>Assim que o pagamento é aprovado, você recebe o link do app no e-mail e na tela de confirmação. É só entrar com o e-mail da compra.</p></details>
   <details><summary>Funciona pra iniciante?</summary><p>Sim. O Sistema começa do seu rank atual (${p.rank}) e aumenta a dificuldade conforme você evolui.</p></details>

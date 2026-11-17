@@ -79,6 +79,7 @@ body{background:#050a1c radial-gradient(ellipse 120% 60% at 50% 0%,{BG} 0%,#050a
 .portal img{display:block;width:100%;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 9%,#000 100%),linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(180deg,transparent 0,#000 9%,#000 100%),linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-composite:intersect}
 @media(max-width:560px){.portal img{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 9%);mask-image:linear-gradient(180deg,transparent 0,#000 9%)}}
 .c.up{position:relative;z-index:1;margin-top:calc(-1 * min(100vw,560px) * .82)}
+@media(min-width:761px){.portal{max-width:1500px}.c.up{margin-top:calc(-1 * min(100vw,1500px) * .5625 * .40)}}
 .logo{position:relative;z-index:2}
 .lead,.perks,.offer,.no,.sec{position:relative;z-index:1}
 .portal{pointer-events:none}
@@ -158,7 +159,7 @@ for p in PAGES:
                LEAD=p['lead'], PERKS=perks, OLD=p['old'], PRICE=p['price'], NOTE=p['note'], YES=p['yes'], NO=p['no'],
                WARN=p['warn'], YES_URL=yes_url, NO_URL=no_url, SLUG=p['slug'],
                BGLAYER='',
-               PORTAL=('<div class="portal"><img src="/img/abismo-bg.webp" alt="Portal do Abismo"></div>' if p['theme']=='red' else ''),
+               PORTAL=('<div class="portal"><picture><source media="(min-width:761px)" srcset="https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh-public/quiz/abismo-bg-d.webp"><img src="/img/abismo-bg.webp" alt="Portal do Abismo"></picture></div>' if p['theme']=='red' else ''),
                CCLS=(' up' if p['theme']=='red' else ''),
                HEROIMG=('' if p['theme']=='red' else f'<img class="hero {p["imgcls"]}" src="{p["img"]}" alt="">'),
                BODYCLS=(' class="has-bg"' if p['theme']=='red' else ''),

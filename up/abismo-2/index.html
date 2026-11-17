@@ -20,6 +20,7 @@ body{background:#050a1c radial-gradient(ellipse 120% 60% at 50% 0%,#2a0712 0%,#0
 .portal img{display:block;width:100%;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 9%,#000 100%),linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(180deg,transparent 0,#000 9%,#000 100%),linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-composite:intersect}
 @media(max-width:560px){.portal img{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 9%);mask-image:linear-gradient(180deg,transparent 0,#000 9%)}}
 .c.up{position:relative;z-index:1;margin-top:calc(-1 * min(100vw,560px) * .82)}
+@media(min-width:761px){.portal{max-width:1500px}.c.up{margin-top:calc(-1 * min(100vw,1500px) * .5625 * .40)}}
 .logo{position:relative;z-index:2}
 .lead,.perks,.offer,.no,.sec{position:relative;z-index:1}
 .portal{pointer-events:none}
@@ -60,7 +61,7 @@ body.has-bg .sub{text-shadow:0 2px 10px #000}body.has-bg h1{filter:drop-shadow(0
 <div class="bar p">ÚLTIMA CHANCE · NÃO FECHE ESTA PÁGINA</div>
 <div class="w">
 <div class="prog"><i></i></div>
-<img class="logo" src="/img/logo-transp.webp" alt="Forja do Herói"><div class="portal"><img src="/img/abismo-bg.webp" alt="Portal do Abismo"></div>
+<img class="logo" src="/img/logo-transp.webp" alt="Forja do Herói"><div class="portal"><picture><source media="(min-width:761px)" srcset="https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh-public/quiz/abismo-bg-d.webp"><img src="/img/abismo-bg.webp" alt="Portal do Abismo"></picture></div>
 <div class="c up"><span class="k">O PORTAL ESTÁ FECHANDO</span>
 <h1>Entre só nos primeiros 30 dias do Abismo</h1>
 <p class="sub">60 dias pareceu muito? O Sistema libera a primeira metade por um valor menor.</p>
