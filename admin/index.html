@@ -97,6 +97,29 @@ tr.row{cursor:pointer}tr.row:hover td{background:rgba(40,90,170,.18)}
   td[data-l]:before{content:attr(data-l)': ';color:var(--dim);font-size:13px}
   td.who{padding-bottom:6px}
 }
+.mut{color:#8fa0c8}
+.qzh{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:6px 0 14px}
+.qzh .seg{display:flex;gap:4px}.qzh .seg button{padding:7px 12px;border-radius:8px;border:1px solid rgba(120,160,255,.3);background:rgba(8,16,44,.7);color:#cfe0ff;cursor:pointer}.qzh .seg button.on{border-color:#ffc83a;color:#fff;background:rgba(255,200,58,.15)}
+.qzh select{padding:7px 10px;border-radius:8px;background:#0b1430;color:#e6ecff;border:1px solid rgba(120,160,255,.3)}
+.qzk{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+.qzk div{padding:12px;border-radius:12px;background:rgba(10,18,48,.85);border:1px solid rgba(120,160,255,.22)}
+.qzk small{display:block;font-size:10.5px;letter-spacing:.12em;color:#8fa0c8}.qzk b{font-size:24px;color:#fff}.qzk em{font-style:normal;color:#7dffb4;margin-left:8px;font-weight:700}
+.qzk.sm b{font-size:20px}
+.qzt{font-size:15px;margin:18px 0 8px;color:#fff}.qzt .mut{font-size:12px;font-weight:400}
+.qzf{display:grid;gap:6px}
+.qzr{display:grid;grid-template-columns:200px 1fr 60px;gap:10px;align-items:center;font-size:13px}
+.qzn{color:#cfd8f3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qzb{position:relative;height:24px;border-radius:7px;background:rgba(255,255,255,.05);overflow:hidden}
+.qzb i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#2a6bff,#4fd2ff);border-radius:7px}
+.qzb b{position:relative;z-index:1;padding:0 8px;line-height:24px;font-size:12px;color:#fff;text-shadow:0 1px 2px #000}
+.qzb.sm{height:10px}
+.qzd{font-weight:800;font-size:12.5px;color:#8fa0c8;text-align:right}.qzd.mid{color:#ffc83a}.qzd.bad{color:#ff6a7a}
+.qzg{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.qzbox{padding:12px;border-radius:12px;background:rgba(10,18,48,.85);border:1px solid rgba(120,160,255,.22)}
+.qzbox>b{display:block;margin-bottom:6px;color:#ffd767;font-size:13px}
+.qza{display:grid;grid-template-columns:120px 1fr 38px;gap:8px;align-items:center;font-size:12px;color:#cfd8f3;margin:4px 0}.qza em{font-style:normal;text-align:right}
+.qztab{width:100%;border-collapse:collapse;font-size:13px}.qztab th,.qztab td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.06);text-align:left}.qztab th{color:#8fa0c8;font-weight:600}
+@media(max-width:600px){.qzr{grid-template-columns:120px 1fr 44px}}
 </style>
 </head>
 <body>
@@ -271,24 +294,50 @@ async function send(payload,btn){
 function render(){
   $('#root').innerHTML=`<header><div class="brand">CENTRAL DO MESTRE<small>FORJA DO HERÓI · ADMIN</small></div><div class="hr"><button class="btn gold sm" id="add">＋ Cadastrar acesso</button><button class="btn sm" id="rl">↻ Atualizar</button><button class="btn sm" id="out">Sair</button></div></header>
   ${kpis()}
-  <div class="tabs">${[['jogadores','👥 Jogadores'],['ranking','🏆 Ranking'],['notif','🔔 Notificações']].map(([k,n])=>`<button class="${TAB===k?'on':''}" data-tab="${k}">${n}</button>`).join('')}</div>
-  <div id="view">${TAB==='jogadores'?viewPlayers():TAB==='ranking'?viewRank():viewPush()}</div>`;
+  <div class="tabs">${[['jogadores','👥 Jogadores'],['ranking','🏆 Ranking'],['notif','🔔 Notificações'],['quiz','📊 Quiz']].map(([k,n])=>`<button class="${TAB===k?'on':''}" data-tab="${k}">${n}</button>`).join('')}</div>
+  <div id="view">${TAB==='jogadores'?viewPlayers():TAB==='ranking'?viewRank():TAB==='quiz'?viewQuiz():viewPush()}</div>`;
   bind();
 }
 function bind(){
   $('#add').onclick=()=>grantForm();
-  $('#rl').onclick=()=>load().then(()=>toast('Atualizado'));
+  $('#rl').onclick=()=>{if(TAB==='quiz')return loadQuiz();load().then(()=>toast('Atualizado'))};
   $('#out').onclick=async()=>{await sb.auth.signOut();login()};
   document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{TAB=b.dataset.tab;render()});
   document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{FILTER=b.dataset.f;render()});
   document.querySelectorAll('[data-e]').forEach(r=>r.onclick=()=>drawer(r.dataset.e));
   const q=$('#q');if(q)q.oninput=()=>{Q=q.value;const pos=q.selectionStart;render();const n=$('#q');n.focus();n.setSelectionRange(pos,pos)};
+  if(TAB==='quiz'){document.querySelectorAll('[data-qzd]').forEach(b=>b.onclick=()=>{QZD=+b.dataset.qzd;loadQuiz()});const c=$('#qzc');if(c)c.onchange=()=>{QZC=c.value;loadQuiz()}}
   if(TAB==='notif'){
     const pv=()=>{$('#pv_t').textContent=$('#p_ti').value.replaceAll('{nome}','Juliano');$('#pv_b').textContent=($('#p_b').value||'…').replaceAll('{nome}','Juliano')};
     $('#p_ti').oninput=pv;$('#p_b').oninput=pv;pv();
     document.querySelectorAll('[data-tpl]').forEach(b=>b.onclick=()=>{const t=TPL[+b.dataset.tpl];$('#p_t').value=t[0];$('#p_ti').value=t[1];$('#p_b').value=t[2];pv()});
     $('#p_send').onclick=e=>{const tg=$('#p_t');if(!confirmSend(tg.options[tg.selectedIndex].text))return;send({target:tg.value,title:$('#p_ti').value,body:$('#p_b').value,url:$('#p_u').value},e.currentTarget)};
   }
+}
+/* ---------- QUIZ: funil ---------- */
+let QZ=null,QZD=7,QZC='',QZL=false;
+const QN={intro:'Abertura',nome:'Nome',sexo:'Homem/Mulher',idade:'Idade',obj:'Objetivo',i1:'Tela: missão registrada',local:'Onde treina',nivel:'Nível',dias:'Dias/semana',tempo:'Tempo por treino',prob:'O que atrapalha',paradas:'Quantas vezes parou',i2:'Tela: o problema nunca foi você',flex:'Flexões',game:'Games/anime',comida:'Alimentação',sono:'Sono',compromisso:'Juramento',load:'Carregando plano',res:'Resultado + oferta'};
+const QV={m:'Homem',f:'Mulher',massa:'Ganhar massa',emag:'Perder gordura',forca:'Ficar mais forte',def:'Definir',acad:'Academia',casa:'Casa',parque:'Parque',misto:'Misto',zero:'Nunca treinou',parado:'Parado',inic:'Iniciante',inter:'+1 ano',motiv:'Motivação',saber:'Não sabe montar treino',result:'Sem resultado',tempo:'Falta de tempo',comida:'Alimentação',vergonha:'Vergonha',elite_29_90:'Elite R$ 29,90',elite_popup_18_90:'Elite pop-up R$ 18,90',recruta_9_90:'Recruta R$ 9,90',popup_aberto:'Pop-up aberto'};
+async function loadQuiz(){QZL=true;render();const {data,error}=await sb.rpc('fh_admin_quiz',{p_days:QZD,p_campaign:QZC||null});QZL=false;if(error){toast('❌ '+error.message);QZ={steps:[],answers:[],checkouts:[],campaigns:[],daily:[]}}else QZ=data;render()}
+function viewQuiz(){
+  if(!QZ){setTimeout(loadQuiz,0);return '<p class="mut" style="padding:20px">Carregando o funil…</p>'}
+  const st=(QZ.steps||[]).filter(x=>x.step).sort((a,b)=>a.idx-b.idx);const top=st.length?st[0].people:0;
+  const co=QZ.checkouts||[];const cnt=k=>(co.find(c=>c.plan===k)||{}).n||0;const cks=cnt('elite_29_90')+cnt('elite_popup_18_90')+cnt('recruta_9_90');
+  const res=(st.find(x=>x.step==='res')||{}).people||0;
+  let prev=null;
+  const rows=st.map(x=>{const pct=top?Math.round(x.people/top*100):0;const drop=prev?Math.round((1-x.people/prev)*100):0;prev=x.people;
+    return `<div class="qzr"><span class="qzn">${QN[x.step]||x.step}</span><div class="qzb"><i style="width:${pct}%"></i><b>${x.people} · ${pct}%</b></div><span class="qzd ${drop>=15?'bad':drop>=8?'mid':''}">${drop>0?'−'+drop+'%':''}</span></div>`}).join('');
+  const ans={};(QZ.answers||[]).forEach(a=>{(ans[a.step]=ans[a.step]||[]).push(a)});
+  const ansH=Object.entries(ans).filter(([k])=>k!=='nome').map(([k,v])=>{const t=v.reduce((a,b)=>a+b.n,0);return `<div class="qzbox"><b>${QN[k]||k}</b>${v.sort((a,b)=>b.n-a.n).map(a=>`<div class="qza"><span>${QV[a.val]||a.val}</span><div class="qzb sm"><i style="width:${Math.round(a.n/t*100)}%"></i></div><em>${Math.round(a.n/t*100)}%</em></div>`).join('')}</div>`}).join('');
+  const camps=(QZ.campaigns||[]).map(c=>`<tr><td>${esc(c.c||'(sem campanha)')}</td><td>${c.starts}</td><td>${c.results}</td><td>${c.checkouts}</td><td>${c.starts?Math.round(c.checkouts/c.starts*100):0}%</td></tr>`).join('');
+  return `<div class="qzh"><div class="seg">${[1,7,30].map(d=>`<button class="${QZD===d?'on':''}" data-qzd="${d}">${d===1?'Hoje':d+' dias'}</button>`).join('')}</div>
+   <select id="qzc"><option value="">Todas as campanhas</option>${(QZ.campaigns||[]).filter(c=>c.c).map(c=>`<option ${QZC===c.c?'selected':''}>${esc(c.c)}</option>`).join('')}</select>${QZL?'<span class="mut">atualizando…</span>':''}</div>
+  <div class="qzk"><div><small>ENTRARAM</small><b>${top}</b></div><div><small>CHEGARAM NA OFERTA</small><b>${res}</b><em>${top?Math.round(res/top*100):0}%</em></div><div><small>CLICARAM EM COMPRAR</small><b>${cks}</b><em>${top?Math.round(cks/top*100):0}%</em></div><div><small>CELULAR</small><b>${QZ.mobile??0}%</b></div></div>
+  <h3 class="qzt">Funil por etapa <span class="mut">(− = quantos saíram em relação à etapa anterior)</span></h3><div class="qzf">${rows||'<p class="mut">Ainda sem dados. Assim que o quiz receber visitas, o funil aparece aqui.</p>'}</div>
+  <h3 class="qzt">Cliques de compra</h3><div class="qzk sm">${['elite_29_90','elite_popup_18_90','recruta_9_90','popup_aberto'].map(k=>`<div><small>${QV[k]}</small><b>${cnt(k)}</b></div>`).join('')}</div>
+  <p class="mut" style="font-size:12px;margin:6px 0 0">Vendas confirmadas aparecem na aba Jogadores e na Digital Hub. Aqui é o clique no botão de compra.</p>
+  ${camps?`<h3 class="qzt">Por campanha</h3><table class="qztab"><tr><th>Campanha</th><th>Entraram</th><th>Oferta</th><th>Cliques</th><th>Conv.</th></tr>${camps}</table>`:''}
+  ${ansH?`<h3 class="qzt">O que as pessoas respondem</h3><div class="qzg">${ansH}</div>`:''}`;
 }
 function confirmSend(who){return window.confirm('Enviar esta notificação para: '+who+'?')}
 async function load(){
