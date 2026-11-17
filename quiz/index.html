@@ -295,7 +295,12 @@ let AC=null,muted=false;try{muted=localStorage.getItem('fh_quiz_mute')==='1'}cat
 $('#mute').textContent=muted?'🔇':'🔊';
 function tone(f,d,type,vol,when){if(muted)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const t=AC.currentTime+(when||0);const o=AC.createOscillator(),g=AC.createGain();o.type=type||'square';o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(vol||.05,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d)}catch(e){}}
 const sfx={tap:()=>tone(660,.07,'triangle',.05),coin:()=>{tone(988,.08,'square',.04);tone(1319,.18,'square',.04,.07)},lv:()=>[523,659,784,1047].forEach((f,i)=>tone(f,.18,'triangle',.06,i*.09)),win:()=>[392,523,659,784,1047,1319].forEach((f,i)=>tone(f,.22,'triangle',.06,i*.1))};
-$('#mute').onclick=()=>{muted=!muted;$('#mute').textContent=muted?'🔇':'🔊';try{localStorage.setItem('fh_quiz_mute',muted?'1':'0')}catch(e){}};
+const BGM=new Audio('https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh-audio/adventure.mp3');BGM.loop=true;BGM.volume=.3;BGM.preload='auto';
+const music=on=>{if(on&&!muted)BGM.play().catch(()=>{});else BGM.pause()};
+document.addEventListener('visibilitychange',()=>{if(document.hidden)BGM.pause();else if(window.__musicOn&&!muted)BGM.play().catch(()=>{})});
+// se a pessoa recarregar no meio do quiz, a música volta no primeiro toque
+['pointerdown','keydown'].forEach(ev=>addEventListener(ev,()=>{if(window.__musicOn&&BGM.paused&&!muted)BGM.play().catch(()=>{})},{passive:true}));
+$('#mute').onclick=()=>{muted=!muted;$('#mute').textContent=muted?'🔇':'🔊';try{localStorage.setItem('fh_quiz_mute',muted?'1':'0')}catch(e){}music(!muted&&window.__musicOn)};
 
 /* ---------- partículas ---------- */
 const cv=$('#fx'),cx=cv.getContext('2d');let P=[],burst=[],DPR=Math.min(2,window.devicePixelRatio||1);
@@ -348,7 +353,7 @@ function render(){const s=S[idx];document.body.classList.toggle('res',s.t==='res
  main.innerHTML=h;bind(s);preload();
 }
 function bind(s){
- if(s.t==='intro'){$('#start').onclick=e=>{sfx.tap();track('QuizStart',{},true);next()}}
+ if(s.t==='intro'){$('#start').onclick=e=>{sfx.tap();window.__musicOn=1;music(true);track('QuizStart',{},true);next()}}
  if(s.t==='input'){const i=$('#inp'),b=$('#ok');const chk=()=>b.disabled=i.value.trim().length<2;i.oninput=chk;chk();setTimeout(()=>i.focus(),350);
   const sub=()=>{if(b.disabled)return;const first=A[s.id]==null;A[s.id]=i.value.trim().replace(/\s+/g,' ');sfx.tap();if(first){const lb=reward(s.rw,b);track('QuizStep',{step:s.id},true);setTimeout(()=>{next();maybeLevel(lb)},700)}else next()};
   b.onclick=sub;i.onkeydown=e=>{if(e.key==='Enter')sub()}}
@@ -495,7 +500,7 @@ function popRecruta(p,ur){track('RecrutaPopup',{},true);sfx.lv();
 }
 
 /* ---------- início (retoma se recarregar) ---------- */
-const sv=store.get();if(sv&&sv.idx>0&&sv.idx<S.length){A=sv.A||{};W=sv.W||0;idx=S[sv.idx].t==='load'?sv.idx+1:sv.idx;hist=sv.hist||[]}
+const sv=store.get();if(sv&&sv.idx>0&&sv.idx<S.length){window.__musicOn=1;A=sv.A||{};W=sv.W||0;idx=S[sv.idx].t==='load'?sv.idx+1:sv.idx;hist=sv.hist||[]}
 render();
 })();
 </script>
