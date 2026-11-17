@@ -181,6 +181,11 @@ h1 em,h2 em{font-style:normal;background:linear-gradient(180deg,#fffbe3,#ffd34d 
 .feat img{width:100%;height:86px;object-fit:cover}
 .feat b{font-size:15px;color:#fff;padding:9px 10px 2px}
 .feat span{font-size:12.5px;color:var(--mut);padding:0 10px 11px;line-height:1.35}
+.phone{position:relative;width:min(250px,64vw);margin:14px auto 4px;padding:9px;border-radius:34px;background:linear-gradient(160deg,#2a3560,#0b1130 60%,#1a2350);box-shadow:0 0 0 2px rgba(120,160,255,.35),0 0 40px rgba(42,107,255,.35),0 20px 40px rgba(0,0,0,.6)}
+.phone:before{content:'';position:absolute;top:15px;left:50%;transform:translateX(-50%);width:70px;height:16px;border-radius:10px;background:#050a1c;z-index:2}
+.phone video{display:block;width:100%;aspect-ratio:390/844;object-fit:cover;border-radius:26px;background:#050a1c}
+.ph-badge{position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);padding:5px 12px;border-radius:20px;background:#d6223a;color:#fff;font:900 10.5px 'Exo 2';letter-spacing:.14em;white-space:nowrap;box-shadow:0 4px 14px rgba(214,34,58,.5);animation:blink2 1.6s infinite}
+@keyframes blink2{50%{opacity:.75}}
 .offer2{margin:14px 0 4px;padding:16px;border-radius:16px;background:var(--card);border:1px solid var(--line)}
 .o2h{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .o2h b{font:900 18px 'Exo 2';color:#fff;display:block}.o2h small{font-size:13px;color:var(--mut)}
@@ -390,6 +395,9 @@ function vRes(){const p=profile();const probs=A.prob||[];
   <div class="attr"><span style="color:var(--green)">META</span><div class="bar"><i class="p" data-w="92"></i></div><em class="up">30d</em></div></div></div>
  <div class="plan"><div><small>SEU MESTRE</small><b>${p.C[1]}</b></div><div><small>FICHA DE TREINO</small><b>${p.ficha}</b></div><div><small>FREQUÊNCIA</small><b>${days==='5'?'5+':days}x por semana</b></div><div><small>ESTILO</small><b>${p.C[2]}</b></div></div>
  ${probs.length?`<div class="sec-h">SEUS INIMIGOS, DERROTADOS</div><div class="mirror">${probs.map(k=>M[k]?`<div><span class="x">✓</span><span><b>${M[k][0]}:</b> ${M[k][1]}</span></div>`:'').join('')}</div>`:''}
+ <div class="sec-h" style="margin-top:22px">VEJA O APP POR DENTRO</div>
+ <p class="sub" style="font-size:14.5px">É assim que fica o treino de ${nm()}: cada série vira XP, você sobe de nível e derrota chefes.</p>
+ <div class="phone"><video id="demo" src="/img/demo.mp4" poster="/img/demo-poster.webp" muted loop playsinline preload="none"></video><span class="ph-badge">▶ O APP POR DENTRO</span></div>
  <div class="sec-h" style="margin-top:20px">ESCOLHA SUA JORNADA</div>
  <div class="offer" id="offer"><span class="tag">🪙 SEU CRÉDITO FOI APLICADO · RECOMENDADO</span>
   <h3>${hero()} Elite + Dungeon do Abismo</h3>
@@ -442,6 +450,8 @@ function runRes(){const p=profile();
  setTimeout(()=>document.querySelectorAll('.attr .bar i').forEach(i=>i.style.width=i.dataset.w+'%'),200);
  sfx.win();confetti(innerWidth/2,innerHeight*.3,90,['#ffd34d','#4fd2ff','#ffffff','#ff6a7a','#5dffa0']);
  const url=withQs(CHECKOUT);const ur=withQs(CHECKOUT_R);$('#buyR').href=ur;$('#buyR').onclick=()=>track('InitiateCheckout',{value:9.9,currency:'BRL',content_name:'Quiz Recruta'});['#buy','#buy2','#stickyBtn'].forEach(s=>{const a=$(s);a.href=url;a.onclick=()=>{track('InitiateCheckout',{value:FINAL,currency:'BRL',content_name:'Quiz Elite + Abismo'})}});
+ // vídeo do app: toca só quando aparece na tela
+ const dv=$('#demo');if(dv){const vo=new IntersectionObserver(es=>{if(es[0].isIntersecting){dv.preload='auto';dv.play().catch(()=>{})}else dv.pause()},{threshold:.35});vo.observe(dv)}
  // contagem das moedas quando a oferta aparece
  let done=false;const ob=new IntersectionObserver(es=>{if(done||!es[0].isIntersecting)return;done=true;const t0=performance.now(),D=1600;
   const tk=now=>{const k=Math.min(1,(now-t0)/D),e=1-Math.pow(1-k,3),c=TOTAL*e,pay=FULL-c;$('#coinv').textContent='− '+brl(c);$('#payv').textContent=brl(pay);$('#bigp').textContent=pay.toFixed(2).replace('.',',');if(Math.random()<.35)tone(1200+Math.random()*400,.04,'square',.025);
