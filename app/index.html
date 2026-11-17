@@ -2174,8 +2174,18 @@ function render(){
    <ul class="nv-list"><li><span style="font-size:24px;width:34px;text-align:center">⚔️</span><span>3, 2, 1… o Sistema dá o sinal e o desafio começa</span></li><li><span style="font-size:24px;width:34px;text-align:center">🔥</span><span>Bateu a meta? O Sistema avisa. Os fortes seguram mais</span></li><li><span style="font-size:24px;width:34px;text-align:center">✨</span><span>Cada segundo vira XP direto na sua série</span></li></ul>
    <p class="muted" style="margin:6px 0 16px;font-style:italic">Quantos segundos você aguenta, caçador?</p>
    <button class="btn gold full" data-a="isoTry">⏱️ Aceitar o desafio</button><button class="btn ghost full sm" style="margin-top:8px" data-a="close">Depois</button></div>`,true))}
-  if(!S.cheat&&window.__FH_PLAN==='recruta'){const u=S.upg||{n:0,at:0};if(u.n<3&&Date.now()-u.at>3*864e5){S.upg={n:u.n+1,at:Date.now()};save();queueModal(upgModal)}}
-  else if(!S.cheat&&isElite()&&!abMax()&&S.nov2&&!S.nov3){S.nov3=Date.now();save();queueModal(abBuyModal)}
+  let nov4=false;
+  if(S.nov1&&S.nov2&&!S.nov4&&!S.cheat&&Date.now()-(+S.nov2||0)>6e4){nov4=true;S.nov4=Date.now();save();queueModal(()=>openModal(`<div class="lvup"><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ffc65a">NOVA ATUALIZAÇÃO</div>
+   <h3 style="margin-top:8px">Caçador, sua forja ficou mais afiada</h3>
+   <p class="muted" style="margin:10px 0 6px">O Sistema ouviu os caçadores. Duas armas novas chegaram ao seu arsenal:</p>
+   <ul class="nv-list">
+    <li><span style="font-size:28px;width:44px;text-align:center">🏋️</span><span><b>Peso de cada série.</b> Subiu a carga no meio do exercício? Agora você anota o peso de cada série. O Sistema guarda tudo e mostra a evolução das suas cargas no Diário.</span></li>
+    <li><img src="${UI}m-trio.webp" alt=""><span><b>Fichas de treino nos Mestres.</b> Escolha a sua missão: <b>Hipertrofia</b>, <b>Força</b> ou <b>Emagrecimento</b>. O mestre monta séries, repetições, carga e descanso pra ela.${isElite()?'':' <i style="color:#ffc65a">Exclusivo do Caçador Elite.</i>'}</span></li>
+   </ul>
+   <p class="muted" style="margin:6px 0 16px;font-style:italic">Qual vai ser a sua missão, caçador?</p>
+   <button class="btn gold full" data-a="mtGo">⚔️ Escolher minha ficha</button><button class="btn ghost full sm" style="margin-top:8px" data-a="close">Depois</button></div>`,true))}
+  if(!nov4&&!S.cheat&&window.__FH_PLAN==='recruta'){const u=S.upg||{n:0,at:0};if(u.n<3&&Date.now()-u.at>3*864e5){S.upg={n:u.n+1,at:Date.now()};save();queueModal(upgModal)}}
+  else if(!nov4&&!S.cheat&&isElite()&&!abMax()&&S.nov2&&!S.nov3){S.nov3=Date.now();save();queueModal(abBuyModal)}
   if(S.cheat&&!S.cheat.seen){S.cheat.seen=Date.now();save();queueModal(()=>openModal(`<div class="lvup"><div style="font-size:60px">🛡️</div><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ff5a6e">TRAPAÇA DETECTADA</div>
    <h3 style="margin-top:10px;color:#ff8a9a">Você burlou o sistema</h3>
    <p class="muted" style="margin:10px 0 6px">O Sistema encontrou registros impossíveis no seu herói${S.cheat.why?' ('+esc(S.cheat.why)+')':''}. Para manter o ranking justo para todos os caçadores, seu progresso foi zerado e você voltou ao <b>nível 1</b>.</p>
