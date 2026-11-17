@@ -248,7 +248,7 @@ h1 em,h2 em{font-style:normal;background:linear-gradient(180deg,#fffbe3,#ffd34d 
 <script>
 (function(){
 'use strict';
-const CHECKOUT='https://appdigitalhub.com.br/c/F700923A',CHECKOUT_R='https://appdigitalhub.com.br/c/43752C6D',CHECKOUT_POP='https://appdigitalhub.com.br/c/77B5F8AE';
+const CHECKOUT='https://appdigitalhub.com.br/c/B2535DA8',CHECKOUT_R='https://appdigitalhub.com.br/c/43752C6D',CHECKOUT_POP='https://appdigitalhub.com.br/c/E3082716';
 const IMG='https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh-public/quiz/';
 const FULL=69, FINAL=29.90, TOTAL=+(FULL-FINAL).toFixed(2); // 39,10 de desconto em moedas
 const $=s=>document.querySelector(s);
@@ -414,11 +414,10 @@ function vRes(){const p=profile();const probs=A.prob||[];
  <div class="phone"><video id="demo" src="/quiz/tour.mp4" poster="/quiz/tour-poster.webp" muted loop playsinline preload="none"></video><span class="ph-badge">▶ O APP POR DENTRO</span></div>
  <div class="sec-h" style="margin-top:20px">ESCOLHA SUA JORNADA</div>
  <div class="offer" id="offer"><span class="tag">🪙 SEU CRÉDITO FOI APLICADO · RECOMENDADO</span>
-  <h3>${hero()} Elite + Dungeon do Abismo</h3>
+  <h3>${hero()} Elite · plano completo</h3>
   <div class="inc">
    <div><span><b>${p.C[1]}</b> com a sua ficha de <b>${p.ficha}</b>: treino do dia pronto</span></div>
    <div><span><b>Dungeon de 30 dias</b> com chefes semanais</span></div>
-   <div><span><b>Dungeon do Abismo</b>: mais 60 dias de treino avançado, 4 chefes e o título Imperador do Abismo</span></div>
    <div><span><b>Peso de cada série e planilha de cargas</b>: veja sua força subir</span></div>
    <div><span><b>Taverna</b>: a comunidade dos caçadores, pra conversar, trocar dicas e mostrar sua evolução</span></div>
    <div><span><b>Alquimia</b>: receitas anabólicas e cálculo de proteína e água pro seu corpo</span></div>
@@ -431,7 +430,7 @@ function vRes(){const p=profile();const probs=A.prob||[];
   <div class="timer">⏳ Seu crédito expira em <b id="tmr">15:00</b></div>
  </div>
  <div class="offer2"><div class="o2h"><div><b>Recruta</b><small>O essencial para começar</small></div><div class="o2p"><s>R$ 39,90</s><b>R$ 9,90</b></div></div>
-  <div class="inc sm"><div><span>Acesso ao app com sistema de treino em RPG</span></div><div><span>Missões diárias, chefes e evolução de nível</span></div><div class="no"><span>Sem os Mestres, sem fichas prontas e sem as Dungeons</span></div><div class="no"><span>Sem Taverna, Alquimia e Playlist</span></div><div class="no"><span>Seu crédito do teste não vale neste plano</span></div></div>
+  <div class="inc sm"><div><span>Acesso ao app com sistema de treino em RPG</span></div><div><span>Missões diárias, chefes e evolução de nível</span></div><div class="no"><span>Sem os Mestres, sem fichas prontas e sem a Dungeon</span></div><div class="no"><span>Sem Taverna, Alquimia e Playlist</span></div><div class="no"><span>Seu crédito do teste não vale neste plano</span></div></div>
   <a class="btn ghost" id="buyR" href="#">Começar como Recruta · R$ 9,90</a></div>
  <div class="secure"><span>🔒 Pagamento seguro</span><span>⚡ Pix ou cartão</span><span>📱 Funciona no celular</span></div>
  <div class="sec-h">O QUE TE ESPERA NO APP</div>
@@ -439,7 +438,7 @@ function vRes(){const p=profile();const probs=A.prob||[];
   <div><img src="/app/img/ui/tav-ban.webp" alt=""><b>🍺 Taverna</b><span>A comunidade dos caçadores: converse, troque dicas, mostre seu treino e desafie outros heróis pra um duelo.</span></div>
   <div><img src="/app/img/ui/playlist.webp" alt=""><b>🎧 Playlist do Herói</b><span>Músicas escolhidas pra treinar com a energia lá em cima, direto no app.</span></div>
   <div><img src="/img/v2/alq-art.webp" alt=""><b>⚗️ Alquimia</b><span>Receitas anabólicas e o cálculo de proteína e água feitos pro seu corpo.</span></div>
-  <div><img src="/app/img/ui/boss-ban.webp" alt=""><b>👹 Chefes e Dungeons</b><span>Desafios semanais que testam sua força e te dão recompensas raras.</span></div>
+  <div><img src="/app/img/ui/boss-ban.webp" alt=""><b>👹 Chefes e Dungeon</b><span>Desafios semanais que testam sua força e te dão recompensas raras.</span></div>
  </div>
  <div class="guar"><img src="/img/v3/gar-badge.webp" alt="" onerror="this.src='/img/garantia.webp'"><p><b>Garantia de 7 dias.</b> Entrou, treinou e não curtiu? Pede o reembolso em até 7 dias e você recebe 100% de volta.</p></div>
  <div class="sec-h">COMO FUNCIONA</div>
@@ -451,8 +450,8 @@ function vRes(){const p=profile();const probs=A.prob||[];
  <div class="sec-h">DÚVIDAS</div>
  <div class="faq">
   <details><summary>Preciso de academia?</summary><p>Não. O app tem treino de calistenia (peso do corpo), musculação e híbrido. ${p.C[1]} já foi escolhido pelo lugar onde você treina.</p></details>
-  <details><summary>É mensalidade?</summary><p>Não. Os dois planos são pagamento único: Elite + Abismo por R$ 29,90 com o seu crédito aplicado, ou Recruta por R$ 9,90.</p></details>
-  <details><summary>Qual a diferença entre os planos?</summary><p>No Recruta você registra seus próprios treinos e o app transforma tudo em XP, missões e chefes. No Elite + Abismo o ${p.C[1]} passa o treino do dia pronto na sua ficha de ${p.ficha}, e você ganha as duas Dungeons (90 dias de plano), a planilha de cargas, a Taverna e a Alquimia.</p></details>
+  <details><summary>É mensalidade?</summary><p>Não. Os dois planos são pagamento único: Elite por R$ 29,90 com o seu crédito aplicado, ou Recruta por R$ 9,90.</p></details>
+  <details><summary>Qual a diferença entre os planos?</summary><p>No Recruta você registra seus próprios treinos e o app transforma tudo em XP, missões e chefes. No Elite o ${p.C[1]} passa o treino do dia pronto na sua ficha de ${p.ficha}, e você ganha a Dungeon de 30 dias, a planilha de cargas, a Taverna e a Alquimia.</p></details>
   <details><summary>Como recebo o acesso?</summary><p>Assim que o pagamento é aprovado, você recebe o link do app no e-mail e na tela de confirmação. É só entrar com o e-mail da compra.</p></details>
   <details><summary>Funciona pra iniciante?</summary><p>Sim. O Sistema começa do seu rank atual (${p.rank}) e aumenta a dificuldade conforme você evolui.</p></details>
  </div>
@@ -460,10 +459,10 @@ function vRes(){const p=profile();const probs=A.prob||[];
  <p class="foot">Forja do Herói · Treino RPG</p>
 </section>`}
 function runRes(){const p=profile();
- track('ViewContent',{content_name:'Quiz Elite + Abismo',value:FINAL,currency:'BRL'});track('QuizComplete',{classe:p.cls,ficha:p.ficha},true);
+ track('ViewContent',{content_name:'Quiz Elite',value:FINAL,currency:'BRL'});track('QuizComplete',{classe:p.cls,ficha:p.ficha},true);
  setTimeout(()=>document.querySelectorAll('.attr .bar i').forEach(i=>i.style.width=i.dataset.w+'%'),200);
  sfx.win();confetti(innerWidth/2,innerHeight*.3,90,['#ffd34d','#4fd2ff','#ffffff','#ff6a7a','#5dffa0']);
- const url=withQs(CHECKOUT);const ur=withQs(CHECKOUT_R);$('#buyR').href=ur;$('#buyR').onclick=e=>{if(window.__popSeen){track('InitiateCheckout',{value:9.9,currency:'BRL',content_name:'Quiz Recruta'});return}e.preventDefault();window.__popSeen=1;popRecruta(p,ur)};['#buy','#buy2','#stickyBtn'].forEach(s=>{const a=$(s);a.href=url;a.onclick=()=>{track('InitiateCheckout',{value:FINAL,currency:'BRL',content_name:'Quiz Elite + Abismo'})}});
+ const url=withQs(CHECKOUT);const ur=withQs(CHECKOUT_R);$('#buyR').href=ur;$('#buyR').onclick=e=>{if(window.__popSeen){track('InitiateCheckout',{value:9.9,currency:'BRL',content_name:'Quiz Recruta'});return}e.preventDefault();window.__popSeen=1;popRecruta(p,ur)};['#buy','#buy2','#stickyBtn'].forEach(s=>{const a=$(s);a.href=url;a.onclick=()=>{track('InitiateCheckout',{value:FINAL,currency:'BRL',content_name:'Quiz Elite'})}});
  // vídeo do app: toca só quando aparece na tela
  const dv=$('#demo');if(dv){const vo=new IntersectionObserver(es=>{if(es[0].isIntersecting){dv.preload='auto';dv.play().catch(()=>{})}else dv.pause()},{threshold:.35});vo.observe(dv)}
  // contagem das moedas quando a oferta aparece
@@ -483,15 +482,15 @@ function popRecruta(p,ur){track('RecrutaPopup',{},true);sfx.lv();
   <button class="pm-x" aria-label="Fechar">✕</button>
   <div class="cap" style="color:#ff8a96;text-shadow:0 0 12px rgba(255,77,94,.6)">[ SISTEMA ] · ALERTA</div>
   <h2 style="font-size:24px">Espera, ${nm()}!</h2>
-  <p class="sub" style="font-size:15px">No Recruta você treina <b>sem Mestre, sem ficha pronta e sem as Dungeons</b>. Sozinho, sem plano, é bem mais difícil de manter.</p>
-  <div class="pm-vs"><div><b>RECRUTA</b><span>Treino por sua conta</span><span>Sem plano de ${p.ficha}</span><span>Sem Taverna e Playlist</span></div><div class="on"><b>ELITE + ABISMO</b><span>${p.C[1]} monta seu treino</span><span>90 dias de plano pronto</span><span>Taverna, Alquimia e Playlist</span></div></div>
+  <p class="sub" style="font-size:15px">No Recruta você treina <b>sem Mestre, sem ficha pronta e sem a Dungeon</b>. Sozinho, sem plano, é bem mais difícil de manter.</p>
+  <div class="pm-vs"><div><b>RECRUTA</b><span>Treino por sua conta</span><span>Sem plano de ${p.ficha}</span><span>Sem Taverna e Playlist</span></div><div class="on"><b>CAÇADOR ELITE</b><span>${p.C[1]} monta seu treino</span><span>Dungeon de 30 dias pronta</span><span>Taverna, Alquimia e Playlist</span></div></div>
   <div class="pm-off"><small>ÚLTIMA OFERTA DO SISTEMA · SÓ NESTA TELA</small><div><s>R$ 29,90</s><b>R$ 18,90</b></div><span>Só R$ 9 a mais que o Recruta, pra ter o plano completo</span></div>
   <a class="btn pulse" id="pmYes" href="${withQs(CHECKOUT_POP)}">👑 Quero o plano completo por R$ 18,90</a>
   <a class="pm-no" id="pmNo" href="${ur}">Não, quero só o Recruta por R$ 9,90</a></div>`;
  document.body.appendChild(m);requestAnimationFrame(()=>m.classList.add('on'));confetti(innerWidth/2,innerHeight*.35,40,['#ffd34d','#ff6a7a','#fff']);
  const close=()=>{m.classList.remove('on');setTimeout(()=>m.remove(),250)};
  m.querySelector('.pm-x').onclick=close;m.onclick=e=>{if(e.target===m)close()};
- m.querySelector('#pmYes').onclick=()=>track('InitiateCheckout',{value:18.9,currency:'BRL',content_name:'Quiz Pop-up Elite + Abismo'});
+ m.querySelector('#pmYes').onclick=()=>track('InitiateCheckout',{value:18.9,currency:'BRL',content_name:'Quiz Pop-up Elite'});
  m.querySelector('#pmNo').onclick=()=>track('InitiateCheckout',{value:9.9,currency:'BRL',content_name:'Quiz Recruta'});
 }
 
