@@ -45,17 +45,5 @@
     }
    ]
   }
- ],
- "rewrites": [
-  {
-   "source": "/",
-   "has": [
-    {
-     "type": "host",
-     "value": "forja-do-heroi.vercel.app"
-    }
-   ],
-   "destination": "/quiz/index.html"
-  }
  ]
 }
