@@ -554,6 +554,7 @@ body{background:radial-gradient(900px 600px at 50% -120px,#13224a 0%,transparent
 .portal h3{font-family:'Exo 2',Jost;font-weight:800;font-style:italic;font-size:17px;letter-spacing:.04em;color:#ffd65a;text-transform:uppercase}
 .portal p{font-style:italic;font-size:13.5px;color:#eef3fb;line-height:1.3}
 .goldbtn{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:4px;padding:10px;border:2px solid #ffe9a8;clip-path:polygon(7% 0,93% 0,100% 50%,93% 100%,7% 100%,0 50%);background:linear-gradient(180deg,#ffd75a,#e8a01a);color:#2a1800;font-family:'Exo 2',Jost;font-weight:800;font-style:italic;font-size:20px;letter-spacing:.08em;box-shadow:0 0 14px rgba(255,180,40,.6)}
+.lvup a.btn,.modal a.btn{text-decoration:none}
 .dgc2{display:flex;margin-top:12px;border-radius:14px;overflow:hidden;border:1px solid rgba(110,200,255,.6);box-shadow:0 0 12px rgba(79,195,255,.3);background:linear-gradient(180deg,rgba(12,22,46,.96),rgba(6,12,28,.96));text-align:left;width:100%}
 .dgc2.p{border-color:rgba(190,140,255,.75);box-shadow:0 0 12px rgba(160,90,255,.4)}
 .dgc2>img{width:35%;object-fit:cover;flex:none}
@@ -987,6 +988,7 @@ function cWord(c,x){return x==='f'?CLS_FW[c]:CLS_COLOR[c].w}
 const CLS_COLOR={monge:{acc:'#4fe3c8',bg:'linear-gradient(135deg,#0d3b3a,#06201f)',w:'MONGE'},paladino:{acc:'#ffc65a',bg:'linear-gradient(135deg,#3a2a0c,#1a1206)',w:'PALADINO'},guerreiro:{acc:'#ff6a5a',bg:'linear-gradient(135deg,#3d1010,#1c0707)',w:'GUERREIRO'}};
 /* ===== LINK DE PAGAMENTO DO PLANO CAÇADOR ELITE (cole aqui) ===== */
 const CHECKOUT_ELITE='https://appdigitalhub.com.br/c/1C7E51FE';
+const UPG_CHECKOUT='https://appdigitalhub.com.br/c/E61E69D0'; // upgrade Recruta → Elite (R$ 14,90, só para quem já é Recruta)
 const ELITE_PERKS=[['🎁','BÔNUS · Alquimia do Herói: 50 bebidas e alimentos anabólicos'],['🗺️','Dungeon de 30 Dias: um treino guiado por dia para a sua classe'],['🌳','Guia de Progressão: da primeira flexão ao muscle-up'],['📊','Planilha do Guerreiro: cargas, recordes e sugestão de carga'],['🏆','Temporada mensal com ranking entre heróis Elite'],['🍺','Taverna VIP e coroa dourada nos seus posts'],['👑','Título exclusivo “Fundador da Forja” + 300 de ouro']];
 
 const CLASSES = {
@@ -1318,6 +1320,10 @@ function revalidateToday(){
   for(const [d,dt] of Object.entries(S.dg.done)){
     if(dt!==ymd())continue;const day=dgDay(+d);
     if(!day.items.every(dgItemDone)){delete S.dg.done[d];S.bonusXP-=120+(+d)*8;S.goldBonus-=40;toast('↩️','Dia da Dungeon desfeito','Dia '+d+': as séries do dia foram apagadas')}
+  }
+  if(S.ab&&S.ab.done)for(const [d,dt] of Object.entries(S.ab.done)){
+    if(dt!==ymd())continue;
+    if(!abDay(+d).items.every(dgItemDone)){delete S.ab.done[d];S.bonusXP-=abXP(+d);S.goldBonus-=60;toast('↩️','Dia do Abismo desfeito','Dia '+d+': as séries do dia foram apagadas')}
   }
 }
 function claimQuest(id){
@@ -1694,10 +1700,27 @@ function eliteModal(feature){
    <h3 style="margin-top:14px">${feature?esc(feature)+' é exclusivo do Caçador Elite':'Desperte o Caçador Elite'}</h3>
    <p class="muted" style="font-size:14px">Libere o arsenal completo do Sistema e evolua mais rápido.</p>
    <ul class="elist">${ELITE_PERKS.map(p=>`<li><span>${p[0]}</span>${p[1]}</li>`).join('')}</ul>
-   ${CHECKOUT_ELITE?`<a class="btn gold full" href="${CHECKOUT_ELITE}" target="_blank" rel="noopener">Liberar Caçador Elite · R$ 19,90</a>`:`<button class="btn gold full" disabled>Liberar Caçador Elite · R$ 19,90</button><p class="dim" style="font-size:12px;text-align:center;margin-top:6px">Link de compra em breve</p>`}
+   <div style="text-align:center;margin:10px 0 4px"><s class="dim">R$ 26,90</s> <b style="font-size:24px;color:#ffd65a">R$ 14,90</b> <span class="dim" style="font-size:12.5px">upgrade para quem já é Recruta</span></div>
+   <a class="btn gold full" href="${UPG_CHECKOUT}" target="_blank" rel="noopener">👑 Fazer upgrade · R$ 14,90</a>
    <p class="dim" style="font-size:12.5px;text-align:center;margin-top:10px">Use o mesmo e-mail da sua conta na compra. O Elite libera sozinho em até 2 minutos: depois é só tocar em “Já comprei, atualizar”.</p>
    <button class="btn ghost full sm" style="margin-top:8px" data-a="fhRefresh">🔄 Já comprei, atualizar</button>
    <button class="btn ghost full sm" style="margin-top:12px" data-a="close">Agora não</button>`);
+}
+
+function upgModal(){
+  openModal(`<div class="lvup"><div style="font-size:56px">👑</div><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ffc65a">CONVOCAÇÃO DE ELITE</div>
+   <h3 style="margin-top:8px">Recruta, o Sistema abriu uma brecha</h3>
+   <p class="muted" style="margin:10px 0 6px">Fala, caçador! Você já provou que treina de verdade. Por isso o Sistema liberou uma passagem que normalmente não existe: subir para <b>Caçador Elite</b> pagando só a diferença.</p>
+   <ul class="nv-list">
+    <li><img src="${UI}m-trio.webp" alt=""><span><b>Mestres:</b> um treino novo por dia, passado por Kaito, Brutus ou Aurora</span></li>
+    <li><span style="font-size:24px;width:44px;text-align:center">🗺️</span><span><b>Dungeon de 30 dias</b> com relíquias e o baú semanal</span></li>
+    <li><img src="${UI}ic-run.webp" alt=""><span><b>Corrida com GPS</b> valendo XP a cada quilômetro</span></li>
+    <li><span style="font-size:24px;width:44px;text-align:center">🍺</span><span><b>Taverna, duelos, ranking</b> e as <b>50 receitas</b> da Alquimia</span></li></ul>
+   <div style="text-align:center;margin:12px 0 4px"><s class="dim">R$ 26,90</s> <b style="font-size:26px;color:#ffd65a">R$ 14,90</b> <span class="dim" style="font-size:13px">pagamento único</span></div>
+   <a class="btn gold full" href="${UPG_CHECKOUT}" target="_blank" rel="noopener">👑 Quero ser Caçador Elite</a>
+   <p class="dim" style="font-size:12.5px;text-align:center;margin-top:10px">Use o mesmo e-mail da sua conta. O Elite libera sozinho em até 2 minutos.</p>
+   <button class="btn ghost full sm" style="margin-top:8px" data-a="fhRefresh">🔄 Já comprei, atualizar</button>
+   <button class="btn ghost full sm" style="margin-top:8px" data-a="close">Agora não</button></div>`,true);
 }
 function lockedView(title,desc,art,bullets){
   return `<div class="win locked"><div class="lk-art"><img src="${art||ART.keyart}" alt=""><span class="crown">👑 EXCLUSIVO CAÇADOR ELITE</span></div>
@@ -2094,6 +2117,8 @@ function render(){
    <ul class="nv-list"><li><span style="font-size:24px;width:34px;text-align:center">⚔️</span><span>3, 2, 1… o Sistema dá o sinal e o desafio começa</span></li><li><span style="font-size:24px;width:34px;text-align:center">🔥</span><span>Bateu a meta? O Sistema avisa. Os fortes seguram mais</span></li><li><span style="font-size:24px;width:34px;text-align:center">✨</span><span>Cada segundo vira XP direto na sua série</span></li></ul>
    <p class="muted" style="margin:6px 0 16px;font-style:italic">Quantos segundos você aguenta, caçador?</p>
    <button class="btn gold full" data-a="isoTry">⏱️ Aceitar o desafio</button><button class="btn ghost full sm" style="margin-top:8px" data-a="close">Depois</button></div>`,true))}
+  if(!S.cheat&&window.__FH_PLAN==='recruta'){const u=S.upg||{n:0,at:0};if(u.n<3&&Date.now()-u.at>3*864e5){S.upg={n:u.n+1,at:Date.now()};save();queueModal(upgModal)}}
+  else if(!S.cheat&&isElite()&&!abMax()&&S.nov2&&!S.nov3){S.nov3=Date.now();save();queueModal(abBuyModal)}
   if(S.cheat&&!S.cheat.seen){S.cheat.seen=Date.now();save();queueModal(()=>openModal(`<div class="lvup"><div style="font-size:60px">🛡️</div><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ff5a6e">TRAPAÇA DETECTADA</div>
    <h3 style="margin-top:10px;color:#ff8a9a">Você burlou o sistema</h3>
    <p class="muted" style="margin:10px 0 6px">O Sistema encontrou registros impossíveis no seu herói${S.cheat.why?' ('+esc(S.cheat.why)+')':''}. Para manter o ranking justo para todos os caçadores, seu progresso foi zerado e você voltou ao <b>nível 1</b>.</p>
@@ -2212,6 +2237,7 @@ const DG_TIERS=[
 function weekStart(){const d=new Date();const k=(d.getDay()+6)%7;d.setDate(d.getDate()-k);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function dgWeekCount(){const w=weekStart();return Object.values(S.dg.done).filter(d=>d>=w).length}
 function viewDungeon(){
+  if(abOpen&&isElite()&&abMax()) return viewAbismo();
   if(dgOpen&&isElite()) return viewDungeonDay();
   const el=isElite();const cur=dgCurrent();
   const tiers=DG_TIERS.map((t,i)=>{
@@ -2227,6 +2253,7 @@ function viewDungeon(){
   return `<div class="banner frame"><img src="${UI}dg-ban.webp" alt="Dungeon: escolha sua incursão"></div>
   <div class="portal"><img src="${UI}dg-portal.webp" alt=""><div class="px"><h3>⚔️ Portal das Provações</h3><p>${el?(cur>30?'Você conquistou a Dungeon inteira. Lenda.':`Hoje: <b>Dia ${cur}</b> · ${dgDay(Math.min(cur,30)).name}. Cumpra os objetivos para ganhar XP, ouro e relíquias.`):'Entre na dungeon e cumpra objetivos para ganhar XP, ouro e relíquias.'}</p>
    <button class="goldbtn" data-a="${el?'dgEnter':'elite'}">⚔️ ${el?'ENTRAR':'LIBERAR'} »</button></div></div>
+  ${abCard()}
   ${tiers}
   <div class="chest"><img src="${UI}dg-chest.webp" alt="Baú semanal"><div class="cx"><div class="ch"><b>🗓️ Recompensa semanal</b><span style="font-size:13px">${wk}/3 Incursões</span></div>
    <small>${claimed?'Baú desta semana já aberto. Volte na segunda!':'Conclua 3 dias de dungeon nesta semana para abrir o baú (+150 XP e 75 ouro).'}</small>
@@ -2248,6 +2275,96 @@ function viewDungeonDay(){
    <button class="goldbtn" style="width:100%;margin-top:14px" ${avail&&allDone?'':'disabled'} data-a="dgDone">${allDone?'⚔️ CONCLUIR O DIA '+d:'COMPLETE OS OBJETIVOS'}</button>
   </div>
   <div class="sechead">Mapa da Dungeon</div><div class="pv" style="padding:12px"><div class="dggrid">${grid}</div></div>`;
+}
+
+/* ---------- DUNGEON DO ABISMO (fase 2 · produto à parte: 60 dias, ou 30 na oferta menor) ---------- */
+const AB_CHECKOUT='https://appdigitalhub.com.br/c/B04D52D9';
+let abOpen=false;
+function abMax(){return +(window.__FH_AB||0)}
+const AB_TIERS=[
+  {n:'Portões do Abismo',img:'dg-r2',ic:'🕳️',from:1,to:15,boss:'Guardião dos Portões',h:250},
+  {n:'Cripta das Sombras',img:'dg-r1',ic:'💀',from:16,to:30,boss:'Ceifador das Sombras',h:290},
+  {n:'Trono Profundo',img:'dg-r3',ic:'🜏',from:31,to:45,boss:'Rei do Trono Profundo',h:320},
+  {n:'Coração do Abismo',img:'dg-r2',ic:'🔥',from:46,to:60,boss:'Imperador do Abismo',h:200,p:true}];
+const AB_MASTER={n:'Mestre Ragnar, o Lendário',falas:[
+  'Você venceu a primeira Dungeon. Aqui embaixo, ninguém te dá trégua, caçador.',
+  'No Abismo, a série que você quer pular é a que te faz evoluir.',
+  'Os fracos param na dor. Os lendários aprendem a respirar dentro dela.',
+  'Cada dia aqui embaixo vale por três lá em cima. Não desperdice.',
+  'O Imperador do Abismo te observa. Mostre que você é digno do trono.']};
+function abDay(d){
+  const w=Math.min(4,Math.ceil(d/15));
+  if(d%7===0) return {d,rest:true,name:'Recuperação no Abismo',items:[{ex:'prancha',s:4,r:40+10*w},{ex:'polichinelo',s:3,r:50}]};
+  const k='ABC'[(d-Math.floor(d/7)-1)%3];
+  const pool=DG_POOL[S.cls][k];
+  const chosen=pool.slice().sort((a,b)=>b[1]-a[1]).slice(0,5).map(x=>x[0]);
+  const items=pool.filter(x=>chosen.includes(x[0])).map(([id])=>{const ex=EXM[id];let r;
+    if(ex.u==='s') r=(ex.tier>=3?12:30)+(ex.tier>=3?4:10)*w;
+    else if(ex.t==='mus') r=[10,8,8,6][w-1];
+    else {const base=ex.tier>=4?4:ex.tier===3?6:ex.tier===2?10:15;r=Math.round(base*(1.2+0.15*w))}
+    return {ex:id,s:w>=3?5:4,r}});
+  return {d,name:DG_NAMES[k]+' · Abismo',items};
+}
+function abState(){if(!S.ab)S.ab={done:{}};return S.ab}
+function abCurrent(){const a=abState();let d=1;while(a.done[d]&&d<=abMax())d++;return d}
+function abAvailable(d){const a=abState();if(d>abMax())return false;if(d===1)return true;const prev=a.done[d-1];return !!prev&&prev<ymd()}
+function abXP(d){return 250+d*10}
+function abComplete(){
+  const d=abCurrent();const day=abDay(d);
+  if(!abAvailable(d)||!day.items.every(dgItemDone)) return;
+  const prev=levelInfo().L;const xp=abXP(d);
+  abState().done[d]=ymd();S.bonusXP+=xp;S.goldBonus+=60;
+  const t=AB_TIERS.find(x=>d===x.to);
+  if(t&&!S.titles.includes(t.boss)){S.titles.push(t.boss);setTimeout(()=>toast('🏆','Chefe do Abismo derrotado!','Título “'+t.boss+'”'),900)}
+  sfx(d===60?'dungeonfinal':'dungeon');toast('🕳️','Dia '+d+' do Abismo concluído!','+'+xp+' XP · +60 ouro');
+  if(d===60){S.bonusXP+=2500;toast('👑','O ABISMO FOI CONQUISTADO','+2.500 XP e o título “Imperador do Abismo”')}
+  afterProgress(prev);render();
+}
+function abCard(){
+  if(!isElite())return '';
+  const m=abMax();const cur=abCurrent();
+  return `<button class="dgc2 p abc" data-a="${m?'abEnter':'abBuy'}"><img src="${UI}dg-r2.webp" alt="" style="filter:hue-rotate(230deg) saturate(1.4) brightness(.8)"><div class="dx">
+   <h4>🕳️ Dungeon do Abismo <span class="elt" style="margin-left:4px">FASE 2</span></h4>
+   <div class="rr"><span class="df">DIFICULDADE: <em>★★★★</em></span><span class="stt2">${m?(cur>m?'👑 Conquistada':'Dia '+cur+' de '+m):'🔒 Bloqueada'}</span></div>
+   <small style="display:block;margin-top:4px;color:#cdb8ff">${m?'Mestre Ragnar te espera lá embaixo.':'60 dias de nível avançado, chefes novos e um mestre lendário.'}</small>
+   </div></button>`;
+}
+function abBuyModal(){
+  openModal(`<div class="lvup"><div style="font-size:56px">🕳️</div><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#c9a2ff">UM NOVO PORTAL FOI DETECTADO</div>
+   <h3 style="margin-top:8px">Dungeon do Abismo</h3>
+   <p class="muted" style="margin:10px 0 6px">A primeira Dungeon foi só o começo, caçador. Lá embaixo existe uma fase que poucos aguentam: <b>60 dias de treino avançado</b>, mais séries, exercícios de nível alto e chefes que só os lendários derrotam.</p>
+   <ul class="nv-list">
+    <li><span style="font-size:24px;width:34px;text-align:center">⚔️</span><span><b>60 treinos novos</b> para a sua classe, ficando mais pesados a cada 15 dias</span></li>
+    <li><span style="font-size:24px;width:34px;text-align:center">💀</span><span><b>4 chefes do Abismo</b> e o título exclusivo <b>“Imperador do Abismo”</b></span></li>
+    <li><span style="font-size:24px;width:34px;text-align:center">🧙</span><span><b>Mestre Ragnar, o Lendário</b> guiando cada dia</span></li>
+    <li><span style="font-size:24px;width:34px;text-align:center">✨</span><span>Até <b>+850 XP por dia</b> e +2.500 XP no fim</span></li></ul>
+   <div style="text-align:center;margin:12px 0 4px"><s class="dim">R$ 39,90</s> <b style="font-size:26px;color:#ffd65a">R$ 19,90</b> <span class="dim" style="font-size:13px">pagamento único</span></div>
+   <a class="btn gold full" href="${AB_CHECKOUT}" target="_blank" rel="noopener">🕳️ Abrir o portal do Abismo</a>
+   <p class="dim" style="font-size:12.5px;text-align:center;margin-top:10px">Use o mesmo e-mail da sua conta. Libera sozinho em até 2 minutos: depois é só tocar em “Já comprei, atualizar”.</p>
+   <button class="btn ghost full sm" style="margin-top:8px" data-a="fhRefresh">🔄 Já comprei, atualizar</button>
+   <button class="btn ghost full sm" style="margin-top:8px" data-a="close">Agora não</button></div>`);
+}
+function viewAbismo(){
+  const m=abMax();const d=abCurrent();const a=abState();
+  const grid=Array.from({length:m},(_,i)=>{const n=i+1;const st=a.done[n]?'ok':n===d?'cur':'';return `<span class="dgc ${st}">${a.done[n]?'✓':n}</span>`}).join('');
+  const back=`<button class="back" data-a="abBack">← Dungeon</button>`;
+  const fala=AB_MASTER.falas[(d-1)%AB_MASTER.falas.length];
+  if(d>m) return back+`<div class="pv mispanel" style="text-align:center"><div class="disp" style="font-size:22px;color:#c9a2ff">${m===60?'O Abismo foi conquistado':'Você venceu os 30 primeiros dias do Abismo'}</div>
+    <p style="margin-top:10px">${m===60?'Imperador do Abismo. Poucos chegam aqui.':'O Coração do Abismo (dias 31 a 60) continua selado.'}</p><div class="dggrid">${grid}</div>
+    ${m===60?'':`<a class="btn gold full" style="margin-top:14px" href="${AB_CHECKOUT}" target="_blank" rel="noopener">🔓 Liberar os 60 dias</a>`}</div>`;
+  const day=abDay(d);const avail=abAvailable(d);const allDone=day.items.every(dgItemDone);const t=AB_TIERS.find(x=>d>=x.from&&d<=x.to);
+  return back+`<div class="banner frame"><img src="${UI}${t.img}.webp" alt="" style="height:150px;object-fit:cover;filter:hue-rotate(230deg) saturate(1.4) brightness(.75)"></div>
+  <div class="missub" style="margin-top:12px;color:#c9a2ff">${t.ic} ${t.n.toUpperCase()} – DIA ${d}</div>
+  <div class="pv" style="padding:12px;margin-top:8px;border-color:rgba(190,140,255,.6)"><b style="color:#c9a2ff">🧙 ${AB_MASTER.n}</b><p class="muted" style="margin-top:4px;font-style:italic">“${fala}”</p></div>
+  <div class="pv mispanel">
+   <div class="disp" style="text-align:center;font-size:20px;color:#fff">${day.name}</div>
+   ${avail?'':`<p class="qwarn"><b>AGUARDE.</b> O próximo dia do Abismo abre amanhã. Até os lendários descansam.</p>`}
+   ${day.items.map(it=>{const ex=EXM[it.ex];const ok=dgItemDone(it);return `<div class="qcard ${ok?'done':''}"><span class="qi em">${GROUP_ICON[ex.g]||'⚔️'}</span><div class="tx"><div class="tt"><b>${esc(ex.n)}</b><span>${ok?'✓':''}</span></div><small>${it.s} séries × ${it.r}${ex.u?'s':' reps'}${ex.t==='mus'?' · carga pesada':''}</small>
+    ${ok?'':`<button class="btn sm" ${avail?'':'disabled'} data-a="dgLog" data-id="${it.ex}" data-s="${it.s}" data-r="${it.r}">Registrar</button>`}</div></div>`}).join('')}
+   <div class="qreward"><img src="${UI}q-reward.webp" alt=""><div>Recompensa do dia: <b>+${abXP(d)} XP</b> e <b>60 ouro</b>${d===t.to?` · chefe <b>“${t.boss}”</b>`:''}</div></div>
+   <button class="goldbtn" style="width:100%;margin-top:14px" ${avail&&allDone?'':'disabled'} data-a="abDone">${allDone?'🕳️ CONCLUIR O DIA '+d:'COMPLETE OS OBJETIVOS'}</button>
+  </div>
+  <div class="sechead">Mapa do Abismo</div><div class="pv" style="padding:12px"><div class="dggrid">${grid}</div></div>`;
 }
 
 /* ---------- TAVERNA ---------- */
@@ -2417,6 +2534,11 @@ document.addEventListener('click',ev=>{
     case 'activate':{const c=$('#e_code').value;if(activateElite(c)){closeModal();render();queueModal(()=>openModal(`<div class="lvup"><img class="lv-art" src="${aFull(S.cls,sexOf())}" alt=""><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ffc65a">CLASSE DESPERTADA</div><h3 style="margin-top:8px;color:#ffc65a">👑 Caçador Elite</h3><p class="muted" style="margin:10px 0 18px">Dungeon, ranking, progressão, planilha e Taverna VIP liberados. Você ganhou o título “Fundador da Forja” e 300 de ouro.</p><button class="btn gold full" data-a="close">Entrar na Dungeon</button></div>`,true))}else{toast('⚠️','Código inválido','Confira o código que chegou no seu e-mail')}break}
     case 'dgLog':{const id=b.dataset.id;const l=S.last[id]||{};exerciseSheet(id,{s:+b.dataset.s,r:+b.dataset.r,kg:l.kg||20});break}
     case 'dgDone': dgComplete();break;
+    case 'abEnter': abOpen=true;dgOpen=false;render();window.scrollTo(0,0);break;
+    case 'abBack': abOpen=false;render();window.scrollTo(0,0);break;
+    case 'abDone': abComplete();break;
+    case 'abBuy': abBuyModal();break;
+    case 'upgBuy': upgModal();break;
     case 'dgReset': confirmModal('Recomeçar a Dungeon do dia 1? Seu progresso de treinos continua salvo.',()=>{S.dg={done:{}};save();render()},'Recomeçar');break;
     case 'tvChan': TV.chan=b.dataset.v;render();break;
     case 'tvPost':{const t=$('#tv_text');if(tvPost(t.value)){TV.draft='';t.value='';toast('🍺','Postado na Taverna')}else t.focus();break}
@@ -2500,7 +2622,7 @@ async function fhAfterLogin(){
   const {data:me,error}=await FH.rpc('fh_me');
   if(error){FH_MSG='Não foi possível conferir o seu acesso. Verifique a internet e tente de novo.';return fhRenderLogin();}
   if(!me||!me.plan){await FH.auth.signOut();FH_MSG='Não encontramos uma compra aprovada com este e-mail. Se pagou por Pix agora, aguarde 1 ou 2 minutos e tente de novo.';return fhRenderLogin();}
-  const uid=session.user.id;window.__FH_EMAIL=session.user.email;window.__FH_PLAN=me.plan;
+  const uid=session.user.id;window.__FH_EMAIL=session.user.email;window.__FH_PLAN=me.plan;window.__FH_AB=+me.abismo||0;
   if(S.ownerUid&&S.ownerUid!==uid){S=blank();}
   S.ownerUid=uid;
   fhShim(uid,!!me.admin);
@@ -2638,7 +2760,7 @@ render=function(){if(!window.__FH_PLAN)return fhRenderLogin();if(S.plan!==window
 document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-a]');if(!b)return;const a=b.dataset.a;
   if(a==='fhTab'){FH_TAB=b.dataset.v;FH_MSG='';fhRenderLogin();}
   if(a==='fhLogout'){closeModal();await FH.auth.signOut();try{localStorage.removeItem(KEY)}catch(e){}location.reload();}
-  if(a==='fhRefresh'){const {data:me}=await FH.rpc('fh_me');if(me&&me.plan){if(me.plan==='elite'&&window.__FH_PLAN!=='elite')sfx('elite');window.__FH_PLAN=me.plan;closeModal();render();toast(me.plan==='elite'?'👑':'⚔️',me.plan==='elite'?'Caçador Elite liberado!':'Ainda não encontramos a compra do Elite',me.plan==='elite'?'Todos os recursos foram desbloqueados':'Aguarde 1 ou 2 minutos e tente de novo')}}
+  if(a==='fhRefresh'){const {data:me}=await FH.rpc('fh_me');if(me&&(+me.abismo||0)>(window.__FH_AB||0)){window.__FH_AB=+me.abismo;closeModal();abOpen=true;tab='dungeon';sfx('elite');render();toast('🕳️','O portal do Abismo se abriu!','A Dungeon do Abismo foi liberada');return}if(me&&me.plan){if(me.plan==='elite'&&window.__FH_PLAN!=='elite')sfx('elite');window.__FH_PLAN=me.plan;closeModal();render();toast(me.plan==='elite'?'👑':'⚔️',me.plan==='elite'?'Caçador Elite liberado!':'Ainda não encontramos a compra do Elite',me.plan==='elite'?'Todos os recursos foram desbloqueados':'Aguarde 1 ou 2 minutos e tente de novo')}}
 });
 (async()=>{const {data:{session}}=await FH.auth.getSession();if(session)fhAfterLogin();else fhRenderLogin();})();
 
@@ -2647,7 +2769,7 @@ document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-a]
 let DEFER_INSTALL=null;
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();DEFER_INSTALL=e;});
 window.addEventListener('appinstalled',()=>{DEFER_INSTALL=null;try{localStorage.setItem('fh_install_hide','1')}catch(e){};closeModal();toast('📲','App instalado!','Abra pelo ícone Forja do Herói');});
-try{const q=new URLSearchParams(location.search).get('tab');if(q&&['treinar','missoes','heroi'].includes(q))tab=q}catch(e){}
+try{const q=new URLSearchParams(location.search).get('tab');if(q&&['treinar','missoes','heroi','dungeon'].includes(q))tab=q}catch(e){}
 if('serviceWorker' in navigator)navigator.serviceWorker.addEventListener('message',e=>{if(e.data&&e.data.fh==='tab'){tab=e.data.tab;render()}});
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/app/sw.js',{scope:'/app/'}).catch(()=>{}));
 function isStandalone(){return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}
