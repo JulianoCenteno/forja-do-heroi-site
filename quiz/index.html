@@ -176,6 +176,11 @@ h1 em,h2 em{font-style:normal;background:linear-gradient(180deg,#fffbe3,#ffd34d 
 .calc .s{text-decoration:line-through;color:#8d97bd}
 .calc .m{color:#ffd767;font-weight:800}
 .calc .t{border-top:1px solid rgba(255,255,255,.1);margin-top:6px;padding-top:8px;font-weight:900;color:#fff;font-size:17px}
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.feat div{border-radius:14px;overflow:hidden;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column}
+.feat img{width:100%;height:86px;object-fit:cover}
+.feat b{font-size:15px;color:#fff;padding:9px 10px 2px}
+.feat span{font-size:12.5px;color:var(--mut);padding:0 10px 11px;line-height:1.35}
 .offer2{margin:14px 0 4px;padding:16px;border-radius:16px;background:var(--card);border:1px solid var(--line)}
 .o2h{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .o2h b{font:900 18px 'Exo 2';color:#fff;display:block}.o2h small{font-size:13px;color:var(--mut)}
@@ -391,8 +396,10 @@ function vRes(){const p=profile();const probs=A.prob||[];
    <div><span><b>Dungeon de 30 dias</b> com chefes semanais</span></div>
    <div><span><b>Dungeon do Abismo</b>: mais 60 dias de treino avançado, 4 chefes e o título Imperador do Abismo</span></div>
    <div><span><b>Peso de cada série e planilha de cargas</b>: veja sua força subir</span></div>
-   <div><span><b>Taverna e Alquimia</b>: receitas e cálculo de proteína e água</span></div>
-   <div><span><b>Missões, chefes, ranking e corrida com GPS</b></span></div>
+   <div><span><b>Taverna</b>: a comunidade dos caçadores, pra conversar, trocar dicas e mostrar sua evolução</span></div>
+   <div><span><b>Alquimia</b>: receitas anabólicas e cálculo de proteína e água pro seu corpo</span></div>
+   <div><span><b>Playlist do Herói</b>: músicas pra treinar no modo monstro</span></div>
+   <div><span><b>Missões, chefes, ranking, duelos e corrida com GPS</b></span></div>
   </div>
   <div class="calc"><div><span>Valor do plano</span><span class="s">${brl(FULL)}</span></div><div class="m"><span>🪙 Suas moedas do teste</span><span id="coinv">− R$ 0,00</span></div><div class="t"><span>Você paga</span><span id="payv">${brl(FULL)}</span></div></div>
   <div class="price"><small>R$</small><span id="bigp">${FULL},00</span></div><div class="once">pagamento único · acesso imediato no app</div>
@@ -400,9 +407,16 @@ function vRes(){const p=profile();const probs=A.prob||[];
   <div class="timer">⏳ Suas moedas expiram em <b id="tmr">15:00</b></div>
  </div>
  <div class="offer2"><div class="o2h"><div><b>Recruta</b><small>O essencial para começar</small></div><div class="o2p"><s>R$ 39,90</s><b>R$ 9,90</b></div></div>
-  <div class="inc sm"><div><span>Acesso ao app com sistema de treino em RPG</span></div><div><span>Missões diárias, chefes e evolução de nível</span></div><div class="no"><span>Sem os Mestres, sem fichas prontas e sem as Dungeons</span></div><div class="no"><span>Suas moedas do teste não valem neste plano</span></div></div>
+  <div class="inc sm"><div><span>Acesso ao app com sistema de treino em RPG</span></div><div><span>Missões diárias, chefes e evolução de nível</span></div><div class="no"><span>Sem os Mestres, sem fichas prontas e sem as Dungeons</span></div><div class="no"><span>Sem Taverna, Alquimia e Playlist</span></div><div class="no"><span>Suas moedas do teste não valem neste plano</span></div></div>
   <a class="btn ghost" id="buyR" href="#">Começar como Recruta · R$ 9,90</a></div>
  <div class="secure"><span>🔒 Pagamento seguro</span><span>⚡ Pix ou cartão</span><span>📱 Funciona no celular</span></div>
+ <div class="sec-h">O QUE TE ESPERA NO APP</div>
+ <div class="feat">
+  <div><img src="/app/img/ui/tav-ban.webp" alt=""><b>🍺 Taverna</b><span>A comunidade dos caçadores: converse, troque dicas, mostre seu treino e desafie outros heróis pra um duelo.</span></div>
+  <div><img src="/app/img/ui/playlist.webp" alt=""><b>🎧 Playlist do Herói</b><span>Músicas escolhidas pra treinar com a energia lá em cima, direto no app.</span></div>
+  <div><img src="/img/v2/alq-art.webp" alt=""><b>⚗️ Alquimia</b><span>Receitas anabólicas e o cálculo de proteína e água feitos pro seu corpo.</span></div>
+  <div><img src="/app/img/ui/boss-ban.webp" alt=""><b>👹 Chefes e Dungeons</b><span>Desafios semanais que testam sua força e te dão recompensas raras.</span></div>
+ </div>
  <div class="guar"><img src="/img/v3/gar-badge.webp" alt="" onerror="this.src='/img/garantia.webp'"><p><b>Garantia de 7 dias.</b> Entrou, treinou e não curtiu? Pede o reembolso em até 7 dias e você recebe 100% de volta.</p></div>
  <div class="sec-h">COMO FUNCIONA</div>
  <div class="how">
