@@ -74,7 +74,10 @@ h1 em,h2 em{font-style:normal;background:linear-gradient(180deg,#fffbe3,#ffd34d 
 .opt.chk .rw{margin-right:30px}
 .opt.chk{padding-right:48px}
 .opt.pic{flex-direction:column;text-align:center;padding:0 0 12px;gap:8px}
-.opt.pic img{width:100%;aspect-ratio:1;object-fit:cover;display:block;border-bottom:1px solid var(--line)}
+.opt.pic img{width:100%;aspect-ratio:1;object-fit:cover;object-position:center 18%;display:block;border-bottom:1px solid var(--line);transition:transform .4s}
+.opt.pic:hover img,.opt.pic.sel img{transform:scale(1.05)}
+.qban{display:block;width:100%;height:112px;object-fit:cover;object-position:center 30%;border-radius:14px;border:1px solid var(--line);margin:4px 0 10px;box-shadow:0 0 24px rgba(42,107,255,.2);-webkit-mask-image:linear-gradient(180deg,#000 70%,rgba(0,0,0,.35));mask-image:linear-gradient(180deg,#000 70%,rgba(0,0,0,.35));animation:ban .6s ease}
+@keyframes ban{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:none}}
 .opt.pic span{font-weight:800;font-size:17px}
 .opt.pic .rw{margin:0}
 .opt .shine{position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.18) 50%,transparent 70%);transform:translateX(-120%);pointer-events:none}
@@ -125,6 +128,8 @@ h1 em,h2 em{font-style:normal;background:linear-gradient(180deg,#fffbe3,#ffd34d 
 .vs li{list-style:none;margin:5px 0;color:#d5def7}
 /* loading */
 .scan{position:relative;width:170px;height:170px;margin:20px auto 6px}
+.scan .scimg{position:absolute;inset:26px;width:calc(100% - 52px);height:calc(100% - 52px);border-radius:50%;object-fit:cover;opacity:.55;filter:blur(1px) saturate(1.2);animation:scpulse 1.4s ease-in-out infinite}
+@keyframes scpulse{50%{opacity:.85;filter:blur(0) saturate(1.4)}}
 .scan .ring{position:absolute;inset:0;border-radius:50%;border:3px solid rgba(79,210,255,.15);border-top-color:var(--blue);animation:rot 1s linear infinite;box-shadow:0 0 30px rgba(79,210,255,.3)}
 .scan .ring.r2{inset:16px;border-top-color:var(--gold);animation-duration:1.6s;animation-direction:reverse}
 .scan .pct{position:absolute;inset:0;display:grid;place-items:center;font:900 34px 'Exo 2';color:#fff;text-shadow:0 0 16px var(--blue)}
@@ -171,6 +176,13 @@ h1 em,h2 em{font-style:normal;background:linear-gradient(180deg,#fffbe3,#ffd34d 
 .calc .s{text-decoration:line-through;color:#8d97bd}
 .calc .m{color:#ffd767;font-weight:800}
 .calc .t{border-top:1px solid rgba(255,255,255,.1);margin-top:6px;padding-top:8px;font-weight:900;color:#fff;font-size:17px}
+.offer2{margin:14px 0 4px;padding:16px;border-radius:16px;background:var(--card);border:1px solid var(--line)}
+.o2h{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.o2h b{font:900 18px 'Exo 2';color:#fff;display:block}.o2h small{font-size:13px;color:var(--mut)}
+.o2p{text-align:right}.o2p s{display:block;font-size:13px;color:#7d88ad}.o2p b{font:900 italic 26px 'Exo 2';color:#fff}
+.inc.sm{margin:10px 0 0}.inc.sm div{font-size:13.5px}.inc .no{color:#8d97bd}.inc .no:before{content:'✕';color:#ff7a88}
+.btn.ghost{background:transparent;color:#cfe0ff;border:1px solid rgba(160,190,255,.45);box-shadow:none;font-size:14.5px;padding:14px}
+.btn.ghost:active{transform:translateY(2px)}
 .price{font:900 italic 56px 'Exo 2';color:#fff;line-height:1;margin:10px 0 2px;text-shadow:0 0 26px rgba(255,190,40,.6)}
 .price small{font-size:22px;vertical-align:top;margin-right:2px}
 .once{font-size:13px;color:var(--mut)}
@@ -212,7 +224,7 @@ h1 em,h2 em{font-style:normal;background:linear-gradient(180deg,#fffbe3,#ffd34d 
 <script>
 (function(){
 'use strict';
-const CHECKOUT='https://appdigitalhub.com.br/c/F700923A';
+const CHECKOUT='https://appdigitalhub.com.br/c/F700923A',CHECKOUT_R='https://appdigitalhub.com.br/c/43752C6D';
 const FULL=69, FINAL=29.90, TOTAL=+(FULL-FINAL).toFixed(2); // 39,10 de desconto em moedas
 const $=s=>document.querySelector(s);
 const brl=v=>'R$ '+v.toFixed(2).replace('.',',');
@@ -230,22 +242,22 @@ const hero=()=>fem()?'Caçadora':'Caçador';
 const S=[
  {id:'intro',t:'intro'},
  {id:'nome',t:'input',rw:250,cap:'Registro do jogador',q:()=>'Como o Sistema deve te chamar?',sub:'Seu nome vai aparecer na sua ficha de herói.',ph:'Seu primeiro nome'},
- {id:'sexo',t:'pic',rw:200,cap:'Identificação',q:()=>'Olá, '+nm()+'. Você é…',opts:[['m','Homem','/app/img/f-paladino.webp'],['f','Mulher','/app/img/f-paladino-f.webp']]},
- {id:'idade',t:'one',rw:200,cap:'Ficha do jogador',q:()=>'Qual é a sua idade?',sub:'O Sistema ajusta a intensidade ao seu corpo.',opts:[['18','18 a 24 anos','🗡️'],['25','25 a 34 anos','🛡️'],['35','35 a 44 anos','⚔️'],['45','45 anos ou mais','👑']]},
- {id:'obj',t:'one',rw:300,cap:'Missão principal',q:()=>'Qual é a sua missão principal, '+nm()+'?',opts:[['massa','Ganhar massa muscular','💪','Ficar maior e mais forte'],['emag','Perder gordura','🔥','Secar e ganhar disposição'],['forca','Ficar mais forte','🏋️','Levantar mais peso, ter mais força'],['def','Definir o corpo','⚡','Ficar com o shape marcado']]},
+ {id:'sexo',t:'pic',rw:200,cap:'Identificação',q:()=>'Olá, '+nm()+'. Você é…',opts:[['m','Homem','/quiz/img/sexo-m.webp'],['f','Mulher','/quiz/img/sexo-f.webp']]},
+ {id:'idade',img:'/app/img/ui/ban-keyart.webp',t:'one',rw:200,cap:'Ficha do jogador',q:()=>'Qual é a sua idade?',sub:'O Sistema ajusta a intensidade ao seu corpo.',opts:[['18','18 a 24 anos','🗡️'],['25','25 a 34 anos','🛡️'],['35','35 a 44 anos','⚔️'],['45','45 anos ou mais','👑']]},
+ {id:'obj',img:'/img/v2/hero-art.webp',t:'one',rw:300,cap:'Missão principal',q:()=>'Qual é a sua missão principal, '+nm()+'?',opts:[['massa','Ganhar massa muscular','💪','Ficar maior e mais forte'],['emag','Perder gordura','🔥','Secar e ganhar disposição'],['forca','Ficar mais forte','🏋️','Levantar mais peso, ter mais força'],['def','Definir o corpo','⚡','Ficar com o shape marcado']]},
  {id:'i1',t:'inter',kind:'obj'},
- {id:'local',t:'one',rw:250,cap:'Campo de batalha',q:()=>'Onde você vai treinar?',opts:[['acad','Na academia','🏛️','Halteres, barras e máquinas'],['casa','Em casa','🏠','Só com o peso do corpo'],['parque','No parque / ar livre','🌳','Barras e espaço aberto'],['misto','Um pouco de cada','🔀','Academia em uns dias, casa em outros']]},
- {id:'nivel',t:'one',rw:250,cap:'Nível de experiência',q:()=>'Como está o seu treino hoje?',opts:[['zero','Nunca treinei de verdade','🌱'],['parado','Já treinei, mas estou parado','⏸️'],['inic','Treino há pouco tempo','📈'],['inter','Treino há mais de 1 ano','🔥']]},
- {id:'dias',t:'one',rw:200,cap:'Disponibilidade',q:()=>'Quantos dias por semana você consegue treinar?',opts:[['2','2 dias','2️⃣'],['3','3 dias','3️⃣'],['4','4 dias','4️⃣'],['5','5 dias ou mais','🔥']]},
- {id:'tempo',t:'one',rw:200,cap:'Tempo de batalha',q:()=>'Quanto tempo você tem por treino?',opts:[['20','Até 20 minutos','⏱️'],['40','30 a 45 minutos','⌛'],['60','1 hora ou mais','🕐']]},
- {id:'prob',t:'multi',rw:350,cap:'Inimigos ocultos',q:()=>'O que mais te atrapalha hoje?',sub:'Pode marcar mais de um.',opts:[['motiv','Perco a motivação em poucas semanas','😮‍💨'],['saber','Não sei montar um treino certo','🤷'],['result','Treino e não vejo resultado','📉'],['tempo','Falta de tempo e rotina corrida','⏰'],['comida','Não sei o que comer','🍔'],['vergonha','Vergonha ou insegurança de começar','🙈']]},
- {id:'paradas',t:'one',rw:250,cap:'Histórico de batalhas',q:()=>'Quantas vezes você já começou a treinar e parou?',opts:[['0','Nunca, vai ser a primeira vez','✨'],['1','1 ou 2 vezes','🔁'],['3','3 a 5 vezes','😅'],['9','Já perdi as contas','💀']]},
+ {id:'local',t:'pic',rw:250,cap:'Campo de batalha',q:()=>'Onde você vai treinar?',sub:'Isso define qual Mestre vai cuidar do seu treino.',opts:[['acad','Na academia','/img/mestres/guerreiro.webp'],['casa','Em casa','/img/mestres/monge.webp'],['parque','No parque','/img/mestres/corrida.webp'],['misto','Um pouco de cada','/img/mestres/paladino.webp']]},
+ {id:'nivel',img:'/app/img/ui/dg-ban.webp',t:'one',rw:250,cap:'Nível de experiência',q:()=>'Como está o seu treino hoje?',opts:[['zero','Nunca treinei de verdade','🌱'],['parado','Já treinei, mas estou parado','⏸️'],['inic','Treino há pouco tempo','📈'],['inter','Treino há mais de 1 ano','🔥']]},
+ {id:'dias',img:'/app/img/ui/run-ban.webp',t:'one',rw:200,cap:'Disponibilidade',q:()=>'Quantos dias por semana você consegue treinar?',opts:[['2','2 dias','2️⃣'],['3','3 dias','3️⃣'],['4','4 dias','4️⃣'],['5','5 dias ou mais','🔥']]},
+ {id:'tempo',img:'/app/img/ui/dg-portal.webp',t:'one',rw:200,cap:'Tempo de batalha',q:()=>'Quanto tempo você tem por treino?',opts:[['20','Até 20 minutos','⏱️'],['40','30 a 45 minutos','⌛'],['60','1 hora ou mais','🕐']]},
+ {id:'prob',img:'/app/img/ui/boss-ban.webp',t:'multi',rw:350,cap:'Inimigos ocultos',q:()=>'O que mais te atrapalha hoje?',sub:'Pode marcar mais de um.',opts:[['motiv','Perco a motivação em poucas semanas','😮‍💨'],['saber','Não sei montar um treino certo','🤷'],['result','Treino e não vejo resultado','📉'],['tempo','Falta de tempo e rotina corrida','⏰'],['comida','Não sei o que comer','🍔'],['vergonha','Vergonha ou insegurança de começar','🙈']]},
+ {id:'paradas',img:'/img/problema.webp',t:'one',rw:250,cap:'Histórico de batalhas',q:()=>'Quantas vezes você já começou a treinar e parou?',opts:[['0','Nunca, vai ser a primeira vez','✨'],['1','1 ou 2 vezes','🔁'],['3','3 a 5 vezes','😅'],['9','Já perdi as contas','💀']]},
  {id:'i2',t:'inter',kind:'parar'},
- {id:'flex',t:'one',rw:250,cap:'Teste de força',q:()=>'Quantas flexões você faz seguidas, sem parar?',sub:'Seja sincero: isso define seu rank inicial.',opts:[['0','Nenhuma ou quase nenhuma','🥚'],['8','De 1 a 10','🐣'],['20','De 11 a 25','🐺'],['30','Mais de 25','🐉']]},
- {id:'game',t:'one',rw:200,cap:'Perfil de jogador',q:()=>'Você curte games, anime ou RPG?',opts:[['muito','Muito! Sou viciado','🎮'],['pouco','Um pouco','🙂'],['nada','Não muito, mas quero resultado','🎯']]},
- {id:'comida',t:'one',rw:200,cap:'Nutrição do herói',q:()=>'Como está sua alimentação?',opts:[['bagunca','Bem bagunçada','🍕'],['tento','Tento comer bem, mas escorrego','⚖️'],['ok','Como bem na maior parte do tempo','🥗']]},
- {id:'sono',t:'one',rw:150,cap:'Recuperação',q:()=>'Quantas horas você dorme por noite?',opts:[['5','Menos de 6 horas','😵'],['7','6 a 7 horas','😴'],['8','8 horas ou mais','🛌']]},
- {id:'compromisso',t:'one',rw:0,cap:'Juramento',q:()=>nm()+', se o Sistema te entregar um plano pronto, feito pra você, você aceita a missão?',opts:[['sim','Sim, aceito a missão!','⚔️','Quero começar já'],['talvez','Aceito, mas preciso de ajuda pra manter','🤝','O Sistema vai te cobrar todo dia']]},
+ {id:'flex',img:'/img/chefe.webp',t:'one',rw:250,cap:'Teste de força',q:()=>'Quantas flexões você faz seguidas, sem parar?',sub:'Seja sincero: isso define seu rank inicial.',opts:[['0','Nenhuma ou quase nenhuma','🥚'],['8','De 1 a 10','🐣'],['20','De 11 a 25','🐺'],['30','Mais de 25','🐉']]},
+ {id:'game',img:'/img/mock-duo.webp',t:'one',rw:200,cap:'Perfil de jogador',q:()=>'Você curte games, anime ou RPG?',opts:[['muito','Muito! Sou viciado','🎮'],['pouco','Um pouco','🙂'],['nada','Não muito, mas quero resultado','🎯']]},
+ {id:'comida',img:'/img/v2/alq-art.webp',t:'one',rw:200,cap:'Nutrição do herói',q:()=>'Como está sua alimentação?',opts:[['bagunca','Bem bagunçada','🍕'],['tento','Tento comer bem, mas escorrego','⚖️'],['ok','Como bem na maior parte do tempo','🥗']]},
+ {id:'sono',img:'/app/img/ui/tav-ban.webp',t:'one',rw:150,cap:'Recuperação',q:()=>'Quantas horas você dorme por noite?',opts:[['5','Menos de 6 horas','😵'],['7','6 a 7 horas','😴'],['8','8 horas ou mais','🛌']]},
+ {id:'compromisso',img:'/app/img/ui/m-trio.webp',t:'one',rw:0,cap:'Juramento',q:()=>nm()+', se o Sistema te entregar um plano pronto, feito pra você, você aceita a missão?',opts:[['sim','Sim, aceito a missão!','⚔️','Quero começar já'],['talvez','Aceito, mas preciso de ajuda pra manter','🤝','O Sistema vai te cobrar todo dia']]},
  {id:'load',t:'load'},
  {id:'res',t:'res'}
 ];
@@ -297,7 +309,7 @@ function next(){go(idx+1)}
 $('#back').onclick=()=>{if(!hist.length)return;const p=hist.pop();const s=S[idx];idx=p;
  const cur=S[idx];if(cur.rw&&A[cur.id]!=null&&cur.t!=='inter'){W-=cur.rw;delete A[cur.id]}save();render()};
 function save(){store.set({A,W,idx,hist})}
-function qhead(s){return `<div class="cap">${s.cap}</div><h2>${s.q()}</h2>${s.sub?`<p class="sub">${s.sub}</p>`:''}<div class="qnum">PERGUNTA ${answered()+1} DE ${QN} · vale <b style="color:#ffd767">${brl(s.rw/100)}</b></div>`}
+function qhead(s){return `${s.img?`<img class="qban" src="${s.img}" alt="">`:''}<div class="cap">${s.cap}</div><h2>${s.q()}</h2>${s.sub?`<p class="sub">${s.sub}</p>`:''}<div class="qnum">PERGUNTA ${answered()+1} DE ${QN} · vale <b style="color:#ffd767">${brl(s.rw/100)}</b></div>`}
 function render(){const s=S[idx];document.body.classList.toggle('res',s.t==='res');$('#sticky').classList.remove('on');hud();
  let h='';
  if(s.t==='intro')h=vIntro();
@@ -345,7 +357,7 @@ function vInter(k){
   <div class="vs"><div class="bad"><b>TREINO COMUM</b><ul><li>✕ Treino solto, sem plano</li><li>✕ Nada muda no dia seguinte</li><li>✕ Para em 3 semanas</li></ul></div><div class="good"><b>FORJA DO HERÓI</b><ul><li>✓ Plano pronto por um Mestre</li><li>✓ XP, níveis e chefes</li><li>✓ Missões diárias que te puxam</li></ul></div></div>
   <button class="btn blue" id="ok">Continuar o teste →</button></section>`}
 function vLoad(){return `<section class="scr on"><div class="cap">[ SISTEMA ]</div><h2>Forjando o seu plano</h2>
- <div class="scan"><div class="ring"></div><div class="ring r2"></div><div class="pct" id="pct">0%</div></div>
+ <div class="scan"><img class="scimg" src="/quiz/img/cls-${profile().cls}${fem()?'-f':''}.webp" alt=""><div class="ring"></div><div class="ring r2"></div><div class="pct" id="pct">0%</div></div><p class="sub" style="margin-top:4px">Classe sendo forjada para <b>${nm()}</b>…</p>
  <div class="steps" id="lsteps">${['Lendo suas respostas','Calculando seus atributos','Definindo sua classe de herói','Escolhendo o seu Mestre','Montando a ficha de treino','Convertendo moedas em desconto'].map(t=>`<div><i></i>${t}</div>`).join('')}</div></section>`}
 function runLoad(){const st=[...document.querySelectorAll('#lsteps div')];let p=0;const T=4200,t0=performance.now();
  const tk=now=>{if(!$('#pct'))return;p=Math.min(100,Math.round((now-t0)/T*100));$('#pct').textContent=p+'%';const k=Math.floor(p/100*st.length);st.forEach((d,i)=>{d.classList.toggle('on',i<=k);if(i<k&&!d.classList.contains('ok')){d.classList.add('ok');d.querySelector('i').textContent='✓';sfx.tap()}});
@@ -359,7 +371,7 @@ function profile(){
  const fx=+A.flex||0;const rank=fx>=30?'C':fx>=20?'D':'E';
  const nv={zero:0,parado:1,inic:2,inter:3}[A.nivel]||0;
  const FOR=Math.min(40,8+nv*5+(fx>=20?8:fx>=8?4:0)),AGI=Math.min(40,10+(A.local!=='acad'?6:2)+nv*3),RES=Math.min(40,8+nv*4+({'2':0,'3':2,'4':4,'5':6}[A.dias]||0)),DIS=Math.max(6,22-({'0':0,'1':4,'3':8,'9':12}[A.paradas]||0));
- return {cls,C,ficha,rank,FOR,AGI,RES,DIS,face:'/app/img/f-'+cls+(fem()?'-f':'')+'.webp'}}
+ return {cls,C,ficha,rank,FOR,AGI,RES,DIS,face:'/quiz/img/cls-'+cls+(fem()?'-f':'')+'.webp'}}
 function vRes(){const p=profile();const probs=A.prob||[];
  const M={motiv:['Perde a motivação','Missões diárias, XP e chefes semanais te puxam de volta todo dia'],saber:['Não sabe montar o treino',p.C[1]+' entrega o treino do dia pronto: séries, repetições e carga'],result:['Não vê resultado','Planilha de cargas e progressão automática: você vê a evolução em números'],tempo:['Falta de tempo','Treinos de '+(A.tempo==='20'?'20':A.tempo==='40'?'30 a 45':'60')+' minutos, '+(A.dias||3)+'x por semana, encaixados na sua rotina'],comida:['Não sabe o que comer','Taverna e Alquimia: receitas e cálculo de proteína e água pro seu corpo'],vergonha:['Insegurança de começar','Tudo no seu celular, no seu ritmo, começando do nível certo pra você']};
  const days=A.dias||'3';
@@ -371,22 +383,26 @@ function vRes(){const p=profile();const probs=A.prob||[];
   <div class="attr"><span style="color:var(--green)">META</span><div class="bar"><i class="p" data-w="92"></i></div><em class="up">30d</em></div></div></div>
  <div class="plan"><div><small>SEU MESTRE</small><b>${p.C[1]}</b></div><div><small>FICHA DE TREINO</small><b>${p.ficha}</b></div><div><small>FREQUÊNCIA</small><b>${days==='5'?'5+':days}x por semana</b></div><div><small>ESTILO</small><b>${p.C[2]}</b></div></div>
  ${probs.length?`<div class="sec-h">SEUS INIMIGOS, DERROTADOS</div><div class="mirror">${probs.map(k=>M[k]?`<div><span class="x">✓</span><span><b>${M[k][0]}:</b> ${M[k][1]}</span></div>`:'').join('')}</div>`:''}
- <div class="offer" id="offer"><span class="tag">🪙 SUAS MOEDAS FORAM APLICADAS</span>
-  <h3>Plano ${hero()} Elite + Dungeon do Abismo</h3>
+ <div class="sec-h" style="margin-top:20px">ESCOLHA SUA JORNADA</div>
+ <div class="offer" id="offer"><span class="tag">🪙 SUAS MOEDAS FORAM APLICADAS · RECOMENDADO</span>
+  <h3>${hero()} Elite + Dungeon do Abismo</h3>
   <div class="inc">
    <div><span><b>${p.C[1]}</b> com a sua ficha de <b>${p.ficha}</b>: treino do dia pronto</span></div>
    <div><span><b>Dungeon de 30 dias</b> com chefes semanais</span></div>
    <div><span><b>Dungeon do Abismo</b>: mais 60 dias de treino avançado, 4 chefes e o título Imperador do Abismo</span></div>
    <div><span><b>Peso de cada série e planilha de cargas</b>: veja sua força subir</span></div>
    <div><span><b>Taverna e Alquimia</b>: receitas e cálculo de proteína e água</span></div>
-   <div><span><b>Missões diárias, ranking e corrida com GPS</b></span></div>
+   <div><span><b>Missões, chefes, ranking e corrida com GPS</b></span></div>
   </div>
   <div class="calc"><div><span>Valor do plano</span><span class="s">${brl(FULL)}</span></div><div class="m"><span>🪙 Suas moedas do teste</span><span id="coinv">− R$ 0,00</span></div><div class="t"><span>Você paga</span><span id="payv">${brl(FULL)}</span></div></div>
   <div class="price"><small>R$</small><span id="bigp">${FULL},00</span></div><div class="once">pagamento único · acesso imediato no app</div>
   <a class="btn pulse" id="buy" href="#">⚔️ Resgatar meu plano por R$ 29,90</a>
   <div class="timer">⏳ Suas moedas expiram em <b id="tmr">15:00</b></div>
-  <div class="secure"><span>🔒 Pagamento seguro</span><span>⚡ Pix ou cartão</span><span>📱 Funciona no celular</span></div>
  </div>
+ <div class="offer2"><div class="o2h"><div><b>Recruta</b><small>O essencial para começar</small></div><div class="o2p"><s>R$ 39,90</s><b>R$ 9,90</b></div></div>
+  <div class="inc sm"><div><span>Acesso ao app com sistema de treino em RPG</span></div><div><span>Missões diárias, chefes e evolução de nível</span></div><div class="no"><span>Sem os Mestres, sem fichas prontas e sem as Dungeons</span></div><div class="no"><span>Suas moedas do teste não valem neste plano</span></div></div>
+  <a class="btn ghost" id="buyR" href="#">Começar como Recruta · R$ 9,90</a></div>
+ <div class="secure"><span>🔒 Pagamento seguro</span><span>⚡ Pix ou cartão</span><span>📱 Funciona no celular</span></div>
  <div class="guar"><img src="/img/v3/gar-badge.webp" alt="" onerror="this.src='/img/garantia.webp'"><p><b>Garantia de 7 dias.</b> Entrou, treinou e não curtiu? Pede o reembolso em até 7 dias e você recebe 100% de volta.</p></div>
  <div class="sec-h">COMO FUNCIONA</div>
  <div class="how">
@@ -397,7 +413,8 @@ function vRes(){const p=profile();const probs=A.prob||[];
  <div class="sec-h">DÚVIDAS</div>
  <div class="faq">
   <details><summary>Preciso de academia?</summary><p>Não. O app tem treino de calistenia (peso do corpo), musculação e híbrido. ${p.C[1]} já foi escolhido pelo lugar onde você treina.</p></details>
-  <details><summary>É mensalidade?</summary><p>Não. É pagamento único de R$ 29,90 com as suas moedas aplicadas.</p></details>
+  <details><summary>É mensalidade?</summary><p>Não. Os dois planos são pagamento único: Elite + Abismo por R$ 29,90 com as suas moedas aplicadas, ou Recruta por R$ 9,90.</p></details>
+  <details><summary>Qual a diferença entre os planos?</summary><p>No Recruta você registra seus próprios treinos e o app transforma tudo em XP, missões e chefes. No Elite + Abismo o ${p.C[1]} passa o treino do dia pronto na sua ficha de ${p.ficha}, e você ganha as duas Dungeons (90 dias de plano), a planilha de cargas, a Taverna e a Alquimia.</p></details>
   <details><summary>Como recebo o acesso?</summary><p>Assim que o pagamento é aprovado, você recebe o link do app no e-mail e na tela de confirmação. É só entrar com o e-mail da compra.</p></details>
   <details><summary>Funciona pra iniciante?</summary><p>Sim. O Sistema começa do seu rank atual (${p.rank}) e aumenta a dificuldade conforme você evolui.</p></details>
  </div>
@@ -408,7 +425,7 @@ function runRes(){const p=profile();
  track('ViewContent',{content_name:'Quiz Elite + Abismo',value:FINAL,currency:'BRL'});track('QuizComplete',{classe:p.cls,ficha:p.ficha},true);
  setTimeout(()=>document.querySelectorAll('.attr .bar i').forEach(i=>i.style.width=i.dataset.w+'%'),200);
  sfx.win();confetti(innerWidth/2,innerHeight*.3,90,['#ffd34d','#4fd2ff','#ffffff','#ff6a7a','#5dffa0']);
- const url=withQs(CHECKOUT);['#buy','#buy2','#stickyBtn'].forEach(s=>{const a=$(s);a.href=url;a.onclick=()=>{track('InitiateCheckout',{value:FINAL,currency:'BRL',content_name:'Quiz Elite + Abismo'})}});
+ const url=withQs(CHECKOUT);const ur=withQs(CHECKOUT_R);$('#buyR').href=ur;$('#buyR').onclick=()=>track('InitiateCheckout',{value:9.9,currency:'BRL',content_name:'Quiz Recruta'});['#buy','#buy2','#stickyBtn'].forEach(s=>{const a=$(s);a.href=url;a.onclick=()=>{track('InitiateCheckout',{value:FINAL,currency:'BRL',content_name:'Quiz Elite + Abismo'})}});
  // contagem das moedas quando a oferta aparece
  let done=false;const ob=new IntersectionObserver(es=>{if(done||!es[0].isIntersecting)return;done=true;const t0=performance.now(),D=1600;
   const tk=now=>{const k=Math.min(1,(now-t0)/D),e=1-Math.pow(1-k,3),c=TOTAL*e,pay=FULL-c;$('#coinv').textContent='− '+brl(c);$('#payv').textContent=brl(pay);$('#bigp').textContent=pay.toFixed(2).replace('.',',');if(Math.random()<.35)tone(1200+Math.random()*400,.04,'square',.025);
