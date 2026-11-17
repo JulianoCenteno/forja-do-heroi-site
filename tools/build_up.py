@@ -99,8 +99,16 @@ h1{font-family:Cinzel,serif;font-weight:900;text-transform:uppercase;font-size:c
 .warn{font-size:13.5px;color:#ffb3a6;margin-top:12px}
 .no{display:block;text-align:center;margin:22px auto 0;color:#7e89b3;font-size:14.5px;text-decoration:underline;max-width:420px}
 .sec{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:18px;font-size:13px;color:#7e89b3}
+.bgp{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.bgp img{position:absolute;left:50%;top:-6vh;width:max(150vw,1200px);max-width:none;transform:translateX(-50%);opacity:.9;filter:saturate(1.3);-webkit-mask-image:radial-gradient(circle,#000 45%,transparent 70%);mask-image:radial-gradient(circle,#000 45%,transparent 70%);animation:spin 120s linear infinite}
+.bgp:after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 28%,rgba(5,10,28,.55),rgba(5,10,28,0) 70%),linear-gradient(180deg,rgba(5,10,28,.25) 0%,rgba(5,10,28,.55) 50%,rgba(5,10,28,.92) 80%)}
+@keyframes spin{to{transform:translateX(-50%) rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.bgp img{animation:none}}
+body.has-bg{background:#050a1c}
+body.has-bg .hero.medal{width:min(340px,82vw);-webkit-mask-image:radial-gradient(circle,#000 58%,transparent 71%);mask-image:radial-gradient(circle,#000 58%,transparent 71%);filter:drop-shadow(0 0 40px var(--glow))}
+body.has-bg .sub{text-shadow:0 2px 10px #000}body.has-bg h1{filter:drop-shadow(0 2px 6px #000) drop-shadow(0 0 2px #000)}
 .timer{font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
-</style></head><body>
+</style></head><body{BODYCLS}>{BGLAYER}
 <div class="bar{BARP}">{STEP}</div>
 <div class="w">
 <div class="prog"><i></i></div>
@@ -142,6 +150,8 @@ for p in PAGES:
     rep.update(STEP=p['step'], KICKER=p['kicker'], TITLE=p['title'], SUB=p['sub'], IMG=p['img'], IMGCLS=p['imgcls'],
                LEAD=p['lead'], PERKS=perks, OLD=p['old'], PRICE=p['price'], NOTE=p['note'], YES=p['yes'], NO=p['no'],
                WARN=p['warn'], YES_URL=yes_url, NO_URL=no_url, SLUG=p['slug'],
+               BGLAYER=(f'<div class="bgp"><img src="{p["img"]}" alt=""></div>' if p['theme']=='red' else ''),
+               BODYCLS=(' class="has-bg"' if p['theme']=='red' else ''),
                PROG='50%' if not p['slug'].endswith('-2') else '85%', BARP=' p' if p['slug'].endswith('-2') else '')
     html = TPL
     for k, v in rep.items():
