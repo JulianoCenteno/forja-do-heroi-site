@@ -486,13 +486,13 @@ function popRecruta(p,ur){track('RecrutaPopup',{},true);sfx.lv();
   <h2 style="font-size:24px">Espera, ${nm()}!</h2>
   <p class="sub" style="font-size:15px">No Recruta você treina <b>sem Mestre, sem ficha pronta e sem as Dungeons</b>. Sozinho, sem plano, é bem mais difícil de manter.</p>
   <div class="pm-vs"><div><b>RECRUTA</b><span>Treino por sua conta</span><span>Sem plano de ${p.ficha}</span><span>Sem Taverna e Playlist</span></div><div class="on"><b>ELITE + ABISMO</b><span>${p.C[1]} monta seu treino</span><span>90 dias de plano pronto</span><span>Taverna, Alquimia e Playlist</span></div></div>
-  <div class="pm-off"><small>ÚLTIMA OFERTA DO SISTEMA · SÓ NESTA TELA</small><div><s>R$ 29,90</s><b>R$ 24,90</b></div><span>Só R$ 15 a mais que o Recruta, pra ter o plano completo</span></div>
-  <a class="btn pulse" id="pmYes" href="${withQs(CHECKOUT_POP)}">👑 Quero o plano completo por R$ 24,90</a>
+  <div class="pm-off"><small>ÚLTIMA OFERTA DO SISTEMA · SÓ NESTA TELA</small><div><s>R$ 29,90</s><b>R$ 18,90</b></div><span>Só R$ 9 a mais que o Recruta, pra ter o plano completo</span></div>
+  <a class="btn pulse" id="pmYes" href="${withQs(CHECKOUT_POP)}">👑 Quero o plano completo por R$ 18,90</a>
   <a class="pm-no" id="pmNo" href="${ur}">Não, quero só o Recruta por R$ 9,90</a></div>`;
  document.body.appendChild(m);requestAnimationFrame(()=>m.classList.add('on'));confetti(innerWidth/2,innerHeight*.35,40,['#ffd34d','#ff6a7a','#fff']);
  const close=()=>{m.classList.remove('on');setTimeout(()=>m.remove(),250)};
  m.querySelector('.pm-x').onclick=close;m.onclick=e=>{if(e.target===m)close()};
- m.querySelector('#pmYes').onclick=()=>track('InitiateCheckout',{value:24.9,currency:'BRL',content_name:'Quiz Pop-up Elite + Abismo'});
+ m.querySelector('#pmYes').onclick=()=>track('InitiateCheckout',{value:18.9,currency:'BRL',content_name:'Quiz Pop-up Elite + Abismo'});
  m.querySelector('#pmNo').onclick=()=>track('InitiateCheckout',{value:9.9,currency:'BRL',content_name:'Quiz Recruta'});
 }
 
