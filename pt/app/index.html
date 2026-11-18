@@ -319,6 +319,9 @@ h2 .sub{font-family:Rajdhani;font-size:13px;color:var(--mute);letter-spacing:0;f
 .toast .te{font-size:22px}
 .toast small{display:block;font-weight:600;color:var(--mute)}
 .lvup{text-align:center;padding:10px 0}
+.fbr{display:flex;justify-content:center;gap:6px;margin:12px 0 4px}.fbr button{font-size:30px;line-height:1;background:rgba(255,255,255,.04);border:1px solid rgba(120,160,255,.25);border-radius:14px;padding:8px 7px;filter:grayscale(.7);opacity:.7;transition:.15s}.fbr button.on{filter:none;opacity:1;border-color:var(--gold);box-shadow:0 0 14px rgba(255,198,90,.45);transform:scale(1.08)}
+.fbta{width:100%;min-height:92px;border-radius:12px;background:rgba(5,12,32,.7);border:1px solid rgba(120,160,255,.3);color:#e6ecff;padding:10px 12px;font-size:15px;line-height:1.4;font-family:inherit;resize:vertical;margin-top:10px}
+.fbck{display:flex;gap:9px;align-items:flex-start;text-align:left;font-size:13px;color:var(--mute);margin:10px 2px 14px}.fbck input{margin-top:2px;width:18px;height:18px;accent-color:#ffc65a;flex:none}
 .lvup .big{font-family:Jost,sans-serif;font-weight:900;font-size:72px;line-height:1;color:var(--gold);text-shadow:0 0 30px rgba(79,195,255,.6);animation:glow 1.6s infinite}
 .lvup .cap{font-family:Jost,sans-serif;letter-spacing:.3em;color:var(--mute);font-size:13px}
 .classes{display:grid;gap:10px;margin-top:8px}
@@ -1370,6 +1373,30 @@ function toast(e,t,sub){
   $('#toasts').appendChild(el);setTimeout(()=>{el.style.transition='.3s';el.style.opacity=0;el.style.transform='translateY(-10px)'},2800);setTimeout(()=>el.remove(),3200);
 }
 const mq=[];let modalOpen=false;
+/* ---------- conversa particular do Sistema (feedback/depoimento) ---------- */
+const FB_PT=location.pathname.indexOf('/pt/')===0;
+function fbStats(){const ds=[...new Set((S.log||[]).map(e=>e.d))].sort();const first=(S.log||[]).reduce((m,e)=>Math.min(m,e.ts||Infinity),Infinity);return {days:ds.length,since:isFinite(first)?Math.floor((Date.now()-first)/864e5):0}}
+function fbMaybe(){try{
+  if(!S.created||modalOpen||mq.length)return;const f=S.fb||{};if(f.sent||(f.snooze||0)>=3||(f.next&&Date.now()<f.next))return;
+  const st=fbStats();if(st.days<3||st.since<3)return;
+  S.fb={...f,shown:Date.now()};save();window.__fbR=0;queueModal(fbModal);
+}catch(e){}}
+function fbModal(){const n=esc((S.name||'caçador').split(' ')[0]);const pt=FB_PT;
+  openModal(`<div class="lvup"><div style="font-size:50px">📜</div><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ffc65a">MENSAGEM PARTICULAR</div>
+   <h3 style="margin-top:8px">${pt?`Então, ${n}, como estão a correr os teus primeiros dias?`:`E aí, ${n}, como estão sendo seus primeiros dias?`}</h3>
+   <p class="muted" style="margin:8px 0 2px">${pt?'Só o Sistema vê esta mensagem, nada vai para a Taverna. Conta com sinceridade: o que está a funcionar e o que podia ser melhor.':'Só o Sistema vê esta mensagem, nada vai para a Taverna. Conta na real: o que você está curtindo e o que falta melhorar.'}</p>
+   <div class="fbr">${['😫','😕','😐','🙂','🤩'].map((e,i)=>`<button data-a="fbRate" data-r="${i+1}" aria-label="${i+1}">${e}</button>`).join('')}</div>
+   <textarea id="fbMsg" class="fbta" maxlength="1500" placeholder="${pt?'Ex.: Já treinei 4 dias seguidos, a Dungeon motiva-me a não falhar…':'Ex.: Já treinei 4 dias seguidos, a Dungeon me motiva a não faltar…'}"></textarea>
+   <label class="fbck"><input type="checkbox" id="fbOk"><span>${pt?'Autorizo mostrar a minha mensagem, só com o primeiro nome, para inspirar outros caçadores.':'Autorizo mostrar minha mensagem, só com o primeiro nome, para inspirar outros caçadores.'}</span></label>
+   <button class="btn gold full" data-a="fbSend">📨 Enviar ao Sistema · +50 ouro</button><button class="btn ghost full sm" style="margin-top:8px" data-a="fbLater">Agora não</button></div>`,true)}
+async function fbSend(){
+  const msg=($('#fbMsg')?.value||'').trim();const r=window.__fbR||0;
+  if(!r&&msg.length<3){toast('📜',FB_PT?'Escolhe uma carinha ou escreve algumas palavras':'Escolha uma carinha ou escreva algumas palavras');return}
+  const st=fbStats();const row={name:(S.name||'').split(' ')[0].slice(0,40),plan:window.__FH_PLAN||null,mkt:FB_PT?'pt':'br',rating:r||null,msg:msg.slice(0,1500)||null,consent:!!$('#fbOk')?.checked,days:Math.min(st.since,999),workouts:Math.min(st.days,999)};
+  try{const {error}=await FH.from('fh_feedback').insert(row);if(error)throw error}catch(e){toast('⚠️','Não foi possível enviar agora',FB_PT?'Tenta outra vez daqui a pouco':'Tente de novo daqui a pouco');return}
+  S.fb={...(S.fb||{}),sent:Date.now()};S.goldBonus+=50;save();closeModal();
+  setTimeout(()=>{toast('📨','Mensagem recebida pelo Sistema','+50 ouro');try{sfx('achievement')}catch(e){}},250);render();
+}
 function queueModal(fn){mq.push(fn);if(!modalOpen)nextModal()}
 function nextModal(){const fn=mq.shift();if(fn){modalOpen=true;fn()}else modalOpen=false}
 function openModal(html,center){
@@ -2192,6 +2219,7 @@ function render(){
    <p class="muted" style="margin:10px 0 6px">O Sistema encontrou registos impossíveis no seu herói${S.cheat.why?' ('+esc(S.cheat.why)+')':''}. Para manter o ranking justo para todos os caçadores, seu progresso foi zerado e você voltou ao <b>nível 1</b>.</p>
    <p class="muted" style="margin:0 0 18px">Treine de verdade e suba de novo. Registros fora do realista agora são bloqueados automaticamente.</p>
    <button class="btn full" data-a="close">Entendi, recomeçar</button></div>`,true))}
+  if(!nov4&&!S.cheat)fbMaybe();
   if(tab==='treinar') tickTimer();
   try{musicSync()}catch(e){}
 }
@@ -2580,6 +2608,9 @@ document.addEventListener('click',ev=>{
     case 'alqDone': closeModal();alqDone(b.dataset.id);break;
     case 'step':{const inp=$('#'+b.dataset.t);const d=+b.dataset.d;inp.value=Math.max(0,Math.round(((+inp.value||0)+d)*100)/100);updatePreview();break}
     case 'isoGo': isoGo();break;
+    case 'fbRate': {window.__fbR=+b.dataset.r;document.querySelectorAll('.fbr button').forEach(b=>b.classList.toggle('on',+b.dataset.r===window.__fbR));break}
+    case 'fbSend': fbSend();break;
+    case 'fbLater': {const f=S.fb||{};S.fb={...f,snooze:(f.snooze||0)+1,next:Date.now()+2*864e5};save();closeModal();break}
     case 'isoTry': closeModal();setTimeout(()=>exerciseSheet('prancha'),250);break;
     case 'log':{isoReset();
       const {ex,s,r,kg,kgs}=readSheet();if(!s||!r){toast('⚠️','Informe séries e repetições');return}
