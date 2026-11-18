@@ -167,7 +167,7 @@ h1 em,h2 em{font-style:normal;background:linear-gradient(180deg,#fffbe3,#ffd34d 
 .mirror div{display:flex;gap:10px;padding:12px;border-radius:12px;background:rgba(93,255,160,.05);border:1px solid rgba(93,255,160,.25);font-size:15px;color:#d5def7}
 .mirror div b{color:#fff}
 .mirror .x{color:#7dffb4;font-size:18px;line-height:1.2}
-.offer{position:relative;margin:18px 0 8px;padding:20px 16px;border-radius:18px;text-align:center;background:linear-gradient(180deg,rgba(40,26,4,.55),rgba(8,12,34,.95));border:2px solid var(--gold);box-shadow:0 0 50px rgba(255,180,40,.3),inset 0 0 40px rgba(255,180,40,.08)}
+.offer{position:relative;margin:28px 0 8px;padding:20px 16px;border-radius:18px;text-align:center;background:linear-gradient(180deg,rgba(40,26,4,.55),rgba(8,12,34,.95));border:2px solid var(--gold);box-shadow:0 0 50px rgba(255,180,40,.3),inset 0 0 40px rgba(255,180,40,.08)}
 .offer .tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);padding:5px 14px;border-radius:20px;background:linear-gradient(180deg,#ff6a7a,#d6223a);font:900 11.5px 'Exo 2';letter-spacing:.14em;color:#fff;white-space:nowrap;box-shadow:0 4px 14px rgba(214,34,58,.5)}
 .offer h3{font:900 19px 'Exo 2';color:#fff;margin-top:6px}
 .inc{text-align:left;margin:14px 0;display:grid;gap:7px}
@@ -428,6 +428,9 @@ function vRes(){const p=profile();const probs=A.prob||[];
  <p class="sub" style="font-size:14.5px">É assim que fica o treino de ${nm()}: cada série vira XP, você sobe de nível e derrota chefes.</p>
  <div class="phone"><video id="demo" src="/quiz/tour.mp4?v=3" poster="/quiz/tour-poster.webp?v=2" muted loop playsinline preload="none"></video><span class="ph-badge">▶ O APP POR DENTRO</span></div>
  <div class="sec-h" style="margin-top:20px">ESCOLHA SUA JORNADA</div>
+ <div class="offer2"><div class="o2h"><div><b>Recruta</b><small>O essencial para começar</small></div><div class="o2p"><s>R$ 39,90</s><b>R$ 9,90</b></div></div>
+  <div class="inc sm"><div><span>Acesso ao app com sistema de treino em RPG</span></div><div><span>Missões diárias, chefes e evolução de nível</span></div><div class="no"><span>Sem os Mestres, sem fichas prontas e sem a Dungeon</span></div><div class="no"><span>Sem Taverna, Alquimia e Playlist</span></div><div class="no"><span>Seu crédito do teste não vale neste plano</span></div></div>
+  <a class="btn ghost" id="buyR" href="#">Começar como Recruta · R$ 9,90</a></div>
  <div class="offer" id="offer"><span class="tag">🪙 SEU CRÉDITO FOI APLICADO · RECOMENDADO</span>
   <h3>${hero()} Elite · plano completo</h3>
   <div class="inc">
@@ -444,9 +447,6 @@ function vRes(){const p=profile();const probs=A.prob||[];
   <a class="btn pulse" id="buy" href="#">⚔️ Resgatar meu plano por R$ 29,90</a>
   <div class="timer">⏳ Seu crédito expira em <b id="tmr">15:00</b></div>
  </div>
- <div class="offer2"><div class="o2h"><div><b>Recruta</b><small>O essencial para começar</small></div><div class="o2p"><s>R$ 39,90</s><b>R$ 9,90</b></div></div>
-  <div class="inc sm"><div><span>Acesso ao app com sistema de treino em RPG</span></div><div><span>Missões diárias, chefes e evolução de nível</span></div><div class="no"><span>Sem os Mestres, sem fichas prontas e sem a Dungeon</span></div><div class="no"><span>Sem Taverna, Alquimia e Playlist</span></div><div class="no"><span>Seu crédito do teste não vale neste plano</span></div></div>
-  <a class="btn ghost" id="buyR" href="#">Começar como Recruta · R$ 9,90</a></div>
  <div class="secure"><span>🔒 Pagamento seguro</span><span>⚡ Pix ou cartão</span><span>📱 Funciona no celular</span></div>
  <div class="sec-h">O QUE TE ESPERA NO APP</div>
  <div class="feat">

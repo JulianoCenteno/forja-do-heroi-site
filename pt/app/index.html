@@ -1384,7 +1384,7 @@ function fbMaybe(){try{
 function fbModal(){const n=esc((S.name||'caçador').split(' ')[0]);const pt=FB_PT;
   openModal(`<div class="lvup"><div style="font-size:50px">📜</div><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ffc65a">MENSAGEM PARTICULAR</div>
    <h3 style="margin-top:8px">${pt?`Então, ${n}, como estão a correr os teus primeiros dias?`:`E aí, ${n}, como estão sendo seus primeiros dias?`}</h3>
-   <p class="muted" style="margin:8px 0 2px">${pt?'Só o Sistema vê esta mensagem, nada vai para a Taverna. Conta com sinceridade: o que está a funcionar e o que podia ser melhor.':'Só o Sistema vê esta mensagem, nada vai para a Taverna. Conta na real: o que você está curtindo e o que falta melhorar.'}</p>
+   <p class="muted" style="margin:8px 0 2px">${pt?'Só o Sistema vê esta mensagem, nada vai para a Taverna. Conta com sinceridade: o que está a funcionar e o que podia ser melhor.':'Só o Sistema vê esta mensagem, nada vai para a Taverna. Conte na real: o que você está curtindo e o que falta melhorar.'}</p>
    <div class="fbr">${['😫','😕','😐','🙂','🤩'].map((e,i)=>`<button data-a="fbRate" data-r="${i+1}" aria-label="${i+1}">${e}</button>`).join('')}</div>
    <textarea id="fbMsg" class="fbta" maxlength="1500" placeholder="${pt?'Ex.: Já treinei 4 dias seguidos, a Dungeon motiva-me a não falhar…':'Ex.: Já treinei 4 dias seguidos, a Dungeon me motiva a não faltar…'}"></textarea>
    <label class="fbck"><input type="checkbox" id="fbOk"><span>${pt?'Autorizo mostrar a minha mensagem, só com o primeiro nome, para inspirar outros caçadores.':'Autorizo mostrar minha mensagem, só com o primeiro nome, para inspirar outros caçadores.'}</span></label>
