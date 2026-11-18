@@ -97,6 +97,8 @@ PT = [
 for a, b in PT:
     s = s.replace(a, b)
 
+# nomes de arquivos não podem ser traduzidos
+s = s.replace('local-ginásio.webp', 'local-academia.webp')
 out = os.path.join(ROOT, 'pt', 'index.html')
 os.makedirs(os.path.dirname(out), exist_ok=True)
 open(out, 'w', encoding='utf-8').write(s)
