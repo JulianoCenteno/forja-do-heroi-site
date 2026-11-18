@@ -1,0 +1,15 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><title>recv</title></head>
+<body style="background:#050a1c;color:#cfe0ff;font:14px sans-serif;padding:20px">
+<p id="s">Aguardando imagens…</p>
+<script>
+const K='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxwZGljcnBldHhxbm94Y2VvemZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM4NDIxNDEsImV4cCI6MjEwOTQxODE0MX0.aUhV98QVe4ju8aklOErBYMX_6VbYejVQpvd-cR_RoAs';
+const L=document.getElementById('s');
+addEventListener('message',async e=>{
+  if(e.origin!=='https://chatgpt.com'||!e.data||!e.data.fhName||!(e.data.blob instanceof Blob))return;
+  const name=String(e.data.fhName).replace(/[^a-z0-9._-]/gi,'');
+  try{
+    const r=await fetch('https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/fh-public/quiz/'+name,{method:'POST',headers:{apikey:K,Authorization:'Bearer '+K,'Content-Type':e.data.blob.type||'image/jpeg'},body:e.data.blob});
+    const t=await r.text();L.textContent=name+': '+r.status;e.source.postMessage({fhDone:name,status:r.status,body:t.slice(0,200)},e.origin);
+  }catch(err){e.source.postMessage({fhDone:name,status:0,body:String(err)},e.origin)}
+});
+</script></body></html>
