@@ -113,7 +113,7 @@ tr.row{cursor:pointer}tr.row:hover td{background:rgba(40,90,170,.18)}
 .qzb i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#2a6bff,#4fd2ff);border-radius:7px}
 .qzb b{position:relative;z-index:1;padding:0 8px;line-height:24px;font-size:12px;color:#fff;text-shadow:0 1px 2px #000}
 .qzb.sm{height:10px}
-.qzd{font-weight:800;font-size:12.5px;color:#8fa0c8;text-align:right}.qzd.mid{color:#ffc83a}.qzd.bad{color:#ff6a7a}
+.qzcmp td{vertical-align:middle}.qzcmp td:not(:first-child){width:36%}.qzd{font-weight:800;font-size:12.5px;color:#8fa0c8;text-align:right}.qzd.mid{color:#ffc83a}.qzd.bad{color:#ff6a7a}
 .qzg{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
 .qzbox{padding:12px;border-radius:12px;background:rgba(10,18,48,.85);border:1px solid rgba(120,160,255,.22)}
 .qzbox>b{display:block;margin-bottom:6px;color:#ffd767;font-size:13px}
@@ -306,7 +306,7 @@ function bind(){
   document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{FILTER=b.dataset.f;render()});
   document.querySelectorAll('[data-e]').forEach(r=>r.onclick=()=>drawer(r.dataset.e));
   const q=$('#q');if(q)q.oninput=()=>{Q=q.value;const pos=q.selectionStart;render();const n=$('#q');n.focus();n.setSelectionRange(pos,pos)};
-  if(TAB==='quiz'){document.querySelectorAll('[data-qzd]').forEach(b=>b.onclick=()=>{QZD=+b.dataset.qzd;loadQuiz()});const c=$('#qzc');if(c)c.onchange=()=>{QZC=c.value;loadQuiz()}}
+  if(TAB==='quiz'){document.querySelectorAll('[data-qzm]').forEach(b=>b.onclick=()=>{QZM=b.dataset.qzm;QZC='';QZ=null;QZX=null;loadQuiz()});document.querySelectorAll('[data-qzd]').forEach(b=>b.onclick=()=>{QZD=+b.dataset.qzd;loadQuiz()});const c=$('#qzc');if(c)c.onchange=()=>{QZC=c.value;loadQuiz()}}
   if(TAB==='notif'){
     const pv=()=>{$('#pv_t').textContent=$('#p_ti').value.replaceAll('{nome}','Juliano');$('#pv_b').textContent=($('#p_b').value||'…').replaceAll('{nome}','Juliano')};
     $('#p_ti').oninput=pv;$('#p_b').oninput=pv;pv();
@@ -315,14 +315,38 @@ function bind(){
   }
 }
 /* ---------- QUIZ: funil ---------- */
-let QZ=null,QZD=7,QZC='',QZL=false;
+let QZ=null,QZD=7,QZC='',QZL=false,QZM='br',QZX=null;
+const QPL={br:['elite_29_90','elite_popup_18_90','recruta_9_90'],pt:['elite_16_90_eur','elite_popup_10_90_eur','recruta_5_90_eur']};
 const QN={intro:'Abertura',nome:'Nome',sexo:'Homem/Mulher',idade:'Idade',obj:'Objetivo',i1:'Tela: missão registrada',local:'Onde treina',nivel:'Nível',dias:'Dias/semana',tempo:'Tempo por treino',prob:'O que atrapalha',paradas:'Quantas vezes parou',i2:'Tela: o problema nunca foi você',flex:'Flexões',game:'Games/anime',comida:'Alimentação',sono:'Sono',compromisso:'Juramento',load:'Carregando plano',res:'Resultado + oferta'};
-const QV={m:'Homem',f:'Mulher',massa:'Ganhar massa',emag:'Perder gordura',forca:'Ficar mais forte',def:'Definir',acad:'Academia',casa:'Casa',parque:'Parque',misto:'Misto',zero:'Nunca treinou',parado:'Parado',inic:'Iniciante',inter:'+1 ano',motiv:'Motivação',saber:'Não sabe montar treino',result:'Sem resultado',tempo:'Falta de tempo',comida:'Alimentação',vergonha:'Vergonha',elite_29_90:'Elite R$ 29,90',elite_popup_18_90:'Elite pop-up R$ 18,90',recruta_9_90:'Recruta R$ 9,90',popup_aberto:'Pop-up aberto'};
-async function loadQuiz(){QZL=true;render();const {data,error}=await sb.rpc('fh_admin_quiz',{p_days:QZD,p_campaign:QZC||null});QZL=false;if(error){toast('❌ '+error.message);QZ={steps:[],answers:[],checkouts:[],campaigns:[],daily:[]}}else QZ=data;render()}
+const QV={elite_16_90_eur:'Elite 16,90 €',elite_popup_10_90_eur:'Pop-up Elite 10,90 €',recruta_5_90_eur:'Recruta 5,90 €',m:'Homem',f:'Mulher',massa:'Ganhar massa',emag:'Perder gordura',forca:'Ficar mais forte',def:'Definir',acad:'Academia',casa:'Casa',parque:'Parque',misto:'Misto',zero:'Nunca treinou',parado:'Parado',inic:'Iniciante',inter:'+1 ano',motiv:'Motivação',saber:'Não sabe montar treino',result:'Sem resultado',tempo:'Falta de tempo',comida:'Alimentação',vergonha:'Vergonha',elite_29_90:'Elite R$ 29,90',elite_popup_18_90:'Elite pop-up R$ 18,90',recruta_9_90:'Recruta R$ 9,90',popup_aberto:'Pop-up aberto'};
+async function loadQuiz(){QZL=true;render();const E={steps:[],answers:[],checkouts:[],campaigns:[],daily:[],compare:[]};
+  if(QZM==='cmp'){const [a,b]=await Promise.all(['br','pt'].map(m=>sb.rpc('fh_admin_quiz',{p_days:QZD,p_campaign:null,p_mkt:m})));QZL=false;
+    if(a.error||b.error){toast('❌ '+(a.error||b.error).message);QZX={br:E,pt:E}}else QZX={br:a.data,pt:b.data};QZ=QZ||E;render();return}
+  const {data,error}=await sb.rpc('fh_admin_quiz',{p_days:QZD,p_campaign:QZC||null,p_mkt:QZM});QZL=false;if(error){toast('❌ '+error.message);QZ=E}else QZ=data;render()}
+function qzStats(d,m){const st=(d.steps||[]).filter(x=>x.step).sort((a,b)=>a.idx-b.idx);const top=st.length?st[0].people:0;const co=d.checkouts||[];const cnt=k=>(co.find(c=>c.plan===k)||{}).n||0;
+  return {st,top,res:(st.find(x=>x.step==='res')||{}).people||0,cks:QPL[m].reduce((a,k)=>a+cnt(k),0),pop:cnt('popup_aberto'),el:cnt(QPL[m][0])+cnt(QPL[m][1]),rec:cnt(QPL[m][2]),mob:d.mobile??0}}
+function qzMktBar(){return `<div class="seg" style="margin-bottom:10px">${[['br','🇧🇷 Brasil'],['pt','🇵🇹 Portugal'],['cmp','⚖️ Comparar']].map(([k,l])=>`<button class="${QZM===k?'on':''}" data-qzm="${k}">${l}</button>`).join('')}</div>`}
+function viewQuizCmp(){
+  if(!QZX){if(!QZL)setTimeout(loadQuiz,0);return qzMktBar()+'<p class="mut" style="padding:20px">Carregando a comparação…</p>'}
+  const B=qzStats(QZX.br,'br'),P=qzStats(QZX.pt,'pt');const pc=(n,t)=>t?Math.round(n/t*100)+'%':'—';
+  const kr=(l,fb,fp)=>`<tr><td>${l}</td><td>${fb}</td><td>${fp}</td></tr>`;
+  const steps=[];[...B.st,...P.st].forEach(x=>{if(!steps.find(s=>s.step===x.step))steps.push({step:x.step,idx:x.idx})});steps.sort((a,b)=>a.idx-b.idx);
+  const g=(S,k)=>(S.st.find(x=>x.step===k)||{}).people||0;
+  const bar=(n,t)=>{const p=t?Math.round(n/t*100):0;return `<div class="qzb sm"><i style="width:${p}%"></i><b>${n} · ${p}%</b></div>`};
+  const fr=steps.map(s=>`<tr><td>${QN[s.step]||s.step}</td><td>${bar(g(B,s.step),B.top)}</td><td>${bar(g(P,s.step),P.top)}</td></tr>`).join('');
+  return `${qzMktBar()}<div class="qzh"><div class="seg">${[1,7,30].map(d=>`<button class="${QZD===d?'on':''}" data-qzd="${d}">${d===1?'Hoje':d+' dias'}</button>`).join('')}</div>${QZL?'<span class="mut">atualizando…</span>':''}</div>
+  <h3 class="qzt">Brasil × Portugal</h3><table class="qztab qzcmp"><tr><th></th><th>🇧🇷 Brasil</th><th>🇵🇹 Portugal</th></tr>
+  ${kr('Entraram',B.top,P.top)}${kr('Chegaram na oferta',B.res+' · '+pc(B.res,B.top),P.res+' · '+pc(P.res,P.top))}
+  ${kr('Clicaram em comprar',B.cks+' · '+pc(B.cks,B.top),P.cks+' · '+pc(P.cks,P.top))}${kr('Oferta → clique',pc(B.cks,B.res),pc(P.cks,P.res))}
+  ${kr('Cliques no Elite (inclui pop-up)',B.el,P.el)}${kr('Cliques no Recruta',B.rec,P.rec)}${kr('Pop-up aberto',B.pop,P.pop)}${kr('Celular',B.mob+'%',P.mob+'%')}</table>
+  <h3 class="qzt">Funil lado a lado <span class="mut">(% de quem entrou em cada país)</span></h3><table class="qztab qzcmp">${'<tr><th>Etapa</th><th>🇧🇷 Brasil</th><th>🇵🇹 Portugal</th></tr>'+(fr||'<tr><td colspan=3 class="mut">Ainda sem dados.</td></tr>')}</table>
+  <p class="mut" style="font-size:12px;margin:6px 0 0">Portugal começou a registar em 18/11. Antes disso, só há dados do Brasil.</p>`;
+}
 function viewQuiz(){
-  if(!QZ){setTimeout(loadQuiz,0);return '<p class="mut" style="padding:20px">Carregando o funil…</p>'}
+  if(QZM==='cmp')return viewQuizCmp();
+  if(!QZ){if(!QZL)setTimeout(loadQuiz,0);return qzMktBar()+'<p class="mut" style="padding:20px">Carregando o funil…</p>'}
   const st=(QZ.steps||[]).filter(x=>x.step).sort((a,b)=>a.idx-b.idx);const top=st.length?st[0].people:0;
-  const co=QZ.checkouts||[];const cnt=k=>(co.find(c=>c.plan===k)||{}).n||0;const cks=cnt('elite_29_90')+cnt('elite_popup_18_90')+cnt('recruta_9_90');
+  const co=QZ.checkouts||[];const cnt=k=>(co.find(c=>c.plan===k)||{}).n||0;const cks=QPL[QZM].reduce((a,k)=>a+cnt(k),0);
   const res=(st.find(x=>x.step==='res')||{}).people||0;
   let prev=null;
   const rows=st.map(x=>{const pct=top?Math.round(x.people/top*100):0;const drop=prev?Math.round((1-x.people/prev)*100):0;prev=x.people;
@@ -330,11 +354,11 @@ function viewQuiz(){
   const ans={};(QZ.answers||[]).forEach(a=>{(ans[a.step]=ans[a.step]||[]).push(a)});
   const ansH=Object.entries(ans).filter(([k])=>k!=='nome').map(([k,v])=>{const t=v.reduce((a,b)=>a+b.n,0);return `<div class="qzbox"><b>${QN[k]||k}</b>${v.sort((a,b)=>b.n-a.n).map(a=>`<div class="qza"><span>${QV[a.val]||a.val}</span><div class="qzb sm"><i style="width:${Math.round(a.n/t*100)}%"></i></div><em>${Math.round(a.n/t*100)}%</em></div>`).join('')}</div>`}).join('');
   const camps=(QZ.campaigns||[]).map(c=>`<tr><td>${esc(c.c||'(sem campanha)')}</td><td>${c.starts}</td><td>${c.results}</td><td>${c.checkouts}</td><td>${c.starts?Math.round(c.checkouts/c.starts*100):0}%</td></tr>`).join('');
-  return `<div class="qzh"><div class="seg">${[1,7,30].map(d=>`<button class="${QZD===d?'on':''}" data-qzd="${d}">${d===1?'Hoje':d+' dias'}</button>`).join('')}</div>
+  return `${qzMktBar()}<div class="qzh"><div class="seg">${[1,7,30].map(d=>`<button class="${QZD===d?'on':''}" data-qzd="${d}">${d===1?'Hoje':d+' dias'}</button>`).join('')}</div>
    <select id="qzc"><option value="">Todas as campanhas</option>${(QZ.campaigns||[]).filter(c=>c.c).map(c=>`<option ${QZC===c.c?'selected':''}>${esc(c.c)}</option>`).join('')}</select>${QZL?'<span class="mut">atualizando…</span>':''}</div>
   <div class="qzk"><div><small>ENTRARAM</small><b>${top}</b></div><div><small>CHEGARAM NA OFERTA</small><b>${res}</b><em>${top?Math.round(res/top*100):0}%</em></div><div><small>CLICARAM EM COMPRAR</small><b>${cks}</b><em>${top?Math.round(cks/top*100):0}%</em></div><div><small>CELULAR</small><b>${QZ.mobile??0}%</b></div></div>
   <h3 class="qzt">Funil por etapa <span class="mut">(− = quantos saíram em relação à etapa anterior)</span></h3><div class="qzf">${rows||'<p class="mut">Ainda sem dados. Assim que o quiz receber visitas, o funil aparece aqui.</p>'}</div>
-  <h3 class="qzt">Cliques de compra</h3><div class="qzk sm">${['elite_29_90','elite_popup_18_90','recruta_9_90','popup_aberto'].map(k=>`<div><small>${QV[k]}</small><b>${cnt(k)}</b></div>`).join('')}</div>
+  <h3 class="qzt">Cliques de compra</h3><div class="qzk sm">${[...QPL[QZM],'popup_aberto'].map(k=>`<div><small>${QV[k]}</small><b>${cnt(k)}</b></div>`).join('')}</div>
   <p class="mut" style="font-size:12px;margin:6px 0 0">Vendas confirmadas aparecem na aba Jogadores e na Digital Hub. Aqui é o clique no botão de compra.</p>
   ${camps?`<h3 class="qzt">Por campanha</h3><table class="qztab"><tr><th>Campanha</th><th>Entraram</th><th>Oferta</th><th>Cliques</th><th>Conv.</th></tr>${camps}</table>`:''}
   ${ansH?`<h3 class="qzt">O que as pessoas respondem</h3><div class="qzg">${ansH}</div>`:''}`;
