@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-PT"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Forja do Herói · Oferta liberada</title>
+<link rel="icon" href="/img/v2/logo-square.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--a:#ff4d4d;--a2:#a3122e;--glow:rgba(255,60,80,.35)}
+body{background:#050a1c radial-gradient(ellipse 120% 60% at 50% 0%,#2a0712 0%,#050a1c 70%) no-repeat;color:#e6ecff;font-family:'Exo 2',system-ui,sans-serif;font-size:17px;line-height:1.5;min-height:100vh}
+.w{max-width:620px;margin:0 auto;padding:18px 18px 40px}
+.bar{background:#ff3b5c;color:#fff;font-weight:800;font-size:12.5px;letter-spacing:.12em;text-align:center;padding:9px 10px}
+.bar.p{background:linear-gradient(90deg,#ff3b5c,#ff6a3d)}
+.prog{height:6px;background:#1a2244;border-radius:6px;overflow:hidden;margin:14px 0 22px}
+.prog i{display:block;height:100%;width:85%;background:linear-gradient(90deg,var(--a2),var(--a))}
+.logo{display:block;width:190px;margin:0 auto 10px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.6))}
+.portal{position:relative;width:100vw;max-width:560px;left:50%;transform:translateX(-50%);margin-top:-30px;z-index:0}
+.portal img{display:block;width:100%;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 9%,#000 100%),linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(180deg,transparent 0,#000 9%,#000 100%),linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-composite:intersect}
+@media(max-width:560px){.portal img{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 9%);mask-image:linear-gradient(180deg,transparent 0,#000 9%)}}
+.c.up{position:relative;z-index:1;margin-top:calc(-1 * min(100vw,560px) * .82)}
+@media(min-width:761px){.portal{max-width:1500px}.c.up{margin-top:calc(-1 * min(100vw,1500px) * .5625 * .40)}}
+.logo{position:relative;z-index:2}
+.lead,.perks,.offer,.no,.sec{position:relative;z-index:1}
+.portal{pointer-events:none}
+.k{display:inline-block;border:1px solid var(--a);color:var(--a);font-weight:800;letter-spacing:.3em;font-size:12px;padding:6px 14px 6px 18px;border-radius:30px;background:rgba(0,0,0,.35);box-shadow:0 0 18px var(--glow)}
+.c{text-align:center}
+h1{font-family:Cinzel,serif;font-weight:900;text-transform:uppercase;font-size:clamp(26px,7vw,40px);line-height:1.08;margin:16px 0 10px;background:linear-gradient(180deg,#fff 0%,#fff 45%,var(--a) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 0 rgba(0,0,0,.6))}
+.sub{color:#b8c3e6;font-size:17px;max-width:520px;margin:0 auto}
+.hero{margin:22px auto 6px;display:block}
+.hero.medal{width:min(230px,60vw);filter:drop-shadow(0 0 40px var(--glow))}
+.hero.wide{width:100%;border-radius:16px;border:1px solid rgba(255,255,255,.12);box-shadow:0 0 50px var(--glow)}
+.lead{background:rgba(255,255,255,.04);border-left:3px solid var(--a);padding:14px 16px;border-radius:8px;margin:20px 0;font-size:17.5px}
+.lead b{color:var(--a)}
+.perks{display:grid;gap:10px;margin:18px 0}
+.pk{display:flex;gap:14px;align-items:flex-start;background:linear-gradient(180deg,rgba(25,34,70,.85),rgba(14,20,44,.85));border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:14px}
+.pk .e{font-size:26px;line-height:1;flex:0 0 auto;width:42px;height:42px;display:grid;place-items:center;border-radius:10px;background:rgba(0,0,0,.35);border:1px solid var(--a2)}
+.pk b{display:block;font-size:16.5px;color:#fff}
+.pk span{font-size:15px;color:#a9b4d9}
+.offer{margin:24px 0 10px;text-align:center;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.5));border:2px solid var(--a);border-radius:18px;padding:22px 16px;box-shadow:0 0 40px var(--glow) inset,0 0 30px var(--glow)}
+.old{color:#8d97bd;text-decoration:line-through;font-size:18px}
+.price{font-family:'Exo 2';font-weight:800;font-style:italic;font-size:54px;line-height:1;color:#fff;margin:4px 0 6px;text-shadow:0 0 22px var(--glow)}
+.note{font-size:14px;color:#a9b4d9}
+.yes{display:block;width:100%;margin:18px 0 0;padding:19px 14px;border-radius:14px;border:0;font:800 18px/1.2 'Exo 2';letter-spacing:.02em;color:#fff;text-decoration:none;background:linear-gradient(180deg,var(--a) 0%,var(--a2) 100%);box-shadow:0 6px 0 rgba(0,0,0,.45),0 0 30px var(--glow);animation:pulse 1.8s ease-in-out infinite}
+.yes:active{transform:translateY(3px);box-shadow:0 3px 0 rgba(0,0,0,.45)}
+@keyframes pulse{50%{transform:scale(1.025)}}
+.warn{font-size:13.5px;color:#ffb3a6;margin-top:12px}
+.no{display:block;text-align:center;margin:22px auto 0;color:#7e89b3;font-size:14.5px;text-decoration:underline;max-width:420px}
+.sec{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:18px;font-size:13px;color:#7e89b3}
+.bgp{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.bgp img{position:absolute;left:50%;top:-6vh;width:max(150vw,1200px);max-width:none;transform:translateX(-50%);opacity:.9;filter:saturate(1.3);-webkit-mask-image:radial-gradient(circle,#000 45%,transparent 70%);mask-image:radial-gradient(circle,#000 45%,transparent 70%);animation:spin 120s linear infinite}
+.bgp:after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 28%,rgba(5,10,28,.55),rgba(5,10,28,0) 70%),linear-gradient(180deg,rgba(5,10,28,.25) 0%,rgba(5,10,28,.55) 50%,rgba(5,10,28,.92) 80%)}
+@keyframes spin{to{transform:translateX(-50%) rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.bgp img{animation:none}}
+body.has-bg{background:#050a1c}
+body.has-bg .hero.medal{width:min(340px,82vw);-webkit-mask-image:radial-gradient(circle,#000 58%,transparent 71%);mask-image:radial-gradient(circle,#000 58%,transparent 71%);filter:drop-shadow(0 0 40px var(--glow))}
+body.has-bg .sub{text-shadow:0 2px 10px #000}body.has-bg h1{filter:drop-shadow(0 2px 6px #000) drop-shadow(0 0 2px #000)}
+.timer{font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
+</style></head><body class="has-bg">
+<div class="bar p">ÚLTIMA OPORTUNIDADE · NÃO FECHES ESTA PÁGINA</div>
+<div class="w">
+<div class="prog"><i></i></div>
+<img class="logo" src="/img/logo-transp.webp" alt="Forja do Herói"><div class="portal"><picture><source media="(min-width:761px)" srcset="https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh-public/quiz/abismo-bg-d.webp"><img src="/img/abismo-bg.webp" alt="Portal do Abismo"></picture></div>
+<div class="c up"><span class="k">O PORTAL ESTÁ A FECHAR</span>
+<h1>Entra só nos primeiros 30 dias do Abismo</h1>
+<p class="sub">60 dias pareceu muito? O Sistema liberta a primeira metade por um valor mais baixo.</p>
+</div>
+<p class="lead">Recebes os <b>30 primeiros dias do Abismo</b>, com os 2 primeiros chefes e o Mestre Ragnar. É o passo natural depois da Dungeon.</p>
+<div class="perks"><div class="pk"><div class="e">🔥</div><div><b>30 dias de treino avançado</b><span>O dobro da intensidade da Dungeon comum.</span></div></div><div class="pk"><div class="e">👹</div><div><b>2 chefes do Abismo</b><span>Guardião dos Portões e Ceifador das Sombras.</span></div></div><div class="pk"><div class="e">🧔</div><div><b>Mestre Ragnar</b><span>Orientação diária do mestre lendário.</span></div></div></div>
+<div class="offer">
+<div class="old">de 10,90 €</div>
+<div class="price">5,90 €</div>
+<div class="note">Pagamento único. Libertado no separador Dungeon da app.</div>
+<a class="yes" href="https://appdigitalhub.com.br/c/BB7244F6?up=sim" id="yes">🕳️ QUERO OS 30 DIAS POR 5,90 €</a>
+<p class="warn">⏳ Oferta válida por <span class="timer" id="t">10:00</span> · O portal fecha quando saíres daqui.</p>
+</div>
+<a class="no" href="https://appdigitalhub.com.br/c/BB7244F6?up=nao" id="no">Não, obrigado. Quero ir diretamente para a app</a>
+<div class="sec"><span>🔒 Pagamento seguro</span><span>🛡️ Garantia de 7 dias</span><span>⚡ Acesso imediato</span></div>
+</div>
+<script>
+(function(){var k='fh_up_pt_abismo-2',e;try{e=+sessionStorage.getItem(k)}catch(_){}if(!e){e=Date.now()+6e5;try{sessionStorage.setItem(k,e)}catch(_){}}
+var t=document.getElementById('t');function f(){var s=Math.max(0,Math.round((e-Date.now())/1e3));t.textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}f();setInterval(f,1000);
+var q=location.search.slice(1);if(q){['yes','no'].forEach(function(id){var a=document.getElementById(id);a.href+=(a.href.indexOf('?')>-1?'&':'?')+q.replace(/(^|&)up=[^&]*/g,'').replace(/^&/,'')});}
+document.getElementById('yes').addEventListener('click',function(){this.style.opacity=.7;this.textContent='A processar…'});
+})();
+</script>
+</body></html>
