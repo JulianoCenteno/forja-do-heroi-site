@@ -10,10 +10,23 @@ TPL = (TPL.replace('<html lang="pt-BR">', '<html lang="pt-PT">')
           .replace('⚡ Liberação imediata', '⚡ Acesso imediato')
           .replace("this.textContent='Processando…'", "this.textContent='A processar…'")
           .replace("'fh_up_{SLUG}'", "'fh_up_pt_{SLUG}'"))
+# Cakto: botões de upsell de um clique (web components da Cakto)
+_a = TPL.index('<a class="yes" href="{YES_URL}" id="yes">{YES}</a>')
+_b = TPL.index('<a class="no" href="{NO_URL}" id="no">{NO}</a>') + len('<a class="no" href="{NO_URL}" id="no">{NO}</a>')
+_warn = TPL[TPL.index('<p class="warn">', _a):TPL.index('</p>', _a) + 4]
+TPL = TPL[:_a] + ('<cakto-upsell-buttons>\n<cakto-upsell-accept bg-color="{A2}" text-color="{BTNTXT}" upsell-accept-url="members_area" offer-id="{OFFER}" app-base-url="https://app.cakto.com.br" offer-type="{OTYPE}" upsell-reject-url="{REJ}">{YES}</cakto-upsell-accept>\n'
+    + _warn + '\n</div>\n<cakto-upsell-reject upsell-reject-url="{REJ}">{NO}</cakto-upsell-reject>\n</cakto-upsell-buttons>') + TPL[_b:]
+import re as _re
+TPL = _re.sub(r"var q=location\.search\.slice\(1\);if\(q\)\{\['yes','no'\][^\n]*\n", '', TPL)
+TPL = _re.sub(r"document\.getElementById\('yes'\)\.addEventListener[^\n]*\n", '', TPL)
+TPL = TPL.replace('</style>', 'cakto-upsell-buttons{display:block}cakto-upsell-accept{display:block;margin-top:18px}cakto-upsell-accept::part(button){width:100%;padding:19px 14px;border-radius:14px;border:0;font:800 18px/1.2 "Exo 2",sans-serif;letter-spacing:.02em;background:linear-gradient(180deg,var(--a) 0%,var(--a2) 100%);box-shadow:0 6px 0 rgba(0,0,0,.45),0 0 30px var(--glow);animation:pulse 1.8s ease-in-out infinite;cursor:pointer}cakto-upsell-reject{display:block;text-align:center;margin:22px auto 0;max-width:420px}cakto-upsell-reject::part(button){background:none;border:0;color:#7e89b3;font-size:14.5px;text-decoration:underline;cursor:pointer}\n</style>', 1)
+TPL = TPL.replace('</body>', '<script src="https://caktoscripts.nyc3.cdn.digitaloceanspaces.com/upsell.js"></script>\n</body>', 1)
 
-LINKS = {
-    'recruta': ('https://appdigitalhub.com.br/c/9F9A8A75?up=sim', 'https://appdigitalhub.com.br/c/9F9A8A75?up=nao'),
-    'elite': ('https://appdigitalhub.com.br/c/BB7244F6?up=sim', 'https://appdigitalhub.com.br/c/BB7244F6?up=nao'),
+CAKTO = {  # slug: (offer-id, tipo, para onde vai quem recusa)
+    'elite': ('r3vyx2t', 'upsell', 'https://forjadoheroi.com/pt/up/elite-2/'),
+    'elite-2': ('39a3ns9', 'downsell', 'members_area'),
+    'abismo': ('38hzqdj', 'upsell', 'https://forjadoheroi.com/pt/up/abismo-2/'),
+    'abismo-2': ('9x7gjbp', 'downsell', 'members_area'),
 }
 MEDAL = 'https://jsituyuqfzacyszpevkj.supabase.co/storage/v1/object/public/vendas-img/1912394d-acf0-42d3-b6ac-89d2cf25059c/mwk5dhir-k4njou.webp'
 PAGES = [
@@ -65,12 +78,13 @@ PAGES = [
     warn='O portal fecha quando saíres daqui.'),
 ]
 for p in PAGES:
-    yes_url, no_url = LINKS[p['buyer']]
+    offer, otype, rej = CAKTO[p['slug']]
+    yes_url = no_url = ''
     perks = ''.join(f'<div class="pk"><div class="e">{e}</div><div><b>{t}</b><span>{d}</span></div></div>' for e, t, d in p['perks'])
     rep = dict(THEMES[p['theme']])
     rep.update(STEP=p['step'], KICKER=p['kicker'], TITLE=p['title'], SUB=p['sub'], IMG=p['img'], IMGCLS=p['imgcls'],
                LEAD=p['lead'], PERKS=perks, OLD=p['old'], PRICE=p['price'], NOTE=p['note'], YES=p['yes'], NO=p['no'],
-               WARN=p['warn'], YES_URL=yes_url, NO_URL=no_url, SLUG=p['slug'],
+               WARN=p['warn'], YES_URL=yes_url, NO_URL=no_url, SLUG=p['slug'], OFFER=offer, OTYPE=otype, REJ=rej,
                BGLAYER='',
                PORTAL=('<div class="portal"><picture><source media="(min-width:761px)" srcset="https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh-public/quiz/abismo-bg-d.webp"><img src="/img/abismo-bg.webp" alt="Portal do Abismo"></picture></div>' if p['theme'] == 'red' else ''),
                CCLS=(' up' if p['theme'] == 'red' else ''), BODYCLS=(' class="has-bg"' if p['theme'] == 'red' else ''),

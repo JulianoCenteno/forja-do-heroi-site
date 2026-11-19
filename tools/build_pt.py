@@ -17,9 +17,10 @@ def rep(a, b, count=None, required=True):
 rep("const FULL=69, FINAL=29.90, TOTAL=+(FULL-FINAL).toFixed(2); // 39,10 de desconto em moedas",
     "const FULL=39, FINAL=16.90, TOTAL=+(FULL-FINAL).toFixed(2); // 22,10 € de crédito")
 rep("const brl=v=>'R$ '+v.toFixed(2).replace('.',',');", "const brl=v=>v.toFixed(2).replace('.',',')+' €';")
-rep("https://appdigitalhub.com.br/c/B2535DA8", "https://appdigitalhub.com.br/c/BB7244F6")
-rep("https://appdigitalhub.com.br/c/43752C6D", "https://appdigitalhub.com.br/c/9F9A8A75")
-rep("https://appdigitalhub.com.br/c/E3082716", "https://appdigitalhub.com.br/c/124FED57")
+rep("https://appdigitalhub.com.br/c/B2535DA8", "https://pay.cakto.com.br/ujynffk_1345498")
+rep("https://appdigitalhub.com.br/c/43752C6D", "https://pay.cakto.com.br/6m4zcn2")
+rep("https://appdigitalhub.com.br/c/E3082716", "https://pay.cakto.com.br/38tgw96")
+rep('data-checkout="appdigitalhub.com.br/c/"', 'data-checkout="pay.cakto,cakto.com.br"')
 rep("currency:'BRL'", "currency:'EUR'")
 rep("value:18.9,", "value:10.9,")
 rep("value:9.9,", "value:5.9,")
@@ -116,9 +117,9 @@ def arep(x, y, required=True):
 arep('<meta charset="utf-8">', '<meta charset="utf-8">\n<base href="/app/">', ) if '<meta charset="utf-8">' in a else arep('<head>', '<head>\n<base href="/app/">')
 arep('<html lang="pt-BR">', '<html lang="pt-PT">', required=False)
 # checkouts em euro
-arep("https://appdigitalhub.com.br/c/1C7E51FE", "https://appdigitalhub.com.br/c/BB7244F6")
-arep("https://appdigitalhub.com.br/c/E61E69D0", "https://appdigitalhub.com.br/c/D113479A")
-arep("https://appdigitalhub.com.br/c/B04D52D9", "https://appdigitalhub.com.br/c/D2BFBAEE")
+arep("https://appdigitalhub.com.br/c/1C7E51FE", "https://pay.cakto.com.br/ujynffk_1345498")
+arep("https://appdigitalhub.com.br/c/E61E69D0", "https://pay.cakto.com.br/r3vyx2t")
+arep("https://appdigitalhub.com.br/c/B04D52D9", "https://pay.cakto.com.br/38hzqdj")
 for x, y in [('R$ 26,90', '16,90 €'), ('R$ 14,90', '8,90 €'), ('R$ 39,90', '19,90 €'), ('R$ 19,90', '10,90 €')]:
     a = a.replace(x, y)
 # vocabulário pt-PT (só palavras inteiras)
