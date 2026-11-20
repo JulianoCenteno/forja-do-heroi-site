@@ -98,6 +98,115 @@ PT = [
 for a, b in PT:
     s = s.replace(a, b)
 
+# ---------- pt-PT a sério: forma "tu" (como nos aceleradores e no app PT) ----------
+# Frases inteiras primeiro (a ordem importa). Cada uma tem de existir: se o quiz BR mudar, o build avisa.
+TU = [
+    # meta / partilha
+    ('Responda o Teste do Despertar, descubra sua classe de herói e ganhe moedas que viram crédito no seu plano de treino.',
+     'Faz o Teste do Despertar, descobre a tua classe de herói e ganha moedas que se tornam crédito no teu plano de treino.'),
+    ('Descubra sua classe de herói e ganhe crédito no seu plano de treino.', 'Descobre a tua classe de herói e ganha crédito no teu plano de treino.'),
+    # primeiro ecrã (sexo)
+    ("q:()=>'Descubra sua <em>classe de herói</em>'", "q:()=>'Descobre a tua <em>classe de herói</em>'"),
+    ("sub:'Responda em 2 minutos, ganhe <b style=\"color:#ffd767\">crédito em cada resposta</b> e receba um plano de treino feito para você. <b>Para começar, você é:</b>'",
+     "sub:'Responde em 2 minutos, ganha <b style=\"color:#ffd767\">crédito em cada resposta</b> e recebe um plano de treino feito para ti. <b>Para começar, és:</b>'"),
+    # nome
+    ("q:()=>'Como o Sistema deve te chamar?'", "q:()=>'Como queres que o Sistema te chame?'"),
+    ("sub:'Seu nome vai aparecer na sua ficha de '", "sub:'O teu nome vai aparecer na tua ficha de '"),
+    ("ph:'O seu primeiro nome'", "ph:'O teu primeiro nome'"),
+    # perguntas
+    ("q:()=>'Qual é a sua idade?',sub:'O Sistema ajusta a intensidade ao seu corpo.'", "q:()=>'Que idade tens?',sub:'O Sistema ajusta a intensidade ao teu corpo.'"),
+    ("q:()=>'Qual é a sua missão principal, '", "q:()=>'Qual é a tua missão principal, '"),
+    ("q:()=>'Onde você vai treinar?',sub:'Isso define qual Mestre vai cuidar do seu treino.'", "q:()=>'Onde vais treinar?',sub:'Isto define que Mestre vai tratar do teu treino.'"),
+    ("q:()=>'Como está o seu treino hoje?'", "q:()=>'Como está o teu treino hoje?'"),
+    ("'Já treinei, mas estou parado'", "'Já treinei, mas parei'"),
+    ("q:()=>'Quantos dias por semana você consegue treinar?'", "q:()=>'Quantos dias por semana consegues treinar?'"),
+    ("q:()=>'Quanto tempo você tem por treino?'", "q:()=>'Quanto tempo tens para cada treino?'"),
+    ("q:()=>'O que mais te atrapalha hoje?',sub:'Pode marcar mais de um.'", "q:()=>'O que mais te atrapalha hoje?',sub:'Podes escolher mais do que um.'"),
+    ("'Não sei montar um treino certo'", "'Não sei montar um bom treino'"),
+    ("q:()=>'Quantas vezes você já começou a treinar e parou?'", "q:()=>'Quantas vezes já começaste a treinar e desististe?'"),
+    ("q:()=>'Quantas flexões você faz seguidas, sem parar?',sub:'Seja sincero: isso define seu rank inicial.'", "q:()=>'Quantas flexões consegues fazer seguidas?',sub:'Sê sincero: isto define o teu rank inicial.'"),
+    ("q:()=>'Gosta de videojogos, anime ou RPG?'", "q:()=>'Gostas de videojogos, anime ou RPG?'"),
+    ("q:()=>'Como está sua alimentação?'", "q:()=>'Como está a tua alimentação?'"),
+    ("'Bem bagunçada'", "'Uma desgraça'"),
+    ("'Tento comer bem, mas escorrego'", "'Tento comer bem, mas falho'"),
+    ("q:()=>'Quantas horas você dorme por noite?'", "q:()=>'Quantas horas dormes por noite?'"),
+    ("', se o Sistema te entregar um plano pronto, feito para você, você aceita a missão?'", "', se o Sistema te entregar um plano pronto, feito para ti, aceitas a missão?'"),
+    ("'O Sistema vai te cobrar todo dia'", "'O Sistema vai puxar por ti todos os dias'"),
+    ('🔒 Ninguém além do Sistema vê suas respostas.', '🔒 Só o Sistema vê as tuas respostas.'),
+    # ecrã de entrada
+    ('<h1>Descubra sua <em>classe de herói</em></h1>', '<h1>Descobre a tua <em>classe de herói</em></h1>'),
+    ('Responda o <b>Teste do Despertar</b> e o Sistema monta um plano de treino feito para o seu corpo, seu objetivo e sua rotina.',
+     'Faz o <b>Teste do Despertar</b> e o Sistema monta um plano de treino feito para o teu corpo, o teu objetivo e a tua rotina.'),
+    ('No final, elas viram <b>crédito de verdade</b> para usar no seu plano.', 'No final, tornam-se <b>crédito a sério</b> para usares no teu plano.'),
+    # intermédios
+    ('deixa de improvisar na ginásio e passa a evoluir toda semana. Pra essa missão,', 'deixa de improvisar no ginásio e passa a evoluir todas as semanas. Para esta missão,'),
+    ("'O problema nunca foi você'", "'O problema nunca foste tu'"),
+    ('quem começa e para várias vezes não tem falta de força de vontade.', 'quem começa e desiste várias vezes não tem falta de força de vontade.'),
+    ('<b>cada série vira XP</b>, você sobe de nível, enfrenta chefes e vê sua evolução todo dia.', '<b>cada série vale XP</b>, sobes de nível, enfrentas chefes e vês a tua evolução todos os dias.'),
+    ('<li>✕ Para em 3 semanas</li>', '<li>✕ Desistes em 3 semanas</li>'),
+    # resultado
+    ("'Missões diárias, XP e chefes semanais te puxam de volta todo dia'", "'Missões diárias, XP e chefes semanais puxam por ti todos os dias'"),
+    ("'Planilha de cargas e progressão automática: você vê a evolução em números'", "'Registo de cargas e progressão automática: vês a evolução em números'"),
+    ("'x por semana, encaixados na sua rotina'", "'x por semana, encaixados na tua rotina'"),
+    ("'Taverna e Alquimia: receitas e cálculo de proteína e água para o seu corpo'", "'Taverna e Alquimia: receitas e cálculo de proteína e água para o teu corpo'"),
+    ("'Tudo no seu telemóvel, no seu ritmo, começando do nível certo para você'", "'Tudo no teu telemóvel, ao teu ritmo, a começar no nível certo para ti'"),
+    ('${nm()}, sua ficha de herói está pronta', '${nm()}, a tua ficha de herói está pronta'),
+    ('<small>SEU MESTRE</small>', '<small>O TEU MESTRE</small>'),
+    ('SEUS INIMIGOS, DERROTADOS', 'OS TEUS INIMIGOS, DERROTADOS'),
+    ('VEJA O APP POR DENTRO', 'VÊ A APP POR DENTRO'),
+    ('É assim que fica o treino de ${nm()}: cada série vira XP, você sobe de nível e derrota chefes.', 'É assim que fica o treino de ${nm()}: cada série vale XP, sobes de nível e derrotas chefes.'),
+    ('▶ O APP POR DENTRO', '▶ A APP POR DENTRO'),
+    ('ESCOLHA SUA JORNADA', 'ESCOLHE A TUA JORNADA'),
+    ('Acesso ao app com sistema de treino em RPG', 'Acesso à app com sistema de treino em RPG'),
+    ('Seu crédito do teste não vale neste plano', 'O teu crédito do teste não conta neste plano'),
+    ('🪙 SEU CRÉDITO FOI APLICADO · RECOMENDADO', '🪙 O TEU CRÉDITO FOI APLICADO · RECOMENDADO'),
+    ('com a sua ficha de', 'com a tua ficha de'),
+    ('<b>Peso de cada série e planilha de cargas</b>: veja sua força subir', '<b>Peso de cada série e registo de cargas</b>: vê a tua força a subir'),
+    ('para conversar, trocar dicas e mostrar sua evolução', 'para conversar, trocar dicas e mostrar a tua evolução'),
+    ('<b>Alquimia</b>: receitas anabólicas e cálculo de proteína e água para o seu corpo', '<b>Alquimia</b>: receitas anabólicas e cálculo de proteína e água para o teu corpo'),
+    ('🪙 Seu crédito do teste', '🪙 O teu crédito do teste'),
+    ('<span>Você paga</span>', '<span>Pagas</span>'),
+    ('pagamento único · acesso imediato no app', 'pagamento único · acesso imediato na app'),
+    ('⏳ Seu crédito expira em', '⏳ O teu crédito expira em'),
+    ('O QUE TE ESPERA NO APP', 'O QUE TE ESPERA NA APP'),
+    ('converse, troque dicas, mostre seu treino e desafie outros heróis para um duelo.', 'conversa, troca dicas, mostra o teu treino e desafia outros heróis para um duelo.'),
+    ('direto no app.', 'diretamente na app.'),
+    ('Receitas anabólicas e o cálculo de proteína e água feitos para o seu corpo.', 'Receitas anabólicas e o cálculo de proteína e água feitos para o teu corpo.'),
+    ('Desafios semanais que testam sua força e te dão recompensas raras.', 'Desafios semanais que testam a tua força e te dão recompensas raras.'),
+    ('Entrou, treinou e não gostou? Pede o reembolso em até 7 dias e você recebe 100% de volta.', 'Entraste, treinaste e não gostaste? Pede o reembolso até 7 dias depois e recebes 100% de volta.'),
+    ('<b>1. Entre no app</b>Acesso na hora, pelo telemóvel.', '<b>1. Entra na app</b>Acesso imediato, pelo telemóvel.'),
+    ('<b>2. Siga o seu Mestre</b>', '<b>2. Segue o teu Mestre</b>'),
+    ('libera um treino novo por dia', 'desbloqueia um treino novo por dia'),
+    ('<b>3. Suba de nível</b>Cada série vira XP. Derrote os chefes e veja seu corpo mudar.', '<b>3. Sobe de nível</b>Cada série vale XP. Derrota os chefes e vê o teu corpo mudar.'),
+    ('Não. O app tem treino de calistenia', 'Não. A app tem treino de calistenia'),
+    ('já foi escolhido pelo lugar onde você treina.', 'já foi escolhido pelo sítio onde treinas.'),
+    ('É mensalidade?', 'É uma mensalidade?'),
+    ('Elite por 16,90 € com o seu crédito aplicado', 'Elite por 16,90 € com o teu crédito aplicado'),
+    ('No Recruta você registra seus próprios treinos e o app transforma tudo em XP, missões e chefes.', 'No Recruta registas os teus próprios treinos e a app transforma tudo em XP, missões e chefes.'),
+    ('passa o treino do dia pronto na sua ficha de ${p.ficha}, e você ganha a Dungeon de 30 dias, a planilha de cargas,',
+     'dá-te o treino do dia pronto na tua ficha de ${p.ficha}, e ganhas a Dungeon de 30 dias, o registo de cargas,'),
+    ('Assim que o pagamento é aprovado, você recebe o link do app no e-mail', 'Assim que o pagamento é aprovado, recebes o link da app no e-mail'),
+    ('É só entrar com o e-mail da compra.', 'Basta entrares com o e-mail da compra.'),
+    ('O Sistema começa do seu rank atual (${p.rank}) e aumenta a dificuldade conforme você evolui.', 'O Sistema começa no teu rank atual (${p.rank}) e aumenta a dificuldade à medida que evoluis.'),
+    # pop-up
+    ('No Recruta você treina <b>sem Mestre, sem ficha pronta e sem a Dungeon</b>. Sozinho, sem plano, é bem mais difícil de manter.',
+     'No Recruta treinas <b>sem Mestre, sem ficha pronta e sem a Dungeon</b>. Sozinho, sem plano, é muito mais difícil manter.'),
+    ('<span>Treino por sua conta</span>', '<span>Treinas por tua conta</span>'),
+    ('monta seu treino</span>', 'monta o teu treino</span>'),
+    ('ÚLTIMA OFERTA DO SISTEMA · SÓ NESTA TELA', 'ÚLTIMA OFERTA DO SISTEMA · SÓ NESTE ECRÃ'),
+]
+miss = [a for a, b in TU if a not in s]
+if miss:
+    raise SystemExit('pt-PT: não encontrado (o quiz BR mudou?):\n  ' + '\n  '.join(m[:90] for m in miss))
+for a, b in TU:
+    s = s.replace(a, b)
+# o que ainda soar a Brasil fica listado aqui para rever
+import re as _r
+vis = _r.sub(r'<script[^>]*src=[^>]*></script>|<style.*?</style>', '', s, flags=_r.S)
+left = sorted(set(m.group(0) for m in _r.finditer(r'\b(você|vocês|seu|sua|seus|suas|pra|vira|tela|planilha|registra)\b', vis)))
+if left:
+    print('pt-PT: ainda aparece', left)
+
 # nomes de arquivos não podem ser traduzidos
 s = s.replace('local-ginásio.webp', 'local-academia.webp')
 out = os.path.join(ROOT, 'pt', 'index.html')

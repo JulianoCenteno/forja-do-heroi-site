@@ -2,11 +2,11 @@
 <html lang="pt-PT"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Teste do Despertar · Forja do Herói</title>
-<meta name="description" content="Responda o Teste do Despertar, descubra sua classe de herói e ganhe moedas que viram crédito no seu plano de treino.">
+<meta name="description" content="Faz o Teste do Despertar, descobre a tua classe de herói e ganha moedas que se tornam crédito no teu plano de treino.">
 <meta name="theme-color" content="#050a1c">
 <link rel="icon" href="/img/v2/logo-square.webp">
 <meta property="og:title" content="Teste do Despertar · Forja do Herói">
-<meta property="og:description" content="Descubra sua classe de herói e ganhe crédito no seu plano de treino.">
+<meta property="og:description" content="Descobre a tua classe de herói e ganha crédito no teu plano de treino.">
 <meta property="og:image" content="https://forjadoheroi.com/img/v2/logo-full.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -276,23 +276,23 @@ const fem=()=>A.sexo==='f';
 const hero=()=>fem()?'Caçadora':'Caçador';
 // rw = centavos de desconto ganhos ao responder (a última etapa fecha o total exato)
 const S=[
- {id:'sexo',t:'pic',intro:true,rw:140,cap:'[ SISTEMA ] · Teste do Despertar',q:()=>'Descubra sua <em>classe de herói</em>',sub:'Responda em 2 minutos, ganhe <b style="color:#ffd767">crédito em cada resposta</b> e receba um plano de treino feito para você. <b>Para começar, você é:</b>',opts:[['m','Homem',IMG+'sexo-m.webp'],['f','Mulher',IMG+'sexo-f.webp']]},
- {id:'nome',t:'input',rw:110,cap:'Registo do jogador',q:()=>'Como o Sistema deve te chamar?',sub:'Seu nome vai aparecer na sua ficha de '+(fem()?'heroína':'herói')+'.',ph:'O seu primeiro nome'},
- {id:'idade',img:'/app/img/ui/ban-keyart.webp',t:'one',rw:110,cap:'Ficha do jogador',q:()=>'Qual é a sua idade?',sub:'O Sistema ajusta a intensidade ao seu corpo.',opts:[['18','18 a 24 anos','🗡️'],['25','25 a 34 anos','🛡️'],['35','35 a 44 anos','⚔️'],['45','45 anos ou mais','👑']]},
- {id:'obj',img:'/img/v2/hero-art.webp',t:'one',rw:170,cap:'Missão principal',q:()=>'Qual é a sua missão principal, '+nm()+'?',opts:[['massa','Ganhar massa muscular','💪','Ficar maior e mais forte'],['emag','Perder gordura','🔥','Secar e ganhar disposição'],['forca','Ficar mais forte','🏋️','Levantar mais peso, ter mais força'],['def','Definir o corpo','⚡','Ficar com o corpo definido']]},
+ {id:'sexo',t:'pic',intro:true,rw:140,cap:'[ SISTEMA ] · Teste do Despertar',q:()=>'Descobre a tua <em>classe de herói</em>',sub:'Responde em 2 minutos, ganha <b style="color:#ffd767">crédito em cada resposta</b> e recebe um plano de treino feito para ti. <b>Para começar, és:</b>',opts:[['m','Homem',IMG+'sexo-m.webp'],['f','Mulher',IMG+'sexo-f.webp']]},
+ {id:'nome',t:'input',rw:110,cap:'Registo do jogador',q:()=>'Como queres que o Sistema te chame?',sub:'O teu nome vai aparecer na tua ficha de '+(fem()?'heroína':'herói')+'.',ph:'O teu primeiro nome'},
+ {id:'idade',img:'/app/img/ui/ban-keyart.webp',t:'one',rw:110,cap:'Ficha do jogador',q:()=>'Que idade tens?',sub:'O Sistema ajusta a intensidade ao teu corpo.',opts:[['18','18 a 24 anos','🗡️'],['25','25 a 34 anos','🛡️'],['35','35 a 44 anos','⚔️'],['45','45 anos ou mais','👑']]},
+ {id:'obj',img:'/img/v2/hero-art.webp',t:'one',rw:170,cap:'Missão principal',q:()=>'Qual é a tua missão principal, '+nm()+'?',opts:[['massa','Ganhar massa muscular','💪','Ficar maior e mais forte'],['emag','Perder gordura','🔥','Secar e ganhar disposição'],['forca','Ficar mais forte','🏋️','Levantar mais peso, ter mais força'],['def','Definir o corpo','⚡','Ficar com o corpo definido']]},
  {id:'i1',t:'inter',kind:'obj'},
- {id:'local',t:'pic',rw:140,cap:'Campo de batalha',q:()=>'Onde você vai treinar?',sub:'Isso define qual Mestre vai cuidar do seu treino.',opts:[['acad','No ginásio',IMG+'local-academia.webp'],['casa','Em casa',IMG+'local-casa.webp'],['parque','No parque / ar livre',IMG+'local-parque.webp'],['misto','Um pouco de cada',IMG+'local-misto.webp']]},
- {id:'nivel',img:'/app/img/ui/dg-ban.webp',t:'one',rw:140,cap:'Nível de experiência',q:()=>'Como está o seu treino hoje?',opts:[['zero','Nunca treinei de verdade','🌱'],['parado','Já treinei, mas estou parado','⏸️'],['inic','Treino há pouco tempo','📈'],['inter','Treino há mais de 1 ano','🔥']]},
- {id:'dias',img:'/app/img/ui/run-ban.webp',t:'one',rw:110,cap:'Disponibilidade',q:()=>'Quantos dias por semana você consegue treinar?',opts:[['2','2 dias','2️⃣'],['3','3 dias','3️⃣'],['4','4 dias','4️⃣'],['5','5 dias ou mais','🔥']]},
- {id:'tempo',img:'/app/img/ui/dg-portal.webp',t:'one',rw:110,cap:'Tempo de batalha',q:()=>'Quanto tempo você tem por treino?',opts:[['20','Até 20 minutos','⏱️'],['40','30 a 45 minutos','⌛'],['60','1 hora ou mais','🕐']]},
- {id:'prob',img:'/app/img/ui/boss-ban.webp',t:'multi',rw:200,cap:'Inimigos ocultos',q:()=>'O que mais te atrapalha hoje?',sub:'Pode marcar mais de um.',opts:[['motiv','Perco a motivação em poucas semanas','😮‍💨'],['saber','Não sei montar um treino certo','🤷'],['result','Treino e não vejo resultado','📉'],['tempo','Falta de tempo e rotina corrida','⏰'],['comida','Não sei o que comer','🍔'],['vergonha','Vergonha ou insegurança de começar','🙈']]},
- {id:'paradas',img:'/img/problema.webp',t:'one',rw:140,cap:'Histórico de batalhas',q:()=>'Quantas vezes você já começou a treinar e parou?',opts:[['0','Nunca, vai ser a primeira vez','✨'],['1','1 ou 2 vezes','🔁'],['3','3 a 5 vezes','😅'],['9','Já perdi as contas','💀']]},
+ {id:'local',t:'pic',rw:140,cap:'Campo de batalha',q:()=>'Onde vais treinar?',sub:'Isto define que Mestre vai tratar do teu treino.',opts:[['acad','No ginásio',IMG+'local-academia.webp'],['casa','Em casa',IMG+'local-casa.webp'],['parque','No parque / ar livre',IMG+'local-parque.webp'],['misto','Um pouco de cada',IMG+'local-misto.webp']]},
+ {id:'nivel',img:'/app/img/ui/dg-ban.webp',t:'one',rw:140,cap:'Nível de experiência',q:()=>'Como está o teu treino hoje?',opts:[['zero','Nunca treinei de verdade','🌱'],['parado','Já treinei, mas parei','⏸️'],['inic','Treino há pouco tempo','📈'],['inter','Treino há mais de 1 ano','🔥']]},
+ {id:'dias',img:'/app/img/ui/run-ban.webp',t:'one',rw:110,cap:'Disponibilidade',q:()=>'Quantos dias por semana consegues treinar?',opts:[['2','2 dias','2️⃣'],['3','3 dias','3️⃣'],['4','4 dias','4️⃣'],['5','5 dias ou mais','🔥']]},
+ {id:'tempo',img:'/app/img/ui/dg-portal.webp',t:'one',rw:110,cap:'Tempo de batalha',q:()=>'Quanto tempo tens para cada treino?',opts:[['20','Até 20 minutos','⏱️'],['40','30 a 45 minutos','⌛'],['60','1 hora ou mais','🕐']]},
+ {id:'prob',img:'/app/img/ui/boss-ban.webp',t:'multi',rw:200,cap:'Inimigos ocultos',q:()=>'O que mais te atrapalha hoje?',sub:'Podes escolher mais do que um.',opts:[['motiv','Perco a motivação em poucas semanas','😮‍💨'],['saber','Não sei montar um bom treino','🤷'],['result','Treino e não vejo resultado','📉'],['tempo','Falta de tempo e rotina corrida','⏰'],['comida','Não sei o que comer','🍔'],['vergonha','Vergonha ou insegurança de começar','🙈']]},
+ {id:'paradas',img:'/img/problema.webp',t:'one',rw:140,cap:'Histórico de batalhas',q:()=>'Quantas vezes já começaste a treinar e desististe?',opts:[['0','Nunca, vai ser a primeira vez','✨'],['1','1 ou 2 vezes','🔁'],['3','3 a 5 vezes','😅'],['9','Já perdi as contas','💀']]},
  {id:'i2',t:'inter',kind:'parar'},
- {id:'flex',img:'/img/chefe.webp',t:'one',rw:140,cap:'Teste de força',q:()=>'Quantas flexões você faz seguidas, sem parar?',sub:'Seja sincero: isso define seu rank inicial.',opts:[['0','Nenhuma ou quase nenhuma','🥚'],['8','De 1 a 10','🐣'],['20','De 11 a 25','🐺'],['30','Mais de 25','🐉']]},
- {id:'game',img:'/img/mock-duo.webp',t:'one',rw:110,cap:'Perfil de jogador',q:()=>'Gosta de videojogos, anime ou RPG?',opts:[['muito','Muito! Sou viciado','🎮'],['pouco','Um pouco','🙂'],['nada','Não muito, mas quero resultado','🎯']]},
- {id:'comida',img:'/img/v2/alq-art.webp',t:'one',rw:110,cap:'Nutrição do herói',q:()=>'Como está sua alimentação?',opts:[['bagunca','Bem bagunçada','🍕'],['tento','Tento comer bem, mas escorrego','⚖️'],['ok','Como bem na maior parte do tempo','🥗']]},
- {id:'sono',img:'/app/img/ui/tav-ban.webp',t:'one',rw:80,cap:'Recuperação',q:()=>'Quantas horas você dorme por noite?',opts:[['5','Menos de 6 horas','😵'],['7','6 a 7 horas','😴'],['8','8 horas ou mais','🛌']]},
- {id:'compromisso',img:'/app/img/ui/m-trio.webp',t:'one',rw:0,cap:'Juramento',q:()=>nm()+', se o Sistema te entregar um plano pronto, feito para você, você aceita a missão?',opts:[['sim','Sim, aceito a missão!','⚔️','Quero começar já'],['talvez','Aceito, mas preciso de ajuda para manter','🤝','O Sistema vai te cobrar todo dia']]},
+ {id:'flex',img:'/img/chefe.webp',t:'one',rw:140,cap:'Teste de força',q:()=>'Quantas flexões consegues fazer seguidas?',sub:'Sê sincero: isto define o teu rank inicial.',opts:[['0','Nenhuma ou quase nenhuma','🥚'],['8','De 1 a 10','🐣'],['20','De 11 a 25','🐺'],['30','Mais de 25','🐉']]},
+ {id:'game',img:'/img/mock-duo.webp',t:'one',rw:110,cap:'Perfil de jogador',q:()=>'Gostas de videojogos, anime ou RPG?',opts:[['muito','Muito! Sou viciado','🎮'],['pouco','Um pouco','🙂'],['nada','Não muito, mas quero resultado','🎯']]},
+ {id:'comida',img:'/img/v2/alq-art.webp',t:'one',rw:110,cap:'Nutrição do herói',q:()=>'Como está a tua alimentação?',opts:[['bagunca','Uma desgraça','🍕'],['tento','Tento comer bem, mas falho','⚖️'],['ok','Como bem na maior parte do tempo','🥗']]},
+ {id:'sono',img:'/app/img/ui/tav-ban.webp',t:'one',rw:80,cap:'Recuperação',q:()=>'Quantas horas dormes por noite?',opts:[['5','Menos de 6 horas','😵'],['7','6 a 7 horas','😴'],['8','8 horas ou mais','🛌']]},
+ {id:'compromisso',img:'/app/img/ui/m-trio.webp',t:'one',rw:0,cap:'Juramento',q:()=>nm()+', se o Sistema te entregar um plano pronto, feito para ti, aceitas a missão?',opts:[['sim','Sim, aceito a missão!','⚔️','Quero começar já'],['talvez','Aceito, mas preciso de ajuda para manter','🤝','O Sistema vai puxar por ti todos os dias']]},
  {id:'load',t:'load'},
  {id:'res',t:'res'}
 ];
@@ -354,7 +354,7 @@ function qhead(s){if(s.intro)return `<img class="ilogo" src="/img/logo-transp.we
 function render(){const s=S[idx];document.body.classList.toggle('res',s.t==='res');$('#sticky').classList.remove('on');hud();
  let h='';
  if(s.t==='intro')h=vIntro();
- else if(s.t==='input')h=`<section class="scr on">${qhead(s)}<div class="field"><input id="inp" maxlength="24" autocomplete="given-name" placeholder="${s.ph}" value="${esc(A[s.id]||'')}"></div><button class="btn" id="ok" disabled>Confirmar</button><p class="hint">🔒 Ninguém além do Sistema vê suas respostas.</p></section>`;
+ else if(s.t==='input')h=`<section class="scr on">${qhead(s)}<div class="field"><input id="inp" maxlength="24" autocomplete="given-name" placeholder="${s.ph}" value="${esc(A[s.id]||'')}"></div><button class="btn" id="ok" disabled>Confirmar</button><p class="hint">🔒 Só o Sistema vê as tuas respostas.</p></section>`;
  else if(s.t==='one'||s.t==='pic')h=`<section class="scr on">${qhead(s)}<div class="opts ${s.t==='pic'?'g2':''}${s.intro?' intro':''}">${s.opts.map(o=>s.t==='pic'?`<button class="opt pic" data-v="${o[0]}"><img src="${o[2]}" alt=""><span>${o[1]}</span><span class="shine"></span></button>`:`<button class="opt" data-v="${o[0]}"><span class="e">${o[2]}</span><span>${o[1]}${o[3]?`<small>${o[3]}</small>`:''}</span><span class="shine"></span></button>`).join('')}</div>${s.intro?`<div class="intro-trust"><span>⏱️ 2 minutos</span><span>🎯 ${QN} perguntas</span><span>🪙 até ${brl(TOTAL)} em crédito</span></div>`:''}</section>`;
  else if(s.t==='multi')h=`<section class="scr on">${qhead(s)}<div class="opts">${s.opts.map(o=>`<button class="opt chk ${(A[s.id]||[]).includes(o[0])?'sel':''}" data-v="${o[0]}"><span class="e">${o[2]}</span><span>${o[1]}</span><span class="shine"></span></button>`).join('')}</div><button class="btn" id="ok" ${(A[s.id]||[]).length?'':'disabled'}>Continuar</button></section>`;
  else if(s.t==='inter')h=vInter(s.kind);
@@ -380,22 +380,22 @@ function typeIn(){const el=main.querySelector('[data-type]');if(!el)return;const
 function vIntro(){return `<section class="scr on">
  <div class="hero"><img class="k" src="/img/v3/bg-hero.webp" alt=""><img class="l" src="/img/logo-transp.webp" alt="Forja do Herói"></div>
  <div class="cap" style="margin-top:16px">[ SISTEMA ] · Novo jogador detectado</div>
- <h1>Descubra sua <em>classe de herói</em></h1>
- <p class="sub">Responda o <b>Teste do Despertar</b> e o Sistema monta um plano de treino feito para o seu corpo, seu objetivo e sua rotina.</p>
- <div class="prize"><img src="/app/img/ui/ic-coin.webp" alt=""><p>Cada resposta vale <b>moedas de ouro</b>. No final, elas viram <b>crédito de verdade</b> para usar no seu plano.</p></div>
+ <h1>Descobre a tua <em>classe de herói</em></h1>
+ <p class="sub">Faz o <b>Teste do Despertar</b> e o Sistema monta um plano de treino feito para o teu corpo, o teu objetivo e a tua rotina.</p>
+ <div class="prize"><img src="/app/img/ui/ic-coin.webp" alt=""><p>Cada resposta vale <b>moedas de ouro</b>. No final, tornam-se <b>crédito a sério</b> para usares no teu plano.</p></div>
  <button class="btn pulse" id="start">⚔️ Começar o teste</button>
  <div class="chips"><span>⏱️ 2 minutos</span><span>🎯 ${QN} perguntas</span><span>🪙 até ${brl(TOTAL)} em crédito</span></div>
 </section>`}
 function vInter(k){
  if(k==='obj'){const o={massa:['ganhar massa','Mestre Brutus é especialista em hipertrofia'],emag:['perder gordura','o Sistema combina treino e cardio para acelerar a queima'],forca:['ficar mais forte','a ficha de Força trabalha carga pesada e poucas repetições'],def:['definir o corpo','a ficha certa combina força e gasto calórico']}[A.obj]||['evoluir',''];
   return `<section class="scr on inter"><div class="cap g">Missão registada</div><h2>Boa escolha, ${nm()}</h2>
-  <div class="win"><p data-type>Missão de <b>${o[0]}</b> confirmada. Quem treina com um objetivo claro e um plano pronto deixa de improvisar na ginásio e passa a evoluir toda semana. Pra essa missão, ${o[1]}.</p></div>
+  <div class="win"><p data-type>Missão de <b>${o[0]}</b> confirmada. Quem treina com um objetivo claro e um plano pronto deixa de improvisar no ginásio e passa a evoluir todas as semanas. Para esta missão, ${o[1]}.</p></div>
   <img class="pic" src="${IMG}obj-${A.obj||'massa'}.webp" alt="" style="aspect-ratio:16/9;object-fit:cover">
   <button class="btn blue" id="ok">Continuar o teste →</button></section>`}
  const many=A.paradas==='3'||A.paradas==='9';
- return `<section class="scr on inter"><div class="cap g">O Sistema analisou</div><h2>${many?'O problema nunca foi você':'Agora vai ser diferente'}</h2>
-  <div class="win"><p data-type>${many?`${nm()}, quem começa e para várias vezes não tem falta de força de vontade. Tem falta de <b>recompensa</b>. Treino comum não te dá nada no dia seguinte, e o cérebro desiste.`:`${nm()}, o maior inimigo de quem começa é a falta de recompensa: o resultado demora a aparecer e a motivação acaba antes.`} No Forja do Herói, <b>cada série vira XP</b>, você sobe de nível, enfrenta chefes e vê sua evolução todo dia.</p></div>
-  <div class="vs"><div class="bad"><b>TREINO COMUM</b><ul><li>✕ Treino solto, sem plano</li><li>✕ Nada muda no dia seguinte</li><li>✕ Para em 3 semanas</li></ul></div><div class="good"><b>FORJA DO HERÓI</b><ul><li>✓ Plano pronto por um Mestre</li><li>✓ XP, níveis e chefes</li><li>✓ Missões diárias que te puxam</li></ul></div></div>
+ return `<section class="scr on inter"><div class="cap g">O Sistema analisou</div><h2>${many?'O problema nunca foste tu':'Agora vai ser diferente'}</h2>
+  <div class="win"><p data-type>${many?`${nm()}, quem começa e desiste várias vezes não tem falta de força de vontade. Tem falta de <b>recompensa</b>. Treino comum não te dá nada no dia seguinte, e o cérebro desiste.`:`${nm()}, o maior inimigo de quem começa é a falta de recompensa: o resultado demora a aparecer e a motivação acaba antes.`} No Forja do Herói, <b>cada série vale XP</b>, sobes de nível, enfrentas chefes e vês a tua evolução todos os dias.</p></div>
+  <div class="vs"><div class="bad"><b>TREINO COMUM</b><ul><li>✕ Treino solto, sem plano</li><li>✕ Nada muda no dia seguinte</li><li>✕ Desistes em 3 semanas</li></ul></div><div class="good"><b>FORJA DO HERÓI</b><ul><li>✓ Plano pronto por um Mestre</li><li>✓ XP, níveis e chefes</li><li>✓ Missões diárias que te puxam</li></ul></div></div>
   <button class="btn blue" id="ok">Continuar o teste →</button></section>`}
 function vLoad(){return `<section class="scr on"><div class="cap">[ SISTEMA ]</div><h2>A forjar o teu plano</h2>
  <div class="scan"><img class="scimg" src="/quiz/img/cls-${profile().cls}${fem()?'-f':''}.webp" alt=""><div class="ring"></div><div class="ring r2"></div><div class="pct" id="pct">0%</div></div><p class="sub" style="margin-top:4px">Classe a ser forjada para <b>${nm()}</b>…</p>
@@ -414,61 +414,61 @@ function profile(){
  const FOR=Math.min(40,8+nv*5+(fx>=20?8:fx>=8?4:0)),AGI=Math.min(40,10+(A.local!=='acad'?6:2)+nv*3),RES=Math.min(40,8+nv*4+({'2':0,'3':2,'4':4,'5':6}[A.dias]||0)),DIS=Math.max(6,22-({'0':0,'1':4,'3':8,'9':12}[A.paradas]||0));
  return {cls,C,ficha,rank,FOR,AGI,RES,DIS,face:'/quiz/img/cls-'+cls+(fem()?'-f':'')+'.webp'}}
 function vRes(){const p=profile();const probs=A.prob||[];
- const M={motiv:['Perde a motivação','Missões diárias, XP e chefes semanais te puxam de volta todo dia'],saber:['Não sabe montar o treino',p.C[1]+' entrega o treino do dia pronto: séries, repetições e carga'],result:['Não vê resultado','Planilha de cargas e progressão automática: você vê a evolução em números'],tempo:['Falta de tempo','Treinos de '+(A.tempo==='20'?'20':A.tempo==='40'?'30 a 45':'60')+' minutos, '+(A.dias||3)+'x por semana, encaixados na sua rotina'],comida:['Não sabe o que comer','Taverna e Alquimia: receitas e cálculo de proteína e água para o seu corpo'],vergonha:['Insegurança de começar','Tudo no seu telemóvel, no seu ritmo, começando do nível certo para você']};
+ const M={motiv:['Perde a motivação','Missões diárias, XP e chefes semanais puxam por ti todos os dias'],saber:['Não sabe montar o treino',p.C[1]+' entrega o treino do dia pronto: séries, repetições e carga'],result:['Não vê resultado','Registo de cargas e progressão automática: vês a evolução em números'],tempo:['Falta de tempo','Treinos de '+(A.tempo==='20'?'20':A.tempo==='40'?'30 a 45':'60')+' minutos, '+(A.dias||3)+'x por semana, encaixados na tua rotina'],comida:['Não sabe o que comer','Taverna e Alquimia: receitas e cálculo de proteína e água para o teu corpo'],vergonha:['Insegurança de começar','Tudo no teu telemóvel, ao teu ritmo, a começar no nível certo para ti']};
  const days=A.dias||'3';
  return `<section class="scr on">
  <div class="cap g">[ SISTEMA ] · Análise concluída</div>
- <h2>${nm()}, sua ficha de herói está pronta</h2>
+ <h2>${nm()}, a tua ficha de herói está pronta</h2>
  <div class="sheet"><div class="top"><div class="face"><img src="${p.face}" alt=""></div><div><div class="nm">${nm()}</div><div class="cl">${hero().toUpperCase()} · CLASSE ${p.C[0].toUpperCase()}</div><div class="rank">RANK INICIAL <b>${p.rank}</b> → meta em 30 dias: <b style="color:var(--green)">${p.rank==='E'?'C':p.rank==='D'?'B':'A'}</b></div></div></div>
   <div class="attrs">${[['FOR',p.FOR],['AGI',p.AGI],['RES',p.RES],['DIS',p.DIS]].map(([k,v])=>`<div class="attr"><span>${k}</span><div class="bar"><i data-w="${v/50*100}"></i></div><em>${v}</em></div>`).join('')}
   <div class="attr"><span style="color:var(--green)">META</span><div class="bar"><i class="p" data-w="92"></i></div><em class="up">30d</em></div></div></div>
- <div class="plan"><div><small>SEU MESTRE</small><b>${p.C[1]}</b></div><div><small>FICHA DE TREINO</small><b>${p.ficha}</b></div><div><small>FREQUÊNCIA</small><b>${days==='5'?'5+':days}x por semana</b></div><div><small>ESTILO</small><b>${p.C[2]}</b></div></div>
- ${probs.length?`<div class="sec-h">SEUS INIMIGOS, DERROTADOS</div><div class="mirror">${probs.map(k=>M[k]?`<div><span class="x">✓</span><span><b>${M[k][0]}:</b> ${M[k][1]}</span></div>`:'').join('')}</div>`:''}
- <div class="sec-h" style="margin-top:22px">VEJA O APP POR DENTRO</div>
- <p class="sub" style="font-size:14.5px">É assim que fica o treino de ${nm()}: cada série vira XP, você sobe de nível e derrota chefes.</p>
- <div class="phone"><video id="demo" src="/quiz/tour.mp4?v=3" poster="/quiz/tour-poster.webp?v=2" muted loop playsinline preload="none"></video><span class="ph-badge">▶ O APP POR DENTRO</span></div>
- <div class="sec-h" style="margin-top:20px">ESCOLHA SUA JORNADA</div>
+ <div class="plan"><div><small>O TEU MESTRE</small><b>${p.C[1]}</b></div><div><small>FICHA DE TREINO</small><b>${p.ficha}</b></div><div><small>FREQUÊNCIA</small><b>${days==='5'?'5+':days}x por semana</b></div><div><small>ESTILO</small><b>${p.C[2]}</b></div></div>
+ ${probs.length?`<div class="sec-h">OS TEUS INIMIGOS, DERROTADOS</div><div class="mirror">${probs.map(k=>M[k]?`<div><span class="x">✓</span><span><b>${M[k][0]}:</b> ${M[k][1]}</span></div>`:'').join('')}</div>`:''}
+ <div class="sec-h" style="margin-top:22px">VÊ A APP POR DENTRO</div>
+ <p class="sub" style="font-size:14.5px">É assim que fica o treino de ${nm()}: cada série vale XP, sobes de nível e derrotas chefes.</p>
+ <div class="phone"><video id="demo" src="/quiz/tour.mp4?v=3" poster="/quiz/tour-poster.webp?v=2" muted loop playsinline preload="none"></video><span class="ph-badge">▶ A APP POR DENTRO</span></div>
+ <div class="sec-h" style="margin-top:20px">ESCOLHE A TUA JORNADA</div>
  <div class="offer2"><div class="o2h"><div><b>Recruta</b><small>O essencial para começar</small></div><div class="o2p"><s>14,90 €</s><b>5,90 €</b></div></div>
-  <div class="inc sm"><div><span>Acesso ao app com sistema de treino em RPG</span></div><div><span>Missões diárias, chefes e evolução de nível</span></div><div class="no"><span>Sem os Mestres, sem fichas prontas e sem a Dungeon</span></div><div class="no"><span>Sem Taverna, Alquimia e Playlist</span></div><div class="no"><span>Seu crédito do teste não vale neste plano</span></div></div>
+  <div class="inc sm"><div><span>Acesso à app com sistema de treino em RPG</span></div><div><span>Missões diárias, chefes e evolução de nível</span></div><div class="no"><span>Sem os Mestres, sem fichas prontas e sem a Dungeon</span></div><div class="no"><span>Sem Taverna, Alquimia e Playlist</span></div><div class="no"><span>O teu crédito do teste não conta neste plano</span></div></div>
   <a class="btn ghost" id="buyR" href="#">Começar como Recruta · 5,90 €</a></div>
- <div class="offer" id="offer"><span class="tag">🪙 SEU CRÉDITO FOI APLICADO · RECOMENDADO</span>
+ <div class="offer" id="offer"><span class="tag">🪙 O TEU CRÉDITO FOI APLICADO · RECOMENDADO</span>
   <h3>${hero()} Elite · plano completo</h3>
   <div class="inc">
-   <div><span><b>${p.C[1]}</b> com a sua ficha de <b>${p.ficha}</b>: treino do dia pronto</span></div>
+   <div><span><b>${p.C[1]}</b> com a tua ficha de <b>${p.ficha}</b>: treino do dia pronto</span></div>
    <div><span><b>Dungeon de 30 dias</b> com chefes semanais</span></div>
-   <div><span><b>Peso de cada série e planilha de cargas</b>: veja sua força subir</span></div>
-   <div><span><b>Taverna</b>: a comunidade dos caçadores, para conversar, trocar dicas e mostrar sua evolução</span></div>
-   <div><span><b>Alquimia</b>: receitas anabólicas e cálculo de proteína e água para o seu corpo</span></div>
+   <div><span><b>Peso de cada série e registo de cargas</b>: vê a tua força a subir</span></div>
+   <div><span><b>Taverna</b>: a comunidade dos caçadores, para conversar, trocar dicas e mostrar a tua evolução</span></div>
+   <div><span><b>Alquimia</b>: receitas anabólicas e cálculo de proteína e água para o teu corpo</span></div>
    <div><span><b>Playlist do Herói</b>: músicas para treinar no modo monstro</span></div>
    <div><span><b>Missões, chefes, ranking, duelos e corrida com GPS</b></span></div>
   </div>
-  <div class="calc"><div><span>Valor do plano</span><span class="s">${brl(FULL)}</span></div><div class="m"><span>🪙 Seu crédito do teste</span><span id="coinv">− 0,00 €</span></div><div class="t"><span>Você paga</span><span id="payv">${brl(FULL)}</span></div></div>
-  <div class="price"><span id="bigp">${FULL},00</span><small style="margin-left:4px">€</small></div><div class="once">pagamento único · acesso imediato no app</div>
+  <div class="calc"><div><span>Valor do plano</span><span class="s">${brl(FULL)}</span></div><div class="m"><span>🪙 O teu crédito do teste</span><span id="coinv">− 0,00 €</span></div><div class="t"><span>Pagas</span><span id="payv">${brl(FULL)}</span></div></div>
+  <div class="price"><span id="bigp">${FULL},00</span><small style="margin-left:4px">€</small></div><div class="once">pagamento único · acesso imediato na app</div>
   <a class="btn pulse" id="buy" href="#">⚔️ Resgatar o meu plano por 16,90 €</a>
-  <div class="timer">⏳ Seu crédito expira em <b id="tmr">15:00</b></div>
+  <div class="timer">⏳ O teu crédito expira em <b id="tmr">15:00</b></div>
  </div>
  <div class="secure"><span>🔒 Pagamento seguro</span><span>💳 Cartão de crédito ou débito</span><span>📱 Funciona no telemóvel</span></div>
- <div class="sec-h">O QUE TE ESPERA NO APP</div>
+ <div class="sec-h">O QUE TE ESPERA NA APP</div>
  <div class="feat">
-  <div><img src="/app/img/ui/tav-ban.webp" alt=""><b>🍺 Taverna</b><span>A comunidade dos caçadores: converse, troque dicas, mostre seu treino e desafie outros heróis para um duelo.</span></div>
-  <div><img src="/app/img/ui/playlist.webp" alt=""><b>🎧 Playlist do Herói</b><span>Músicas escolhidas para treinar com a energia lá em cima, direto no app.</span></div>
-  <div><img src="/img/v2/alq-art.webp" alt=""><b>⚗️ Alquimia</b><span>Receitas anabólicas e o cálculo de proteína e água feitos para o seu corpo.</span></div>
-  <div><img src="/app/img/ui/boss-ban.webp" alt=""><b>👹 Chefes e Dungeon</b><span>Desafios semanais que testam sua força e te dão recompensas raras.</span></div>
+  <div><img src="/app/img/ui/tav-ban.webp" alt=""><b>🍺 Taverna</b><span>A comunidade dos caçadores: conversa, troca dicas, mostra o teu treino e desafia outros heróis para um duelo.</span></div>
+  <div><img src="/app/img/ui/playlist.webp" alt=""><b>🎧 Playlist do Herói</b><span>Músicas escolhidas para treinar com a energia lá em cima, diretamente na app.</span></div>
+  <div><img src="/img/v2/alq-art.webp" alt=""><b>⚗️ Alquimia</b><span>Receitas anabólicas e o cálculo de proteína e água feitos para o teu corpo.</span></div>
+  <div><img src="/app/img/ui/boss-ban.webp" alt=""><b>👹 Chefes e Dungeon</b><span>Desafios semanais que testam a tua força e te dão recompensas raras.</span></div>
  </div>
- <div class="guar"><img src="/img/v3/gar-badge.webp" alt="" onerror="this.src='/img/garantia.webp'"><p><b>Garantia de 7 dias.</b> Entrou, treinou e não gostou? Pede o reembolso em até 7 dias e você recebe 100% de volta.</p></div>
+ <div class="guar"><img src="/img/v3/gar-badge.webp" alt="" onerror="this.src='/img/garantia.webp'"><p><b>Garantia de 7 dias.</b> Entraste, treinaste e não gostaste? Pede o reembolso até 7 dias depois e recebes 100% de volta.</p></div>
  <div class="sec-h">COMO FUNCIONA</div>
  <div class="how">
-  <div><img src="/app/img/ui/m-trio.webp" alt=""><span><b>1. Entre no app</b>Acesso na hora, pelo telemóvel. Sem descarregar nada da loja.</span></div>
-  <div><img src="/app/img/ui/ic-mestre.webp" alt=""><span><b>2. Siga o seu Mestre</b>${p.C[1]} libera um treino novo por dia na ficha de ${p.ficha}.</span></div>
-  <div><img src="/app/img/ui/rw-xp.webp" alt=""><span><b>3. Suba de nível</b>Cada série vira XP. Derrote os chefes e veja seu corpo mudar.</span></div>
+  <div><img src="/app/img/ui/m-trio.webp" alt=""><span><b>1. Entra na app</b>Acesso imediato, pelo telemóvel. Sem descarregar nada da loja.</span></div>
+  <div><img src="/app/img/ui/ic-mestre.webp" alt=""><span><b>2. Segue o teu Mestre</b>${p.C[1]} desbloqueia um treino novo por dia na ficha de ${p.ficha}.</span></div>
+  <div><img src="/app/img/ui/rw-xp.webp" alt=""><span><b>3. Sobe de nível</b>Cada série vale XP. Derrota os chefes e vê o teu corpo mudar.</span></div>
  </div>
  <div class="sec-h">DÚVIDAS</div>
  <div class="faq">
-  <details><summary>Preciso de ginásio?</summary><p>Não. O app tem treino de calistenia (peso do corpo), musculação e híbrido. ${p.C[1]} já foi escolhido pelo lugar onde você treina.</p></details>
-  <details><summary>É mensalidade?</summary><p>Não. Os dois planos são pagamento único: Elite por 16,90 € com o seu crédito aplicado, ou Recruta por 5,90 €.</p></details>
-  <details><summary>Qual a diferença entre os planos?</summary><p>No Recruta você registra seus próprios treinos e o app transforma tudo em XP, missões e chefes. No Elite o ${p.C[1]} passa o treino do dia pronto na sua ficha de ${p.ficha}, e você ganha a Dungeon de 30 dias, a planilha de cargas, a Taverna e a Alquimia.</p></details>
-  <details><summary>Como recebo o acesso?</summary><p>Assim que o pagamento é aprovado, você recebe o link do app no e-mail e no ecrã de confirmação. É só entrar com o e-mail da compra.</p></details>
-  <details><summary>Funciona para principiantes?</summary><p>Sim. O Sistema começa do seu rank atual (${p.rank}) e aumenta a dificuldade conforme você evolui.</p></details>
+  <details><summary>Preciso de ginásio?</summary><p>Não. A app tem treino de calistenia (peso do corpo), musculação e híbrido. ${p.C[1]} já foi escolhido pelo sítio onde treinas.</p></details>
+  <details><summary>É uma mensalidade?</summary><p>Não. Os dois planos são pagamento único: Elite por 16,90 € com o teu crédito aplicado, ou Recruta por 5,90 €.</p></details>
+  <details><summary>Qual a diferença entre os planos?</summary><p>No Recruta registas os teus próprios treinos e a app transforma tudo em XP, missões e chefes. No Elite o ${p.C[1]} dá-te o treino do dia pronto na tua ficha de ${p.ficha}, e ganhas a Dungeon de 30 dias, o registo de cargas, a Taverna e a Alquimia.</p></details>
+  <details><summary>Como recebo o acesso?</summary><p>Assim que o pagamento é aprovado, recebes o link da app no e-mail e no ecrã de confirmação. Basta entrares com o e-mail da compra.</p></details>
+  <details><summary>Funciona para principiantes?</summary><p>Sim. O Sistema começa no teu rank atual (${p.rank}) e aumenta a dificuldade à medida que evoluis.</p></details>
  </div>
  <a class="btn" id="buy2" href="#" style="margin-top:18px">⚔️ Quero começar agora · 16,90 €</a>
  <p class="foot">Forja do Herói · Treino RPG</p>
@@ -497,9 +497,9 @@ function popRecruta(p,ur){track('RecrutaPopup',{},true);mlog('popup','res',idx,'
   <button class="pm-x" aria-label="Fechar">✕</button>
   <div class="cap" style="color:#ff8a96;text-shadow:0 0 12px rgba(255,77,94,.6)">[ SISTEMA ] · ALERTA</div>
   <h2 style="font-size:24px">Espera, ${nm()}!</h2>
-  <p class="sub" style="font-size:15px">No Recruta você treina <b>sem Mestre, sem ficha pronta e sem a Dungeon</b>. Sozinho, sem plano, é bem mais difícil de manter.</p>
-  <div class="pm-vs"><div><b>RECRUTA</b><span>Treino por sua conta</span><span>Sem plano de ${p.ficha}</span><span>Sem Taverna e Playlist</span></div><div class="on"><b>CAÇADOR ELITE</b><span>${p.C[1]} monta seu treino</span><span>Dungeon de 30 dias pronta</span><span>Taverna, Alquimia e Playlist</span></div></div>
-  <div class="pm-off"><small>ÚLTIMA OFERTA DO SISTEMA · SÓ NESTA TELA</small><div><s>16,90 €</s><b>10,90 €</b></div><span>Só 5 € a mais que o Recruta, para ter o plano completo</span></div>
+  <p class="sub" style="font-size:15px">No Recruta treinas <b>sem Mestre, sem ficha pronta e sem a Dungeon</b>. Sozinho, sem plano, é muito mais difícil manter.</p>
+  <div class="pm-vs"><div><b>RECRUTA</b><span>Treinas por tua conta</span><span>Sem plano de ${p.ficha}</span><span>Sem Taverna e Playlist</span></div><div class="on"><b>CAÇADOR ELITE</b><span>${p.C[1]} monta o teu treino</span><span>Dungeon de 30 dias pronta</span><span>Taverna, Alquimia e Playlist</span></div></div>
+  <div class="pm-off"><small>ÚLTIMA OFERTA DO SISTEMA · SÓ NESTE ECRÃ</small><div><s>16,90 €</s><b>10,90 €</b></div><span>Só 5 € a mais que o Recruta, para ter o plano completo</span></div>
   <a class="btn pulse" id="pmYes" href="${withQs(CHECKOUT_POP)}">👑 Quero o plano completo por 10,90 €</a>
   <a class="pm-no" id="pmNo" href="${ur}">Não, quero só o Recruta por 5,90 €</a></div>`;
  document.body.appendChild(m);requestAnimationFrame(()=>m.classList.add('on'));confetti(innerWidth/2,innerHeight*.35,40,['#ffd34d','#ff6a7a','#fff']);
