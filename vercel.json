@@ -2,6 +2,15 @@
  "cleanUrls": true,
  "headers": [
   {
+   "source": "/img/checkout/(.*)",
+   "headers": [
+    {
+     "key": "Access-Control-Allow-Origin",
+     "value": "*"
+    }
+   ]
+  },
+  {
    "source": "/img/(.*)",
    "headers": [
     {
