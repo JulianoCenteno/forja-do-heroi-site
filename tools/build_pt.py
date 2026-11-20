@@ -17,10 +17,19 @@ def rep(a, b, count=None, required=True):
 rep("const FULL=69, FINAL=29.90, TOTAL=+(FULL-FINAL).toFixed(2); // 39,10 de desconto em moedas",
     "const FULL=39, FINAL=16.90, TOTAL=+(FULL-FINAL).toFixed(2); // 22,10 € de crédito")
 rep("const brl=v=>'R$ '+v.toFixed(2).replace('.',',');", "const brl=v=>v.toFixed(2).replace('.',',')+' €';")
-rep("https://appdigitalhub.com.br/c/B2535DA8", "https://pay.cakto.com.br/ujynffk_1345498")
-rep("https://appdigitalhub.com.br/c/43752C6D", "https://pay.cakto.com.br/6m4zcn2")
-rep("https://appdigitalhub.com.br/c/E3082716", "https://pay.cakto.com.br/38tgw96")
-rep('data-checkout="appdigitalhub.com.br/c/"', 'data-checkout="pay.cakto,cakto.com.br"')
+# Checkout de Portugal. HOTMART=True troca para a Hotmart (MB WAY + Multibanco).
+# Só ligar depois de os produtos 9030425 (Elite) e 9030504 (Recruta) estarem publicados na Hotmart.
+HOTMART = False
+if HOTMART:
+    rep("https://appdigitalhub.com.br/c/B2535DA8", "https://pay.hotmart.com/D108593797I")           # Elite 16,90 €
+    rep("https://appdigitalhub.com.br/c/43752C6D", "https://pay.hotmart.com/D108593797I?off=04y6zmzs")  # pop-up 10,90 €
+    rep("https://appdigitalhub.com.br/c/E3082716", "https://pay.hotmart.com/W108593932U")           # Recruta 5,90 €
+    rep('data-checkout="appdigitalhub.com.br/c/"', 'data-checkout="pay.hotmart,hotmart.com,pay.cakto,cakto.com.br"')
+else:
+    rep("https://appdigitalhub.com.br/c/B2535DA8", "https://pay.cakto.com.br/ujynffk_1345498")
+    rep("https://appdigitalhub.com.br/c/43752C6D", "https://pay.cakto.com.br/6m4zcn2")
+    rep("https://appdigitalhub.com.br/c/E3082716", "https://pay.cakto.com.br/38tgw96")
+    rep('data-checkout="appdigitalhub.com.br/c/"', 'data-checkout="pay.cakto,cakto.com.br"')
 rep("currency:'BRL'", "currency:'EUR'")
 rep("value:18.9,", "value:10.9,")
 rep("value:9.9,", "value:5.9,")
