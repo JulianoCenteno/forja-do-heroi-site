@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Forja do Herói · Oferta liberada</title>
+<link rel="icon" href="/img/v2/logo-square.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--a:#ffc83a;--a2:#e08a00;--glow:rgba(255,180,40,.35)}
+body{background:#050a1c radial-gradient(ellipse 120% 60% at 50% 0%,#2a1d05 0%,#050a1c 70%) no-repeat;color:#e6ecff;font-family:'Exo 2',system-ui,sans-serif;font-size:17px;line-height:1.5;min-height:100vh}
+.w{max-width:620px;margin:0 auto;padding:18px 18px 40px}
+.bar{background:#ff3b5c;color:#fff;font-weight:800;font-size:12.5px;letter-spacing:.12em;text-align:center;padding:9px 10px}
+.bar.p{background:linear-gradient(90deg,#ff3b5c,#ff6a3d)}
+.prog{height:6px;background:#1a2244;border-radius:6px;overflow:hidden;margin:14px 0 22px}
+.prog i{display:block;height:100%;width:85%;background:linear-gradient(90deg,var(--a2),var(--a))}
+.logo{display:block;width:190px;margin:0 auto 10px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.6))}
+.portal{position:relative;width:100vw;max-width:560px;left:50%;transform:translateX(-50%);margin-top:-30px;z-index:0}
+.portal img{display:block;width:100%;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 9%,#000 100%),linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(180deg,transparent 0,#000 9%,#000 100%),linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-composite:intersect}
+@media(max-width:560px){.portal img{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 9%);mask-image:linear-gradient(180deg,transparent 0,#000 9%)}}
+.c.up{position:relative;z-index:1;margin-top:calc(-1 * min(100vw,560px) * .82)}
+@media(min-width:761px){.portal{max-width:1500px}.c.up{margin-top:calc(-1 * min(100vw,1500px) * .5625 * .40)}}
+.logo{position:relative;z-index:2}
+.lead,.perks,.offer,.no,.sec{position:relative;z-index:1}
+.portal{pointer-events:none}
+.k{display:inline-block;border:1px solid var(--a);color:var(--a);font-weight:800;letter-spacing:.3em;font-size:12px;padding:6px 14px 6px 18px;border-radius:30px;background:rgba(0,0,0,.35);box-shadow:0 0 18px var(--glow)}
+.c{text-align:center}
+h1{font-family:Cinzel,serif;font-weight:900;text-transform:uppercase;font-size:clamp(26px,7vw,40px);line-height:1.08;margin:16px 0 10px;background:linear-gradient(180deg,#fff 0%,#fff 45%,var(--a) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 0 rgba(0,0,0,.6))}
+.sub{color:#b8c3e6;font-size:17px;max-width:520px;margin:0 auto}
+.hero{margin:22px auto 6px;display:block}
+.hero.medal{width:min(230px,60vw);filter:drop-shadow(0 0 40px var(--glow))}
+.hero.wide{width:100%;border-radius:16px;border:1px solid rgba(255,255,255,.12);box-shadow:0 0 50px var(--glow)}
+.lead{background:rgba(255,255,255,.04);border-left:3px solid var(--a);padding:14px 16px;border-radius:8px;margin:20px 0;font-size:17.5px}
+.lead b{color:var(--a)}
+.perks{display:grid;gap:10px;margin:18px 0}
+.pk{display:flex;gap:14px;align-items:flex-start;background:linear-gradient(180deg,rgba(25,34,70,.85),rgba(14,20,44,.85));border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:14px}
+.pk .e{font-size:26px;line-height:1;flex:0 0 auto;width:42px;height:42px;display:grid;place-items:center;border-radius:10px;background:rgba(0,0,0,.35);border:1px solid var(--a2)}
+.pk b{display:block;font-size:16.5px;color:#fff}
+.pk span{font-size:15px;color:#a9b4d9}
+.offer{margin:24px 0 10px;text-align:center;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.5));border:2px solid var(--a);border-radius:18px;padding:22px 16px;box-shadow:0 0 40px var(--glow) inset,0 0 30px var(--glow)}
+.old{color:#8d97bd;text-decoration:line-through;font-size:18px}
+.price{font-family:'Exo 2';font-weight:800;font-style:italic;font-size:54px;line-height:1;color:#fff;margin:4px 0 6px;text-shadow:0 0 22px var(--glow)}
+.note{font-size:14px;color:#a9b4d9}
+.yes{display:block;width:100%;margin:18px 0 0;padding:19px 14px;border-radius:14px;border:0;font:800 18px/1.2 'Exo 2';letter-spacing:.02em;color:#2a1500;text-decoration:none;background:linear-gradient(180deg,var(--a) 0%,var(--a2) 100%);box-shadow:0 6px 0 rgba(0,0,0,.45),0 0 30px var(--glow);animation:pulse 1.8s ease-in-out infinite}
+.yes:active{transform:translateY(3px);box-shadow:0 3px 0 rgba(0,0,0,.45)}
+@keyframes pulse{50%{transform:scale(1.025)}}
+.warn{font-size:13.5px;color:#ffb3a6;margin-top:12px}
+.no{display:block;text-align:center;margin:22px auto 0;color:#7e89b3;font-size:14.5px;text-decoration:underline;max-width:420px}
+.sec{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:18px;font-size:13px;color:#7e89b3}
+.bgp{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.bgp img{position:absolute;left:50%;top:-6vh;width:max(150vw,1200px);max-width:none;transform:translateX(-50%);opacity:.9;filter:saturate(1.3);-webkit-mask-image:radial-gradient(circle,#000 45%,transparent 70%);mask-image:radial-gradient(circle,#000 45%,transparent 70%);animation:spin 120s linear infinite}
+.bgp:after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 28%,rgba(5,10,28,.55),rgba(5,10,28,0) 70%),linear-gradient(180deg,rgba(5,10,28,.25) 0%,rgba(5,10,28,.55) 50%,rgba(5,10,28,.92) 80%)}
+@keyframes spin{to{transform:translateX(-50%) rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.bgp img{animation:none}}
+body.has-bg{background:#050a1c}
+body.has-bg .hero.medal{width:min(340px,82vw);-webkit-mask-image:radial-gradient(circle,#000 58%,transparent 71%);mask-image:radial-gradient(circle,#000 58%,transparent 71%);filter:drop-shadow(0 0 40px var(--glow))}
+body.has-bg .sub{text-shadow:0 2px 10px #000}body.has-bg h1{filter:drop-shadow(0 2px 6px #000) drop-shadow(0 0 2px #000)}
+.timer{font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
+cakto-upsell-buttons{display:block}cakto-upsell-accept{display:block;margin-top:18px}cakto-upsell-accept::part(button){width:100%;padding:19px 14px;border-radius:14px;border:0;font:800 18px/1.2 "Exo 2",sans-serif;letter-spacing:.02em;background:linear-gradient(180deg,var(--a) 0%,var(--a2) 100%);box-shadow:0 6px 0 rgba(0,0,0,.45),0 0 30px var(--glow);animation:pulse 1.8s ease-in-out infinite;cursor:pointer}cakto-upsell-reject{display:block;text-align:center;margin:22px auto 0;max-width:420px}cakto-upsell-reject::part(button){background:none;border:0;color:#7e89b3;font-size:14.5px;text-decoration:underline;cursor:pointer}
+</style></head><body>
+<div class="bar p">ÚLTIMA OPORTUNIDAD · NO CIERRES ESTA PÁGINA</div>
+<div class="w">
+<div class="prog"><i></i></div>
+<img class="logo" src="/img/logo-transp.webp" alt="Forja do Herói">
+<div class="c"><span class="k">EL SISTEMA INSISTE</span>
+<h1>Está bien. Entonces al precio más bajo que existe</h1>
+<p class="sub">El Sistema bajó el valor una sola vez. Después de aquí, la brecha se cierra.</p>
+<img class="hero medal" src="/img/bumps/elite-medalha.png" alt=""></div>
+<p class="lead">Es el mismo <b>Cazador Élite</b> completo: 3 Maestros, Mazmorra de 30 días, Taberna, Alquimia y Ranking. Por menos que un café.</p>
+<div class="perks"><div class="pk"><div class="e">⚔️</div><div><b>Entrenamiento listo todos los días</b><span>Sin pensar qué hacer. Abres, sigues al Maestro, ganas XP.</span></div></div><div class="pk"><div class="e">🕳️</div><div><b>Mazmorra con jefes</b><span>30 días que se vuelven más difíciles a medida que evolucionas.</span></div></div><div class="pk"><div class="e">🍖</div><div><b>Nutrición del héroe</b><span>Recetas y cálculo de proteína y agua hechos para ti.</span></div></div></div>
+<div class="offer">
+<div class="old">de US$ 12.90</div>
+<div class="price">US$ 4.90</div>
+<div class="note">Pago único. Se activa en la misma cuenta.</div>
+<cakto-upsell-buttons>
+<cakto-upsell-accept bg-color="#e08a00" text-color="#2a1500" upsell-accept-url="members_area" offer-id="s3668bq" app-base-url="https://app.cakto.com.br" offer-type="downsell" upsell-reject-url="members_area">👑 QUIERO EL ÉLITE POR US$ 4.90</cakto-upsell-accept>
+<p class="warn">⏳ Oferta válida por <span class="timer" id="t">10:00</span> · Este es el valor más bajo que tendrá el Élite. No vuelve a aparecer.</p>
+</div>
+<cakto-upsell-reject upsell-reject-url="members_area">No, prefiero quedarme solo con el Recluta</cakto-upsell-reject>
+</cakto-upsell-buttons>
+<div class="sec"><span>🔒 Pago seguro</span><span>🛡️ Garantía de 7 días</span><span>⚡ Acceso inmediato</span></div>
+</div>
+<script>
+(function(){var k='fh_up_es_elite-2',e;try{e=+sessionStorage.getItem(k)}catch(_){}if(!e){e=Date.now()+6e5;try{sessionStorage.setItem(k,e)}catch(_){}}
+var t=document.getElementById('t');function f(){var s=Math.max(0,Math.round((e-Date.now())/1e3));t.textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}f();setInterval(f,1000);
+})();
+</script>
+<script src="https://caktoscripts.nyc3.cdn.digitaloceanspaces.com/upsell.js"></script>
+</body></html>
