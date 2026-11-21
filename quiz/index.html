@@ -514,4 +514,9 @@ const sv=store.get();if(sv&&sv.idx>0&&sv.idx<S.length){window.__musicOn=1;A=sv.A
 render();
 })();
 </script>
+<script>/* back redirect: quem tentar voltar/sair cai na oferta /quiz/back/ */
+(function(){var go=function(){location.replace('/quiz/back/'+location.search)};var armed=0;
+function arm(){if(armed>1)return;try{history.pushState({fhb:1},'',location.href);armed++}catch(e){}}
+arm();['pointerdown','keydown','touchstart'].forEach(function(e){addEventListener(e,arm,{once:true,passive:true})});
+addEventListener('popstate',function(){go()});})();</script>
 </body></html>
