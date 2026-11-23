@@ -982,6 +982,25 @@ body{background:url(img/ui/particles.png) 0 0/700px 700px,radial-gradient(60% 40
 .dl-heroes img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:1.5px solid #8fe6ff}
 .dl-heroes span{font-weight:700;font-size:14px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dl-heroes small{font-size:11px;color:#9fb6d6}
 .dl-inv{display:flex;gap:12px;align-items:center;padding:12px}.dl-inv img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid #ff8a6a;flex:none}.dl-inv p{font-size:15px}
+
+.seg2 button{min-width:0}
+.aer-ch{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.aer-ch button{padding:12px 4px;border-radius:12px;border:1px solid rgba(110,200,255,.45);background:rgba(8,16,36,.9);color:#c9d8ef;font-weight:800;font-size:16px}
+.aer-ch button.on{border-color:#ffc65a;color:#ffe08a;background:linear-gradient(180deg,rgba(255,190,60,.22),rgba(8,16,36,.9));box-shadow:0 0 12px rgba(255,190,60,.35)}
+.cxnew{margin-top:12px}
+.sysal{margin:10px 0;padding:12px 14px;border-radius:14px;border:1.5px solid;text-align:left}
+.sysal .sh{font-weight:900;letter-spacing:.08em;font-size:15px}
+.sysal p{margin:6px 0 4px;font-size:14px;color:#e6ecff}
+.sysal .sg{display:flex;justify-content:space-between;gap:8px;font-size:13.5px;color:#d7e2ff}
+.sysal .qb{height:10px;border-radius:99px;border:1.5px solid rgba(255,255,255,.45);margin-top:8px;padding:2px}
+.sysal small{display:block;margin-top:6px;color:#b9c6e8;font-size:12px}
+.sysal.pen{border-color:#ff4d5e;background:linear-gradient(180deg,rgba(90,10,24,.85),rgba(20,6,14,.92));box-shadow:0 0 22px rgba(255,60,80,.35)}
+.sysal.pen .sh{color:#ff6a7a}
+.sysal.pen .qb i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#ff4d5e,#ffb0b8)}
+.sysal.emg{border-color:#ffb020;background:linear-gradient(180deg,rgba(90,52,0,.85),rgba(24,14,4,.92));box-shadow:0 0 22px rgba(255,170,30,.4);animation:emgp 1.6s ease-in-out infinite}
+.sysal.emg .sh{color:#ffc65a}
+.sysal.emg .qb i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#ffb020,#ffe7a0)}
+@keyframes emgp{50%{box-shadow:0 0 34px rgba(255,170,30,.7)}}
 </style>
 </head>
 <body>
@@ -1070,11 +1089,59 @@ const EX = [
   {id:'martelo',n:'Rosca martelo',t:'mus',g:'Braços',m:.9},
   {id:'triceps',n:'Tríceps pulley',t:'mus',g:'Braços',m:.8},
   {id:'triceps_testa',n:'Tríceps testa',t:'mus',g:'Braços',m:.9},
+  {id:'supino_halter',n:'Supino com halteres',t:'mus',g:'Peito',m:1,nx:1},
+  {id:'supino_decl',n:'Supino declinado',t:'mus',g:'Peito',m:1,nx:1},
+  {id:'voador',n:'Voador (peck deck)',t:'mus',g:'Peito',m:.8,nx:1},
+  {id:'crossover',n:'Crossover',t:'mus',g:'Peito',m:.8,nx:1},
+  {id:'crucifixo_incl',n:'Crucifixo inclinado',t:'mus',g:'Peito',m:.8,nx:1},
+  {id:'supino_maq',n:'Supino na máquina',t:'mus',g:'Peito',m:.8,nx:1},
+  {id:'remada_uni',n:'Remada unilateral (serrote)',t:'mus',g:'Costas',m:1,nx:1},
+  {id:'remada_maq',n:'Remada na máquina',t:'mus',g:'Costas',m:.9,nx:1},
+  {id:'puxada_tri',n:'Puxada com triângulo',t:'mus',g:'Costas',m:.9,nx:1},
+  {id:'pulldown',n:'Pulldown com corda',t:'mus',g:'Costas',m:.8,nx:1},
+  {id:'graviton',n:'Barra assistida (graviton)',t:'mus',g:'Costas',m:.8,nx:1},
+  {id:'pullover',n:'Pullover',t:'mus',g:'Costas',m:.8,nx:1},
+  {id:'hiperext',n:'Hiperextensão lombar',t:'mus',g:'Costas',m:.6,nx:1},
+  {id:'desenv_halter',n:'Desenvolvimento com halteres',t:'mus',g:'Ombros',m:1,nx:1},
+  {id:'desenv_maq',n:'Desenvolvimento na máquina',t:'mus',g:'Ombros',m:.9,nx:1},
+  {id:'elev_frontal',n:'Elevação frontal',t:'mus',g:'Ombros',m:.9,nx:1},
+  {id:'crucifixo_inv',n:'Crucifixo inverso (voador inverso)',t:'mus',g:'Ombros',m:.8,nx:1},
+  {id:'face_pull',n:'Face pull',t:'mus',g:'Ombros',m:.8,nx:1},
+  {id:'remada_alta',n:'Remada alta',t:'mus',g:'Ombros',m:.9,nx:1},
+  {id:'encolhimento',n:'Encolhimento',t:'mus',g:'Ombros',m:.7,nx:1},
+  {id:'triceps_corda',n:'Tríceps corda',t:'mus',g:'Braços',m:.8,nx:1},
+  {id:'triceps_frances',n:'Tríceps francês',t:'mus',g:'Braços',m:.9,nx:1},
+  {id:'triceps_coice',n:'Tríceps coice',t:'mus',g:'Braços',m:.8,nx:1},
+  {id:'triceps_banco',n:'Tríceps no banco',t:'mus',g:'Braços',m:.7,nx:1},
+  {id:'triceps_unil',n:'Tríceps unilateral na polia',t:'mus',g:'Braços',m:.8,nx:1},
+  {id:'rosca_alt',n:'Rosca alternada',t:'mus',g:'Braços',m:.9,nx:1},
+  {id:'rosca_scott',n:'Rosca Scott',t:'mus',g:'Braços',m:.9,nx:1},
+  {id:'rosca_conc',n:'Rosca concentrada',t:'mus',g:'Braços',m:.9,nx:1},
+  {id:'rosca_polia',n:'Rosca na polia',t:'mus',g:'Braços',m:.8,nx:1},
+  {id:'rosca_inversa',n:'Rosca inversa (antebraço)',t:'mus',g:'Braços',m:.8,nx:1},
+  {id:'hack',n:'Agachamento hack',t:'mus',g:'Pernas',m:1,nx:1},
+  {id:'smith',n:'Agachamento no Smith',t:'mus',g:'Pernas',m:1.1,nx:1},
+  {id:'sumo',n:'Agachamento sumô',t:'mus',g:'Pernas',m:1,nx:1},
+  {id:'afundo_halter',n:'Afundo com halteres',t:'mus',g:'Pernas',m:1,nx:1},
+  {id:'bulgaro_halter',n:'Búlgaro com halteres',t:'mus',g:'Pernas',m:1,nx:1},
+  {id:'flexora_sent',n:'Cadeira flexora',t:'mus',g:'Pernas',m:.6,nx:1},
+  {id:'abdutora',n:'Cadeira abdutora',t:'mus',g:'Pernas',m:.5,nx:1},
+  {id:'adutora',n:'Cadeira adutora',t:'mus',g:'Pernas',m:.5,nx:1},
+  {id:'hip_thrust',n:'Elevação pélvica (hip thrust)',t:'mus',g:'Pernas',m:1,nx:1},
+  {id:'gluteo_polia',n:'Glúteo na polia (coice)',t:'mus',g:'Pernas',m:.7,nx:1},
+  {id:'panturrilha_sent',n:'Panturrilha sentado',t:'mus',g:'Pernas',m:.5,nx:1},
+  {id:'abd_polia',n:'Abdominal na polia',t:'mus',g:'Core',m:.7,nx:1},
+  {id:'abd_maq',n:'Abdominal na máquina',t:'mus',g:'Core',m:.6,nx:1},
 ];
 EX.push({id:'corrida',n:'Corrida (GPS)',t:'run',g:'Cardio',u:'m',m:0,a:{RES:.7,AGI:.3}});
+/* aeróbico por tempo fixo (m = XP por minuto) */
+[['bike','Bicicleta ergométrica',5],['esteira','Esteira (caminhada ou corrida)',6],['escada','Escada (simulador)',7],['eliptico','Elíptico (transport)',5],
+ ['remo','Remo ergométrico',7],['spinning','Spinning / bike indoor',7],['caminhada','Caminhada',3],['natacao','Natação',7],['danca','Dança / aula de ritmos',5],['hiit','Aula de HIIT / funcional',8]
+].forEach(([id,n,m])=>EX.push({id:'aer_'+id,n,t:'aer',g:'Aeróbico',u:'min',m,nx:1,a:{RES:.8,AGI:.2}}));
+const AER_MIN=[5,10,15,20,25,30,45,60];
 EX.forEach(e=>{ if(e.t==='mus'){ e.a=e.a||{FOR:.75,RES:.25}; } });
 const EXM = Object.fromEntries(EX.map(e=>[e.id,e]));
-const GROUP_ICON = {Empurrar:'🫸',Puxar:'🧗',Pernas:'🦵',Core:'🧱',Cardio:'🔥',Peito:'🛡️',Costas:'🪽',Ombros:'⛰️',Braços:'💪'};
+const GROUP_ICON = {Aeróbico:'🚴',Empurrar:'🫸',Puxar:'🧗',Pernas:'🦵',Core:'🧱',Cardio:'🔥',Peito:'🛡️',Costas:'🪽',Ombros:'⛰️',Braços:'💪'};
 
 const RANKS = [[1,'Recruta'],[5,'Escudeiro'],[10,'Guerreiro'],[20,'Cavaleiro'],[30,'Campeão'],[45,'Senhor da Guerra'],[60,'Lenda'],[80,'Titã'],[100,'Deus do Ferro']];
 
@@ -1148,8 +1215,9 @@ const ROMAN=['','I','II','III','IV','V'];
 /* ================== ESTADO ================== */
 const KEY='forja_heroi_v1';
 function blank(){return {v:1,created:false,name:'',cls:'paladino',bw:75,log:[],bonusXP:0,goldBonus:0,goldSpent:0,
-  q:{d:'',ids:[],claimed:[]},plan:'recruta',dg:{done:{}},qTotal:0,bosses:{},ach:{},titles:[],title:'',elixir:'',last:{},updated:0}}
-function migrate(s){return Object.assign(blank(),s||{})}
+  q:{d:'',ids:[],claimed:[]},plan:'recruta',dg:{done:{}},qTotal:0,bosses:{},ach:{},titles:[],title:'',elixir:'',last:{},cx:[],updated:0}}
+function regCx(o){for(const c of (o&&o.cx)||[]){if(!c||!c.id)continue;if(EXM[c.id]){EXM[c.id].h=c.h;EXM[c.id].n=c.n;continue}const e=Object.assign({},c,{cx:1,nx:1,a:c.t==='mus'?{FOR:.75,RES:.25}:{FOR:.5,RES:.5}});EX.push(e);EXM[e.id]=e}return o}
+function migrate(s){return regCx(Object.assign(blank(),s||{}))}
 let S = blank();
 try{const raw=localStorage.getItem(KEY); if(raw) S=migrate(JSON.parse(raw));}catch(e){}
 
@@ -1193,8 +1261,9 @@ async function initCloud(){
 }
 
 /* ================== CÁLCULOS ================== */
-function classMult(ex){return CLASSES[S.cls][ex.t]}
+function classMult(ex){const c=CLASSES[S.cls][ex.t];return c||(ex.t==='aer'&&S.cls==='paladino'?1.1:1)}
 function baseXP(ex,s,r,kg){
+  if(ex.t==='aer') return r*ex.m;
   if(ex.t==='cal') return s*r*ex.m*2;
   return s*r*(1+(kg||0)/30)*ex.m;
 }
@@ -1211,8 +1280,8 @@ function streakInfo(){
 function multipliers(ex){
   const st=streakInfo();
   const streakB=Math.min(st.cur,10)*0.05;
-  const elixir=S.elixir===ymd()?0.5:0;
-  return {cls:classMult(ex),streak:1+streakB,elixir:1+elixir,total:classMult(ex)*(1+streakB)*(1+elixir)};
+  const elixir=S.elixir===ymd()?0.5:0;const pen=S.pen?0.5:1;
+  return {cls:classMult(ex),streak:1+streakB,elixir:1+elixir,pen,total:classMult(ex)*(1+streakB)*(1+elixir)*pen};
 }
 function xpNeed(L){return Math.round(80*Math.pow(L,1.6))}
 function totalXP(){return sum(S.log,e=>e.xp)+S.bonusXP}
@@ -1236,6 +1305,11 @@ function todayEntries(){const t=ymd();return S.log.filter(e=>e.d===t)}
 function ensureQuests(){
   const t=ymd();
   if(S.q.d===t&&S.q.ids.length) return;
+  if(S.created&&S.q.d&&S.q.d<t&&S.q.ids.length&&S.q.d>=PEN_FROM&&!clockTampered()){
+    const d0=S.q.d,d1=addDays(d0,1);
+    if(!questsOk(d0,S.q.ids)) penStart('missoes',d0);
+    else if(d1<t) penStart('ausencia',d1);
+  }
   const pool=QUESTS.filter(q=>!q.cls||q.cls.includes(S.cls));
   const r=rng(hash(t+S.name+S.cls));
   const ids=[];const p=[...pool];
@@ -1259,8 +1333,69 @@ function counters(){
     level:levelInfo().L,quests:S.qTotal,bosses:Object.keys(S.bosses).length};
 }
 
+
+/* ================== ZONA DE PENALIDADE E MISSÃO DE EMERGÊNCIA ================== */
+const PEN_FROM='2026-11-24',PEN_GOAL=12,EMG_H=3;
+const EMG_KINDS=[
+  {k:'sets',t:'Complete 6 séries de qualquer exercício',goal:6,f:es=>sum(es.filter(e=>EXM[e.ex]&&EXM[e.ex].t!=='run'),e=>EXM[e.ex].t==='aer'?Math.floor(e.r/5):e.s)},
+  {k:'reps',t:'Faça 80 repetições de qualquer exercício',goal:80,f:es=>sum(es.filter(e=>EXM[e.ex]&&!EXM[e.ex].u),e=>e.s*e.r)},
+  {k:'var',t:'Treine 3 exercícios diferentes',goal:3,f:es=>new Set(es.filter(e=>EXM[e.ex]&&EXM[e.ex].t!=='run').map(e=>e.ex)).size}];
+function questsOk(d,ids){const es=S.log.filter(e=>e.d===d);return ids.every(id=>{const q=QUESTS.find(x=>x.id===id);return !q||q.f(es)>=q.goal})}
+function penStart(why,from){
+  if(S.cheat)return;
+  if(S.pen){S.pen.goal=Math.min(30,S.pen.goal+6);S.pen.why=why;S.pen.seen=false;return}
+  S.pen={ts:Date.now(),d:ymd(),from:from||'',why,goal:PEN_GOAL,seen:false};
+}
+function penProgress(){if(!S.pen)return 0;return sum(S.log.filter(e=>e.ts>=S.pen.ts&&EXM[e.ex]&&EXM[e.ex].t!=='run'),e=>EXM[e.ex].t==='aer'?Math.floor(e.r/5):e.s)}
+function penWhy(){return S.pen.why==='emergencia'?'Você falhou na Missão de Emergência.':S.pen.why==='ausencia'?'Você sumiu e deixou as missões diárias para trás.':'Você não cumpriu as missões diárias.'}
+function emgDay(){const w=weekStart();return addDays(w,hash(w+'emg'+(S.name||''))%7)}
+function emgKind(){return EMG_KINDS.find(x=>x.k===(S.emg&&S.emg.k))||EMG_KINDS[0]}
+function emgActive(){const e=S.emg;return !!(e&&!e.done&&!e.fail&&Date.now()<=e.end)}
+function emgProgress(){const e=S.emg;if(!e)return 0;return emgKind().f(S.log.filter(x=>x.ts>=e.ts&&x.ts<=e.end))}
+function emgTick(){
+  if(!S.created||S.cheat)return;
+  const t=ymd(),now=Date.now(),w=weekStart(),e=S.emg;
+  if(e&&!e.done&&!e.fail&&now>e.end){e.fail=true;penStart('emergencia');save()}
+  if((!S.emg||S.emg.w!==w)&&t>=PEN_FROM&&t===emgDay()){
+    const h=new Date().getHours();if(h<7||h>=21)return;
+    const k=EMG_KINDS[hash(t+'k'+(S.name||''))%EMG_KINDS.length];
+    const eod=new Date();eod.setHours(23,59,59,0);
+    S.emg={w,d:t,ts:now,end:Math.min(now+EMG_H*36e5,eod.getTime()),k:k.k,done:false,fail:false};save();
+    try{sfx('boss')}catch(_){}queueModal(emgModal);
+  }
+}
+function emgCheck(){if(emgActive()&&emgProgress()>=emgKind().goal){S.emg.done=true;S.bonusXP+=200;S.goldBonus+=80;setTimeout(()=>{sfx('allquests');queueModal(emgWinModal)},350)}}
+function penCheck(){if(S.pen&&penProgress()>=S.pen.goal){S.pen=null;S.penWins=(S.penWins||0)+1;setTimeout(()=>{sfx('allquests');queueModal(penWinModal)},350)}}
+function hhmm(ts){const d=new Date(ts);return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
+function emgModal(){const k=emgKind();openModal(`<div class="lvup"><div style="font-size:60px">🚨</div><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ff5a6e">MISSÃO DE EMERGÊNCIA</div>
+  <h3 style="margin-top:8px">${k.t}</h3>
+  <p class="muted" style="margin:10px 0 6px">Você tem até as <b>${hhmm(S.emg.end)}</b> para cumprir. Se falhar, o Sistema te manda para a <b>Zona de Penalidade</b>.</p>
+  <p class="muted" style="margin:0 0 16px">Recompensa: <b>+200 XP</b> e <b>80 ouro</b>.</p>
+  <button class="btn gold full" data-a="emgGo">⚔️ Aceitar e treinar</button></div>`,true)}
+function emgWinModal(){openModal(`<div class="lvup"><div style="font-size:60px">🏅</div><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#7dff9b">EMERGÊNCIA CONTIDA</div>
+  <h3 style="margin-top:8px">Missão de Emergência cumprida!</h3><p class="muted" style="margin:10px 0 16px">+200 XP e 80 ouro adicionados ao seu herói.</p>
+  <button class="btn full" data-a="close">Glória!</button></div>`,true)}
+function penModal(){openModal(`<div class="lvup"><div style="font-size:60px">☠️</div><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ff5a6e">ZONA DE PENALIDADE</div>
+  <h3 style="margin-top:8px;color:#ff8a9a">${penWhy()}</h3>
+  <p class="muted" style="margin:10px 0 6px">Até sobreviver à penalidade, <b>todo XP de treino vale metade</b>.</p>
+  <p class="muted" style="margin:0 0 16px">Para sair: complete <b>${S.pen.goal} séries</b> de qualquer exercício.</p>
+  <button class="btn danger full" data-a="emgGo">⚔️ Encarar a penalidade</button></div>`,true)}
+function penWinModal(){openModal(`<div class="lvup"><div style="font-size:60px">🔓</div><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#7dff9b">PENALIDADE CUMPRIDA</div>
+  <h3 style="margin-top:8px">Você sobreviveu à Zona de Penalidade</h3><p class="muted" style="margin:10px 0 16px">Seu XP voltou ao normal. Não deixe as missões de hoje para trás.</p>
+  <button class="btn full" data-a="close">Continuar</button></div>`,true)}
+function sysAlerts(){
+  let h='';
+  if(emgActive()){const k=emgKind(),p=Math.min(emgProgress(),k.goal),sec=Math.max(0,Math.round((S.emg.end-Date.now())/1000));
+    h+=`<div class="sysal emg"><div class="sh">🚨 MISSÃO DE EMERGÊNCIA</div><p><b>${k.t}</b></p><div class="sg"><span>⏰ Tempo restante: <b id="emgT">${fmtDur(sec)}</b></span><b>${p}/${k.goal}</b></div><div class="qb"><i style="width:${(p/k.goal*100).toFixed(1)}%"></i></div><small>Cumpriu: +200 XP e 80 ouro. Falhou: Zona de Penalidade.</small></div>`}
+  if(S.pen){const p=Math.min(penProgress(),S.pen.goal);
+    h+=`<div class="sysal pen"><div class="sh">☠️ ZONA DE PENALIDADE</div><p><span>${penWhy()}</span> <span>Até sair,</span> <b>todo XP de treino vale metade</b>.</p><div class="sg"><span>Treino de penalidade: ${S.pen.goal} séries</span><b>${p}/${S.pen.goal}</b></div><div class="qb"><i style="width:${(p/S.pen.goal*100).toFixed(1)}%"></i></div></div>`}
+  return h;
+}
+setInterval(()=>{if(!S.emg||!S.created)return;const el=document.getElementById('emgT');if(!el)return;const sec=Math.max(0,Math.round((S.emg.end-Date.now())/1000));el.textContent=fmtDur(sec);if(sec<=0)render()},1000);
+
 /* ================== EVENTOS DE JOGO ================== */
 function afterProgress(prevLevel){
+  emgCheck();penCheck();
   // chefes
   for(const b of BOSSES){
     if(S.bosses[b.id]) continue;
@@ -1297,7 +1432,7 @@ function logExercise(exId,s,r,kg,kgs){
   if(xp>room){xp=room;setTimeout(()=>toast('🛡️','Teto diário de XP de treino','Hoje você já chegou a '+fmt(LIM.xpDay)+' XP de treino. O resto conta no diário, sem XP.'),400)}
   const en={id:uid(),d:ymd(),ts:Date.now(),ex:exId,s,r,kg:ex.t==='mus'?kg:0,xp};if(kgs)en.kgs=kgs;S.log.push(en);
   S.last[exId]=kgs?{s,r,kg,kgs}:{s,r,kg};
-  sfx('xp');toast('✨','+'+fmt(xp)+' XP · +'+Math.floor(xp/20)+' ouro',ex.n+' — '+s+'×'+r+(ex.u?'s':'')+(ex.t==='mus'?' · '+kgTxt(en):''));
+  sfx('xp');toast('✨','+'+fmt(xp)+' XP · +'+Math.floor(xp/20)+' ouro',ex.n+' — '+(ex.t==='aer'?r+' min':s+'×'+r+(ex.u?'s':'')+(ex.t==='mus'?' · '+kgTxt(en):'')));
   afterProgress(prev);
   return true;
 }
@@ -1305,6 +1440,7 @@ function logExercise(exId,s,r,kg,kgs){
 const LIM={sets:10,setsHour:40,setsDay:80,kg:600,xpDay:3000,runKmDay:15};
 function fmtDur(sec){sec=Math.round(sec);const h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),x=sec%60;return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(x).padStart(2,'0')}
 function repLimit(ex){
+  if(ex.t==='aer') return 120;
   if(ex.u==='s') return ex.tier>=5?60:ex.tier>=3?120:ex.id==='corda'?900:600;
   if(ex.t==='mus') return 50;
   return ex.tier>=5?15:ex.tier>=4?30:ex.tier>=3?50:ex.tier>=2?120:200;
@@ -1317,6 +1453,7 @@ function antiCheat(ex,s,r,kg){
   const rl=repLimit(ex);
   if(r>rl) return {ok:false,t:'Número fora do realista',m:ex.n+': máximo de '+rl+(ex.u?' segundos':' repetições')+' por série.'};
   if(ex.t==='mus'&&kg>LIM.kg) return {ok:false,t:'Carga fora do realista',m:'O máximo aceito é '+LIM.kg+' kg.'};
+  if(ex.t==='aer'){const dm=sum(todayEntries().filter(e=>EXM[e.ex]&&EXM[e.ex].t==='aer'),e=>e.r);if(dm+r>240) return {ok:false,t:'Muito aeróbico hoje',m:'O máximo é de 4 horas de aeróbico por dia.'}}
   const now=Date.now();
   const hour=sum(S.log.filter(e=>EXM[e.ex]?.t!=='run'&&now-e.ts<36e5&&e.ts<=now),e=>e.s);
   if(hour+s>LIM.setsHour) return {ok:false,t:'Calma, herói!',m:'Você registrou '+hour+' séries na última hora. O corpo precisa de tempo entre as séries: tente de novo daqui a pouco.'};
@@ -1422,7 +1559,7 @@ function confirmModal(msg,onOk,okLabel='Confirmar'){
 }
 
 function exerciseSheet(id,preset){
-  const ex=EXM[id];const l=preset||S.last[id]||{s:ex.t==='mus'?4:3,r:ex.u?30:(ex.t==='mus'?10:10),kg:ex.t==='mus'?20:0};
+  const ex=EXM[id];if(ex.t==='aer')return aerSheet(id);const l=preset||S.last[id]||{s:ex.t==='mus'?4:3,r:ex.u?30:(ex.t==='mus'?10:10),kg:ex.t==='mus'?20:0};
   const unit=ex.u?'Segundos por série':'Repetições por série';
   openModal(`<div class="row between"><div><h3>${esc(ex.n)}</h3><div class="muted">${GROUP_ICON[ex.g]||''} ${ex.g} · ${ex.t==='cal'?'Calistenia':'Musculação'}${ex.tier?` <span class="tier t${ex.tier}">NÍVEL ${ROMAN[ex.tier]}</span>`:''}</div></div><button class="iconbtn" data-a="close">✕</button></div>
     <div class="field"><label>Séries</label>${stepper('f_s',l.s,1)}</div>
@@ -1432,9 +1569,52 @@ function exerciseSheet(id,preset){
     ${ex.t==='mus'?`<div class="field"><label>Carga (kg)</label>${stepper('f_kg',l.kg,2.5)}</div>
     <div class="field"><label>Peso de cada série <span class="dim" style="font-weight:400;text-transform:none;letter-spacing:0">· mudou a carga no meio? ajuste aqui</span></label><div class="kgs" id="f_kgs"></div></div>`:''}
     <div class="preview"><div><div class="muted" style="font-size:13px">Recompensa estimada</div><div class="dim" style="font-size:12px" id="f_mult"></div></div><b id="f_xp">0 XP</b></div>
-    <button class="btn full" style="margin-top:14px" data-a="log" data-id="${id}">⚔️ Registrar série</button>`);
+    <button class="btn full" style="margin-top:14px" data-a="log" data-id="${id}">⚔️ Registrar série</button>${ex.cx?`<button class="btn ghost full sm" style="margin-top:8px" data-a="cxDel" data-id="${id}">🗑️ Remover da minha lista</button>`:''}`);
   window.__sheetEx=id; window.__kgsPre=(preset&&preset.kgs)||null; ISO.n=0;ISO.best=0;isoReset(); updatePreview();
 }
+
+function multTxt(m,parts){parts=parts||[];if(m.pen<1)parts.push('⚠️ penalidade ×0.5');return parts.length?(m.pen<1&&parts.length===1?'':'Bônus: ')+parts.join(' · '):'Sem bônus ativos'}
+/* aeróbico por tempo */
+function aerSheet(id){
+  const ex=EXM[id];const l=S.last[id];window.__sheetEx=id;window.__aerMin=(l&&AER_MIN.includes(l.r))?l.r:20;
+  openModal(`<div class="row between"><div><h3>${esc(ex.n)}</h3><div class="muted">🚴 Aeróbico · tempo fixo</div></div><button class="iconbtn" data-a="close">✕</button></div>
+    <div class="field"><label>Quanto tempo você fez?</label><div class="aer-ch">${AER_MIN.map(m=>`<button class="${m===window.__aerMin?'on':''}" data-a="aerMin" data-v="${m}">${m} min</button>`).join('')}</div></div>
+    <div class="preview"><div><div class="muted" style="font-size:13px">Recompensa estimada</div><div class="dim" style="font-size:12px" id="f_mult"></div></div><b id="f_xp">0 XP</b></div>
+    <button class="btn full" style="margin-top:14px" data-a="aerLog">⚔️ Registrar aeróbico</button>`);
+  aerPrev();
+}
+function aerPrev(){const ex=EXM[window.__sheetEx];const x=$('#f_xp');if(!x||!ex)return;const m=multipliers(ex);
+  x.textContent='+'+fmt(Math.round(baseXP(ex,1,window.__aerMin,0)*m.total))+' XP';
+  const parts=[];if(m.cls>1)parts.push('classe ×'+m.cls.toFixed(1));if(m.streak>1)parts.push('sequência ×'+m.streak.toFixed(2));if(m.elixir>1)parts.push('elixir ×1.5');
+  $('#f_mult').textContent=multTxt(m,parts)}
+/* exercício personalizado (da ficha do próprio jogador) */
+const CX_G={cal:['Empurrar','Puxar','Pernas','Core','Cardio'],mus:['Peito','Costas','Pernas','Ombros','Braços','Core']};
+function cxGroups(t,sel){return CX_G[t].map(g=>`<option value="${g}" ${g===sel?'selected':''}>${GROUP_ICON[g]||''} ${g}</option>`).join('')}
+function cxSheet(){
+  const t=trainType==='cal'?'cal':'mus';window.__cxT=t;
+  openModal(`<div class="row between"><h3>Criar meu exercício</h3><button class="iconbtn" data-a="close">✕</button></div>
+   <p class="muted" style="font-size:13.5px;margin:4px 0 10px">Tem na sua ficha e não está no app? Crie aqui e ganhe XP e ouro com ele, igual aos outros exercícios.</p>
+   <div class="field"><label>Nome do exercício</label><input id="cx_n" maxlength="32" placeholder="Ex.: Supino articulado"></div>
+   <div class="field"><label>Tipo</label><div class="seg2 cxt"><button data-a="cxT" data-v="cal" class="${t==='cal'?'on':''}">🤸 Calistenia</button><button data-a="cxT" data-v="mus" class="${t==='mus'?'on':''}">🏋️ Musculação</button></div></div>
+   <div class="field"><label>Grupo muscular</label><select id="cx_g">${cxGroups(t,trainGroup)}</select></div>
+   <div class="field" id="cx_uf" ${t==='mus'?'hidden':''}><label>Como medir</label><select id="cx_u"><option value="">Repetições</option><option value="s">Segundos (isometria)</option></select></div>
+   <button class="btn gold full" style="margin-top:6px" data-a="cxSave">✅ Criar exercício</button>`);
+}
+function cxSave(){
+  const n=($('#cx_n').value||'').replace(/\s+/g,' ').trim().slice(0,32);const t=window.__cxT==='cal'?'cal':'mus';
+  const g=CX_G[t].includes($('#cx_g').value)?$('#cx_g').value:CX_G[t][0];const u=t==='cal'&&$('#cx_u')&&$('#cx_u').value==='s'?'s':'';
+  if(n.length<2) return toast('⚠️','Dê um nome ao exercício');
+  S.cx=S.cx||[];
+  if(S.cx.filter(c=>!c.h).length>=40) return toast('⚠️','Limite de 40 exercícios','Remova algum antes de criar outro');
+  const low=n.toLowerCase();
+  const dup=EX.find(e=>!e.h&&e.n.toLowerCase()===low);
+  if(dup){closeModal();trainType=dup.t==='run'?'cal':dup.t;trainGroup='Todos';render();setTimeout(()=>exerciseSheet(dup.id),250);return toast('💡','Esse exercício já existe','Abri ele pra você')}
+  const c={id:'cx_'+uid(),n,t,g,m:u?.15:(t==='mus'?.8:.7)};if(u)c.u='s';if(t==='cal')c.tier=1;
+  S.cx.push(c);regCx(S);save();closeModal();trainType=t;trainGroup='Todos';render();sfx&&sfx('quest');
+  toast('🛠️','Exercício criado!',n);setTimeout(()=>exerciseSheet(c.id),300);
+}
+function cxDel(id){const c=(S.cx||[]).find(x=>x.id===id);if(!c)return;
+  confirmModal('Remover “'+esc(c.n)+'” da sua lista? Os treinos que você já registrou continuam no diário.',()=>{c.h=1;if(EXM[id])EXM[id].h=1;save();render();toast('🗑️','Exercício removido',c.n)},'Remover')}
 function kgsPaint(){
   const box=$('#f_kgs');if(!box)return;
   const s=Math.min(LIM.sets,Math.max(0,Math.round(+$('#f_s').value||0)));const kg=Math.max(0,+(+$('#f_kg').value||0));
@@ -1485,12 +1665,12 @@ function readSheet(){
   return {ex,s,r,kg,kgs};
 }
 function updatePreview(){
-  if(!$('#f_xp'))return;
+  if(!$('#f_xp')||!$('#f_s'))return;
   kgsPaint();
   const {ex,s,r,kg,kgs}=readSheet();const m=multipliers(ex);
   $('#f_xp').textContent='+'+fmt(Math.round(baseXP(ex,s,r,kgs?sum(kgs,v=>v)/kgs.length:kg)*m.total))+' XP';
   const parts=[];if(m.cls>1)parts.push('classe ×'+m.cls.toFixed(1));if(m.streak>1)parts.push('sequência ×'+m.streak.toFixed(2));if(m.elixir>1)parts.push('elixir ×1.5');
-  $('#f_mult').textContent=parts.length?'Bônus: '+parts.join(' · '):'Sem bônus ativos';
+  $('#f_mult').textContent=multTxt(m,parts);
 }
 function settingsSheet(){
   openModal(`<div class="row between"><h3>Ficha do Herói</h3><button class="iconbtn" data-a="close">✕</button></div>
@@ -1618,7 +1798,7 @@ function horaPromo(){
 
 const ICO={FOR:'<path d="M6 7v10M3 9.5v5M18 7v10M21 9.5v5M6 12h12"/>',RES:'<path d="M12 2.5l7.5 3v6.2c0 4.6-3.1 8-7.5 9.8-4.4-1.8-7.5-5.2-7.5-9.8V5.5z"/>',AGI:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',VIG:'<path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-3 2-4 2-7 1 1 2 2 3 3z"/>'};
 const svgI=(d,sz=22)=>`<svg width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="#dff4ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
-function entryRow(e){const ex=EXM[e.ex]||{n:e.ex};return `<div class="entry"><div><div class="n">${esc(ex.n)}</div><div class="d">${ex.t==='run'?(e.r/1000).toFixed(2).replace('.',',')+' km · '+fmtDur(e.sec||0):`${e.s} × ${e.r}${ex.u?'s':''}${ex.t==='mus'?' · '+kgTxt(e):''}`}</div></div><span class="x">+${fmt(e.xp)} XP</span><button class="del" data-a="del" data-id="${e.id}" title="Apagar">✕</button></div>`}
+function entryRow(e){const ex=EXM[e.ex]||{n:e.ex};return `<div class="entry"><div><div class="n">${esc(ex.n)}</div><div class="d">${ex.t==='run'?(e.r/1000).toFixed(2).replace('.',',')+' km · '+fmtDur(e.sec||0):ex.t==='aer'?e.r+' min':`${e.s} × ${e.r}${ex.u?'s':''}${ex.t==='mus'?' · '+kgTxt(e):''}`}</div></div><span class="x">+${fmt(e.xp)} XP</span><button class="del" data-a="del" data-id="${e.id}" title="Apagar">✕</button></div>`}
 
 function viewShop(){
   const g=gold();
@@ -1692,7 +1872,7 @@ function tvPost(text,kind,data,replyTo,vip){
 }
 function workoutShare(){
   const es=todayEntries();if(!es.length) return null;
-  const items=es.map(e=>{const ex=EXM[e.ex]||{n:e.ex};if(ex.t==='run')return {n:'Corrida '+(e.r/1000).toFixed(2).replace('.',',')+' km em '+fmtDur(e.sec||0),s:0,r:0,kg:0,u:''};return {n:ex.n,s:e.s,r:e.r,kg:ex.t==='mus'?e.kg:0,u:ex.u?'s':''}}).slice(0,12);
+  const items=es.map(e=>{const ex=EXM[e.ex]||{n:e.ex};if(ex.t==='run')return {n:'Corrida '+(e.r/1000).toFixed(2).replace('.',',')+' km em '+fmtDur(e.sec||0),s:0,r:0,kg:0,u:''};if(ex.t==='aer')return {n:ex.n,s:1,r:e.r,kg:0,u:'min'};return {n:ex.n,s:e.s,r:e.r,kg:ex.t==='mus'?e.kg:0,u:ex.u?'s':''}}).slice(0,12);
   return {xp:sum(es,e=>e.xp),items};
 }
 function ago(ts){
@@ -1719,7 +1899,7 @@ function feedData(){
 function shareCard(p){
   const d=p.data;if(!d||typeof d!=='object')return '';
   if(p.kind==='treino'&&Array.isArray(d.items)){
-    return `<div class="share-card">⚔️ <b>Treino do dia · +${fmt(+d.xp||0)} XP</b>${d.items.slice(0,12).map(i=>`<div class="muted">${esc(i.n)} — ${+i.s||0}×${+i.r||0}${i.u==='s'?'s':''}${+i.kg?' · '+(+i.kg)+' kg':''}</div>`).join('')}</div>`;
+    return `<div class="share-card">⚔️ <b>Treino do dia · +${fmt(+d.xp||0)} XP</b>${d.items.slice(0,12).map(i=>`<div class="muted">${esc(i.n)} — ${i.u==='min'?(+i.r||0)+' min':`${+i.s||0}×${+i.r||0}${i.u==='s'?'s':''}`}${+i.kg?' · '+(+i.kg)+' kg':''}</div>`).join('')}</div>`;
   }
   if(p.kind==='nivel'){
     return `<div class="share-card">🏅 <b>Nível ${+d.level||1}</b> · ${esc(d.rank||'')} · ${fmt(+d.xp||0)} XP total · 🔥 ${+d.streak||0} dias seguidos · ${+d.bosses||0} chefes derrotados</div>`;
@@ -1860,7 +2040,7 @@ function mtPlan(key,day,obj){
   const per=groups.map((g,i)=>Math.ceil((want-picks.length)/(groups.length-i)));
   groups.forEach((g0,gi)=>{
     const [g,sub]=g0.split(':');
-    let pool=EX.filter(e=>e.g===g&&e.t!=='run'&&(rest?e.t==='cal':M.type.includes(e.t))&&(e.t!=='cal'||(e.tier||1)<=tier));
+    let pool=EX.filter(e=>e.g===g&&!e.nx&&e.t!=='run'&&(rest?e.t==='cal':M.type.includes(e.t))&&(e.t!=='cal'||(e.tier||1)<=tier));
     if(sub==='t')pool=pool.filter(e=>TRI.includes(e.id));if(sub==='b')pool=pool.filter(e=>BI.includes(e.id));
     pool=pool.filter(e=>!picks.includes(e.id));
     pool.sort((a,b)=>((b.tier||1)-(a.tier||1))*(obj==='for'?2:obj==='emag'?.4:1)+(r()-.5)*2.2);
@@ -2185,7 +2365,8 @@ function render(){
   $('#nav').hidden=false;
   const views={mestres:viewMestres,corrida:viewCorrida,heroi:viewHero,treinar:viewTrain,dungeon:viewDungeon,missoes:viewQuests,chefes:viewBosses,taverna:viewTaverna,mais:viewMais,loja:viewShop,diario:viewLog,temporada:viewSeason,progressao:viewProgress,planilha:viewSheet,alquimia:viewAlquimia};
   $('#app').classList.toggle('z',['heroi','treinar','dungeon','missoes','chefes','taverna','mais'].includes(tab));
-  $('#app').innerHTML=topBar()+(tab==='heroi'?installBanner():'')+(MUS.tracks[tab]?musicBtn():'')+views[tab]()+(tab==='mais'?'':`<div class="sync" id="sync">${syncLabel()}</div>`);
+  emgTick();
+  $('#app').innerHTML=topBar()+(['heroi','treinar','missoes'].includes(tab)?sysAlerts():'')+(tab==='heroi'?installBanner():'')+(MUS.tracks[tab]?musicBtn():'')+views[tab]()+(tab==='mais'?'':`<div class="sync" id="sync">${syncLabel()}</div>`);
   renderNav();
   if(!S.nov1&&!S.cheat){S.nov1=Date.now();save();queueModal(()=>openModal(`<div class="lvup"><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ffc65a">NOVA ATUALIZAÇÃO</div>
    <h3 style="margin-top:8px">Os Mestres chegaram à Forja</h3>
@@ -2213,6 +2394,17 @@ function render(){
    <button class="btn gold full" data-a="mtGo">⚔️ Escolher minha ficha</button><button class="btn ghost full sm" style="margin-top:8px" data-a="close">Depois</button></div>`,true))}
   if(!nov4&&!S.cheat&&window.__FH_PLAN==='recruta'){const u=S.upg||{n:0,at:0};if(u.n<3&&Date.now()-u.at>3*864e5){S.upg={n:u.n+1,at:Date.now()};save();queueModal(upgModal)}}
   else if(!nov4&&!S.cheat&&isElite()&&!abMax()&&S.nov2&&!S.nov3){S.nov3=Date.now();save();queueModal(abBuyModal)}
+  if(S.pen&&!S.pen.seen&&!S.cheat){S.pen.seen=true;save();queueModal(penModal)}
+  if(S.nov1&&S.nov2&&!S.nov5&&!S.cheat&&!nov4){S.nov5=Date.now();save();queueModal(()=>openModal(`<div class="lvup"><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ffc65a">NOVA ATUALIZAÇÃO</div>
+   <h3 style="margin-top:8px">Vocês pediram, o Sistema ouviu</h3>
+   <ul class="nv-list">
+    <li><span style="font-size:28px;width:44px;text-align:center">🏋️</span><span><b>+43 exercícios de musculação.</b> Tríceps corda, voador, crossover, rosca Scott, cadeira abdutora, hip thrust e muito mais.</span></li>
+    <li><span style="font-size:28px;width:44px;text-align:center">🚴</span><span><b>Aeróbico por tempo.</b> Bicicleta, esteira, escada, elíptico, remo e outros: escolha 5, 10, 15, 20 ou 25 minutos.</span></li>
+    <li><span style="font-size:28px;width:44px;text-align:center">✏️</span><span><b>Crie seus exercícios.</b> Algo da sua ficha não está no app? Crie e ganhe XP com ele.</span></li>
+    <li><span style="font-size:28px;width:44px;text-align:center">☠️</span><span><b>Zona de Penalidade.</b> A partir de amanhã, quem não cumprir as missões diárias treina com XP pela metade até pagar a penalidade.</span></li>
+    <li><span style="font-size:28px;width:44px;text-align:center">🚨</span><span><b>Missões de Emergência.</b> Uma vez por semana, em dia surpresa, o Sistema lança uma missão com prazo curto.</span></li>
+   </ul>
+   <button class="btn gold full" data-a="close">⚔️ Bora treinar</button></div>`,true))}
   if(S.cheat&&!S.cheat.seen){S.cheat.seen=Date.now();save();queueModal(()=>openModal(`<div class="lvup"><div style="font-size:60px">🛡️</div><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ff5a6e">TRAPAÇA DETECTADA</div>
    <h3 style="margin-top:10px;color:#ff8a9a">Você burlou o sistema</h3>
    <p class="muted" style="margin:10px 0 6px">O Sistema encontrou registros impossíveis no seu herói${S.cheat.why?' ('+esc(S.cheat.why)+')':''}. Para manter o ranking justo para todos os caçadores, seu progresso foi zerado e você voltou ao <b>nível 1</b>.</p>
@@ -2266,19 +2458,20 @@ function viewHero(){
 
 /* ---------- TREINAR ---------- */
 function viewTrain(){
-  const groups=['Todos',...new Set(EX.filter(e=>e.t===trainType).map(e=>e.g))];
+  const groups=['Todos',...new Set(EX.filter(e=>e.t===trainType&&!e.h).map(e=>e.g))];
   if(!groups.includes(trainGroup)) trainGroup='Todos';
-  const list=EX.filter(e=>e.t===trainType&&(trainGroup==='Todos'||e.g===trainGroup));
+  const list=EX.filter(e=>e.t===trainType&&!e.h&&(trainGroup==='Todos'||e.g===trainGroup));
   const es=todayEntries().slice().reverse();
   return `<div class="tr-sc"><button data-tab="mestres"><img src="${UI}m-${S.cls}.webp" alt=""><span><b>Treino do Mestre</b><small>${MESTRES[S.cls].n} · hoje</small></span>${isElite()?'':'<i>👑</i>'}</button><button data-tab="corrida"><img src="${UI}ic-run.webp" alt=""><span><b>Corrida</b><small>GPS · XP por km</small></span>${isElite()?'':'<i>👑</i>'}</button></div>
   <div class="pv rest"><span class="ic">⏱️</span><div><b>Descanso</b><small>Timer entre séries</small></div>
     <div class="sp"><span class="clock2" id="clock">--:--</span><button class="tb" data-a="timer" data-v="60">60s</button><button class="tb" data-a="timer" data-v="90">90s</button><button class="tb" data-a="timer" data-v="120">2m</button></div></div>
   <div class="sechead">Escolha o exercício</div>
-  <div class="seg2"><button class="${trainType==='cal'?'on':''}" data-a="type" data-v="cal">🤸 Calistenia</button><button class="${trainType==='mus'?'on':''}" data-a="type" data-v="mus">🏋️ Musculação</button></div>
+  <div class="seg2"><button class="${trainType==='cal'?'on':''}" data-a="type" data-v="cal">🤸 Calistenia</button><button class="${trainType==='mus'?'on':''}" data-a="type" data-v="mus">🏋️ Musculação</button><button class="${trainType==='aer'?'on':''}" data-a="type" data-v="aer">🚴 Aeróbico</button></div>
   <div class="chips2">${groups.map(g=>`<button class="${g===trainGroup?'on':''}" data-a="group" data-v="${g}">${GROUP_ICON[g]||''} ${g}</button>`).join('')}</div>
   <div class="exl">${list.map(e=>{const l=S.last[e.id];return `<button class="exr" data-a="ex" data-id="${e.id}"><span class="ib">${GROUP_ICON[e.g]||'•'}</span>
-    <span style="min-width:0"><span class="n">${esc(e.n)}${e.tier?`<span class="rn r${e.tier}">${ROMAN[e.tier]}</span>`:''}</span><span class="d" style="display:block">${e.g}${l?` · último: ${l.s}×${l.r}${e.u?'s':''}${e.t==='mus'?' '+l.kg+'kg':''}`:''}</span></span>
-    <span class="xp">+${String(e.m).replace('.',',')} XP</span></button>`}).join('')}</div>
+    <span style="min-width:0"><span class="n">${esc(e.n)}${e.tier?`<span class="rn r${e.tier}">${ROMAN[e.tier]}</span>`:''}</span><span class="d" style="display:block">${e.cx?'✏️ meu exercício · ':''}${e.g}${l?` · último: ${e.t==='aer'?l.r+' min':`${l.s}×${l.r}${e.u?'s':''}${e.t==='mus'?' '+l.kg+'kg':''}`}`:''}</span></span>
+    <span class="xp">+${String(e.m).replace('.',',')} XP${e.t==='aer'?'/min':''}</span></button>`}).join('')}</div>
+  ${trainType==='aer'?`<p class="muted" style="font-size:13px;text-align:center;margin-top:8px">Escolha o tempo que você fez: 5, 10, 15, 20, 25 minutos ou mais. A corrida com GPS fica no botão Corrida, lá em cima.</p>`:`<button class="btn ghost full sm cxnew" data-a="cxNew">➕ Não achou um exercício da sua ficha? Crie o seu</button>`}
   <div class="pv today"><div class="hd"><span class="disp">Treino de hoje</span><span class="x">${fmt(sum(es,e=>e.xp))} XP</span></div>
    ${es.length?es.map(entryRow).join(''):'<div class="empty">📋 Nenhuma série registrada hoje. Escolha um exercício acima.</div>'}</div>`;
 }
@@ -2496,7 +2689,7 @@ function postHTML(p,F){
     <div class="tm">${p.ts?'Há '+ago(p.ts).replace('agora','instantes'):''}${h.rank?' · '+esc(h.rank):''}</div>
     ${p.text?`<div class="txt">${esc(p.text)}</div>`:''}
     ${chips?`<div class="chips3">${chips}</div>`:''}
-    ${p.kind==='treino'&&d&&Array.isArray(d.items)?`<div class="tm" style="margin-top:6px">${d.items.slice(0,6).map(i=>`${esc(i.n)} ${+i.s||0}×${+i.r||0}${i.u==='s'?'s':''}${+i.kg?' '+(+i.kg)+'kg':''}`).join(' · ')}</div>`:''}
+    ${p.kind==='treino'&&d&&Array.isArray(d.items)?`<div class="tm" style="margin-top:6px">${d.items.slice(0,6).map(i=>`${esc(i.n)} ${i.u==='min'?(+i.r||0)+' min':`${+i.s||0}×${+i.r||0}${i.u==='s'?'s':''}`}${+i.kg?' '+(+i.kg)+'kg':''}`).join(' · ')}</div>`:''}
    </div></div>
    <div class="ft"><button class="${iLike?'on':''}" data-a="tvLike" data-k="${esc(p.key)}" ${TV.canWrite?'':'disabled'}>👍 ${n}</button><span class="sep"></span>
     <button data-a="tvThread" data-k="${esc(p.key)}">💬 ${reps} ${reps===1?'comentário':'comentários'}</button>${kind?`<span class="kind">${kind}</span>`:''}</div></div>`;
@@ -2600,6 +2793,13 @@ document.addEventListener('click',ev=>{
       break}
     case 'reset': confirmModal('Todo o seu progresso (níveis, diário, ouro, chefes) será apagado.',()=>{const k=S.updated;S=blank();S.updated=Date.now();save();render()},'Apagar tudo'); break;
     case 'type': trainType=b.dataset.v;trainGroup='Todos';render();break;
+    case 'aerMin': window.__aerMin=+b.dataset.v;document.querySelectorAll('.aer-ch button').forEach(x=>x.classList.toggle('on',+x.dataset.v===window.__aerMin));aerPrev();break;
+    case 'aerLog':{const id=window.__sheetEx;if(!EXM[id]||!logExercise(id,1,window.__aerMin,0,null))return;closeModal();render();break}
+    case 'cxNew': cxSheet();break;
+    case 'cxT': window.__cxT=b.dataset.v;document.querySelectorAll('.cxt button').forEach(x=>x.classList.toggle('on',x.dataset.v===window.__cxT));$('#cx_g').innerHTML=cxGroups(window.__cxT);$('#cx_uf').hidden=window.__cxT==='mus';break;
+    case 'cxSave': cxSave();break;
+    case 'cxDel': closeModal();setTimeout(()=>cxDel(b.dataset.id),200);break;
+    case 'emgGo': closeModal();tab='treinar';render();window.scrollTo(0,0);break;
     case 'group': trainGroup=b.dataset.v;render();break;
     case 'ex': exerciseSheet(b.dataset.id);break;
     case 'alq': alqSheet(b.dataset.id);break;
@@ -2795,7 +2995,7 @@ function duelHeroCard(){
 }
 function duelForm(){
   const f=DUEL.form;
-  const ex=EX.filter(e=>!e.u||true);
+  const ex=EX.filter(e=>!e.cx);
   const opts=['cal','mus'].map(t=>`<optgroup label="${t==='cal'?'Calistenia':'Musculação'}">${ex.filter(e=>e.t===t).map(e=>`<option value="${e.id}" ${e.id===f.ex?'selected':''}>${esc(e.n)}</option>`).join('')}</optgroup>`).join('');
   const H=DUEL.heroes;
   openModal(`<div class="row between"><h3>⚔️ Novo duelo</h3><button class="iconbtn" data-a="close">✕</button></div>

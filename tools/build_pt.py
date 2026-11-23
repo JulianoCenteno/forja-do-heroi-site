@@ -5,6 +5,8 @@ import os, re
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 src = open(os.path.join(ROOT, 'quiz', 'index.html'), encoding='utf-8').read()
 s = src
+# a página de saída /quiz/back/ é só do Brasil (R$ e checkout BR): tirar do quiz de Portugal
+s = re.sub(r"<script>/\* back redirect:.*?</script>\n", '', s, flags=re.S)
 
 def rep(a, b, count=None, required=True):
     global s
