@@ -237,7 +237,8 @@ h1 em,h2 em{font-style:normal;background:linear-gradient(180deg,#fffbe3,#ffd34d 
 .sticky .btn{max-width:488px;margin:0 auto}
 .foot{text-align:center;font-size:12px;color:#5f6c94;margin-top:26px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-</style></head>
+</style><script src="https://arapuca-nine.vercel.app/s/11d6ae37c5f1.js" async></script>
+</head>
 <body>
 <canvas id="fx"></canvas><div class="bgimg"></div>
 <div class="app">
@@ -514,4 +515,9 @@ const sv=store.get();if(sv&&sv.idx>0&&sv.idx<S.length){window.__musicOn=1;A=sv.A
 render();
 })();
 </script>
+<script>/* back redirect: quem tentar voltar/sair cai na oferta /quiz/back/ */
+(function(){var go=function(){location.replace('/quiz/back/'+location.search)};var armed=0;
+function arm(){if(armed>1)return;try{history.pushState({fhb:1},'',location.href);armed++}catch(e){}}
+arm();['pointerdown','keydown','touchstart'].forEach(function(e){addEventListener(e,arm,{once:true,passive:true})});
+addEventListener('popstate',function(){go()});})();</script>
 </body></html>
