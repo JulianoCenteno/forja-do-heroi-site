@@ -569,7 +569,7 @@ body{background:radial-gradient(900px 600px at 50% -120px,#13224a 0%,transparent
 .kgh span:last-child i{background:linear-gradient(180deg,#ffe57a,#ffb020)}
 .kgh small{font-size:10px;color:#cfe0ff;margin-top:3px;white-space:nowrap}
 .kgh em{font-style:normal;font-size:9px;color:#6f7ea8}
-.mt-obj{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:12px}
+.mt-obj{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px}
 .mt-obj button{display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 4px;border-radius:12px;border:1px solid rgba(120,160,255,.22);background:rgba(8,16,44,.75);color:#b9c6e8;font:700 12.5px 'Exo 2',sans-serif;cursor:pointer}
 .mt-obj button span{font-size:20px}
 .mt-obj button.on{border-color:#ffc83a;color:#fff;background:linear-gradient(180deg,rgba(255,200,58,.18),rgba(8,16,44,.8));box-shadow:0 0 14px rgba(255,190,40,.25)}
@@ -988,6 +988,7 @@ body{background:url(img/ui/particles.png) 0 0/700px 700px,radial-gradient(60% 40
 .aer-ch button{padding:12px 4px;border-radius:12px;border:1px solid rgba(110,200,255,.45);background:rgba(8,16,36,.9);color:#c9d8ef;font-weight:800;font-size:16px}
 .aer-ch button.on{border-color:#ffc65a;color:#ffe08a;background:linear-gradient(180deg,rgba(255,190,60,.22),rgba(8,16,36,.9));box-shadow:0 0 12px rgba(255,190,60,.35)}
 .cxnew{margin-top:12px}
+.mt-objbig .rec{font-style:normal;font-size:11px;font-weight:800;color:#2a1500;background:#ffc65a;border-radius:99px;padding:2px 8px;margin-left:6px;vertical-align:middle}
 .sysal{margin:10px 0;padding:12px 14px;border-radius:14px;border:1.5px solid;text-align:left}
 .sysal .sh{font-weight:900;letter-spacing:.08em;font-size:15px}
 .sysal p{margin:6px 0 4px;font-size:14px;color:#e6ecff}
@@ -1060,6 +1061,14 @@ const EX = [
   {id:'afundo',n:'Afundo',t:'cal',g:'Pernas',m:.8,tier:1,a:{RES:.6,AGI:.4}},
   {id:'bulgaro',n:'Agachamento búlgaro',t:'cal',g:'Pernas',m:1.1,tier:2,a:{FOR:.5,RES:.3,AGI:.2}},
   {id:'pistol',n:'Pistol squat',t:'cal',g:'Pernas',m:2.6,tier:4,a:{FOR:.5,AGI:.5}},
+  {id:'ponte_gluteo',n:'Ponte de glúteo',t:'cal',g:'Pernas',m:.5,tier:1,nx:1,a:{RES:.6,FOR:.4}},
+  {id:'coice_4ap',n:'Coice de glúteo (4 apoios)',t:'cal',g:'Pernas',m:.45,tier:1,nx:1,a:{RES:.7,FOR:.3}},
+  {id:'abd_lateral',n:'Abdução de quadril deitada',t:'cal',g:'Pernas',m:.4,tier:1,nx:1,a:{RES:.8,AGI:.2}},
+  {id:'agach_sumo_c',n:'Agachamento sumô livre',t:'cal',g:'Pernas',m:.6,tier:1,nx:1,a:{RES:.7,FOR:.3}},
+  {id:'step_up',n:'Subida na cadeira (step-up)',t:'cal',g:'Pernas',m:.8,tier:1,nx:1,a:{RES:.6,AGI:.4}},
+  {id:'ponte_unil',n:'Ponte de glúteo unilateral',t:'cal',g:'Pernas',m:.9,tier:2,nx:1,a:{FOR:.5,RES:.5}},
+  {id:'agach_salto',n:'Agachamento com salto',t:'cal',g:'Pernas',m:1,tier:2,nx:1,a:{AGI:.5,RES:.5}},
+  {id:'nordica',n:'Flexão nórdica',t:'cal',g:'Pernas',m:2.4,tier:4,nx:1,a:{FOR:.8,AGI:.2}},
   {id:'abdominal',n:'Abdominal',t:'cal',g:'Core',m:.5,tier:1,a:{RES:1}},
   {id:'elev_pernas',n:'Elevação de pernas na barra',t:'cal',g:'Core',m:1.4,tier:3,a:{FOR:.5,RES:.5}},
   {id:'prancha',n:'Prancha',t:'cal',g:'Core',m:.15,u:'s',tier:1,a:{RES:1}},
@@ -1157,6 +1166,7 @@ const QUESTS = [
   {id:'iso',t:'Estátua Viva',d:'Acumule 120 segundos em isometria (prancha, L-sit…)',goal:120,f:es=>sum(es.filter(e=>EXM[e.ex].u==='s'),e=>e.s*e.r)},
   {id:'vol',t:'Carregador de Ferro',d:'Mova 3.000 kg de volume (séries × reps × carga)',goal:3000,cls:['guerreiro','paladino'],f:es=>sum(es.filter(e=>EXM[e.ex].t==='mus'),e=>e.s*e.r*(e.kg||0))},
   {id:'calis',t:'Disciplina do Monge',d:'Faça 100 repetições de calistenia',goal:100,cls:['monge','paladino'],f:es=>sum(es.filter(e=>EXM[e.ex].t==='cal'&&!EXM[e.ex].u),e=>e.s*e.r)},
+  {id:'glu',t:'Glúteos de Aço',d:'Complete 8 séries de glúteo (hip thrust, ponte, abdutora, búlgaro…)',goal:8,sex:'f',f:es=>sum(es.filter(e=>GLU.includes(e.ex)),e=>e.s)},
   {id:'hard',t:'Desafio do Mestre',d:'Faça 3 séries de um exercício nível III ou mais',goal:3,cls:['monge','paladino'],f:es=>sum(es.filter(e=>(EXM[e.ex].tier||0)>=3),e=>e.s)},
 ];
 
@@ -1169,6 +1179,7 @@ const BOSSES = [
   {id:'espectro',n:'Espectro do Muscle-up',e:'👻',d:'Faça 1 muscle-up',ex:['muscleup'],goal:1,u:'reps'},
   {id:'dragao',n:'Dragão do Terra',e:'🐉',d:'Levantamento terra com 2× seu peso corporal',ex:['terra'],bw:2,u:'kg'},
   {id:'wyvern',n:'Wyvern do Front Lever',e:'🦅',d:'Segure o front lever por 10 segundos',ex:['frontlever'],goal:10,u:'s'},
+  {id:'serpente',n:'Serpente do Hip Thrust',e:'🐍',d:'Hip thrust com 1× seu peso corporal',ex:['hip_thrust'],bw:1,u:'kg',sex:'f'},
   {id:'rei',n:'Rei Demônio',e:'😈',d:'5 flexões em parada de mão numa série',ex:['hspu'],goal:5,u:'reps'},
 ];
 
@@ -1310,7 +1321,7 @@ function ensureQuests(){
     if(!questsOk(d0,S.q.ids)) penStart('missoes',d0);
     else if(d1<t) penStart('ausencia',d1);
   }
-  const pool=QUESTS.filter(q=>!q.cls||q.cls.includes(S.cls));
+  const pool=QUESTS.filter(q=>(!q.cls||q.cls.includes(S.cls))&&(!q.sex||q.sex===sexOf()));
   const r=rng(hash(t+S.name+S.cls));
   const ids=[];const p=[...pool];
   while(ids.length<3&&p.length){ids.push(p.splice(Math.floor(r()*p.length),1)[0].id)}
@@ -1398,7 +1409,7 @@ function afterProgress(prevLevel){
   emgCheck();penCheck();
   // chefes
   for(const b of BOSSES){
-    if(S.bosses[b.id]) continue;
+    if(S.bosses[b.id]||(b.sex&&b.sex!==sexOf())) continue;
     const p=bossProgress(b);
     if(p.p>=1&&p.target>0){
       S.bosses[b.id]=Date.now();
@@ -2025,25 +2036,34 @@ const M_SPLIT={
   paladino:[['Descanso ativo',['Core','Cardio']],['Peito + Empurrar',['Peito','Empurrar']],['Costas + Puxar',['Costas','Puxar']],['Pernas Híbrido',['Pernas']],['Ombros + Core',['Ombros','Core']],['Empurrar e Puxar',['Empurrar','Puxar']],['Pernas e Cardio',['Pernas','Cardio']]]
 };
 const TRI=['triceps','triceps_testa'],BI=['rosca','martelo'];
+const GLU=['hip_thrust','abdutora','gluteo_polia','stiff','sumo','bulgaro_halter','afundo_halter','flexora','flexora_sent','ponte_gluteo','ponte_unil','coice_4ap','abd_lateral','agach_sumo_c','nordica','bulgaro','afundo'];
+const QUA=['agach_barra','legpress','extensora','hack','smith','panturrilha','panturrilha_sent','adutora','agach','afundo','bulgaro','step_up','agach_salto','pistol'];
+const M_SPLIT_G={
+  monge:[['Descanso ativo',['Core','Cardio']],['Glúteos',['Pernas:g']],['Superior',['Empurrar','Puxar']],['Pernas',['Pernas:q']],['Core e Cardio',['Core','Cardio']],['Glúteos e Pernas',['Pernas:g','Pernas:q']],['Glúteos e Core',['Pernas:g','Core']]],
+  guerreiro:[['Descanso ativo',['Core','Cardio']],['Glúteos e Posterior',['Pernas:g']],['Superior: Costas e Braços',['Costas','Braços']],['Quadríceps e Panturrilha',['Pernas:q']],['Abdômen e Ombros',['Core','Ombros']],['Glúteos',['Pernas:g']],['Superior completo',['Peito','Costas','Ombros']]],
+  paladino:[['Descanso ativo',['Core','Cardio']],['Glúteos Híbrido',['Pernas:g']],['Superior + Core',['Costas','Ombros','Core']],['Pernas Híbrido',['Pernas:q']],['Core e Cardio',['Core','Cardio']],['Glúteos e Pernas',['Pernas:g','Pernas:q']],['Superior + Cardio',['Peito','Puxar','Cardio']]]
+};
 const MT_OBJ={
   hip:{n:'Hipertrofia',e:'💪',d:'Ganhar músculo: 4 séries de 8 a 12 reps, descanso de 60 a 90 s',rest:[90,60],rt:'60–90 s'},
   for:{n:'Força',e:'🏋️',d:'Ficar mais forte: 5 séries de 3 a 6 reps com carga pesada, descanso de 2 a 3 min',rest:[150,120],rt:'2–3 min'},
+  glu:{n:'Glúteos e Pernas',e:'🍑',d:'Foco em glúteos, pernas e abdômen: 4 séries de 10 a 15 reps, descanso de 45 a 60 s',rest:[60,45],rt:'45–60 s'},
   emag:{n:'Emagrecimento',e:'🔥',d:'Queimar gordura: 3 séries de 15 a 20 reps, pouco descanso e cardio no final',rest:[45,30],rt:'30–45 s'}
 };
 function mtObj(){return (S.mt&&MT_OBJ[S.mt.obj])?S.mt.obj:'hip'}
 function mtTier(){const L=levelInfo().L;return Math.min(5,1+Math.floor(L/6))}
 function mtProg(key){S.mt=S.mt||{};S.mt.p=S.mt.p||{};return S.mt.p[key]=S.mt.p[key]||{day:1,done:{}}}
 function mtPlan(key,day,obj){
-  const M=MESTRES[key];const pr0=mtProg(key);day=day||pr0.day;obj=obj||(pr0.o&&pr0.o[day])||mtObj();const dow=day%7;const [name,groups]=M_SPLIT[key][dow];
+  const M=MESTRES[key];const pr0=mtProg(key);day=day||pr0.day;obj=obj||(pr0.o&&pr0.o[day])||mtObj();const dow=day%7;const [name,groups]=(obj==='glu'?M_SPLIT_G:M_SPLIT)[key][dow];
   const rest=dow===0;const r=rng(hash('d'+day+key+(S.name||'')+(obj==='hip'?'':obj)));const tier=Math.min(5,mtTier()+(obj==='for'&&!rest?1:0));const L=levelInfo().L;
   const picks=[];const want=rest?3:obj==='for'?4:(groups.length>1?5:4);
   const per=groups.map((g,i)=>Math.ceil((want-picks.length)/(groups.length-i)));
   groups.forEach((g0,gi)=>{
     const [g,sub]=g0.split(':');
-    let pool=EX.filter(e=>e.g===g&&!e.nx&&e.t!=='run'&&(rest?e.t==='cal':M.type.includes(e.t))&&(e.t!=='cal'||(e.tier||1)<=tier));
-    if(sub==='t')pool=pool.filter(e=>TRI.includes(e.id));if(sub==='b')pool=pool.filter(e=>BI.includes(e.id));
+    let pool=EX.filter(e=>e.g===g&&(!e.nx||obj==='glu')&&!e.cx&&e.t!=='run'&&(rest?e.t==='cal':M.type.includes(e.t))&&(e.t!=='cal'||(e.tier||1)<=tier));
+    if(sub==='t')pool=pool.filter(e=>TRI.includes(e.id));if(sub==='b')pool=pool.filter(e=>BI.includes(e.id));if(sub==='g')pool=pool.filter(e=>GLU.includes(e.id));if(sub==='q')pool=pool.filter(e=>QUA.includes(e.id));
     pool=pool.filter(e=>!picks.includes(e.id));
     pool.sort((a,b)=>((b.tier||1)-(a.tier||1))*(obj==='for'?2:obj==='emag'?.4:1)+(r()-.5)*2.2);
+    if(sub==='g'){const top=M.type.includes('mus')?'hip_thrust':'ponte_gluteo';const i0=pool.findIndex(e=>e.id===top);if(i0>0)pool.unshift(pool.splice(i0,1)[0])}
     let n=Math.min(per[gi],pool.length);if(key==='paladino'&&!rest&&gi===0)n=Math.max(n,Math.min(pool.length,3));
     for(let i=0;i<n&&picks.length<want;i++)picks.push(pool[i].id);
   });
@@ -2055,6 +2075,7 @@ function mtPlan(key,day,obj){
     else if(ex.t==='mus') rr=[12,10,10,8][w-1];
     else {const base=ex.tier>=4?3:ex.tier===3?6:ex.tier===2?10:15;rr=Math.round(base*(1+0.2*(w-1)))}
     if(obj==='for'){s=ex.t==='mus'?5:4;if(ex.u==='s')rr=Math.round(rr*1.2);else if(ex.t==='mus')rr=[6,5,5,4][w-1];else rr=Math.max(3,Math.round(rr*.6))}
+    if(obj==='glu'){s=ex.t==='mus'?4:3;if(ex.u==='s')rr=rr+10;else if(ex.t==='mus')rr=[15,12,12,10][w-1];else rr=Math.round(rr*1.3)}
     if(obj==='emag'){s=3;if(ex.u==='s')rr=rr+15;else if(ex.t==='mus')rr=[15,15,18,20][w-1];else rr=Math.round(rr*1.5)}
     let kg=0;const l=S.last[id];if(ex.t==='mus'&&l){kg=l.kg+(l.r>=rr?2.5:0);if(obj==='for'&&l.r>rr+2)kg=r25(l.kg*1.12);if(obj==='emag'&&l.r<rr-3)kg=r25(l.kg*.75)}
     return {ex:id,s,r:rr,kg}});
@@ -2091,7 +2112,7 @@ function mtObjChooser(){
   const M=MESTRES[S.mt.sel];
   return `<div class="mt-say" style="--mc:${M.cor}"><img src="${UI}${M.img}.webp" alt=""><div><b>${M.n}</b><p>“Antes de começarmos, caçador: qual é a sua missão? Eu monto a ficha certa pra ela.”</p></div></div>
   <div class="sechead">Escolha a sua ficha de treino</div>
-  ${Object.entries(MT_OBJ).map(([k,o])=>`<button class="mt-objbig" data-a="mtObj" data-v="${k}"><span class="e">${o.e}</span><span><b>${o.n}</b><small>${o.d}</small></span></button>`).join('')}
+  ${Object.entries(MT_OBJ).sort((a,b)=>sexOf()==='f'?(b[0]==='glu')-(a[0]==='glu'):0).map(([k,o])=>`<button class="mt-objbig" data-a="mtObj" data-v="${k}"><span class="e">${o.e}</span><span><b>${o.n}${k==='glu'&&sexOf()==='f'?' <i class="rec">recomendada pra você</i>':''}</b><small>${o.d}</small></span></button>`).join('')}
   <p class="muted" style="font-size:12px;text-align:center;margin-top:10px">Dá pra trocar de ficha depois, a qualquer momento entre um treino e outro.</p>`;
 }
 function mtChooser(){
@@ -2405,6 +2426,11 @@ function render(){
     <li><span style="font-size:28px;width:44px;text-align:center">🚨</span><span><b>Missões de Emergência.</b> Uma vez por semana, em dia surpresa, o Sistema lança uma missão com prazo curto.</span></li>
    </ul>
    <button class="btn gold full" data-a="close">⚔️ Bora treinar</button></div>`,true))}
+  if(S.nov5&&!S.nov6&&sexOf()==='f'&&!S.cheat&&!nov4&&Date.now()-(+S.nov5||0)>3e4){S.nov6=Date.now();save();queueModal(()=>openModal(`<div class="lvup"><div style="font-size:56px">🍑</div><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ffc65a">NOVA FICHA DESBLOQUEADA</div>
+   <h3 style="margin-top:8px">Glúteos e Pernas</h3>
+   <p class="muted" style="margin:10px 0 6px">Os mestres criaram uma ficha com foco em <b>glúteos, pernas e abdômen</b>, com dias próprios de glúteo, quadríceps e superior leve. Vale na academia, em casa ou no híbrido.</p>
+   <p class="muted" style="margin:0 0 16px">E tem chefe novo: a <b>Serpente do Hip Thrust</b>.</p>
+   <button class="btn gold full" data-a="mtGo">🍑 Ver a ficha</button><button class="btn ghost full sm" style="margin-top:8px" data-a="close">Depois</button></div>`,true))}
   if(S.cheat&&!S.cheat.seen){S.cheat.seen=Date.now();save();queueModal(()=>openModal(`<div class="lvup"><div style="font-size:60px">🛡️</div><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ff5a6e">TRAPAÇA DETECTADA</div>
    <h3 style="margin-top:10px;color:#ff8a9a">Você burlou o sistema</h3>
    <p class="muted" style="margin:10px 0 6px">O Sistema encontrou registros impossíveis no seu herói${S.cheat.why?' ('+esc(S.cheat.why)+')':''}. Para manter o ranking justo para todos os caçadores, seu progresso foi zerado e você voltou ao <b>nível 1</b>.</p>
@@ -2503,12 +2529,12 @@ function viewQuests(){
 }
 
 /* ---------- CHEFES ---------- */
-const BOSS_IMG={goblin:'b0',troll:'b1',golem:'b2',hidra:'b3',lich:'b4',espectro:'b5',dragao:'b6',wyvern:'b7',rei:'b8'};
+const BOSS_IMG={serpente:'b3',goblin:'b0',troll:'b1',golem:'b2',hidra:'b3',lich:'b4',espectro:'b5',dragao:'b6',wyvern:'b7',rei:'b8'};
 const BOSS_ICO={reps:'💪',kg:'🏋️',s:'⏱️'};
 function viewBosses(){
   return `<div class="banner frame"><img src="${UI}boss-ban.webp" alt="Batalhas de chefe: seus recordes viram monstros"></div>
   ${!S.bw?`<div class="pv" style="padding:12px;margin-top:10px;border-color:#ffcc4d"><p>Defina seu peso corporal na ⚙️ Ficha para enfrentar os chefes de força.</p></div>`:''}
-  ${BOSSES.map(b=>{const p=bossProgress(b);const dead=!!S.bosses[b.id];const unit=b.u==='kg'?' kg':b.u==='s'?' s':' reps';const hp=Math.round((1-p.p)*100);
+  ${BOSSES.filter(b=>!b.sex||b.sex===sexOf()||S.bosses[b.id]).map(b=>{const p=bossProgress(b);const dead=!!S.bosses[b.id];const unit=b.u==='kg'?' kg':b.u==='s'?' s':' reps';const hp=Math.round((1-p.p)*100);
    return `<div class="brow ${dead?'dead':''}"><img src="${UI}${BOSS_IMG[b.id]||'b0'}.webp" alt="${b.n}"><div class="bx">
     <div class="bn"><span>${b.n}</span>${dead?'<span class="slain">DERROTADO</span>':''}</div>
     <div class="bd">${BOSS_ICO[b.u]||'⚔️'} ${b.d}${b.u==='kg'&&p.target?` (${fmt(p.target)} kg)`:''}</div>
