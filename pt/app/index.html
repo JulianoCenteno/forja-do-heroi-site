@@ -1003,6 +1003,23 @@ body{background:url(img/ui/particles.png) 0 0/700px 700px,radial-gradient(60% 40
 .sysal.emg .sh{color:#ffc65a}
 .sysal.emg .qb i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#ffb020,#ffe7a0)}
 @keyframes emgp{50%{box-shadow:0 0 34px rgba(255,170,30,.7)}}
+
+.ic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(min-width:520px){.ic-grid{grid-template-columns:repeat(4,1fr)}}
+.ic-card{background:linear-gradient(180deg,rgba(14,22,48,.95),rgba(6,10,24,.95));border:1px solid rgba(120,160,255,.22);border-radius:16px;padding:10px 8px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px}
+.ic-card.r-r{border-color:rgba(199,125,255,.45);box-shadow:0 0 14px rgba(199,125,255,.18)}
+.ic-card.r-l{border-color:rgba(255,198,90,.55);box-shadow:0 0 18px rgba(255,198,90,.22)}
+.ic-card.on{outline:2px solid #7dff9b;outline-offset:2px}
+.ic-img{width:78px;height:78px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:#05070f}
+.ic-img img{width:100%;height:100%;object-fit:cover}
+.ic-img.locked img{filter:grayscale(.85) brightness(.45)}
+.ic-foto{border:3px solid #ffc65a;box-shadow:0 0 16px rgba(255,198,90,.6),inset 0 0 10px rgba(255,198,90,.4);font-size:30px}
+.ic-n{font-weight:700;font-size:13px;line-height:1.15;min-height:30px;display:flex;align-items:center}
+.ic-r{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.ic-card .btn,.ic-card .done-tag{margin-top:4px}
+.ic-lock{font-size:12px;font-weight:800;color:#ffc65a;margin-top:6px}
+.st2 .av.ic-on{background:#05070f}
+.st2 .av.ic-on img{object-fit:cover;width:100%;height:100%}
 </style>
 </head>
 <body>
@@ -1211,6 +1228,58 @@ const SHOP = [
   {id:'t_sombra',e:'📛',n:'Título: “Sombra do Amanhecer”',d:'Para quem treina às 5h',p:350,kind:'title',v:'Sombra do Amanhecer'},
   {id:'t_lenda',e:'📛',n:'Título: “Lenda da Ginásio”',d:'Só os fortes chegam aqui',p:600,kind:'title',v:'Lenda da Ginásio'},
 ];
+
+
+/* ícones de perfil (Loja do Ferreiro) */
+const ICONS=[
+  {id:'monge',n:'Punho do Monge',r:'c',p:200},
+  {id:'guerreiro',n:'Machado do Guerreiro',r:'c',p:200},
+  {id:'paladino',n:'Escudo do Paladino',r:'c',p:200},
+  {id:'caveira',n:'Caveira Cyber',r:'c',p:300},
+  {id:'dragao',n:'Dragão Esmeralda',r:'r',p:600},
+  {id:'fenix',n:'Fênix',r:'r',p:600},
+  {id:'samurai',n:'Samurai Oni',r:'r',p:700},
+  {id:'rainha',n:'Rainha Guerreira',r:'r',p:700},
+  {id:'esparta',n:'Elmo Espartano',r:'l',lvl:10},
+  {id:'titan',n:'Deus do Ferro',r:'l',lvl:30},
+];
+const ICON_FOTO=1000;
+const ICR={c:['Comum','#9fb4d8'],r:['Raro','#c77dff'],l:['Lendário','#ffc65a']};
+function iconSrc(id){return id==='foto'?(S.iconFoto||''):'/img/icones/'+id+'.webp'}
+function iconOwned(it){return it.lvl?levelInfo().L>=it.lvl:(S.icons||[]).includes(it.id)}
+function myFace(){if(S.icon==='foto'&&S.iconFoto)return S.iconFoto;if(S.icon&&ICONS.some(i=>i.id===S.icon)){const it=ICONS.find(i=>i.id===S.icon);if(iconOwned(it))return location.origin+iconSrc(S.icon)}return S.avatar||''}
+function viewIcons(){
+  const g=gold(),L=levelInfo().L;
+  const card=(it)=>{const own=iconOwned(it),use=S.icon===it.id,[rn,rc]=ICR[it.r];
+    const btn=use?'<span class="done-tag">EM USO</span>':own?`<button class="btn sm" data-a="iconUse" data-id="${it.id}">Usar</button>`:it.lvl?`<span class="ic-lock">🔒 Nível ${it.lvl}</span>`:`<button class="btn sm" ${g<it.p?'disabled':''} data-a="iconBuy" data-id="${it.id}">🪙 ${it.p}</button>`;
+    return `<div class="ic-card r-${it.r}${use?' on':''}"><div class="ic-img${own?'':' locked'}"><img src="${iconSrc(it.id)}" alt="" loading="lazy"></div><div class="ic-n">${esc(it.n)}</div><div class="ic-r" style="color:${rc}">${rn}</div>${btn}</div>`};
+  const fotoOwn=(S.icons||[]).includes('foto');
+  const foto=`<div class="ic-card r-l${S.icon==='foto'?' on':''}"><div class="ic-img ic-foto">${S.iconFoto?`<img src="${S.iconFoto}" alt="">`:'<span>📸</span>'}</div><div class="ic-n">Minha foto</div><div class="ic-r" style="color:#ffc65a">Moldura lendária</div>`+
+    (!fotoOwn?`<button class="btn sm" ${g<ICON_FOTO?'disabled':''} data-a="iconBuy" data-id="foto">🪙 ${ICON_FOTO}</button>`:S.icon==='foto'&&S.iconFoto?`<button class="btn sm ghost" data-a="iconPhoto">Trocar foto</button>`:`<button class="btn sm" data-a="${S.iconFoto?'iconUse':'iconPhoto'}" data-id="foto">${S.iconFoto?'Usar':'Enviar foto'}</button>`)+`</div>`;
+  return `<h2 style="font-size:17px;margin-top:18px">Ícones de perfil</h2>
+  <p class="muted" style="font-size:13px;margin:-4px 0 10px">Aparecem no seu Status, na Taverna e no ranking. Os lendários se desbloqueiam subindo de nível.</p>
+  <div class="ic-grid">${ICONS.map(card).join('')}${foto}</div>
+  ${S.icon?'<button class="btn ghost full sm" style="margin-top:10px" data-a="iconUse" data-id="">Voltar para o rosto da minha classe</button>':''}`;
+}
+function iconBuy(id){
+  S.icons=S.icons||[];if(S.icons.includes(id))return;
+  const p=id==='foto'?ICON_FOTO:(ICONS.find(i=>i.id===id)||{}).p;if(!p||gold()<p)return;
+  S.icons.push(id);S.goldSpent+=p;sfx('coin');
+  if(id==='foto'){save();render();iconPhoto();return}
+  S.icon=id;save();render();toast('🖼️','Ícone equipado!',(ICONS.find(i=>i.id===id)||{}).n);heroPush();
+}
+function iconUse(id){S.icon=id||'';save();render();toast('🖼️',id?'Ícone equipado!':'Ícone padrão de volta');heroPush()}
+function heroPush(){try{if(typeof tvSyncHero==='function')tvSyncHero()}catch(_){}}
+function iconPhoto(){
+  const inp=document.createElement('input');inp.type='file';inp.accept='image/*';
+  inp.onchange=()=>{const f=inp.files&&inp.files[0];if(!f)return;if(f.size>15e6)return toast('⚠️','Foto muito grande','Escolha uma de até 15 MB');
+    const rd=new FileReader();rd.onload=()=>{const im=new Image();im.onload=()=>{
+      const z=Math.min(im.width,im.height),c=document.createElement('canvas');c.width=c.height=240;
+      c.getContext('2d').drawImage(im,(im.width-z)/2,(im.height-z)/2,z,z,0,0,240,240);
+      S.iconFoto=c.toDataURL('image/jpeg',.82);S.icon='foto';save();render();toast('📸','Sua foto virou ícone!','Com moldura lendária');heroPush()};
+      im.onerror=()=>toast('⚠️','Não consegui abrir essa imagem');im.src=rd.result};rd.readAsDataURL(f)};
+  inp.click();
+}
 
 /* ================== UTILS ================== */
 const $ = s=>document.querySelector(s);
@@ -1818,7 +1887,7 @@ function viewShop(){
   <p class="muted" style="font-size:13px;margin-bottom:10px">Ouro vem dos treinos (1 a cada 20 XP), das missões, dos chefes e das conquistas.</p>
   ${SHOP.map(it=>{const owned=it.kind==='title'?S.titles.includes(it.v):S.elixir===ymd();
    return `<div class="card shop"><span class="si">${it.e}</span><div><div class="sn">${it.n}</div><div class="sd">${it.d}</div></div>
-   ${owned?`<span class="done-tag">${it.kind==='elixir'?'ATIVO HOJE':'SEU'}</span>`:`<button class="btn sm" ${g<it.p?'disabled':''} data-a="buy" data-id="${it.id}">🪙 ${it.p}</button>`}</div>`}).join('')}`;
+   ${owned?`<span class="done-tag">${it.kind==='elixir'?'ATIVO HOJE':'SEU'}</span>`:`<button class="btn sm" ${g<it.p?'disabled':''} data-a="buy" data-id="${it.id}">🪙 ${it.p}</button>`}</div>`}).join('')}${viewIcons()}${typeof viewWalls==='function'?viewWalls():''}`;
 }
 
 function viewLog(){
@@ -1850,7 +1919,7 @@ function tvErr(e){
   else if(e&&e.code==='quota_exceeded') toast('⚠️','A Taverna está cheia','Apague posts antigos para liberar espaço');
   else toast('⚠️','Não foi possível enviar','Tente de novo em instantes');
 }
-function heroSnap(){const li=levelInfo();return {name:S.name||'Herói',cls:S.cls,sex:sexOf(),avatar:S.avatar||'',level:li.L,rank:rankOf(li.L),title:S.title||'',elite:isElite(),season:{k:seasonKey(),xp:seasonXP()}}}
+function heroSnap(){const li=levelInfo();return {name:S.name||'Herói',cls:S.cls,sex:sexOf(),avatar:myFace(),level:li.L,rank:rankOf(li.L),title:S.title||'',elite:isElite(),season:{k:seasonKey(),xp:seasonXP()}}}
 function writeMine(mut){
   if(!TV.db||!TV.me) return;
   tvChain=tvChain.then(async()=>{
@@ -2208,7 +2277,7 @@ function viewSeason(){
   if(!isElite()) return backMais()+`<h2>🏆 ${title}</h2>`+lockedView('Temporada mensal','Todo mês, os heróis Elite disputam um ranking de XP. Os primeiros colocados ganham títulos que nunca mais voltam.',ART.keyart,['Ranking ao vivo com os heróis da Taverna','Títulos exclusivos para o Top 3','Zera todo mês: sempre dá para chegar no topo']);
   const k=seasonKey();
   const rows=TV.docs.filter(d=>d.hero&&d.hero.elite&&d.hero.season&&d.hero.season.k===k).map(d=>({uid:d.uid,name:String(d.hero.name||'Herói'),cls:d.hero.cls,sex:d.hero.sex,avatar:d.hero.avatar,xp:+d.hero.season.xp||0}));
-  if(!rows.some(r=>r.uid===TV.me)) rows.push({uid:TV.me||'me',name:S.name,cls:S.cls,sex:sexOf(),avatar:S.avatar,xp:seasonXP()});
+  if(!rows.some(r=>r.uid===TV.me)) rows.push({uid:TV.me||'me',name:S.name,cls:S.cls,sex:sexOf(),avatar:myFace(),xp:seasonXP()});
   else rows.forEach(r=>{if(r.uid===TV.me)r.xp=seasonXP()});
   rows.sort((a,b)=>b.xp-a.xp);
   const medal=['🥇','🥈','🥉'];
@@ -2461,7 +2530,7 @@ function viewHero(){
   return `<div class="hcwrap"><div class="hcard hc-${S.cls}" style="background:${col.bg};--acc:${col.acc};--accg:${col.acc}66"><div class="bgw">${cWord(S.cls,sexOf())}</div>${S.avatar?`<img class="art2 me" src="${S.avatar}" alt="${esc(S.name)}"><i class="shade"></i>`:aCard(S.cls,sexOf())?`<img class="art2" src="${aCard(S.cls,sexOf())}" alt="${c.n}"><i class="shade"></i>`:`<img class="art" src="${aFull(S.cls,sexOf())}" alt="${c.n}">`}
     <div class="inf"><span class="tg">[ SISTEMA ] · JOGADOR</span><span class="nm">${esc(S.name)}</span><span class="cl">${c.n}</span>${isElite()?'<span class="el">'+SVG_CROWN+'CAÇADOR ELITE</span>':''}${S.title?`<span style="font-size:13px">« ${esc(S.title)} »</span>`:''}</div></div></div>
   <div class="nglow"><div class="pv statp"><div class="hextitle" style="margin:0 0 14px"><span style="font-size:22px;padding:7px 40px">STATUS</span></div>
-    <div class="st2"><div class="av"><img src="${S.avatar||aFace(S.cls,sexOf())}" alt=""></div><div class="lv"><b>${li.L}</b><span>NÍVEL</span></div>
+    <div class="st2"><div class="av${S.icon?" ic-on":""}"><img src="${myFace()||aFace(S.cls,sexOf())}" alt=""></div><div class="lv"><b>${li.L}</b><span>NÍVEL</span></div>
      <div class="kv"><div><small>NOME: </small><span>${esc(S.name)}</span></div><div><small>CLASSE: </small><span>${c.n}</span></div><div><small>TÍTULO: </small><span>${S.title?esc(S.title):'Nenhum'}</span></div><div><small>PATENTE: </small><span>${rankOf(li.L)}</span></div></div></div>
     <span class="bonus">${SVG_SHIELD}Bônus de classe${S.elixir===ymd()?' · 🧪 Elixir +50%':''}</span></div></div>
   <div class="nglow"><div class="pv barsp">
@@ -2739,7 +2808,7 @@ function viewMais(){
     ['progressao','ic-tree','Progressão','Árvore de habilidade',1,'#4fd2ff','rgba(79,210,255,.3)'],
     ['alquimia','ic-potion','Alquimia','Bônus: receitas anabólicas',1,'#3fe08a','rgba(60,220,130,.28)'],
     ['planilha','ic-chart','Planilha','Cargas e recordes',1,'#a35cff','rgba(160,90,255,.32)'],
-    ['loja','ic-coin','Loja','Elixires e títulos',0,'#ffb43c','rgba(255,170,50,.3)'],
+    ['loja','ic-coin','Loja','Ícones, elixires e títulos',0,'#ffb43c','rgba(255,170,50,.3)'],
     ['diario','ic-book','Diário','Histórico de treinos',0,'#4f9dff','rgba(79,150,255,.3)'],
     ['@settings','ic-gear','Ficha','Nome, classe e plano',0,'#4fd2ff','rgba(79,210,255,.25)'],
     ['@install','ic-phone','Instalar app','Ícone no ecrã do telemóvel',0,'#a35cff','rgba(160,90,255,.3)']];
@@ -2859,6 +2928,9 @@ document.addEventListener('click',ev=>{
     case 'runStop': runStop(true);break;
     case 'runCancel': confirmModal('Descartar esta corrida? Ela não vai ser registada.',()=>runStop(false),'Descartar');break;
     case 'buy': buy(b.dataset.id);break;
+    case 'iconBuy': iconBuy(b.dataset.id);break;
+    case 'iconUse': iconUse(b.dataset.id);break;
+    case 'iconPhoto': iconPhoto();break;
     case 'timer': startTimer(+b.dataset.v);break;
     case 'elite': eliteModal(b.dataset.f||'');break;
     case 'activate':{const c=$('#e_code').value;if(activateElite(c)){closeModal();render();queueModal(()=>openModal(`<div class="lvup"><img class="lv-art" src="${aFull(S.cls,sexOf())}" alt=""><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ffc65a">CLASSE DESPERTADA</div><h3 style="margin-top:8px;color:#ffc65a">👑 Caçador Elite</h3><p class="muted" style="margin:10px 0 18px">Dungeon, ranking, progressão, planilha e Taverna VIP liberados. Você ganhou o título “Fundador da Forja” e 300 de ouro.</p><button class="btn gold full" data-a="close">Entrar na Dungeon</button></div>`,true))}else{toast('⚠️','Código inválido','Confira o código que chegou no seu e-mail')}break}
