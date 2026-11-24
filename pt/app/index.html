@@ -1020,6 +1020,7 @@ body{background:url(img/ui/particles.png) 0 0/700px 700px,radial-gradient(60% 40
 .ic-lock{font-size:12px;font-weight:800;color:#ffc65a;margin-top:6px}
 .st2 .av.ic-on{background:#05070f}
 .st2 .av.ic-on img{object-fit:cover;width:100%;height:100%}
+.ev-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.ev-card{border:1px solid rgba(120,160,255,.25);border-radius:12px;overflow:hidden;background:rgba(8,12,24,.7)}.ev-card.on{border-color:var(--gold);box-shadow:0 0 14px rgba(255,198,90,.45)}.ev-img{position:relative;aspect-ratio:3/2;overflow:hidden}.ev-img img{width:100%;height:100%;object-fit:cover;object-position:75% 30%;display:block}.ev-card.locked .ev-img img{filter:grayscale(.85) brightness(.45)}.ev-lv{position:absolute;left:6px;top:6px;padding:2px 8px;border-radius:6px;background:rgba(0,0,0,.7);font-weight:800;font-size:11px;letter-spacing:.08em;color:#ffd75a}.ev-b{padding:8px 10px 10px;display:flex;flex-direction:column;gap:6px;align-items:flex-start}.ev-b .sn{font-size:14px}.ev-b small{font-size:11.5px}.hcard .art2.evo{inset:0;top:0;right:0;width:100%;height:100%;object-fit:cover;object-position:72% 22%;-webkit-mask-image:none;mask-image:none}
 .wl{display:flex;gap:12px;align-items:center}
 .wl-th{width:64px;height:114px;object-fit:cover;border-radius:10px;border:1px solid rgba(120,160,255,.3);flex:none}
 .wl-b{flex:1;min-width:0}.wl-dl{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.wl-dl .btn{text-decoration:none}
@@ -1286,12 +1287,26 @@ function iconPhoto(){
 
 
 /* papéis de parede (Loja do Ferreiro) */
-const WALLS=[{id:'mestres',n:'Os Três Mestres',p:250},{id:'monge',n:'Monge da Montanha',p:150},{id:'guerreiro',n:'Guerreiro da Forja',p:150},{id:'paladino',n:'Paladina de Cristal',p:150},{id:'goblin',n:'Batalha: Goblin das Flexões',p:200},{id:'troll',n:'Batalha: Troll da Barra',p:200},{id:'golem',n:'Batalha: Golem do Supino',p:200},{id:'hidra',n:'Batalha: Hidra do Agachamento',p:200},{id:'lich',n:'Batalha: Lich da Pistol',p:200}];
+const WALLS=[{id:'mestres',n:'Os Três Mestres',p:250},{id:'monge',n:'Monge da Montanha',p:150},{id:'guerreiro',n:'Guerreiro da Forja',p:150},{id:'paladino',n:'Paladina de Cristal',p:150},{id:'goblin',n:'Batalha: Goblin das Flexões',p:200},{id:'troll',n:'Batalha: Troll da Barra',p:200},{id:'golem',n:'Batalha: Golem do Supino',p:200},{id:'hidra',n:'Batalha: Hidra do Agachamento',p:200},{id:'lich',n:'Batalha: Lich da Pistol',p:200},{id:'espectro',n:'Batalha: Espectro do Muscle-up',p:200,r:1},{id:'dragao',n:'Batalha: Dragão do Terra',p:250,r:1},{id:'wyvern',n:'Batalha: Wyvern do Front Lever',p:250,r:1},{id:'serpente',n:'Batalha: Serpente do Hip Thrust',p:200,r:1},{id:'rei',n:'Batalha: Rei Demônio',p:300,r:1}];
+const ART_SB='https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh/art/';const wallU=(w,f)=>(w.r?ART_SB:'/img/wall/')+w.id+'_'+f+'.jpg';
 function viewWalls(){const g=gold();
   return `<h2 style="font-size:17px;margin-top:22px">Papéis de parede</h2>
   <p class="muted" style="font-size:13px;margin:-4px 0 10px">Compre uma vez e baixe em alta qualidade para o telemóvel e para o computador.</p>
-  ${WALLS.map(w=>{const own=(S.walls||[]).includes(w.id);return `<div class="card wl"><img class="wl-th" src="/img/wall/${w.id}_cel_th.jpg" alt="" loading="lazy"><div class="wl-b"><div class="sn">${esc(w.n)}</div>
-   ${own?`<div class="wl-dl"><a class="btn sm" href="/img/wall/${w.id}_cel.jpg" download="forja-${w.id}-celular.jpg" target="_blank">📱 Telemóvel</a><a class="btn sm ghost" href="/img/wall/${w.id}_pc.jpg" download="forja-${w.id}-computador.jpg" target="_blank">🖥️ Computador</a></div>`:`<div class="sd">Telemóvel + computador</div><button class="btn sm" style="margin-top:8px" ${g<w.p?'disabled':''} data-a="wallBuy" data-id="${w.id}">🪙 ${w.p}</button>`}</div></div>`}).join('')}`}
+  ${WALLS.map(w=>{const own=(S.walls||[]).includes(w.id);return `<div class="card wl"><img class="wl-th" src="${wallU(w,'cel_th')}" alt="" loading="lazy"><div class="wl-b"><div class="sn">${esc(w.n)}</div>
+   ${own?`<div class="wl-dl"><a class="btn sm" href="${wallU(w,'cel')}" download="forja-${w.id}-celular.jpg" target="_blank">📱 Telemóvel</a><a class="btn sm ghost" href="${wallU(w,'pc')}" download="forja-${w.id}-computador.jpg" target="_blank">🖥️ Computador</a></div>`:`<div class="sd">Telemóvel + computador</div><button class="btn sm" style="margin-top:8px" ${g<w.p?'disabled':''} data-a="wallBuy" data-id="${w.id}">🪙 ${w.p}</button>`}</div></div>`}).join('')}`}
+const EVO=[{lv:10,n:'Forma Desperta',p:300,r:'r'},{lv:20,n:'Forma Veterana',p:600,r:'e'},{lv:30,n:'Forma Lendária',p:1000,r:'l'},{lv:50,n:'Forma Ascendida',p:1500,r:'m'}];
+const evoSrc=(lv,c,x)=>ART_SB+'evo/'+(c||S.cls)+'_'+(x||sexOf())+'_'+lv+'.webp';
+function evoOn(){const b=S.banner|0;return b&&(S.banners||[]).includes(b)&&levelInfo().L>=b?b:0}
+function viewEvo(){const g=gold(),L=levelInfo().L,on=evoOn();
+  const card=e=>{const own=(S.banners||[]).includes(e.lv),use=on===e.lv,lock=L<e.lv;
+    const btn=use?'<span class="done-tag">EM USO</span>':lock?`<span class="ic-lock">🔒 Nível ${e.lv}</span>`:own?`<button class="btn sm" data-a="evoUse" data-id="${e.lv}">Usar</button>`:`<button class="btn sm" ${g<e.p?'disabled':''} data-a="evoBuy" data-id="${e.lv}">🪙 ${e.p}</button>`;
+    return `<div class="ev-card${use?' on':''}${lock?' locked':''}"><div class="ev-img"><img src="${evoSrc(e.lv)}" alt="" loading="lazy"><span class="ev-lv">NV ${e.lv}</span></div><div class="ev-b"><div class="sn">${esc(e.n)}</div><small class="muted">${esc(cName(S.cls,sexOf()))}</small>${btn}</div></div>`};
+  return `<h2 style="font-size:17px;margin-top:22px">Banners de classe</h2>
+  <p class="muted" style="font-size:13px;margin:-4px 0 10px">Seu herói evolui com você. Cada forma libera num nível e muda o banner do seu perfil.</p>
+  <div class="ev-grid">${EVO.map(card).join('')}</div>
+  ${on?'<button class="btn ghost full sm" style="margin-top:10px" data-a="evoUse" data-id="0">Voltar para o banner padrão</button>':''}`}
+function evoBuy(lv){lv=+lv;const e=EVO.find(x=>x.lv===lv);S.banners=S.banners||[];if(!e||S.banners.includes(lv)||gold()<e.p||levelInfo().L<lv)return;S.banners.push(lv);S.goldSpent+=e.p;S.banner=lv;sfx('coin');save();render();toast('⚔️',e.n+' liberada!','Seu banner de herói evoluiu')}
+function evoUse(lv){S.banner=+lv||0;save();render();toast('⚔️',S.banner?'Banner equipado!':'Banner padrão de volta')}
 function wallBuy(id){const w=WALLS.find(x=>x.id===id);S.walls=S.walls||[];if(!w||S.walls.includes(id)||gold()<w.p)return;S.walls.push(id);S.goldSpent+=w.p;sfx('coin');save();render();toast('🖼️','Papel de parede liberado!','Toque em Telemóvel ou Computador para baixar')}
 
 /* ================== UTILS ================== */
@@ -1900,7 +1915,7 @@ function viewShop(){
   <p class="muted" style="font-size:13px;margin-bottom:10px">Ouro vem dos treinos (1 a cada 20 XP), das missões, dos chefes e das conquistas.</p>
   ${SHOP.map(it=>{const owned=it.kind==='title'?S.titles.includes(it.v):S.elixir===ymd();
    return `<div class="card shop"><span class="si">${it.e}</span><div><div class="sn">${it.n}</div><div class="sd">${it.d}</div></div>
-   ${owned?`<span class="done-tag">${it.kind==='elixir'?'ATIVO HOJE':'SEU'}</span>`:`<button class="btn sm" ${g<it.p?'disabled':''} data-a="buy" data-id="${it.id}">🪙 ${it.p}</button>`}</div>`}).join('')}${viewIcons()}${typeof viewWalls==='function'?viewWalls():''}`;
+   ${owned?`<span class="done-tag">${it.kind==='elixir'?'ATIVO HOJE':'SEU'}</span>`:`<button class="btn sm" ${g<it.p?'disabled':''} data-a="buy" data-id="${it.id}">🪙 ${it.p}</button>`}</div>`}).join('')}${viewIcons()}${typeof viewEvo==='function'?viewEvo():''}${typeof viewWalls==='function'?viewWalls():''}`;
 }
 
 function viewLog(){
@@ -2540,7 +2555,7 @@ function viewHero(){
   const col=CLS_COLOR[S.cls];
   const days=[];const wd=['D','S','T','Q','Q','S','S'];let mx=1;
   for(let i=6;i>=0;i--){const d=addDays(ymd(),-i);const x=sum(S.log.filter(e=>e.d===d),e=>e.xp);mx=Math.max(mx,x);const [y,mo,da]=d.split('-').map(Number);days.push({x,l:wd[new Date(y,mo-1,da).getDay()]})}
-  return `<div class="hcwrap"><div class="hcard hc-${S.cls}" style="background:${col.bg};--acc:${col.acc};--accg:${col.acc}66"><div class="bgw">${cWord(S.cls,sexOf())}</div>${S.avatar?`<img class="art2 me" src="${S.avatar}" alt="${esc(S.name)}"><i class="shade"></i>`:aCard(S.cls,sexOf())?`<img class="art2" src="${aCard(S.cls,sexOf())}" alt="${c.n}"><i class="shade"></i>`:`<img class="art" src="${aFull(S.cls,sexOf())}" alt="${c.n}">`}
+  return `<div class="hcwrap"><div class="hcard hc-${S.cls}" style="background:${col.bg};--acc:${col.acc};--accg:${col.acc}66"><div class="bgw">${cWord(S.cls,sexOf())}</div>${evoOn()?`<img class="art2 evo" src="${evoSrc(evoOn())}" alt="${c.n}"><i class="shade"></i>`:S.avatar?`<img class="art2 me" src="${S.avatar}" alt="${esc(S.name)}"><i class="shade"></i>`:aCard(S.cls,sexOf())?`<img class="art2" src="${aCard(S.cls,sexOf())}" alt="${c.n}"><i class="shade"></i>`:`<img class="art" src="${aFull(S.cls,sexOf())}" alt="${c.n}">`}
     <div class="inf"><span class="tg">[ SISTEMA ] · JOGADOR</span><span class="nm">${esc(S.name)}</span><span class="cl">${c.n}</span>${isElite()?'<span class="el">'+SVG_CROWN+'CAÇADOR ELITE</span>':''}${S.title?`<span style="font-size:13px">« ${esc(S.title)} »</span>`:''}</div></div></div>
   <div class="nglow"><div class="pv statp"><div class="hextitle" style="margin:0 0 14px"><span style="font-size:22px;padding:7px 40px">STATUS</span></div>
     <div class="st2"><div class="av${S.icon?" ic-on":""}"><img src="${myFace()||aFace(S.cls,sexOf())}" alt=""></div><div class="lv"><b>${li.L}</b><span>NÍVEL</span></div>
@@ -2821,7 +2836,7 @@ function viewMais(){
     ['progressao','ic-tree','Progressão','Árvore de habilidade',1,'#4fd2ff','rgba(79,210,255,.3)'],
     ['alquimia','ic-potion','Alquimia','Bônus: receitas anabólicas',1,'#3fe08a','rgba(60,220,130,.28)'],
     ['planilha','ic-chart','Planilha','Cargas e recordes',1,'#a35cff','rgba(160,90,255,.32)'],
-    ['loja','ic-coin','Loja','Ícones, wallpapers e títulos',0,'#ffb43c','rgba(255,170,50,.3)'],
+    ['loja','ic-coin','Loja','Ícones, banners, wallpapers e títulos',0,'#ffb43c','rgba(255,170,50,.3)'],
     ['diario','ic-book','Diário','Histórico de treinos',0,'#4f9dff','rgba(79,150,255,.3)'],
     ['@settings','ic-gear','Ficha','Nome, classe e plano',0,'#4fd2ff','rgba(79,210,255,.25)'],
     ['@install','ic-phone','Instalar app','Ícone no ecrã do telemóvel',0,'#a35cff','rgba(160,90,255,.3)']];
@@ -2942,6 +2957,8 @@ document.addEventListener('click',ev=>{
     case 'runCancel': confirmModal('Descartar esta corrida? Ela não vai ser registada.',()=>runStop(false),'Descartar');break;
     case 'buy': buy(b.dataset.id);break;
     case 'iconBuy': iconBuy(b.dataset.id);break;
+    case 'evoBuy': evoBuy(b.dataset.id);break;
+    case 'evoUse': evoUse(b.dataset.id);break;
     case 'iconUse': iconUse(b.dataset.id);break;
     case 'iconPhoto': iconPhoto();break;
     case 'wallBuy': wallBuy(b.dataset.id);break;
