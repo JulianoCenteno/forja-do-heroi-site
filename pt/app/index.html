@@ -1020,6 +1020,9 @@ body{background:url(img/ui/particles.png) 0 0/700px 700px,radial-gradient(60% 40
 .ic-lock{font-size:12px;font-weight:800;color:#ffc65a;margin-top:6px}
 .st2 .av.ic-on{background:#05070f}
 .st2 .av.ic-on img{object-fit:cover;width:100%;height:100%}
+.wl{display:flex;gap:12px;align-items:center}
+.wl-th{width:64px;height:114px;object-fit:cover;border-radius:10px;border:1px solid rgba(120,160,255,.3);flex:none}
+.wl-b{flex:1;min-width:0}.wl-dl{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.wl-dl .btn{text-decoration:none}
 </style>
 </head>
 <body>
@@ -1280,6 +1283,16 @@ function iconPhoto(){
       im.onerror=()=>toast('⚠️','Não consegui abrir essa imagem');im.src=rd.result};rd.readAsDataURL(f)};
   inp.click();
 }
+
+
+/* papéis de parede (Loja do Ferreiro) */
+const WALLS=[{id:'mestres',n:'Os Três Mestres',p:250},{id:'monge',n:'Monge da Montanha',p:150},{id:'guerreiro',n:'Guerreiro da Forja',p:150},{id:'paladino',n:'Paladina de Cristal',p:150},{id:'goblin',n:'Batalha: Goblin das Flexões',p:200},{id:'troll',n:'Batalha: Troll da Barra',p:200},{id:'golem',n:'Batalha: Golem do Supino',p:200},{id:'hidra',n:'Batalha: Hidra do Agachamento',p:200},{id:'lich',n:'Batalha: Lich da Pistol',p:200}];
+function viewWalls(){const g=gold();
+  return `<h2 style="font-size:17px;margin-top:22px">Papéis de parede</h2>
+  <p class="muted" style="font-size:13px;margin:-4px 0 10px">Compre uma vez e baixe em alta qualidade para o telemóvel e para o computador.</p>
+  ${WALLS.map(w=>{const own=(S.walls||[]).includes(w.id);return `<div class="card wl"><img class="wl-th" src="/img/wall/${w.id}_cel_th.jpg" alt="" loading="lazy"><div class="wl-b"><div class="sn">${esc(w.n)}</div>
+   ${own?`<div class="wl-dl"><a class="btn sm" href="/img/wall/${w.id}_cel.jpg" download="forja-${w.id}-celular.jpg" target="_blank">📱 Telemóvel</a><a class="btn sm ghost" href="/img/wall/${w.id}_pc.jpg" download="forja-${w.id}-computador.jpg" target="_blank">🖥️ Computador</a></div>`:`<div class="sd">Telemóvel + computador</div><button class="btn sm" style="margin-top:8px" ${g<w.p?'disabled':''} data-a="wallBuy" data-id="${w.id}">🪙 ${w.p}</button>`}</div></div>`}).join('')}`}
+function wallBuy(id){const w=WALLS.find(x=>x.id===id);S.walls=S.walls||[];if(!w||S.walls.includes(id)||gold()<w.p)return;S.walls.push(id);S.goldSpent+=w.p;sfx('coin');save();render();toast('🖼️','Papel de parede liberado!','Toque em Telemóvel ou Computador para baixar')}
 
 /* ================== UTILS ================== */
 const $ = s=>document.querySelector(s);
@@ -2808,7 +2821,7 @@ function viewMais(){
     ['progressao','ic-tree','Progressão','Árvore de habilidade',1,'#4fd2ff','rgba(79,210,255,.3)'],
     ['alquimia','ic-potion','Alquimia','Bônus: receitas anabólicas',1,'#3fe08a','rgba(60,220,130,.28)'],
     ['planilha','ic-chart','Planilha','Cargas e recordes',1,'#a35cff','rgba(160,90,255,.32)'],
-    ['loja','ic-coin','Loja','Ícones, elixires e títulos',0,'#ffb43c','rgba(255,170,50,.3)'],
+    ['loja','ic-coin','Loja','Ícones, wallpapers e títulos',0,'#ffb43c','rgba(255,170,50,.3)'],
     ['diario','ic-book','Diário','Histórico de treinos',0,'#4f9dff','rgba(79,150,255,.3)'],
     ['@settings','ic-gear','Ficha','Nome, classe e plano',0,'#4fd2ff','rgba(79,210,255,.25)'],
     ['@install','ic-phone','Instalar app','Ícone no ecrã do telemóvel',0,'#a35cff','rgba(160,90,255,.3)']];
@@ -2931,6 +2944,7 @@ document.addEventListener('click',ev=>{
     case 'iconBuy': iconBuy(b.dataset.id);break;
     case 'iconUse': iconUse(b.dataset.id);break;
     case 'iconPhoto': iconPhoto();break;
+    case 'wallBuy': wallBuy(b.dataset.id);break;
     case 'timer': startTimer(+b.dataset.v);break;
     case 'elite': eliteModal(b.dataset.f||'');break;
     case 'activate':{const c=$('#e_code').value;if(activateElite(c)){closeModal();render();queueModal(()=>openModal(`<div class="lvup"><img class="lv-art" src="${aFull(S.cls,sexOf())}" alt=""><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ffc65a">CLASSE DESPERTADA</div><h3 style="margin-top:8px;color:#ffc65a">👑 Caçador Elite</h3><p class="muted" style="margin:10px 0 18px">Dungeon, ranking, progressão, planilha e Taverna VIP liberados. Você ganhou o título “Fundador da Forja” e 300 de ouro.</p><button class="btn gold full" data-a="close">Entrar na Dungeon</button></div>`,true))}else{toast('⚠️','Código inválido','Confira o código que chegou no seu e-mail')}break}
