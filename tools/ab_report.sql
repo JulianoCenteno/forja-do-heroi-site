@@ -1,5 +1,5 @@
 -- Resultado do teste A/B Brasil (quiz x página nova), desde o início do teste
-with ini as (select timestamptz '2026-11-25 21:10:00+00' t),
+with ini as (select timestamptz '2026-11-25 21:00:00+00' t),
 vis as (
   select ab, count(distinct sid) visitas
   from fh_quiz_events, ini
