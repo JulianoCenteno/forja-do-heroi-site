@@ -2623,7 +2623,7 @@ const PLAYLIST='https://open.spotify.com/playlist/6OAbGqCVLckhjCGq1KevSU';
 function playlistCard(){return `<a class="spl" href="${PLAYLIST}" target="_blank" rel="noopener"><img src="${UI}playlist.webp" alt="" onerror="this.src='${UI}m-trio.webp'"><span><small>🎧 PLAYLIST OFICIAL</small><b>Treino Anime & RPG</b><em>Ouça no Spotify enquanto treina</em></span><i>▶</i></a>`}
 /* ===== BETA visual manhwa: só aparece para contas em fh_admins ===== */
 const M2=ART_SB+'v2/';
-function m2On(){try{return !!window.__FH_ADMIN&&localStorage.getItem('fh_m2')==='1'}catch(e){return false}}
+function m2On(){return false} /* beta manhwa desligado (decisão: manter o visual atual) */
 function viewHeroV2(){
   if(!document.getElementById('m2f'))document.head.insertAdjacentHTML('beforeend','<link id="m2f" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,900&display=swap">');
   const li=levelInfo(),st=streakInfo(),c={...CLASSES[S.cls],n:cName(S.cls,sexOf())},col=CLS_COLOR[S.cls],x=sexOf()==='f'?'f':'m';
@@ -2946,7 +2946,6 @@ function viewMais(){
   return `<div class="banner fade"><img src="${UI}ban-keyart.webp" alt="Os três heróis"></div>
   <div class="hextitle" style="margin-top:-18px;position:relative"><span>MAIS</span></div>
   ${elitePromo()}
-  ${window.__FH_ADMIN?`<button class="pv" data-a="m2Toggle" style="display:flex;align-items:center;gap:10px;width:100%;margin:10px 0;padding:12px 14px;text-align:left;color:#fff;font:600 14px Jost"><span style="font-size:24px">🧪</span><span><b>Visual manhwa (beta)</b><br><small style="opacity:.75">Só admin vê · ${m2On()?'LIGADO':'desligado'}</small></span></button>`:''}
   <div class="mtiles">${T.map(([k,img,n,d,el,c,g])=>`<button class="mtile ${el&&!isElite()?'lk':''}" ${k[0]==='@'?`data-a="${k.slice(1)}"`:`data-tab="${k}"`} style="--tc:${c};--tg:${g}"><img src="${UI}${img}.webp" alt=""><span class="tx"><b>${n}</b><small>${d}</small></span>${el?'<span class="cr">👑</span>':''}</button>`).join('')}</div>
   <div class="savedline">☁️ ${syncState==='cloud'?'Progresso salvo na sua conta':'Progresso salvo neste aparelho'}</div>`;
 }
