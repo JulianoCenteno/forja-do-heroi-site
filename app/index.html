@@ -3009,7 +3009,7 @@ const FH_URL='https://lpdicrpetxqnoxceozfa.supabase.co';
 const FH_KEY='sb_publishable_ceGy_dHSjG3cngC8mVAPLg_R4sxr5kA';
 const FH_SITE='https://forjadoheroi.com/#planos';
 const FH=window.supabase.createClient(FH_URL,FH_KEY,{auth:{persistSession:true,autoRefreshToken:true,storageKey:'fh-auth'}});
-let FH_TAB='login',FH_BUSY=false,FH_MSG='';
+let FH_TAB='login',FH_BUSY=false,FH_MSG='',FH_OK=false;
 function fhShim(uid,admin){
   const tavSnap=async()=>{const {data,error}=await FH.from('fh_taverna').select('user_id,doc');if(error)throw error;
     return {docs:(data||[]).map(r=>({id:r.user_id,exists:true,data:()=>r.doc||{}})),metadata:{fromCache:false,hasPendingWrites:false}}};
@@ -3026,6 +3026,7 @@ function fhShim(uid,admin){
   window.claude={use:async(n)=>n==='db'?db:n==='user'?user:null};
 }
 function fhView(){
+  if(FH_TAB==='forgot'||FH_TAB==='newpass')return fhResetView();
   const btn=(t,k)=>`<button class="${FH_TAB===k?'on':''}" data-a="fhTab" data-v="${k}">${t}</button>`;
   return `<div style="margin:-4px -16px 0;position:relative"><img src="img/logo.webp" alt="Forja do Herói · Treino RPG" style="display:block;width:100%;-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)"></div>
   <div style="text-align:center;margin-top:-6px"><span class="tag">[ SISTEMA ] · IDENTIFIQUE-SE, JOGADOR</span><p class="muted" style="margin-top:8px">Entre para continuar a sua jornada de onde parou.</p></div>
@@ -3038,14 +3039,46 @@ function fhView(){
     ${FH_MSG?`<p class="warn glow" style="margin-top:12px;font-size:14px">${FH_MSG}</p>`:''}
     <button class="btn full" style="margin-top:14px" type="submit" ${FH_BUSY?'disabled':''}>${FH_BUSY?'Aguarde…':FH_TAB==='signup'?'⚔️ Criar meu acesso':'⚔️ Entrar'}</button>
    </form>
-   ${FH_TAB==='login'?`<p class="dim" style="font-size:12.5px;text-align:center;margin-top:12px">Esqueceu a senha? Fale com o suporte pelo e-mail informado na sua compra.</p>`:''}
+   ${FH_TAB==='login'?`<button class="btn ghost full sm" style="margin-top:12px" data-a="fhTab" data-v="forgot">Esqueci minha senha</button>`:''}
   </div>
   <p class="muted" style="font-size:13px;text-align:center;margin-top:16px">Ainda não tem o app? <a href="${FH_SITE}" style="color:var(--gold)">Conheça o Forja do Herói</a></p>
   ${isStandalone()?'':'<button class="instl" data-a="install">📲 Como instalar o app no celular</button>'}`;
 }
+function fhResetView(){
+  const nw=FH_TAB==='newpass';
+  return `<div style="margin:-4px -16px 0;position:relative"><img src="img/logo.webp" alt="Forja do Herói · Treino RPG" style="display:block;width:100%;-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)"></div>
+  <div style="text-align:center;margin-top:-6px"><span class="tag">[ SISTEMA ] · ${nw?'NOVA SENHA':'RECUPERAR ACESSO'}</span></div>
+  <div class="card" style="margin-top:12px">
+   <p class="muted" style="font-size:14px;margin:0">${nw?'Enviamos um <b>código de 6 dígitos</b> para <b>'+esc(window.__fhE||'')+'</b>. Digite o código e crie a sua nova senha.':'Digite o e-mail que você usou na compra. Vamos enviar um código para você trocar a senha.'}</p>
+   <form id="fhForm">
+    ${nw?`<div class="field"><label for="fh_c">Código recebido no e-mail</label><input id="fh_c" inputmode="numeric" autocomplete="one-time-code" required minlength="6" maxlength="8" placeholder="000000" style="letter-spacing:.3em;font-size:22px;text-align:center"></div><div class="field"><label for="fh_p">Nova senha (mínimo 6 caracteres)</label><input id="fh_p" type="password" autocomplete="new-password" required minlength="6"></div>`
+       :`<div class="field"><label for="fh_e">E-mail da compra</label><input id="fh_e" type="email" autocomplete="email" required placeholder="voce@email.com" value="${esc(window.__fhE||'')}"></div>`}
+    ${FH_MSG?`<p class="${FH_OK?'good':'warn'} glow" style="margin-top:12px;font-size:14px">${FH_MSG}</p>`:''}
+    <button class="btn full" style="margin-top:14px" type="submit" ${FH_BUSY?'disabled':''}>${FH_BUSY?'Aguarde…':nw?'⚔️ Trocar senha':'📧 Enviar código'}</button>
+   </form>
+   ${nw?'<button class="btn ghost full sm" style="margin-top:10px" data-a="fhTab" data-v="forgot">Não chegou? Enviar de novo</button>':''}
+   <button class="btn ghost full sm" style="margin-top:10px" data-a="fhTab" data-v="login">← Voltar para o login</button>
+  </div>`;
+}
+async function fhResetSubmit(){
+  if(FH_TAB==='forgot'){
+    const email=$('#fh_e').value.trim().toLowerCase();window.__fhE=email;
+    const {error}=await FH.auth.resetPasswordForEmail(email);
+    if(error)throw new Error(/rate|seconds|security/i.test(error.message)?'Aguarde 1 minuto antes de pedir outro código.':'Não foi possível enviar agora. Tente de novo em alguns minutos.');
+    FH_TAB='newpass';FH_OK=true;FH_MSG='Código enviado! Confira a caixa de entrada e o spam.';
+  }else{
+    const token=$('#fh_c').value.replace(/\D/g,''),pass=$('#fh_p').value;
+    const v=await FH.auth.verifyOtp({email:window.__fhE,token,type:'recovery'});
+    if(v.error)throw new Error('Código inválido ou expirado. Confira ou peça um novo.');
+    const {error}=await FH.auth.updateUser({password:pass});
+    if(error)throw new Error(/same|different/i.test(error.message)?'Use uma senha diferente da anterior.':'Não foi possível salvar a senha. Tente de novo.');
+    FH_TAB='login';FH_OK=false;FH_MSG='';toast('🔑','Senha alterada!','Bem-vindo de volta, herói');await fhAfterLogin();return true;
+  }
+}
 function fhRenderLogin(){$('#nav').hidden=true;$('#app').innerHTML=fhView();const f=$('#fhForm');if(f)f.onsubmit=fhSubmit;duelLoginBanner();}
 async function fhSubmit(ev){
   ev.preventDefault();if(FH_BUSY)return;
+  if(FH_TAB==='forgot'||FH_TAB==='newpass'){FH_BUSY=true;FH_MSG='';FH_OK=false;fhRenderLogin();try{if(await fhResetSubmit()){FH_BUSY=false;return}}catch(e){FH_OK=false;FH_MSG=esc(e.message||String(e))}FH_BUSY=false;fhRenderLogin();return}
   const email=$('#fh_e').value.trim().toLowerCase(),pass=$('#fh_p').value;window.__fhE=email;
   FH_BUSY=true;FH_MSG='';fhRenderLogin();
   try{
