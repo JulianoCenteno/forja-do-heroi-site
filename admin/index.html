@@ -144,7 +144,7 @@ function ago(ts){if(!ts)return '—';const s=(Date.now()-new Date(ts))/1000;if(s
 function dt(ts){if(!ts)return '—';const d=new Date(ts);return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}
 function toast(t){const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),3500)}
 
-let P=[], LOG=[], TAB='jogadores', FILTER='todos', Q='';
+let P=[], LOG=[], TAB=location.hash==='#ab'?'ab':'jogadores', FILTER='todos', Q='';
 function status(p){
   const da=daysAgo(p.last_day);
   if(p.last_day===today()) return ['ok','Treinou hoje'];
@@ -294,13 +294,13 @@ async function send(payload,btn){
 function render(){
   $('#root').innerHTML=`<header><div class="brand">CENTRAL DO MESTRE<small>FORJA DO HERÓI · ADMIN</small></div><div class="hr"><button class="btn gold sm" id="add">＋ Cadastrar acesso</button><button class="btn sm" id="rl">↻ Atualizar</button><button class="btn sm" id="out">Sair</button></div></header>
   ${kpis()}
-  <div class="tabs">${[['jogadores','👥 Jogadores'],['ranking','🏆 Ranking'],['notif','🔔 Notificações'],['quiz','📊 Quiz'],['msgs','💬 Mensagens']].map(([k,n])=>`<button class="${TAB===k?'on':''}" data-tab="${k}">${n}</button>`).join('')}</div>
-  <div id="view">${TAB==='jogadores'?viewPlayers():TAB==='ranking'?viewRank():TAB==='quiz'?viewQuiz():TAB==='msgs'?viewMsgs():viewPush()}</div>`;
+  <div class="tabs">${[['jogadores','👥 Jogadores'],['ranking','🏆 Ranking'],['notif','🔔 Notificações'],['quiz','📊 Quiz'],['ab','🧪 Teste A/B'],['msgs','💬 Mensagens']].map(([k,n])=>`<button class="${TAB===k?'on':''}" data-tab="${k}">${n}</button>`).join('')}</div>
+  <div id="view">${TAB==='jogadores'?viewPlayers():TAB==='ranking'?viewRank():TAB==='quiz'?viewQuiz():TAB==='ab'?viewAB():TAB==='msgs'?viewMsgs():viewPush()}</div>`;
   bind();
 }
 function bind(){
   $('#add').onclick=()=>grantForm();
-  $('#rl').onclick=()=>{if(TAB==='quiz')return loadQuiz();if(TAB==='msgs')return loadMsgs();load().then(()=>toast('Atualizado'))};
+  $('#rl').onclick=()=>{if(TAB==='quiz')return loadQuiz();if(TAB==='ab')return loadAB();if(TAB==='msgs')return loadMsgs();load().then(()=>toast('Atualizado'))};
   $('#out').onclick=async()=>{await sb.auth.signOut();login()};
   document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{TAB=b.dataset.tab;render()});
   document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{FILTER=b.dataset.f;render()});
@@ -327,6 +327,28 @@ async function loadQuiz(){QZL=true;render();const E={steps:[],answers:[],checkou
 function qzStats(d,m){const st=(d.steps||[]).filter(x=>x.step).sort((a,b)=>a.idx-b.idx);const top=st.length?st[0].people:0;const co=d.checkouts||[];const cnt=k=>(co.find(c=>c.plan===k)||{}).n||0;
   return {st,top,res:(st.find(x=>x.step==='res')||{}).people||0,cks:QPL[m].reduce((a,k)=>a+cnt(k),0),pop:cnt('popup_aberto'),el:cnt(QPL[m][0])+cnt(QPL[m][1]),rec:cnt(QPL[m][2]),mob:d.mobile??0}}
 function qzMktBar(){return `<div class="seg" style="margin-bottom:10px">${[['br','🇧🇷 Brasil'],['pt','🇵🇹 Portugal'],['cmp','⚖️ Comparar']].map(([k,l])=>`<button class="${QZM===k?'on':''}" data-qzm="${k}">${l}</button>`).join('')}</div>`}
+let AB=null,ABL=false;
+async function loadAB(){ABL=true;render();const {data,error}=await sb.rpc('fh_admin_ab');ABL=false;if(error){toast('❌ '+error.message);AB={total:[],daily:[]}}else AB=data;render()}
+function viewAB(){
+  if(!AB){if(!ABL)setTimeout(loadAB,0);return '<p class="mut" style="padding:20px">Carregando o teste A/B…</p>'}
+  const T=k=>(AB.total||[]).find(x=>x.ab===k)||{visitas:0,checkouts:0,vendas:0,faturamento:0};const Q=T('quiz'),G=T('pag');
+  const pc=(n,t)=>t?(n/t*100).toFixed(2).replace('.',',')+'%':'—';const rv=(f,v)=>v?brl(f/v):'—';
+  const cv=x=>x.visitas?x.vendas/x.visitas:0;const lead=(cv(Q)===cv(G)||!(Q.vendas+G.vendas))?'':(cv(Q)>cv(G)?'quiz':'pag');
+  const w=k=>lead===k?' style="color:#ffd76a;font-weight:800"':'';
+  const r=(l,a,b)=>`<tr><td>${l}</td><td${w('quiz')}>${a}</td><td${w('pag')}>${b}</td></tr>`;
+  const n=Q.visitas+G.visitas,fewv=(Q.vendas+G.vendas)<30;
+  const since=new Date(AB.since).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+  const dd=(AB.daily||[]),days=[...new Set(dd.map(x=>x.d))];
+  const dr=days.map(d=>{const g=k=>dd.find(x=>x.d===d&&x.ab===k)||{visitas:0,vendas:0,faturamento:0};const a=g('quiz'),b=g('pag');
+    return `<tr><td>${d.split('-').reverse().slice(0,2).join('/')}</td><td>${a.visitas} vis · ${a.vendas} vendas · ${pc(a.vendas,a.visitas)}</td><td>${b.visitas} vis · ${b.vendas} vendas · ${pc(b.vendas,b.visitas)}</td></tr>`}).join('');
+  return `<div class="qzh"><span class="mut">Tráfego de anúncio do Brasil dividido 50/50 desde ${since}. ${ABL?'atualizando…':''}</span></div>
+  <h3 class="qzt">Quiz × Página nova</h3><table class="qztab qzcmp"><tr><th></th><th>🧩 Quiz</th><th>📄 Página nova</th></tr>
+  ${r('Visitas',Q.visitas,G.visitas)}${r('Clicaram em comprar',Q.checkouts+' · '+pc(Q.checkouts,Q.visitas),G.checkouts+' · '+pc(G.checkouts,G.visitas))}
+  ${r('Vendas pagas',Q.vendas,G.vendas)}${r('Conversão (venda ÷ visita)',pc(Q.vendas,Q.visitas),pc(G.vendas,G.visitas))}
+  ${r('Faturamento',brl(+Q.faturamento),brl(+G.faturamento))}${r('Receita por visita',rv(+Q.faturamento,Q.visitas),rv(+G.faturamento,G.visitas))}</table>
+  <p class="note" style="margin:10px 0">${fewv?`⏳ Ainda poucas vendas (${Q.vendas+G.vendas}). Espere chegar perto de 30 vendas somadas antes de decidir.`:'✅ Já tem volume para uma leitura confiável.'}${AB.sem_marca?` · ${AB.sem_marca} venda(s) no período sem marca do teste (tráfego orgânico ou de antes).`:''}</p>
+  ${dr?`<h3 class="qzt">Dia a dia</h3><table class="qztab qzcmp"><tr><th>Dia</th><th>🧩 Quiz</th><th>📄 Página nova</th></tr>${dr}</table>`:''}`;
+}
 function viewQuizCmp(){
   if(!QZX){if(!QZL)setTimeout(loadQuiz,0);return qzMktBar()+'<p class="mut" style="padding:20px">Carregando a comparação…</p>'}
   const B=qzStats(QZX.br,'br'),P=qzStats(QZX.pt,'pt');const pc=(n,t)=>t?Math.round(n/t*100)+'%':'—';
