@@ -93,6 +93,7 @@ h1 em,h2 em{font-style:normal;background:linear-gradient(180deg,#fffbe3,#ffd34d 
 /* buttons */
 .btn{display:block;width:100%;margin-top:14px;padding:18px 14px;border:0;border-radius:14px;font:900 17px 'Exo 2';letter-spacing:.04em;text-transform:uppercase;color:#2a1500;background:linear-gradient(180deg,#ffe57a 0%,#ffc83a 45%,#e08a00 100%);box-shadow:0 6px 0 #8a4f00,0 0 26px rgba(255,180,40,.45);cursor:pointer;text-decoration:none;text-align:center;transition:transform .12s,box-shadow .12s,filter .2s}
 .btn:active{transform:translateY(4px);box-shadow:0 2px 0 #8a4f00,0 0 18px rgba(255,180,40,.4)}
+.mst{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0 6px}.mst>div{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:8px 6px 10px;border-radius:12px;background:rgba(14,22,52,.85);border:1px solid rgba(120,160,255,.3)}.mst>div.on{border-color:var(--gold);box-shadow:0 0 16px rgba(255,200,58,.4)}.mst img{width:100%;aspect-ratio:1;object-fit:cover;object-position:50% 18%;border-radius:9px;margin-bottom:6px}.mst b{font-size:13.5px;line-height:1.15}.mst small{font-size:11px;color:var(--gold);margin:2px 0 4px}.mst span{font-size:11.5px;color:var(--mut);line-height:1.3}.mst em{position:absolute;top:-9px;left:50%;transform:translateX(-50%);white-space:nowrap;font-style:normal;font-size:10px;font-weight:800;padding:2px 7px;border-radius:6px;background:linear-gradient(180deg,#ffe57a,#f0a500);color:#2a1500}
 .btn[disabled]{filter:grayscale(.8) brightness(.6);pointer-events:none}
 .btn.blue{color:#fff;background:linear-gradient(180deg,#6fe0ff 0%,#2a8bff 50%,#1a49c9 100%);box-shadow:0 6px 0 #0f2b7a,0 0 26px rgba(79,170,255,.45)}
 .btn.pulse{animation:pulse 1.8s ease-in-out infinite}
@@ -435,7 +436,8 @@ function vRes(){const p=profile();const probs=A.prob||[];
  <div class="offer" id="offer"><span class="tag">🪙 O TEU CRÉDITO FOI APLICADO · RECOMENDADO</span>
   <h3>${hero()} Elite · plano completo</h3>
   <div class="inc">
-   <div><span><b>${p.C[1]}</b> com a tua ficha de <b>${p.ficha}</b>: treino do dia pronto</span></div>
+   <div><span><b>Os 3 Mestres do Forja</b>: escolhe o teu mestre, cada um com fichas de treino exclusivas, e troca quando quiseres</span></div>
+   <div><span>Começas com <b>${p.C[1]}</b> na tua ficha de <b>${p.ficha}</b>: treino do dia pronto, com séries, repetições e carga</span></div>
    <div><span><b>4 fichas de treino</b>: Hipertrofia, Força, Emagrecimento e <b>Glúteos e Pernas</b></span></div>
    <div><span><b>Dungeon de 30 dias</b> com chefes semanais</span></div>
    <div><span><b>Peso de cada série e registo de cargas</b>: vê a tua força a subir</span></div>
@@ -452,6 +454,9 @@ function vRes(){const p=profile();const probs=A.prob||[];
   <div class="timer">⏳ O teu crédito expira em <b id="tmr">15:00</b></div>
  </div>
  <div class="secure"><span>🔒 Pagamento seguro</span><span>💳 Cartão de crédito ou débito</span><span>📱 Funciona no telemóvel</span></div>
+ <div class="sec-h">ESCOLHA O SEU MESTRE</div>
+ <p class="sub" style="font-size:14.5px">No Elite treinas com os 3 mestres. Cada um tem as suas fichas de treino exclusivas. O Sistema indicou-te ${p.C[1]}, mas podes trocar quando quiseres.</p>
+ <div class="mst">${[['guerreiro','Mestre Brutus','Mestre do Ferro','Musculação na ginásio, um grupo muscular por dia'],['monge','Mestre Kaito','Mestre da Calistenia','Peso do corpo, em casa ou no parque'],['paladino','Mestra Aurora','Mestra Híbrida','Barra e ferro no mesmo treino']].map(m=>`<div class="${m[0]===p.cls?'on':''}"><img src="/app/img/ui/m-${m[0]}.webp" alt="${m[1]}"><b>${m[1]}</b><small>${m[2]}</small><span>${m[3]}</span>${m[0]===p.cls?'<em>indicado para ti</em>':''}</div>`).join('')}</div>
  <div class="sec-h">O QUE TE ESPERA NA APP</div>
  <div class="feat">
   <div><img src="/app/img/ui/tav-ban.webp" alt=""><b>🍺 Taverna</b><span>A comunidade dos caçadores: conversa, troca dicas, mostra o teu treino e desafia outros heróis para um duelo.</span></div>
@@ -464,14 +469,14 @@ function vRes(){const p=profile();const probs=A.prob||[];
  <div class="sec-h">COMO FUNCIONA</div>
  <div class="how">
   <div><img src="/app/img/ui/m-trio.webp" alt=""><span><b>1. Entra na app</b>Acesso imediato, pelo telemóvel. Sem descarregar nada da loja.</span></div>
-  <div><img src="/app/img/ui/ic-mestre.webp" alt=""><span><b>2. Segue o teu Mestre</b>${p.C[1]} desbloqueia um treino novo por dia na ficha de ${p.ficha}.</span></div>
+  <div><img src="/app/img/ui/ic-mestre.webp" alt=""><span><b>2. Escolhe o teu Mestre</b>Começa com ${p.C[1]} na ficha de ${p.ficha} ou troca por outro dos 3 mestres. Treino novo todo dia.</span></div>
   <div><img src="/app/img/ui/rw-xp.webp" alt=""><span><b>3. Sobe de nível</b>Cada série vale XP. Derrota os chefes e vê o teu corpo mudar.</span></div>
  </div>
  <div class="sec-h">DÚVIDAS</div>
  <div class="faq">
   <details><summary>Preciso de ginásio?</summary><p>Não. A app tem treino de calistenia (peso do corpo), musculação e híbrido. ${p.C[1]} já foi escolhido pelo sítio onde treinas.</p></details>
   <details><summary>É uma mensalidade?</summary><p>Não. Os dois planos são pagamento único: Elite por 16,90 € com o teu crédito aplicado, ou Recruta por 5,90 €.</p></details>
-  <details><summary>Qual a diferença entre os planos?</summary><p>No Recruta registas os teus próprios treinos e a app transforma tudo em XP, missões e chefes. No Elite o ${p.C[1]} dá-te o treino do dia pronto na tua ficha de ${p.ficha}, e ganhas a Dungeon de 30 dias, o registo de cargas, a Taverna e a Alquimia.</p></details>
+  <details><summary>Qual a diferença entre os planos?</summary><p>No Recruta registas os teus próprios treinos e a app transforma tudo em XP, missões e chefes. No Elite escolhes um dos 3 mestres, cada um com fichas de treino exclusivas, e recebes o treino do dia pronto (o Sistema indicou-te ${p.C[1]} na ficha de ${p.ficha}), e ganhas a Dungeon de 30 dias, o registo de cargas, a Taverna e a Alquimia.</p></details>
   <details><summary>Como recebo o acesso?</summary><p>Assim que o pagamento é aprovado, recebes o link da app no e-mail e no ecrã de confirmação. Basta entrares com o e-mail da compra.</p></details>
   <details><summary>Tem treino para mulher?</summary><p>Tem. As heroínas têm arte própria e, no Elite, os mestres passam a ficha de <b>Glúteos e Pernas</b>, com dias de glúteo, quadríceps e superior leve, na ginásio ou em casa. Tem até chefe próprio: a Serpente do Hip Thrust.</p></details>
   <details><summary>Funciona para principiantes?</summary><p>Sim. O Sistema começa no teu rank atual (${p.rank}) e aumenta a dificuldade à medida que evoluis.</p></details>
