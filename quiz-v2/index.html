@@ -259,9 +259,9 @@ h1 em,h2 em{font-style:italic;background:linear-gradient(180deg,#fff6c8,#ffd84a 
 .opt.pic img{border-bottom:0}
 .opt.pic span{font:900 italic 17px var(--f2);text-transform:uppercase;letter-spacing:.02em}
 .field input{border-radius:0;border:0;clip-path:polygon(12px 0,calc(100% - 12px) 0,100% 12px,100% calc(100% - 12px),calc(100% - 12px) 100%,12px 100%,0 calc(100% - 12px),0 12px);box-shadow:inset 0 0 0 1.5px rgba(70,190,255,.85),inset 0 0 20px rgba(56,150,255,.2)}
-.btn{min-height:62px;padding:16px 20px 16px 58px;border-radius:0;background:url(/img/v3/btn-gold.webp) center/100% 100% no-repeat;box-shadow:none;color:#3a1d00;font:900 italic 17px var(--f2);letter-spacing:.02em;text-shadow:0 1px 0 rgba(255,240,180,.6);filter:drop-shadow(0 6px 14px rgba(255,170,30,.35))}
+.btn{min-height:62px;padding:12px 18px 12px 56px;line-height:1.15;border-radius:0;background:url(/img/v3/btn-gold.webp) center/100% 100% no-repeat;box-shadow:none;color:#3a1d00;font:900 italic 15.5px var(--f2);letter-spacing:.01em;text-shadow:0 1px 0 rgba(255,240,180,.6);filter:drop-shadow(0 6px 14px rgba(255,170,30,.35))}
 .btn:active{transform:translateY(2px);box-shadow:none}
-.btn.blue,.btn.ghost{background:url(/img/v3/btn-blue.webp) center/100% 100% no-repeat;color:#e6f4ff;border:0;text-shadow:0 0 8px rgba(80,200,255,.6);filter:drop-shadow(0 6px 14px rgba(56,170,255,.3));font-size:15px}
+.btn.blue,.btn.ghost{background:url(/img/v3/btn-blue.webp) center/100% 100% no-repeat;color:#e6f4ff;border:0;text-shadow:0 0 8px rgba(80,200,255,.6);filter:drop-shadow(0 6px 14px rgba(56,170,255,.3));font-size:14px}
 @keyframes pulse{50%{transform:scale(1.025);filter:drop-shadow(0 6px 26px rgba(255,190,40,.7))}}
 .win,.plan div,.mirror div,.feat div,.how div,.faq details,.guar,.offer2,.sheet{border-radius:0;clip-path:polygon(12px 0,calc(100% - 12px) 0,100% 12px,100% calc(100% - 12px),calc(100% - 12px) 100%,12px 100%,0 calc(100% - 12px),0 12px)}
 .win:before,.win:after{display:none}
@@ -306,7 +306,7 @@ h1 em,h2 em{font-style:italic;background:linear-gradient(180deg,#fff6c8,#ffd84a 
  <main id="main"></main>
 </div>
 <button class="mute" id="mute" type="button" aria-label="Som">🔊</button>
-<div class="sticky" id="sticky"><a class="btn pulse" id="stickyBtn" href="#">⚔️ Resgatar por R$ 29,90</a></div>
+<div class="sticky" id="sticky"><a class="btn pulse" id="stickyBtn" href="#">Resgatar por R$ 29,90</a></div>
 <script>
 (function(){
 'use strict';
@@ -441,7 +441,7 @@ function vIntro(){return `<section class="scr on">
  <h1>Descubra sua <em>classe de herói</em></h1>
  <p class="sub">Responda o <b>Teste do Despertar</b> e o Sistema monta um plano de treino feito pro seu corpo, seu objetivo e sua rotina.</p>
  <div class="prize"><img src="/app/img/ui/ic-coin.webp" alt=""><p>Cada resposta vale <b>moedas de ouro</b>. No final, elas viram <b>crédito de verdade</b> pra usar no seu plano.</p></div>
- <button class="btn pulse" id="start">⚔️ Começar o teste</button>
+ <button class="btn pulse" id="start">Começar o teste</button>
  <div class="chips"><span>⏱️ 2 minutos</span><span>🎯 ${QN} perguntas</span><span>🪙 até ${brl(TOTAL)} em crédito</span></div>
 </section>`}
 function vInter(k){
@@ -506,7 +506,7 @@ function vRes(){const p=profile();const probs=A.prob||[];
   </div>
   <div class="calc"><div><span>Valor do plano</span><span class="s">${brl(FULL)}</span></div><div class="m"><span>🪙 Seu crédito do teste</span><span id="coinv">− R$ 0,00</span></div><div class="t"><span>Você paga</span><span id="payv">${brl(FULL)}</span></div></div>
   <div class="price"><small>R$</small><span id="bigp">${FULL},00</span></div><div class="once">pagamento único · acesso imediato no app</div>
-  <a class="btn pulse" id="buy" href="#">⚔️ Resgatar meu plano por R$ 29,90</a>
+  <a class="btn pulse" id="buy" href="#">Resgatar meu plano por R$ 29,90</a>
   <div class="timer">⏳ Seu crédito expira em <b id="tmr">15:00</b></div>
  </div>
  <div class="secure"><span>🔒 Pagamento seguro</span><span>⚡ Pix ou cartão</span><span>📱 Funciona no celular</span></div>
@@ -537,7 +537,7 @@ function vRes(){const p=profile();const probs=A.prob||[];
   <details><summary>Tem treino pra mulher?</summary><p>Tem. As heroínas têm arte própria e, no Elite, os mestres passam a ficha de <b>Glúteos e Pernas</b>, com dias de glúteo, quadríceps e superior leve, na academia ou em casa. Tem até chefe próprio: a Serpente do Hip Thrust.</p></details>
   <details><summary>Funciona pra iniciante?</summary><p>Sim. O Sistema começa do seu rank atual (${p.rank}) e aumenta a dificuldade conforme você evolui.</p></details>
  </div>
- <a class="btn" id="buy2" href="#" style="margin-top:18px">⚔️ Quero começar agora · R$ 29,90</a>
+ <a class="btn" id="buy2" href="#" style="margin-top:18px">Quero começar agora · R$ 29,90</a>
  <p class="foot">Forja do Herói · Treino RPG</p>
 </section>`}
 function runRes(){const p=profile();
@@ -567,7 +567,7 @@ function popRecruta(p,ur){track('RecrutaPopup',{},true);mlog('popup','res',idx,'
   <p class="sub" style="font-size:15px">No Recruta você treina <b>sem Mestre, sem ficha pronta e sem a Dungeon</b>. Sozinho, sem plano, é bem mais difícil de manter.</p>
   <div class="pm-vs"><div><b>RECRUTA</b><span>Treino por sua conta</span><span>Sem plano de ${p.ficha}</span><span>Sem Taverna e Playlist</span></div><div class="on"><b>CAÇADOR ELITE</b><span>${p.C[1]} monta seu treino</span><span>Dungeon de 30 dias pronta</span><span>Taverna, Alquimia e Playlist</span></div></div>
   <div class="pm-off"><small>ÚLTIMA OFERTA DO SISTEMA · SÓ NESTA TELA</small><div><s>R$ 29,90</s><b>R$ 18,90</b></div><span>Só R$ 9 a mais que o Recruta, pra ter o plano completo</span></div>
-  <a class="btn pulse" id="pmYes" href="${withQs(CHECKOUT_POP)}">👑 Quero o plano completo por R$ 18,90</a>
+  <a class="btn pulse" id="pmYes" href="${withQs(CHECKOUT_POP)}">Quero o plano completo por R$ 18,90</a>
   <a class="pm-no" id="pmNo" href="${ur}">Não, quero só o Recruta por R$ 9,90</a></div>`;
  document.body.appendChild(m);requestAnimationFrame(()=>m.classList.add('on'));confetti(innerWidth/2,innerHeight*.35,40,['#ffd34d','#ff6a7a','#fff']);
  const close=()=>{m.classList.remove('on');setTimeout(()=>m.remove(),250)};
