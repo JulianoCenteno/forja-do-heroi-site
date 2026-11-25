@@ -262,6 +262,7 @@ h1 em,h2 em{font-style:normal;background:linear-gradient(180deg,#fffbe3,#ffd34d 
 <script>
 (function(){
 'use strict';
+window.TRY_URL=()=>'/teste/'+location.search;
 const CHECKOUT='https://appdigitalhub.com.br/c/B2535DA8',CHECKOUT_R='https://appdigitalhub.com.br/c/43752C6D',CHECKOUT_POP='https://appdigitalhub.com.br/c/E3082716';
 const IMG='https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh-public/quiz/';
 const FULL=69, FINAL=29.90, TOTAL=+(FULL-FINAL).toFixed(2); // 39,10 de desconto em moedas
@@ -461,6 +462,11 @@ function vRes(){const p=profile();const probs=A.prob||[];
   <a class="btn pulse" id="buy" href="#">⚔️ Resgatar meu plano por R$ 29,90</a>
   <div class="timer">⏳ Seu crédito expira em <b id="tmr">15:00</b></div>
  </div>
+<!--fh-trial-->
+ <div class="offer2" style="border-color:#5dffa0;box-shadow:0 0 22px rgba(93,255,160,.18)"><div class="o2h"><div><b>🎁 Teste grátis</b><small>Ainda em dúvida? Use o app completo antes de pagar</small></div><div class="o2p"><b style="color:#5dffa0">GRÁTIS</b></div></div>
+  <div class="inc sm"><div><span>Plano completo liberado: Dungeon, chefes, os 3 Mestres e todas as fichas</span></div><div><span>Sem cartão: só e-mail e senha</span></div><div><span>Gostou? Escolha o seu plano e continue de onde parou</span></div></div>
+  <a class="btn ghost" href="/teste/" onclick="this.href=TRY_URL();try{fbq('trackCustom','TrialClick',{src:'quiz'})}catch(e){}" style="border-color:#5dffa0;color:#5dffa0">🎁 Quero testar grátis</a></div>
+<!--/fh-trial-->
  <div class="secure"><span>🔒 Pagamento seguro</span><span>⚡ Pix ou cartão</span><span>📱 Funciona no celular</span></div>
  <div class="sec-h">ESCOLHA O SEU MESTRE</div>
  <p class="sub" style="font-size:14.5px">No Elite você treina com os 3 mestres. Cada um tem as suas fichas de treino exclusivas. O Sistema indicou ${p.C[1]} pra você, mas você pode trocar quando quiser.</p>
@@ -533,9 +539,10 @@ const sv=store.get();if(sv&&sv.idx>0&&sv.idx<S.length){window.__musicOn=1;A=sv.A
 render();
 })();
 </script>
+<script src="/exit-trial.js?v=1" data-own-back></script>
 <script>/* back redirect: quem tentar voltar/sair cai na oferta /quiz/back/ */
 (function(){var go=function(){location.replace('/quiz/back/'+location.search)};var armed=0;
 function arm(){if(armed>1)return;try{history.pushState({fhb:1},'',location.href);armed++}catch(e){}}
 arm();['pointerdown','keydown','touchstart'].forEach(function(e){addEventListener(e,arm,{once:true,passive:true})});
-addEventListener('popstate',function(){go()});})();</script>
+addEventListener('popstate',function(){if(window.FHExit&&!FHExit.isShown()&&FHExit.show())return;go()});})();</script>
 </body></html>

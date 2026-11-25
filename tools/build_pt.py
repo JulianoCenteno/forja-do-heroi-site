@@ -5,6 +5,12 @@ import os, re
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 src = open(os.path.join(ROOT, 'quiz', 'index.html'), encoding='utf-8').read()
 s = src
+
+# teste grátis e pop-up de saída são só do Brasil
+s = re.sub(r"<!--fh-trial-->.*?<!--/fh-trial-->\n?", '', s, flags=re.S)
+s = re.sub(r'<script src="/exit-trial\.js[^>]*></script>\n?', '', s)
+s = re.sub(r"<script>/\* back redirect:.*?</script>\n", '', s, flags=re.S)
+s = s.replace("window.TRY_URL=()=>'/teste/'+location.search;\n", '')
 # a página de saída /quiz/back/ é só do Brasil (R$ e checkout BR): tirar do quiz de Portugal
 s = re.sub(r"<script>/\* back redirect:.*?</script>\n", '', s, flags=re.S)
 

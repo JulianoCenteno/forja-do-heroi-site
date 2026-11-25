@@ -267,6 +267,16 @@
   </div>
  </div>
 </section>
+<!--fh-trial-->
+<section style="position:relative;z-index:2;max-width:640px;margin:26px auto 40px;padding:0 16px">
+ <div style="background:linear-gradient(160deg,rgba(20,60,40,.92),rgba(6,20,16,.95));border:2px solid #5dffa0;border-radius:16px;box-shadow:0 0 26px rgba(93,255,160,.22);padding:22px 20px;text-align:center;font-family:Jost,system-ui,sans-serif;color:#eafff2">
+  <div style="font-weight:800;letter-spacing:.14em;font-size:12px;color:#5dffa0">[ SISTEMA ] · AINDA EM DÚVIDA?</div>
+  <h3 style="margin:8px 0 6px;font-size:28px;font-weight:900">🎁 Teste grátis</h3>
+  <p style="margin:0 auto 14px;max-width:440px;font-size:15.5px;line-height:1.5;color:#cfeedd">Use o <b>app completo</b> antes de pagar: Dungeon, chefes, os 3 Mestres e todas as fichas. Sem cartão, só e-mail e senha. Gostou? Escolha o seu plano e continue de onde parou.</p>
+  <a href="/teste/" onclick="this.href='/teste/'+location.search;try{fbq('trackCustom','TrialClick',{src:'pagina'})}catch(e){}" style="display:inline-block;background:#5dffa0;color:#04140c;font-weight:900;font-size:17px;padding:14px 30px;border-radius:999px;text-decoration:none;box-shadow:0 6px 0 #1f8a52">Quero testar grátis</a>
+ </div>
+</section>
+<!--/fh-trial-->
 
 <!-- 13. FAQ -->
 <section class="s" id="faq">
@@ -347,5 +357,6 @@ setInterval(()=>{const r=box.getBoundingClientRect();if(!user&&document.visibili
 if(matchMedia('(max-width:640px)').matches){const row=document.querySelector('.cls2');const io=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('on',e.isIntersecting)),{root:row,threshold:.7});document.querySelectorAll('.c2').forEach(c=>io.observe(c));
  addEventListener('load',()=>{const m=row.children[1];row.scrollLeft=m.offsetLeft-(row.clientWidth-m.offsetWidth)/2})}
 }</script>
+<script src="/exit-trial.js?v=1"></script>
 </body>
 </html>

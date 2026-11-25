@@ -8,6 +8,12 @@ from es_links import ES  # links de checkout da Cakto (preenchidos quando os pro
 
 src = open(os.path.join(ROOT, 'quiz', 'index.html'), encoding='utf-8').read()
 s = src
+
+# teste grátis e pop-up de saída são só do Brasil
+s = re.sub(r"<!--fh-trial-->.*?<!--/fh-trial-->\n?", '', s, flags=re.S)
+s = re.sub(r'<script src="/exit-trial\.js[^>]*></script>\n?', '', s)
+s = re.sub(r"<script>/\* back redirect:.*?</script>\n", '', s, flags=re.S)
+s = s.replace("window.TRY_URL=()=>'/teste/'+location.search;\n", '')
 MISS = []
 
 def rep(a, b, required=True):
