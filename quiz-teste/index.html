@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><base href="/quiz/"><meta name="robots" content="noindex,nofollow"><script>/* teste A/B Brasil: anúncio -> 50% quiz / 50% página nova (site-v2). ?ab=off desliga */
+(function(){try{if(!/^\/quiz\/?$/.test(location.pathname))return;var q=new URLSearchParams(location.search),f=q.get('fh_ab');
+if(q.get('ab')==='off')return;if(f){window.FH_AB=f.slice(0,12);return}
+var v=null;try{v=localStorage.getItem('fh_ab')}catch(e){}
+if(v!=='pag'&&v!=='quiz'){if(!(q.get('utm_source')||q.get('fbclid')))return;v=Math.random()<.5?'pag':'quiz';try{localStorage.setItem('fh_ab',v)}catch(e){}}
+q.set('fh_ab',v);window.FH_AB=v;
+if(v==='pag'){window.__fhGo=1;location.replace('/site-v2/?'+q.toString()+location.hash)}
+else history.replaceState(null,'','?'+q.toString()+location.hash)}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>[PRÉVIA] Teste do Despertar · Forja do Herói</title>
+<meta name="description" content="Responda o Teste do Despertar, descubra sua classe de herói e ganhe moedas que viram crédito no seu plano de treino.">
+<meta name="theme-color" content="#050a1c">
+<link rel="icon" href="/img/v2/logo-square.webp">
+<meta property="og:title" content="Teste do Despertar · Forja do Herói">
+<meta property="og:description" content="Descubra sua classe de herói e ganhe crédito no seu plano de treino.">
+<meta property="og:image" content="https://forjadoheroi.com/img/v2/logo-full.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<script>if(!window.__fhGo)!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');</script>
+<script data-off="1" src="about:blank" async data-endpoint="https://tracker.appdigitalhub.com.br" data-checkout="appdigitalhub.com.br/c/"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--bg:#050a1c;--ink:#e8eeff;--mut:#9eabd2;--gold:#ffc83a;--gold2:#e08a00;--blue:#4fd2ff;--blue2:#2a6bff;--red:#ff4d5e;--green:#5dffa0;--card:rgba(14,22,52,.82);--line:rgba(120,160,255,.22)}
+html,body{background:var(--bg);color:var(--ink);font-family:'Exo 2',system-ui,sans-serif;font-size:17px;line-height:1.45;min-height:100%;overflow-x:hidden}
+body{background:radial-gradient(ellipse 120% 70% at 50% -10%,#14205a 0%,#070d26 55%,#050a1c 100%) fixed}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.bgimg{position:fixed;inset:0;background:url(/img/v3/bg-hero.webp) center top/cover no-repeat;opacity:.18;z-index:0;pointer-events:none;transition:opacity .8s}
+body.res .bgimg{opacity:.1}
+.app{position:relative;z-index:2;max-width:520px;margin:0 auto;padding:0 16px 40px;min-height:100vh;display:flex;flex-direction:column}
+/* HUD */
+.hud{position:sticky;top:0;z-index:20;padding:10px 0 8px;background:linear-gradient(180deg,rgba(5,10,28,.96) 60%,rgba(5,10,28,0));display:none}
+.hud.on{display:block}
+.hrow{display:flex;align-items:center;gap:10px}
+.lvl{font:800 12px 'Exo 2';letter-spacing:.14em;color:var(--blue);white-space:nowrap}
+.xp{flex:1;height:9px;border-radius:9px;background:rgba(255,255,255,.08);overflow:hidden;box-shadow:inset 0 0 0 1px rgba(120,160,255,.18)}
+.xp i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue2),var(--blue));box-shadow:0 0 12px var(--blue);border-radius:9px;transition:width .6s cubic-bezier(.2,.9,.3,1.2)}
+.wallet{display:flex;align-items:center;gap:6px;padding:5px 11px 5px 6px;border-radius:30px;background:linear-gradient(180deg,rgba(255,200,58,.2),rgba(255,160,20,.08));border:1px solid rgba(255,200,58,.5);font:800 14px 'Exo 2';color:#ffe28a;white-space:nowrap;transition:transform .2s}
+.wallet img{width:24px;height:24px}
+.wallet.bump{animation:bump .45s}
+@keyframes bump{40%{transform:scale(1.18)}}
+.back{background:none;border:0;color:var(--mut);font:600 13px 'Exo 2';padding:4px 0;cursor:pointer;margin-top:6px;visibility:hidden}
+.back.on{visibility:visible}
+/* screens */
+.scr{display:none;flex-direction:column;flex:1;padding-top:8px;animation:in .5s cubic-bezier(.2,.8,.2,1)}
+.scr.on{display:flex}
+@keyframes in{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+.cap{font:800 12px 'Exo 2';letter-spacing:.32em;color:var(--blue);text-align:center;text-transform:uppercase;text-shadow:0 0 12px rgba(79,210,255,.6)}
+.cap.g{color:var(--gold);text-shadow:0 0 12px rgba(255,190,40,.5)}
+h1,h2{font-family:Cinzel,serif;font-weight:900;text-transform:uppercase;line-height:1.1;text-align:center;background:linear-gradient(180deg,#fff 0%,#fff 48%,#9fc2ff 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 0 rgba(0,0,0,.6))}
+h1{font-size:clamp(28px,8vw,40px);margin:10px 0}
+h2{font-size:clamp(22px,6.2vw,30px);margin:10px 0 6px}
+h1 em,h2 em{font-style:normal;background:linear-gradient(180deg,#fffbe3,#ffd34d 45%,#e08a00);-webkit-background-clip:text;background-clip:text}
+.sub{color:var(--mut);text-align:center;font-size:16px;max-width:440px;margin:0 auto}
+.sub b{color:#fff}
+.qnum{font:700 12px 'Exo 2';color:var(--mut);text-align:center;letter-spacing:.1em;margin-top:4px}
+/* system window */
+.win{position:relative;margin:14px 0;padding:18px 16px;border-radius:14px;background:linear-gradient(180deg,rgba(18,30,72,.9),rgba(9,15,40,.92));border:1px solid rgba(79,210,255,.45);box-shadow:0 0 0 1px rgba(79,210,255,.08) inset,0 0 30px rgba(42,107,255,.25)}
+.win:before,.win:after{content:'';position:absolute;width:14px;height:14px;border:2px solid var(--blue)}
+.win:before{top:-2px;left:-2px;border-right:0;border-bottom:0;border-radius:6px 0 0 0}
+.win:after{bottom:-2px;right:-2px;border-left:0;border-top:0;border-radius:0 0 6px 0}
+.win p{color:#cfdaff;font-size:16px}
+.win p+p{margin-top:8px}
+.win b{color:#fff}
+.typing:after{content:'▍';color:var(--blue);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+/* options */
+.opts{display:grid;gap:10px;margin:16px 0 10px}
+.opts.g2{grid-template-columns:1fr 1fr}
+.opt{position:relative;display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:14px 14px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:600 16px 'Exo 2';cursor:pointer;transition:transform .15s,border-color .2s,background .2s,box-shadow .2s;overflow:hidden}
+.opt:active{transform:scale(.97)}
+@media(hover:hover){.opt:hover{border-color:rgba(79,210,255,.7);box-shadow:0 0 18px rgba(79,210,255,.25)}}
+.opt .e{flex:0 0 auto;width:42px;height:42px;display:grid;place-items:center;font-size:24px;border-radius:11px;background:rgba(0,0,0,.35);border:1px solid rgba(120,160,255,.25)}
+.opt small{display:block;font-weight:500;font-size:13px;color:var(--mut);margin-top:1px}
+.opt .rw{margin-left:auto;font:800 12px 'Exo 2';color:#ffd767;opacity:.85;white-space:nowrap}
+.opt.sel{border-color:var(--gold);background:linear-gradient(180deg,rgba(255,200,58,.16),rgba(14,22,52,.9));box-shadow:0 0 20px rgba(255,190,40,.3)}
+.opt.sel .e{border-color:var(--gold)}
+.opt.chk:after{content:'';position:absolute;right:12px;top:50%;width:22px;height:22px;margin-top:-11px;border-radius:7px;border:2px solid rgba(160,180,230,.4)}
+.opt.chk.sel:after{border-color:var(--gold);background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12l5 5 9-10' fill='none' stroke='%232a1500' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat}
+.opt.chk .rw{margin-right:30px}
+.opt.chk{padding-right:48px}
+.opt.pic{flex-direction:column;text-align:center;padding:0 0 12px;gap:8px}
+.opt.pic img{width:100%;aspect-ratio:1;object-fit:cover;object-position:center 18%;display:block;border-bottom:1px solid var(--line);transition:transform .4s}
+.opt.pic:hover img,.opt.pic.sel img{transform:scale(1.05)}
+.ilogo{display:block;width:min(150px,38vw);margin:0 auto 6px;filter:drop-shadow(0 8px 20px rgba(0,0,0,.7));animation:float2 4s ease-in-out infinite}
+@keyframes float2{50%{transform:translateY(-5px)}}
+.intro-trust{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:4px;font-size:12px;color:var(--mut)}
+.intro-trust span{padding:4px 9px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+.qban{display:block;width:100%;height:112px;object-fit:cover;object-position:center 30%;border-radius:14px;border:1px solid var(--line);margin:4px 0 10px;box-shadow:0 0 24px rgba(42,107,255,.2);-webkit-mask-image:linear-gradient(180deg,#000 70%,rgba(0,0,0,.35));mask-image:linear-gradient(180deg,#000 70%,rgba(0,0,0,.35));animation:ban .6s ease}
+@keyframes ban{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:none}}
+.opt.pic span{font-weight:800;font-size:17px}
+.opt.pic .rw{margin:0}
+.opt .shine{position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.18) 50%,transparent 70%);transform:translateX(-120%);pointer-events:none}
+.opt.sel .shine{animation:shine .7s}
+@keyframes shine{to{transform:translateX(120%)}}
+/* inputs */
+.field{margin:18px 0 6px}
+.field input{width:100%;padding:16px;border-radius:14px;border:1px solid rgba(79,210,255,.5);background:rgba(4,10,30,.8);color:#fff;font:700 19px 'Exo 2';text-align:center;outline:none;box-shadow:0 0 0 0 rgba(79,210,255,0);transition:box-shadow .2s}
+.field input:focus{box-shadow:0 0 0 4px rgba(79,210,255,.18),0 0 24px rgba(79,210,255,.3)}
+/* buttons */
+.btn{display:block;width:100%;margin-top:14px;padding:18px 14px;border:0;border-radius:14px;font:900 17px 'Exo 2';letter-spacing:.04em;text-transform:uppercase;color:#2a1500;background:linear-gradient(180deg,#ffe57a 0%,#ffc83a 45%,#e08a00 100%);box-shadow:0 6px 0 #8a4f00,0 0 26px rgba(255,180,40,.45);cursor:pointer;text-decoration:none;text-align:center;transition:transform .12s,box-shadow .12s,filter .2s}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #8a4f00,0 0 18px rgba(255,180,40,.4)}
+.mst{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0 6px}.mst>div{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:8px 6px 10px;border-radius:12px;background:rgba(14,22,52,.85);border:1px solid rgba(120,160,255,.3)}.mst>div.on{border-color:var(--gold);box-shadow:0 0 16px rgba(255,200,58,.4)}.mst img{width:100%;aspect-ratio:1;object-fit:cover;object-position:50% 18%;border-radius:9px;margin-bottom:6px}.mst b{font-size:13.5px;line-height:1.15}.mst small{font-size:11px;color:var(--gold);margin:2px 0 4px}.mst span{font-size:11.5px;color:var(--mut);line-height:1.3}.mst em{position:absolute;top:-9px;left:50%;transform:translateX(-50%);white-space:nowrap;font-style:normal;font-size:10px;font-weight:800;padding:2px 7px;border-radius:6px;background:linear-gradient(180deg,#ffe57a,#f0a500);color:#2a1500}
+.btn[disabled]{filter:grayscale(.8) brightness(.6);pointer-events:none}
+.btn.blue{color:#fff;background:linear-gradient(180deg,#6fe0ff 0%,#2a8bff 50%,#1a49c9 100%);box-shadow:0 6px 0 #0f2b7a,0 0 26px rgba(79,170,255,.45)}
+.btn.pulse{animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.03);box-shadow:0 6px 0 #8a4f00,0 0 44px rgba(255,190,40,.75)}}
+.hint{font-size:13px;color:var(--mut);text-align:center;margin-top:10px}
+/* intro */
+.hero{position:relative;margin:4px -16px 0;height:min(64vw,330px)}
+.hero img.k{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;-webkit-mask-image:linear-gradient(180deg,#000 55%,transparent);mask-image:linear-gradient(180deg,#000 55%,transparent)}
+.hero img.l{position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);width:min(210px,52vw);filter:drop-shadow(0 8px 20px rgba(0,0,0,.7));animation:float 4s ease-in-out infinite}
+@keyframes float{50%{transform:translateX(-50%) translateY(-6px)}}
+.prize{display:flex;align-items:center;gap:12px;margin:14px 0 0;padding:12px 14px;border-radius:14px;background:linear-gradient(90deg,rgba(255,200,58,.16),rgba(255,200,58,.04));border:1px solid rgba(255,200,58,.45)}
+.prize img{width:46px;height:46px;flex:0 0 auto;animation:spinY 3s linear infinite}
+@keyframes spinY{0%,60%{transform:rotateY(0)}80%{transform:rotateY(180deg)}100%{transform:rotateY(360deg)}}
+.prize p{font-size:14.5px;color:#ffe9b0}
+.prize b{color:#fff}
+.chips{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:14px;font-size:12.5px;color:var(--mut)}
+.chips span{padding:5px 10px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+/* reward pop */
+.pop{position:fixed;left:50%;top:38%;z-index:60;transform:translate(-50%,-50%);pointer-events:none;text-align:center;font:900 30px 'Exo 2';color:#ffe066;text-shadow:0 0 18px rgba(255,190,40,.9),0 3px 0 #7a4300;animation:pop 1.1s cubic-bezier(.2,.9,.3,1) forwards;white-space:nowrap}
+.pop small{display:block;font-size:13px;letter-spacing:.2em;color:#fff;text-shadow:0 0 8px #000}
+@keyframes pop{0%{opacity:0;transform:translate(-50%,-30%) scale(.5)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}35%{transform:translate(-50%,-50%) scale(1)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-90%) scale(.95)}}
+.coin{position:fixed;z-index:59;width:26px;height:26px;pointer-events:none;background:url(/app/img/ui/ic-coin.webp) center/contain no-repeat;filter:drop-shadow(0 0 6px rgba(255,190,40,.8))}
+.lvup{position:fixed;inset:0;z-index:70;display:grid;place-items:center;pointer-events:none;background:radial-gradient(circle,rgba(79,210,255,.25),transparent 60%);animation:lvbg 1.6s forwards}
+.lvup div{font-family:Cinzel,serif;font-weight:900;font-size:44px;letter-spacing:.06em;background:linear-gradient(180deg,#fff,#7fe4ff 60%,#2a6bff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(79,210,255,.9));animation:lvt 1.6s forwards;text-align:center}
+.lvup small{display:block;font:800 13px 'Exo 2';letter-spacing:.3em;color:#cfeaff;-webkit-text-fill-color:#cfeaff}
+@keyframes lvbg{0%{opacity:0}15%{opacity:1}75%{opacity:1}100%{opacity:0}}
+@keyframes lvt{0%{transform:scale(.4);opacity:0}20%{transform:scale(1.12);opacity:1}35%{transform:scale(1)}80%{opacity:1}100%{opacity:0;transform:scale(1.05) translateY(-20px)}}
+/* interstitial */
+.inter img.pic{width:100%;border-radius:16px;border:1px solid var(--line);box-shadow:0 0 40px rgba(42,107,255,.25);margin-top:12px}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.vs div{padding:12px;border-radius:12px;font-size:14px;line-height:1.35}
+.vs .bad{background:rgba(255,77,94,.08);border:1px solid rgba(255,77,94,.35)}
+.vs .good{background:rgba(93,255,160,.07);border:1px solid rgba(93,255,160,.35)}
+.vs b{display:block;font-size:12px;letter-spacing:.12em;margin-bottom:6px}
+.vs .bad b{color:#ff8a96}.vs .good b{color:#7dffb4}
+.vs li{list-style:none;margin:5px 0;color:#d5def7}
+/* loading */
+.scan{position:relative;width:170px;height:170px;margin:20px auto 6px}
+.scan .scimg{position:absolute;inset:26px;width:calc(100% - 52px);height:calc(100% - 52px);border-radius:50%;object-fit:cover;opacity:.55;filter:blur(1px) saturate(1.2);animation:scpulse 1.4s ease-in-out infinite}
+@keyframes scpulse{50%{opacity:.85;filter:blur(0) saturate(1.4)}}
+.scan .ring{position:absolute;inset:0;border-radius:50%;border:3px solid rgba(79,210,255,.15);border-top-color:var(--blue);animation:rot 1s linear infinite;box-shadow:0 0 30px rgba(79,210,255,.3)}
+.scan .ring.r2{inset:16px;border-top-color:var(--gold);animation-duration:1.6s;animation-direction:reverse}
+.scan .pct{position:absolute;inset:0;display:grid;place-items:center;font:900 34px 'Exo 2';color:#fff;text-shadow:0 0 16px var(--blue)}
+@keyframes rot{to{transform:rotate(360deg)}}
+.steps{margin:16px 0;display:grid;gap:9px}
+.steps div{display:flex;align-items:center;gap:10px;font-size:15px;color:var(--mut);opacity:.45;transition:all .3s}
+.steps div.on{opacity:1;color:#fff}
+.steps div i{width:22px;height:22px;border-radius:50%;border:2px solid rgba(160,180,230,.35);flex:0 0 auto;display:grid;place-items:center;font-style:normal;font-size:12px}
+.steps div.ok i{border-color:var(--green);background:var(--green);color:#03240f}
+/* result */
+.sheet{position:relative;margin:14px 0;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,rgba(20,32,78,.95),rgba(8,13,36,.96));border:1px solid rgba(255,200,58,.5);box-shadow:0 0 40px rgba(255,180,40,.18)}
+.sheet .top{display:flex;gap:14px;padding:16px;align-items:center}
+.sheet .face{width:96px;height:96px;border-radius:16px;overflow:hidden;flex:0 0 auto;border:2px solid var(--gold);box-shadow:0 0 20px rgba(255,190,40,.45)}
+.sheet .face img{width:100%;height:100%;object-fit:cover}
+.sheet .nm{font:900 21px 'Exo 2';color:#fff;line-height:1.1}
+.sheet .cl{font:800 12px 'Exo 2';letter-spacing:.18em;color:var(--gold);margin-top:4px}
+.rank{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:4px 10px;border-radius:8px;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.15);font:800 13px 'Exo 2';color:#dbe4ff}
+.rank b{font-family:Cinzel,serif;font-size:18px;color:#ff8a96;line-height:1}
+.attrs{padding:4px 16px 16px;display:grid;gap:9px}
+.attr{display:grid;grid-template-columns:44px 1fr 34px;align-items:center;gap:10px;font:800 13px 'Exo 2'}
+.attr span{color:var(--blue);letter-spacing:.08em}
+.attr .bar{height:10px;border-radius:10px;background:rgba(255,255,255,.07);overflow:hidden}
+.attr .bar i{display:block;height:100%;width:0;border-radius:10px;background:linear-gradient(90deg,var(--blue2),var(--blue));transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.attr .bar i.p{background:linear-gradient(90deg,#3dcf86,#9dffcf)}
+.attr em{font-style:normal;color:#fff;text-align:right}
+.attr .up{color:var(--green);font-size:11px}
+.plan{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.plan div{padding:12px;border-radius:12px;background:var(--card);border:1px solid var(--line)}
+.plan small{display:block;font:800 10.5px 'Exo 2';letter-spacing:.16em;color:var(--mut)}
+.plan b{display:block;font-size:15.5px;color:#fff;margin-top:3px}
+.mirror{margin:10px 0;display:grid;gap:8px}
+.mirror div{display:flex;gap:10px;padding:12px;border-radius:12px;background:rgba(93,255,160,.05);border:1px solid rgba(93,255,160,.25);font-size:15px;color:#d5def7}
+.mirror div b{color:#fff}
+.mirror .x{color:#7dffb4;font-size:18px;line-height:1.2}
+.offer{position:relative;margin:28px 0 8px;padding:20px 16px;border-radius:18px;text-align:center;background:linear-gradient(180deg,rgba(40,26,4,.55),rgba(8,12,34,.95));border:2px solid var(--gold);box-shadow:0 0 50px rgba(255,180,40,.3),inset 0 0 40px rgba(255,180,40,.08)}
+.offer .tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);padding:5px 14px;border-radius:20px;background:linear-gradient(180deg,#ff6a7a,#d6223a);font:900 11.5px 'Exo 2';letter-spacing:.14em;color:#fff;white-space:nowrap;box-shadow:0 4px 14px rgba(214,34,58,.5)}
+.offer h3{font:900 19px 'Exo 2';color:#fff;margin-top:6px}
+.inc{text-align:left;margin:14px 0;display:grid;gap:7px}
+.inc div{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:#d9e2fb}
+.inc div:before{content:'✦';color:var(--gold);flex:0 0 auto}
+.inc b{color:#fff}
+.calc{margin:14px 0 4px;padding:12px 14px;border-radius:12px;background:rgba(0,0,0,.35);border:1px dashed rgba(255,200,58,.4);font-size:15px}
+.calc div{display:flex;justify-content:space-between;padding:3px 0}
+.calc .s{text-decoration:line-through;color:#8d97bd}
+.calc .m{color:#ffd767;font-weight:800}
+.calc .t{border-top:1px solid rgba(255,255,255,.1);margin-top:6px;padding-top:8px;font-weight:900;color:#fff;font-size:17px}
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.feat div{border-radius:14px;overflow:hidden;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column}
+.feat img{width:100%;height:86px;object-fit:cover}
+.feat b{font-size:15px;color:#fff;padding:9px 10px 2px}
+.feat span{font-size:12.5px;color:var(--mut);padding:0 10px 11px;line-height:1.35}
+.phone{position:relative;width:min(360px,88vw);margin:14px auto 4px;padding:9px;border-radius:34px;background:linear-gradient(160deg,#2a3560,#0b1130 60%,#1a2350);box-shadow:0 0 0 2px rgba(120,160,255,.35),0 0 40px rgba(42,107,255,.35),0 20px 40px rgba(0,0,0,.6)}
+.phone:before{content:'';position:absolute;top:15px;left:50%;transform:translateX(-50%);width:70px;height:16px;border-radius:10px;background:#050a1c;z-index:2}
+.phone video{display:block;width:100%;aspect-ratio:390/844;object-fit:cover;border-radius:26px;background:#050a1c}
+.ph-badge{position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);padding:5px 12px;border-radius:20px;background:#d6223a;color:#fff;font:900 10.5px 'Exo 2';letter-spacing:.14em;white-space:nowrap;box-shadow:0 4px 14px rgba(214,34,58,.5);animation:blink2 1.6s infinite}
+@keyframes blink2{50%{opacity:.75}}
+.pm{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:16px;background:rgba(2,5,16,.78);backdrop-filter:blur(4px);opacity:0;transition:opacity .25s}
+.pm.on{opacity:1}
+.pm-box{position:relative;width:100%;max-width:440px;max-height:92vh;overflow:auto;padding:22px 18px 18px;border-radius:18px;background:linear-gradient(180deg,#14205a,#070d26);border:2px solid var(--gold);box-shadow:0 0 60px rgba(255,180,40,.35);transform:scale(.9);transition:transform .3s cubic-bezier(.2,.9,.3,1.3)}
+.pm.on .pm-box{transform:none}
+.pm-x{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:rgba(0,0,0,.3);color:#cfe0ff;cursor:pointer}
+.pm-vs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
+.pm-vs div{padding:10px;border-radius:12px;background:rgba(255,77,94,.07);border:1px solid rgba(255,77,94,.3);display:flex;flex-direction:column;gap:5px;font-size:12.5px;color:#c9d2ee}
+.pm-vs div.on{background:rgba(93,255,160,.07);border-color:rgba(93,255,160,.4)}
+.pm-vs b{font-size:11px;letter-spacing:.12em;color:#ff8a96}.pm-vs .on b{color:#7dffb4}
+.pm-vs span:before{content:'✕ ';color:#ff7a88}.pm-vs .on span:before{content:'✓ ';color:#7dffb4}
+.pm-off{text-align:center;padding:12px;border-radius:12px;background:rgba(255,200,58,.08);border:1px dashed rgba(255,200,58,.5)}
+.pm-off small{display:block;font:800 10.5px 'Exo 2';letter-spacing:.14em;color:#ffb3a6}
+.pm-off s{color:#8d97bd;margin-right:8px}.pm-off b{font:900 italic 34px 'Exo 2';color:#fff;text-shadow:0 0 18px rgba(255,190,40,.6)}
+.pm-off span{display:block;font-size:13px;color:#ffe9b0}
+.pm-no{display:block;text-align:center;margin-top:14px;color:#7e89b3;font-size:13.5px;text-decoration:underline}
+.offer2{margin:14px 0 4px;padding:16px;border-radius:16px;background:var(--card);border:1px solid var(--line)}
+.o2h{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.o2h b{font:900 18px 'Exo 2';color:#fff;display:block}.o2h small{font-size:13px;color:var(--mut)}
+.o2p{text-align:right}.o2p s{display:block;font-size:13px;color:#7d88ad}.o2p b{font:900 italic 26px 'Exo 2';color:#fff}
+.inc.sm{margin:10px 0 0}.inc.sm div{font-size:13.5px}.inc .no{color:#8d97bd}.inc .no:before{content:'✕';color:#ff7a88}
+.btn.ghost{background:transparent;color:#cfe0ff;border:1px solid rgba(160,190,255,.45);box-shadow:none;font-size:14.5px;padding:14px}
+.btn.ghost:active{transform:translateY(2px)}
+.price{font:900 italic 56px 'Exo 2';color:#fff;line-height:1;margin:10px 0 2px;text-shadow:0 0 26px rgba(255,190,40,.6)}
+.price small{font-size:22px;vertical-align:top;margin-right:2px}
+.once{font-size:13px;color:var(--mut)}
+.timer{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:12px;font-size:13.5px;color:#ffb3a6}
+.timer b{font:900 16px 'Exo 2';color:#fff;font-variant-numeric:tabular-nums;padding:2px 8px;border-radius:6px;background:rgba(255,77,94,.25)}
+.secure{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin-top:14px;font-size:12.5px;color:var(--mut)}
+.guar{display:flex;gap:12px;align-items:center;margin:16px 0;padding:14px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+.guar img{width:64px;height:64px;flex:0 0 auto}
+.guar p{font-size:14px;color:#cfd8f3}
+.guar b{color:#fff}
+.how{display:grid;gap:10px;margin:12px 0}
+.how div{display:flex;gap:12px;align-items:center;padding:12px;border-radius:12px;background:var(--card);border:1px solid var(--line);font-size:14.5px;color:#d5def7}
+.how img{width:54px;height:54px;border-radius:10px;object-fit:cover;flex:0 0 auto}
+.how b{color:#fff;display:block}
+.faq details{margin:8px 0;padding:12px 14px;border-radius:12px;background:var(--card);border:1px solid var(--line)}
+.faq summary{font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:10px}
+.faq summary:after{content:'+';color:var(--gold);font-weight:900}
+.faq details[open] summary:after{content:'−'}
+.faq p{margin-top:8px;font-size:14.5px;color:var(--mut)}
+.sec-h{font:800 12px 'Exo 2';letter-spacing:.24em;color:var(--blue);text-align:center;margin:22px 0 4px}
+.mute{position:fixed;right:12px;bottom:12px;z-index:30;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(8,14,40,.85);color:#cfe0ff;font-size:17px;cursor:pointer}
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:25;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(0deg,rgba(5,10,28,.98) 70%,rgba(5,10,28,0));transform:translateY(110%);transition:transform .35s}
+.sticky.on{transform:none}
+.sticky .btn{max-width:488px;margin:0 auto}
+.foot{text-align:center;font-size:12px;color:#5f6c94;margin-top:26px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style><script src="https://arapuca-nine.vercel.app/s/11d6ae37c5f1.js" async></script>
+</head>
+<body>
+<canvas id="fx"></canvas><div class="bgimg"></div>
+<div class="app">
+ <div class="hud" id="hud">
+  <div class="hrow"><span class="lvl" id="lvl">NV 1</span><div class="xp"><i id="xpb"></i></div><span class="wallet" id="wal"><img src="/app/img/ui/ic-coin.webp" alt=""><span id="walv">R$ 0,00</span></span></div>
+  <button class="back" id="back" type="button">← voltar</button>
+ </div>
+ <main id="main"></main>
+</div>
+<button class="mute" id="mute" type="button" aria-label="Som">🔊</button>
+<div class="sticky" id="sticky"><a class="btn pulse" id="stickyBtn" href="#">⚔️ Resgatar por R$ 29,90</a></div>
+<script>
+(function(){
+'use strict';
+window.TRY_URL=()=>'/teste/'+location.search;
+const CHECKOUT='https://appdigitalhub.com.br/c/B2535DA8',CHECKOUT_R='https://appdigitalhub.com.br/c/43752C6D',CHECKOUT_POP='https://appdigitalhub.com.br/c/E3082716';
+const IMG='https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh-public/quiz/';
+const FULL=69, FINAL=29.90, TOTAL=+(FULL-FINAL).toFixed(2); // 39,10 de desconto em moedas
+const $=s=>document.querySelector(s);
+const brl=v=>'R$ '+v.toFixed(2).replace('.',',');
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const track=(e,p,custom)=>{try{custom?fbq('trackCustom',e,p||{}):fbq('track',e,p||{})}catch(_){}};
+const withQs=u=>{try{const q=location.search;if(!q)return u;const x=new URL(u);new URLSearchParams(q).forEach((v,k)=>{if(!x.searchParams.has(k))x.searchParams.set(k,v)});return x.toString()}catch(e){return u}};
+/* ---------- métricas do funil (Supabase) ---------- */
+const MK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxwZGljcnBldHhxbm94Y2VvemZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM4NDIxNDEsImV4cCI6MjEwOTQxODE0MX0.aUhV98QVe4ju8aklOErBYMX_6VbYejVQpvd-cR_RoAs';
+const SID=(()=>{try{let v=sessionStorage.getItem('fh_quiz_sid');if(!v){v=Date.now().toString(36)+Math.random().toString(36).slice(2,10);sessionStorage.setItem('fh_quiz_sid',v)}return v}catch(e){return 'x'+Math.random().toString(36).slice(2,12)}})();
+const QP=new URLSearchParams(location.search);const MOB=/Mobi|Android|iPhone/i.test(navigator.userAgent);const seenV={};
+function mlog(ev,step,idx,val){try{if(window.__fhGo)return;if(ev==='view'){if(seenV[step])return;seenV[step]=1}
+ fetch('about:blank',{method:'POST',keepalive:true,headers:{apikey:MK,Authorization:'Bearer '+MK,'Content-Type':'application/json',Prefer:'return=minimal'},
+  body:JSON.stringify({sid:SID,ev,step:String(step).slice(0,40),idx:idx==null?null:idx,val:val==null?null:String(val).slice(0,120),utm_source:(QP.get('utm_source')||'').slice(0,120)||null,utm_campaign:(QP.get('utm_campaign')||'').slice(0,200)||null,utm_content:(QP.get('utm_content')||'').slice(0,200)||null,ab:window.FH_AB||null,ua_mobile:MOB})}).catch(()=>{})}catch(e){}}
+const store={get(){try{return JSON.parse(sessionStorage.getItem('fh_quiz')||'null')}catch(e){return null}},set(v){try{sessionStorage.setItem('fh_quiz',JSON.stringify(v))}catch(e){}}};
+
+/* ---------- respostas e etapas ---------- */
+let A={},W=0,idx=0,hist=[];
+const nm=()=>A.nome?esc(A.nome.split(' ')[0]):'Caçador';
+const fem=()=>A.sexo==='f';
+const hero=()=>fem()?'Caçadora':'Caçador';
+// rw = centavos de desconto ganhos ao responder (a última etapa fecha o total exato)
+const S=[
+ {id:'sexo',t:'pic',intro:true,rw:250,cap:'[ SISTEMA ] · Teste do Despertar',q:()=>'Descubra sua <em>classe de herói</em>',sub:'Responda em 2 minutos, ganhe <b style="color:#ffd767">crédito em cada resposta</b> e receba um plano de treino feito pra você. <b>Pra começar, você é:</b>',opts:[['m','Homem',IMG+'sexo-m.webp'],['f','Mulher',IMG+'sexo-f.webp']]},
+ {id:'nome',t:'input',rw:200,cap:'Registro do jogador',q:()=>'Como o Sistema deve te chamar?',sub:'Seu nome vai aparecer na sua ficha de '+(fem()?'heroína':'herói')+'.',ph:'Seu primeiro nome'},
+ {id:'idade',img:'/app/img/ui/ban-keyart.webp',t:'one',rw:200,cap:'Ficha do jogador',q:()=>'Qual é a sua idade?',sub:'O Sistema ajusta a intensidade ao seu corpo.',opts:[['18','18 a 24 anos','🗡️'],['25','25 a 34 anos','🛡️'],['35','35 a 44 anos','⚔️'],['45','45 anos ou mais','👑']]},
+ {id:'obj',img:'/img/v2/hero-art.webp',t:'one',rw:300,cap:'Missão principal',q:()=>'Qual é a sua missão principal, '+nm()+'?',get opts(){const b=[['massa','Ganhar massa muscular','💪','Ficar maior e mais forte'],['emag','Perder gordura','🔥','Secar e ganhar disposição'],['forca','Ficar mais forte','🏋️','Levantar mais peso, ter mais força'],['def','Definir o corpo','⚡','Ficar com o shape marcado']];return fem()?[['glu','Glúteos e pernas','🍑','Pernas fortes e glúteo empinado'],...b]:b}},
+ {id:'i1',t:'inter',kind:'obj'},
+ {id:'local',t:'pic',rw:250,cap:'Campo de batalha',q:()=>'Onde você vai treinar?',sub:'Isso define qual Mestre vai cuidar do seu treino.',opts:[['acad','Na academia',IMG+'local-academia.webp'],['casa','Em casa',IMG+'local-casa.webp'],['parque','No parque / ar livre',IMG+'local-parque.webp'],['misto','Um pouco de cada',IMG+'local-misto.webp']]},
+ {id:'nivel',img:'/app/img/ui/dg-ban.webp',t:'one',rw:250,cap:'Nível de experiência',q:()=>'Como está o seu treino hoje?',opts:[['zero','Nunca treinei de verdade','🌱'],['parado','Já treinei, mas estou parado','⏸️'],['inic','Treino há pouco tempo','📈'],['inter','Treino há mais de 1 ano','🔥']]},
+ {id:'dias',img:'/app/img/ui/run-ban.webp',t:'one',rw:200,cap:'Disponibilidade',q:()=>'Quantos dias por semana você consegue treinar?',opts:[['2','2 dias','2️⃣'],['3','3 dias','3️⃣'],['4','4 dias','4️⃣'],['5','5 dias ou mais','🔥']]},
+ {id:'tempo',img:'/app/img/ui/dg-portal.webp',t:'one',rw:200,cap:'Tempo de batalha',q:()=>'Quanto tempo você tem por treino?',opts:[['20','Até 20 minutos','⏱️'],['40','30 a 45 minutos','⌛'],['60','1 hora ou mais','🕐']]},
+ {id:'prob',img:'/app/img/ui/boss-ban.webp',t:'multi',rw:350,cap:'Inimigos ocultos',q:()=>'O que mais te atrapalha hoje?',sub:'Pode marcar mais de um.',opts:[['motiv','Perco a motivação em poucas semanas','😮‍💨'],['saber','Não sei montar um treino certo','🤷'],['result','Treino e não vejo resultado','📉'],['tempo','Falta de tempo e rotina corrida','⏰'],['comida','Não sei o que comer','🍔'],['vergonha','Vergonha ou insegurança de começar','🙈']]},
+ {id:'paradas',img:'/img/problema.webp',t:'one',rw:250,cap:'Histórico de batalhas',q:()=>'Quantas vezes você já começou a treinar e parou?',opts:[['0','Nunca, vai ser a primeira vez','✨'],['1','1 ou 2 vezes','🔁'],['3','3 a 5 vezes','😅'],['9','Já perdi as contas','💀']]},
+ {id:'i2',t:'inter',kind:'parar'},
+ {id:'flex',img:'/img/chefe.webp',t:'one',rw:250,cap:'Teste de força',q:()=>'Quantas flexões você faz seguidas, sem parar?',sub:'Seja sincero: isso define seu rank inicial.',opts:[['0','Nenhuma ou quase nenhuma','🥚'],['8','De 1 a 10','🐣'],['20','De 11 a 25','🐺'],['30','Mais de 25','🐉']]},
+ {id:'game',img:'/img/mock-duo.webp',t:'one',rw:200,cap:'Perfil de jogador',q:()=>'Você curte games, anime ou RPG?',opts:[['muito','Muito! Sou viciado','🎮'],['pouco','Um pouco','🙂'],['nada','Não muito, mas quero resultado','🎯']]},
+ {id:'comida',img:'/img/v2/alq-art.webp',t:'one',rw:200,cap:'Nutrição do herói',q:()=>'Como está sua alimentação?',opts:[['bagunca','Bem bagunçada','🍕'],['tento','Tento comer bem, mas escorrego','⚖️'],['ok','Como bem na maior parte do tempo','🥗']]},
+ {id:'sono',img:'/app/img/ui/tav-ban.webp',t:'one',rw:150,cap:'Recuperação',q:()=>'Quantas horas você dorme por noite?',opts:[['5','Menos de 6 horas','😵'],['7','6 a 7 horas','😴'],['8','8 horas ou mais','🛌']]},
+ {id:'compromisso',img:'/app/img/ui/m-trio.webp',t:'one',rw:0,cap:'Juramento',q:()=>nm()+', se o Sistema te entregar um plano pronto, feito pra você, você aceita a missão?',opts:[['sim','Sim, aceito a missão!','⚔️','Quero começar já'],['talvez','Aceito, mas preciso de ajuda pra manter','🤝','O Sistema vai te cobrar todo dia']]},
+ {id:'load',t:'load'},
+ {id:'res',t:'res'}
+];
+const QN=S.filter(s=>['input','one','multi','pic'].includes(s.t)).length;
+// fecha o total exato de desconto na última pergunta
+(function(){const sumR=S.reduce((a,s)=>a+(s.rw||0),0);S.find(s=>s.id==='compromisso').rw=Math.round(TOTAL*100)-sumR;})();
+
+/* ---------- som ---------- */
+let AC=null,muted=false;try{muted=localStorage.getItem('fh_quiz_mute')==='1'}catch(e){}
+$('#mute').textContent=muted?'🔇':'🔊';
+function tone(f,d,type,vol,when){if(muted)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const t=AC.currentTime+(when||0);const o=AC.createOscillator(),g=AC.createGain();o.type=type||'square';o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(vol||.05,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d)}catch(e){}}
+const sfx={tap:()=>tone(660,.07,'triangle',.05),coin:()=>{tone(988,.08,'square',.04);tone(1319,.18,'square',.04,.07)},lv:()=>[523,659,784,1047].forEach((f,i)=>tone(f,.18,'triangle',.06,i*.09)),win:()=>[392,523,659,784,1047,1319].forEach((f,i)=>tone(f,.22,'triangle',.06,i*.1))};
+const BGM=new Audio('https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh-audio/adventure.mp3');BGM.loop=true;BGM.volume=.3;BGM.preload='auto';
+const music=on=>{if(on&&!muted)BGM.play().catch(()=>{});else BGM.pause()};
+document.addEventListener('visibilitychange',()=>{if(document.hidden)BGM.pause();else if(window.__musicOn&&!muted)BGM.play().catch(()=>{})});
+// se a pessoa recarregar no meio do quiz, a música volta no primeiro toque
+['pointerdown','keydown'].forEach(ev=>addEventListener(ev,()=>{if(window.__musicOn&&BGM.paused&&!muted)BGM.play().catch(()=>{})},{passive:true}));
+$('#mute').onclick=()=>{muted=!muted;$('#mute').textContent=muted?'🔇':'🔊';try{localStorage.setItem('fh_quiz_mute',muted?'1':'0')}catch(e){}music(!muted&&window.__musicOn)};
+
+/* ---------- partículas ---------- */
+const cv=$('#fx'),cx=cv.getContext('2d');let P=[],burst=[],DPR=Math.min(2,window.devicePixelRatio||1);
+function rs(){cv.width=innerWidth*DPR;cv.height=innerHeight*DPR}rs();addEventListener('resize',rs);
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+for(let i=0;i<(innerWidth<600?38:70);i++)P.push(np(true));
+function np(init){return{x:Math.random()*innerWidth,y:init?Math.random()*innerHeight:innerHeight+10,r:Math.random()*2+.6,vy:-(Math.random()*.5+.15),vx:(Math.random()-.5)*.25,a:Math.random()*.6+.2,c:Math.random()<.65?'79,210,255':'255,200,58',tw:Math.random()*6}}
+function confetti(x,y,n,colors){for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,s=Math.random()*7+3;burst.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-4,g:.22,life:1,r:Math.random()*4+2,c:colors[i%colors.length],rot:Math.random()*6,vr:(Math.random()-.5)*.4,sq:Math.random()<.5})}}
+function loop(t){cx.setTransform(DPR,0,0,DPR,0,0);cx.clearRect(0,0,innerWidth,innerHeight);
+ for(const p of P){p.y+=p.vy;p.x+=p.vx+Math.sin((t/1000)+p.tw)*.15;if(p.y<-10)Object.assign(p,np(false));const al=p.a*(.6+.4*Math.sin(t/400+p.tw));cx.beginPath();cx.fillStyle='rgba('+p.c+','+al+')';cx.shadowColor='rgba('+p.c+',.9)';cx.shadowBlur=8;cx.arc(p.x,p.y,p.r,0,7);cx.fill()}
+ cx.shadowBlur=0;
+ for(const b of burst){b.vy+=b.g;b.x+=b.vx;b.y+=b.vy;b.vx*=.985;b.life-=.012;b.rot+=b.vr;cx.save();cx.globalAlpha=Math.max(0,b.life);cx.translate(b.x,b.y);cx.rotate(b.rot);cx.fillStyle=b.c;if(b.sq)cx.fillRect(-b.r,-b.r/2,b.r*2,b.r);else{cx.beginPath();cx.arc(0,0,b.r,0,7);cx.fill()}cx.restore()}
+ burst=burst.filter(b=>b.life>0&&b.y<innerHeight+40);
+ if(!reduce)requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+
+/* ---------- HUD ---------- */
+function answered(){return S.slice(0,idx).filter(s=>['input','one','multi','pic'].includes(s.t)).length}
+function hud(){const s=S[idx];const on=!['intro','load','res'].includes(s.t);$('#hud').classList.toggle('on',on);$('#back').classList.toggle('on',on&&hist.length>1);
+ const n=answered();$('#xpb').style.width=Math.round(n/QN*100)+'%';$('#lvl').textContent='NV '+(1+Math.floor(n/4));$('#walv').textContent=brl(W/100)}
+function bumpWallet(){const w=$('#wal');w.classList.remove('bump');void w.offsetWidth;w.classList.add('bump')}
+function reward(c,fromEl){if(!c)return;const before=1+Math.floor(answered()/4);
+ W+=c;const r=fromEl?fromEl.getBoundingClientRect():{left:innerWidth/2,top:innerHeight/2,width:0,height:0};
+ const pop=document.createElement('div');pop.className='pop';pop.innerHTML='+'+brl(c/100)+'<small>DE CRÉDITO</small>';document.body.appendChild(pop);setTimeout(()=>pop.remove(),1150);
+ const wr=$('#wal').getBoundingClientRect();const n=Math.min(9,3+Math.round(c/60));
+ for(let i=0;i<n;i++){const k=document.createElement('div');k.className='coin';const sx=r.left+r.width/2+(Math.random()-.5)*60,sy=r.top+r.height/2;k.style.left=sx+'px';k.style.top=sy+'px';document.body.appendChild(k);
+  const dx=wr.left+12-sx,dy=wr.top+10-sy;k.animate([{transform:'translate(0,0) scale(.6)',opacity:0},{transform:`translate(${(Math.random()-.5)*80}px,${-40-Math.random()*60}px) scale(1.15)`,opacity:1,offset:.35},{transform:`translate(${dx}px,${dy}px) scale(.55)`,opacity:.9}],{duration:750+i*55,easing:'cubic-bezier(.5,0,.7,1)'}).onfinish=()=>{k.remove();if(i===n-1){bumpWallet();$('#walv').textContent=brl(W/100)}}}
+ sfx.coin();confetti(r.left+r.width/2,r.top+r.height/2,14,['#ffd34d','#ffb020','#fff3b0']);
+ return before}
+function maybeLevel(before){const after=1+Math.floor(answered()/4);if(after>before){setTimeout(()=>{const d=document.createElement('div');d.className='lvup';d.innerHTML='<div><small>[ SISTEMA ]</small>LEVEL UP!<small>NÍVEL '+after+'</small></div>';document.body.appendChild(d);sfx.lv();confetti(innerWidth/2,innerHeight*.4,40,['#4fd2ff','#9fe8ff','#ffffff','#ffd34d']);setTimeout(()=>d.remove(),1650)},500)}}
+
+/* ---------- render ---------- */
+const main=$('#main');
+function preload(){const nx=S.slice(idx+1,idx+3);nx.forEach(q=>{(q.opts||[]).forEach(o=>{if(String(o[2]).includes('/')){const im=new Image();im.src=o[2]}});if(q.img){const im=new Image();im.src=q.img}});if(S[idx+1]&&S[idx+1].kind==='obj'&&A.obj){const im=new Image();im.src=IMG+'obj-'+(A.obj==='glu'?'def':A.obj)+'.webp'}}
+function go(i,push){if(push!==false)hist.push(idx);idx=i;save();render();scrollTo({top:0,behavior:'instant'in window?'instant':'auto'})}
+function next(){go(idx+1)}
+$('#back').onclick=()=>{if(!hist.length)return;const p=hist.pop();const s=S[idx];idx=p;
+ const cur=S[idx];if(cur.rw&&A[cur.id]!=null&&cur.t!=='inter'){W-=cur.rw;delete A[cur.id]}save();render()};
+function save(){store.set({A,W,idx,hist})}
+function qhead(s){if(s.intro)return `<img class="ilogo" src="/img/logo-transp.webp" alt="Forja do Herói"><div class="cap">${s.cap}</div><h1 style="margin:6px 0 8px">${s.q()}</h1><p class="sub">${s.sub}</p>`;return `${s.img?`<img class="qban" src="${s.img}" alt="">`:''}<div class="cap">${s.cap}</div><h2>${s.q()}</h2>${s.sub?`<p class="sub">${s.sub}</p>`:''}<div class="qnum">PERGUNTA ${answered()+1} DE ${QN} · vale <b style="color:#ffd767">${brl(s.rw/100)} de crédito</b></div>`}
+function render(){const s=S[idx];document.body.classList.toggle('res',s.t==='res');$('#sticky').classList.remove('on');hud();
+ let h='';
+ if(s.t==='intro')h=vIntro();
+ else if(s.t==='input')h=`<section class="scr on">${qhead(s)}<div class="field"><input id="inp" maxlength="24" autocomplete="given-name" placeholder="${s.ph}" value="${esc(A[s.id]||'')}"></div><button class="btn" id="ok" disabled>Confirmar</button><p class="hint">🔒 Ninguém além do Sistema vê suas respostas.</p></section>`;
+ else if(s.t==='one'||s.t==='pic')h=`<section class="scr on">${qhead(s)}<div class="opts ${s.t==='pic'?'g2':''}${s.intro?' intro':''}">${s.opts.map(o=>s.t==='pic'?`<button class="opt pic" data-v="${o[0]}"><img src="${o[2]}" alt=""><span>${o[1]}</span><span class="shine"></span></button>`:`<button class="opt" data-v="${o[0]}"><span class="e">${o[2]}</span><span>${o[1]}${o[3]?`<small>${o[3]}</small>`:''}</span><span class="shine"></span></button>`).join('')}</div>${s.intro?`<div class="intro-trust"><span>⏱️ 2 minutos</span><span>🎯 ${QN} perguntas</span><span>🪙 até ${brl(TOTAL)} em crédito</span></div>`:''}</section>`;
+ else if(s.t==='multi')h=`<section class="scr on">${qhead(s)}<div class="opts">${s.opts.map(o=>`<button class="opt chk ${(A[s.id]||[]).includes(o[0])?'sel':''}" data-v="${o[0]}"><span class="e">${o[2]}</span><span>${o[1]}</span><span class="shine"></span></button>`).join('')}</div><button class="btn" id="ok" ${(A[s.id]||[]).length?'':'disabled'}>Continuar</button></section>`;
+ else if(s.t==='inter')h=vInter(s.kind);
+ else if(s.t==='load')h=vLoad();
+ else if(s.t==='res')h=vRes();
+ main.innerHTML=h;bind(s);preload();mlog('view',s.id,idx);
+}
+function bind(s){
+ if(s.t==='intro'){$('#start').onclick=e=>{sfx.tap();window.__musicOn=1;music(true);track('QuizStart',{},true);next()}}
+ if(s.t==='input'){const i=$('#inp'),b=$('#ok');const chk=()=>b.disabled=i.value.trim().length<2;i.oninput=chk;chk();setTimeout(()=>i.focus(),350);
+  const sub=()=>{if(b.disabled)return;const first=A[s.id]==null;A[s.id]=i.value.trim().replace(/\s+/g,' ');sfx.tap();mlog('answer',s.id,idx,'ok');if(first){const lb=reward(s.rw,b);track('QuizStep',{step:s.id},true);setTimeout(()=>{next();maybeLevel(lb)},700)}else next()};
+  b.onclick=sub;i.onkeydown=e=>{if(e.key==='Enter')sub()}}
+ if(s.t==='one'||s.t==='pic'){main.querySelectorAll('.opt').forEach(el=>el.onclick=()=>{if(main.dataset.lock)return;main.dataset.lock=1;if(s.intro&&!window.__musicOn){window.__musicOn=1;music(true);track('QuizStart',{},true)}el.classList.add('sel');sfx.tap();const first=A[s.id]==null;A[s.id]=el.dataset.v;mlog('answer',s.id,idx,el.dataset.v);let lb=null;if(first&&s.rw){lb=reward(s.rw,el)}track('QuizStep',{step:s.id},true);setTimeout(()=>{delete main.dataset.lock;next();if(lb)maybeLevel(lb)},first&&s.rw?820:300)})}
+ if(s.t==='multi'){const cur=new Set(A[s.id+'_tmp']||A[s.id]||[]);main.querySelectorAll('.opt').forEach(el=>el.onclick=()=>{const v=el.dataset.v;cur.has(v)?cur.delete(v):cur.add(v);el.classList.toggle('sel');sfx.tap();$('#ok').disabled=!cur.size});
+  $('#ok').onclick=()=>{const first=A[s.id]==null;A[s.id]=[...cur];[...cur].forEach(v=>mlog('answer',s.id,idx,v));let lb=null;if(first)lb=reward(s.rw,$('#ok'));track('QuizStep',{step:s.id},true);setTimeout(()=>{next();if(lb)maybeLevel(lb)},first?820:200)}}
+ if(s.t==='inter'){$('#ok').onclick=()=>{sfx.tap();next()};typeIn()}
+ if(s.t==='load')runLoad();
+ if(s.t==='res')runRes();
+}
+function typeIn(){const el=main.querySelector('[data-type]');if(!el)return;const full=el.innerHTML;el.innerHTML='';el.classList.add('typing');let i=0;const tick=()=>{if(!document.body.contains(el))return;i+=2;let out=full.slice(0,i);if(out.lastIndexOf('<')>out.lastIndexOf('>')){const j=full.indexOf('>',i);i=j+1;out=full.slice(0,i)}el.innerHTML=out;if(i<full.length)setTimeout(tick,16);else el.classList.remove('typing')};tick()}
+
+/* ---------- telas ---------- */
+function vIntro(){return `<section class="scr on">
+ <div class="hero"><img class="k" src="/img/v3/bg-hero.webp" alt=""><img class="l" src="/img/logo-transp.webp" alt="Forja do Herói"></div>
+ <div class="cap" style="margin-top:16px">[ SISTEMA ] · Novo jogador detectado</div>
+ <h1>Descubra sua <em>classe de herói</em></h1>
+ <p class="sub">Responda o <b>Teste do Despertar</b> e o Sistema monta um plano de treino feito pro seu corpo, seu objetivo e sua rotina.</p>
+ <div class="prize"><img src="/app/img/ui/ic-coin.webp" alt=""><p>Cada resposta vale <b>moedas de ouro</b>. No final, elas viram <b>crédito de verdade</b> pra usar no seu plano.</p></div>
+ <button class="btn pulse" id="start">⚔️ Começar o teste</button>
+ <div class="chips"><span>⏱️ 2 minutos</span><span>🎯 ${QN} perguntas</span><span>🪙 até ${brl(TOTAL)} em crédito</span></div>
+</section>`}
+function vInter(k){
+ if(k==='obj'){const o={massa:['ganhar massa','Mestre Brutus é especialista em hipertrofia'],emag:['perder gordura','o Sistema combina treino e cardio pra acelerar a queima'],forca:['ficar mais forte','a ficha de Força trabalha carga pesada e poucas repetições'],def:['definir o corpo','a ficha certa combina força e gasto calórico'],glu:['fortalecer glúteos e pernas','os mestres criaram uma ficha só de glúteos, pernas e abdômen']}[A.obj]||['evoluir',''];
+  return `<section class="scr on inter"><div class="cap g">Missão registrada</div><h2>Boa escolha, ${nm()}</h2>
+  <div class="win"><p data-type>Missão de <b>${o[0]}</b> confirmada. Quem treina com um objetivo claro e um plano pronto deixa de improvisar na academia e passa a evoluir toda semana. Pra essa missão, ${o[1]}.</p></div>
+  <img class="pic" src="${IMG}obj-${A.obj==='glu'?'def':(A.obj||'massa')}.webp" alt="" style="aspect-ratio:16/9;object-fit:cover">
+  <button class="btn blue" id="ok">Continuar o teste →</button></section>`}
+ const many=A.paradas==='3'||A.paradas==='9';
+ return `<section class="scr on inter"><div class="cap g">O Sistema analisou</div><h2>${many?'O problema nunca foi você':'Agora vai ser diferente'}</h2>
+  <div class="win"><p data-type>${many?`${nm()}, quem começa e para várias vezes não tem falta de força de vontade. Tem falta de <b>recompensa</b>. Treino comum não te dá nada no dia seguinte, e o cérebro desiste.`:`${nm()}, o maior inimigo de quem começa é a falta de recompensa: o resultado demora a aparecer e a motivação acaba antes.`} No Forja do Herói, <b>cada série vira XP</b>, você sobe de nível, enfrenta chefes e vê sua evolução todo dia.</p></div>
+  <div class="vs"><div class="bad"><b>TREINO COMUM</b><ul><li>✕ Treino solto, sem plano</li><li>✕ Nada muda no dia seguinte</li><li>✕ Para em 3 semanas</li></ul></div><div class="good"><b>FORJA DO HERÓI</b><ul><li>✓ Plano pronto por um Mestre</li><li>✓ XP, níveis e chefes</li><li>✓ Missões diárias que te puxam</li></ul></div></div>
+  <button class="btn blue" id="ok">Continuar o teste →</button></section>`}
+function vLoad(){return `<section class="scr on"><div class="cap">[ SISTEMA ]</div><h2>Forjando o seu plano</h2>
+ <div class="scan"><img class="scimg" src="/quiz/img/cls-${profile().cls}${fem()?'-f':''}.webp" alt=""><div class="ring"></div><div class="ring r2"></div><div class="pct" id="pct">0%</div></div><p class="sub" style="margin-top:4px">Classe sendo forjada para <b>${nm()}</b>…</p>
+ <div class="steps" id="lsteps">${['Lendo suas respostas','Calculando seus atributos','Definindo sua classe de herói','Escolhendo o seu Mestre','Montando a ficha de treino','Convertendo moedas em crédito'].map(t=>`<div><i></i>${t}</div>`).join('')}</div></section>`}
+function runLoad(){const st=[...document.querySelectorAll('#lsteps div')];let p=0;const T=4200,t0=performance.now();
+ const tk=now=>{if(!$('#pct'))return;p=Math.min(100,Math.round((now-t0)/T*100));$('#pct').textContent=p+'%';const k=Math.floor(p/100*st.length);st.forEach((d,i)=>{d.classList.toggle('on',i<=k);if(i<k&&!d.classList.contains('ok')){d.classList.add('ok');d.querySelector('i').textContent='✓';sfx.tap()}});
+  if(p<100)requestAnimationFrame(tk);else{st.forEach(d=>{d.classList.add('ok','on');d.querySelector('i').textContent='✓'});setTimeout(()=>go(idx+1),500)}};requestAnimationFrame(tk)}
+
+/* ---------- resultado ---------- */
+function profile(){
+ const cls=A.local==='acad'?'guerreiro':(A.local==='casa'||A.local==='parque')?'monge':'paladino';
+ const C={guerreiro:['Guerreiro','Mestre Brutus','Mestre do Ferro','musculação com um grupo muscular por dia'],monge:['Monge','Mestre Kaito','Mestre da Calistenia','treino com o peso do corpo, em casa ou no parque'],paladino:['Paladino','Mestra Aurora','Mestra Híbrida','barra e ferro no mesmo treino']}[cls];
+ const ficha={massa:'Hipertrofia',def:'Hipertrofia',forca:'Força',emag:'Emagrecimento',glu:'Glúteos e Pernas'}[A.obj]||'Hipertrofia';
+ const fx=+A.flex||0;const rank=fx>=30?'C':fx>=20?'D':'E';
+ const nv={zero:0,parado:1,inic:2,inter:3}[A.nivel]||0;
+ const FOR=Math.min(40,8+nv*5+(fx>=20?8:fx>=8?4:0)),AGI=Math.min(40,10+(A.local!=='acad'?6:2)+nv*3),RES=Math.min(40,8+nv*4+({'2':0,'3':2,'4':4,'5':6}[A.dias]||0)),DIS=Math.max(6,22-({'0':0,'1':4,'3':8,'9':12}[A.paradas]||0));
+ return {cls,C,ficha,rank,FOR,AGI,RES,DIS,face:'/quiz/img/cls-'+cls+(fem()?'-f':'')+'.webp'}}
+function vRes(){const p=profile();const probs=A.prob||[];
+ const M={motiv:['Perde a motivação','Missões diárias, XP e chefes semanais te puxam de volta todo dia'],saber:['Não sabe montar o treino',p.C[1]+' entrega o treino do dia pronto: séries, repetições e carga'],result:['Não vê resultado','Planilha de cargas e progressão automática: você vê a evolução em números'],tempo:['Falta de tempo','Treinos de '+(A.tempo==='20'?'20':A.tempo==='40'?'30 a 45':'60')+' minutos, '+(A.dias||3)+'x por semana, encaixados na sua rotina'],comida:['Não sabe o que comer','Taverna e Alquimia: receitas e cálculo de proteína e água pro seu corpo'],vergonha:['Insegurança de começar','Tudo no seu celular, no seu ritmo, começando do nível certo pra você']};
+ const days=A.dias||'3';
+ return `<section class="scr on">
+ <div class="cap g">[ SISTEMA ] · Análise concluída</div>
+ <h2>${nm()}, sua ficha de herói está pronta</h2>
+ <div class="sheet"><div class="top"><div class="face"><img src="${p.face}" alt=""></div><div><div class="nm">${nm()}</div><div class="cl">${hero().toUpperCase()} · CLASSE ${p.C[0].toUpperCase()}</div><div class="rank">RANK INICIAL <b>${p.rank}</b> → meta em 30 dias: <b style="color:var(--green)">${p.rank==='E'?'C':p.rank==='D'?'B':'A'}</b></div></div></div>
+  <div class="attrs">${[['FOR',p.FOR],['AGI',p.AGI],['RES',p.RES],['DIS',p.DIS]].map(([k,v])=>`<div class="attr"><span>${k}</span><div class="bar"><i data-w="${v/50*100}"></i></div><em>${v}</em></div>`).join('')}
+  <div class="attr"><span style="color:var(--green)">META</span><div class="bar"><i class="p" data-w="92"></i></div><em class="up">30d</em></div></div></div>
+ <div class="plan"><div><small>SEU MESTRE</small><b>${p.C[1]}</b></div><div><small>FICHA DE TREINO</small><b>${p.ficha}</b></div><div><small>FREQUÊNCIA</small><b>${days==='5'?'5+':days}x por semana</b></div><div><small>ESTILO</small><b>${p.C[2]}</b></div></div>
+ ${probs.length?`<div class="sec-h">SEUS INIMIGOS, DERROTADOS</div><div class="mirror">${probs.map(k=>M[k]?`<div><span class="x">✓</span><span><b>${M[k][0]}:</b> ${M[k][1]}</span></div>`:'').join('')}</div>`:''}
+ <div class="sec-h" style="margin-top:22px">VEJA O APP POR DENTRO</div>
+ <p class="sub" style="font-size:14.5px">É assim que fica o treino de ${nm()}: cada série vira XP, você sobe de nível e derrota chefes.</p>
+ <div class="phone"><video id="demo" src="/quiz/tour.mp4?v=3" poster="/quiz/tour-poster.webp?v=2" muted loop playsinline preload="none"></video><span class="ph-badge">▶ O APP POR DENTRO</span></div>
+ <div class="sec-h" style="margin-top:20px">ESCOLHA SUA JORNADA</div>
+ <div class="offer2"><div class="o2h"><div><b>Recruta</b><small>O essencial para começar</small></div><div class="o2p"><s>R$ 39,90</s><b>R$ 9,90</b></div></div>
+  <div class="inc sm"><div><span>Acesso ao app com sistema de treino em RPG</span></div><div><span>Mais de 90 exercícios, aeróbico por tempo e exercícios criados por você</span></div><div><span>Missões diárias e de emergência, chefes e evolução de nível</span></div><div><span>Loja com ícones, banners que evoluem e papéis de parede</span></div><div class="no"><span>Sem os Mestres, sem fichas prontas e sem a Dungeon</span></div><div class="no"><span>Sem Taverna, Alquimia e Playlist</span></div><div class="no"><span>Seu crédito do teste não vale neste plano</span></div></div>
+  <a class="btn ghost" id="buyR" href="#">Começar como Recruta · R$ 9,90</a></div>
+ <div class="offer" id="offer"><span class="tag">🪙 SEU CRÉDITO FOI APLICADO · RECOMENDADO</span>
+  <h3>${hero()} Elite · plano completo</h3>
+  <div class="inc">
+   <div><span><b>Os 3 Mestres do Forja</b>: escolha o seu mestre, cada um com fichas de treino exclusivas, e troque quando quiser</span></div>
+   <div><span>Começa com <b>${p.C[1]}</b> na sua ficha de <b>${p.ficha}</b>: treino do dia pronto, com séries, repetições e carga</span></div>
+   <div><span><b>4 fichas de treino</b>: Hipertrofia, Força, Emagrecimento e <b>Glúteos e Pernas</b></span></div>
+   <div><span><b>Dungeon de 30 dias</b> com chefes semanais</span></div>
+   <div><span><b>Peso de cada série e planilha de cargas</b>: veja sua força subir</span></div>
+   <div><span><b>Taverna</b>: a comunidade dos caçadores, pra conversar, trocar dicas e mostrar sua evolução</span></div>
+   <div><span><b>Alquimia</b>: receitas anabólicas e cálculo de proteína e água pro seu corpo</span></div>
+   <div><span><b>Playlist do Herói</b>: músicas pra treinar no modo monstro</span></div>
+   <div><span><b>Mais de 90 exercícios</b>, aeróbico por tempo e exercícios criados por você</span></div>
+   <div><span><b>Missões de emergência, Zona de Penalidade, chefes, ranking, duelos e corrida com GPS</b></span></div>
+   <div><span><b>Banners de classe que evoluem com você</b>, ícones premium e papéis de parede HD</span></div>
+  </div>
+  <div class="calc"><div><span>Valor do plano</span><span class="s">${brl(FULL)}</span></div><div class="m"><span>🪙 Seu crédito do teste</span><span id="coinv">− R$ 0,00</span></div><div class="t"><span>Você paga</span><span id="payv">${brl(FULL)}</span></div></div>
+  <div class="price"><small>R$</small><span id="bigp">${FULL},00</span></div><div class="once">pagamento único · acesso imediato no app</div>
+  <a class="btn pulse" id="buy" href="#">⚔️ Resgatar meu plano por R$ 29,90</a>
+  <div class="timer">⏳ Seu crédito expira em <b id="tmr">15:00</b></div>
+ </div>
+
+ <div class="offer2" style="border-color:#5dffa0;box-shadow:0 0 22px rgba(93,255,160,.18)"><div class="o2h"><div><b>🎁 Teste grátis</b><small>Ainda em dúvida? Use o app completo antes de pagar</small></div><div class="o2p"><b style="color:#5dffa0">GRÁTIS</b></div></div>
+  <div class="inc sm"><div><span>Plano completo liberado: Dungeon, chefes, os 3 Mestres e todas as fichas</span></div><div><span>Sem cartão: só e-mail e senha</span></div><div><span>Gostou? Escolha o seu plano e continue de onde parou</span></div></div>
+  <a class="btn ghost" href="/teste/" onclick="this.href=TRY_URL()" style="border-color:#5dffa0;color:#5dffa0">🎁 Quero testar grátis</a></div>
+ <div class="secure"><span>🔒 Pagamento seguro</span><span>⚡ Pix ou cartão</span><span>📱 Funciona no celular</span></div>
+ <div class="sec-h">ESCOLHA O SEU MESTRE</div>
+ <p class="sub" style="font-size:14.5px">No Elite você treina com os 3 mestres. Cada um tem as suas fichas de treino exclusivas. O Sistema indicou ${p.C[1]} pra você, mas você pode trocar quando quiser.</p>
+ <div class="mst">${[['guerreiro','Mestre Brutus','Mestre do Ferro','Musculação na academia, um grupo muscular por dia'],['monge','Mestre Kaito','Mestre da Calistenia','Peso do corpo, em casa ou no parque'],['paladino','Mestra Aurora','Mestra Híbrida','Barra e ferro no mesmo treino']].map(m=>`<div class="${m[0]===p.cls?'on':''}"><img src="/app/img/ui/m-${m[0]}.webp" alt="${m[1]}"><b>${m[1]}</b><small>${m[2]}</small><span>${m[3]}</span>${m[0]===p.cls?'<em>indicado pra você</em>':''}</div>`).join('')}</div>
+ <div class="sec-h">O QUE TE ESPERA NO APP</div>
+ <div class="feat">
+  <div><img src="/app/img/ui/tav-ban.webp" alt=""><b>🍺 Taverna</b><span>A comunidade dos caçadores: converse, troque dicas, mostre seu treino e desafie outros heróis pra um duelo.</span></div>
+  <div><img src="/app/img/ui/playlist.webp" alt=""><b>🎧 Playlist do Herói</b><span>Músicas escolhidas pra treinar com a energia lá em cima, direto no app.</span></div>
+  <div><img src="/img/v2/alq-art.webp" alt=""><b>⚗️ Alquimia</b><span>Receitas anabólicas e o cálculo de proteína e água feitos pro seu corpo.</span></div>
+  <div><img src="/app/img/ui/boss-ban.webp" alt=""><b>👹 Chefes e Dungeon</b><span>Desafios semanais que testam sua força e te dão recompensas raras.</span></div>
+  <div><img src="https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh/art/evo/${p.cls}_${fem()?'f':'m'}_30.webp" alt="" style="object-position:72% 25%"><b>⚔️ Seu herói evolui</b><span>Conforme você sobe de nível, libera formas mais fortes do seu herói: armadura, capa e até asas de energia no nível 50.</span></div>
+ </div>
+ <div class="guar"><img src="/img/v3/gar-badge.webp" alt="" onerror="this.src='/img/garantia.webp'"><p><b>Garantia de 7 dias.</b> Entrou, treinou e não curtiu? Pede o reembolso em até 7 dias e você recebe 100% de volta.</p></div>
+ <div class="sec-h">COMO FUNCIONA</div>
+ <div class="how">
+  <div><img src="/app/img/ui/m-trio.webp" alt=""><span><b>1. Entre no app</b>Acesso na hora, pelo celular. Sem baixar nada da loja.</span></div>
+  <div><img src="/app/img/ui/ic-mestre.webp" alt=""><span><b>2. Escolha o seu Mestre</b>Comece com ${p.C[1]} na ficha de ${p.ficha} ou troque por outro dos 3 mestres. Treino novo todo dia.</span></div>
+  <div><img src="/app/img/ui/rw-xp.webp" alt=""><span><b>3. Suba de nível</b>Cada série vira XP. Derrote os chefes e veja seu corpo mudar.</span></div>
+ </div>
+ <div class="sec-h">DÚVIDAS</div>
+ <div class="faq">
+  <details><summary>Preciso de academia?</summary><p>Não. O app tem treino de calistenia (peso do corpo), musculação e híbrido. ${p.C[1]} já foi escolhido pelo lugar onde você treina.</p></details>
+  <details><summary>É mensalidade?</summary><p>Não. Os dois planos são pagamento único: Elite por R$ 29,90 com o seu crédito aplicado, ou Recruta por R$ 9,90.</p></details>
+  <details><summary>Qual a diferença entre os planos?</summary><p>No Recruta você registra seus próprios treinos e o app transforma tudo em XP, missões e chefes. No Elite você escolhe um dos 3 mestres, cada um com fichas de treino exclusivas, e recebe o treino do dia pronto (o Sistema indicou ${p.C[1]} na ficha de ${p.ficha}), e você ganha a Dungeon de 30 dias, a planilha de cargas, a Taverna e a Alquimia.</p></details>
+  <details><summary>Como recebo o acesso?</summary><p>Assim que o pagamento é aprovado, você recebe o link do app no e-mail e na tela de confirmação. É só entrar com o e-mail da compra.</p></details>
+  <details><summary>Tem treino pra mulher?</summary><p>Tem. As heroínas têm arte própria e, no Elite, os mestres passam a ficha de <b>Glúteos e Pernas</b>, com dias de glúteo, quadríceps e superior leve, na academia ou em casa. Tem até chefe próprio: a Serpente do Hip Thrust.</p></details>
+  <details><summary>Funciona pra iniciante?</summary><p>Sim. O Sistema começa do seu rank atual (${p.rank}) e aumenta a dificuldade conforme você evolui.</p></details>
+ </div>
+ <a class="btn" id="buy2" href="#" style="margin-top:18px">⚔️ Quero começar agora · R$ 29,90</a>
+ <p class="foot">Forja do Herói · Treino RPG</p>
+</section>`}
+function runRes(){const p=profile();
+ track('ViewContent',{content_name:'Quiz Elite',value:FINAL,currency:'BRL'});track('QuizComplete',{classe:p.cls,ficha:p.ficha},true);
+ setTimeout(()=>document.querySelectorAll('.attr .bar i').forEach(i=>i.style.width=i.dataset.w+'%'),200);
+ sfx.win();confetti(innerWidth/2,innerHeight*.3,90,['#ffd34d','#4fd2ff','#ffffff','#ff6a7a','#5dffa0']);
+ const url=withQs(CHECKOUT);const ur=withQs(CHECKOUT_R);$('#buyR').href=ur;$('#buyR').onclick=e=>{if(window.__popSeen){track('InitiateCheckout',{value:9.9,currency:'BRL',content_name:'Quiz Recruta'});mlog('checkout','res',idx,'recruta_9_90');return}e.preventDefault();window.__popSeen=1;popRecruta(p,ur)};['#buy','#buy2','#stickyBtn'].forEach(s=>{const a=$(s);a.href=url;a.onclick=()=>{track('InitiateCheckout',{value:FINAL,currency:'BRL',content_name:'Quiz Elite'});mlog('checkout','res',idx,'elite_29_90')}});
+ // vídeo do app: toca só quando aparece na tela
+ const dv=$('#demo');if(dv){const vo=new IntersectionObserver(es=>{if(es[0].isIntersecting){dv.preload='auto';dv.play().catch(()=>{})}else dv.pause()},{threshold:.35});vo.observe(dv)}
+ // contagem das moedas quando a oferta aparece
+ let done=false;const ob=new IntersectionObserver(es=>{if(done||!es[0].isIntersecting)return;done=true;const t0=performance.now(),D=1600;
+  const tk=now=>{const k=Math.min(1,(now-t0)/D),e=1-Math.pow(1-k,3),c=TOTAL*e,pay=FULL-c;$('#coinv').textContent='− '+brl(c);$('#payv').textContent=brl(pay);$('#bigp').textContent=pay.toFixed(2).replace('.',',');if(Math.random()<.35)tone(1200+Math.random()*400,.04,'square',.025);
+   if(k<1)requestAnimationFrame(tk);else{$('#bigp').textContent='29,90';const r=$('#offer').getBoundingClientRect();confetti(innerWidth/2,r.top+r.height*.55,60,['#ffd34d','#ffb020','#fff3b0']);sfx.coin()}};requestAnimationFrame(tk)},{threshold:.45});ob.observe($('#offer'));
+ // timer de 15 min por sessão
+ let end;try{end=+sessionStorage.getItem('fh_quiz_end')}catch(e){}if(!end||end<Date.now()-36e5){end=Date.now()+15*60e3;try{sessionStorage.setItem('fh_quiz_end',end)}catch(e){}}
+ const tm=()=>{const el=$('#tmr');if(!el)return;const s=Math.max(0,Math.round((end-Date.now())/1000));el.textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};tm();clearInterval(window.__tm);window.__tm=setInterval(tm,1000);
+ // botão fixo quando a oferta sai da tela
+ const sb=new IntersectionObserver(es=>{$('#sticky').classList.toggle('on',!es[0].isIntersecting&&es[0].boundingClientRect.top<0)},{threshold:0});sb.observe($('#buy'));
+}
+
+/* ---------- pop-up: quem escolhe o Recruta recebe o completo com desconto ---------- */
+function popRecruta(p,ur){track('RecrutaPopup',{},true);mlog('popup','res',idx,'popup_aberto');sfx.lv();
+ const m=document.createElement('div');m.className='pm';m.innerHTML=`<div class="pm-box">
+  <button class="pm-x" aria-label="Fechar">✕</button>
+  <div class="cap" style="color:#ff8a96;text-shadow:0 0 12px rgba(255,77,94,.6)">[ SISTEMA ] · ALERTA</div>
+  <h2 style="font-size:24px">Espera, ${nm()}!</h2>
+  <p class="sub" style="font-size:15px">No Recruta você treina <b>sem Mestre, sem ficha pronta e sem a Dungeon</b>. Sozinho, sem plano, é bem mais difícil de manter.</p>
+  <div class="pm-vs"><div><b>RECRUTA</b><span>Treino por sua conta</span><span>Sem plano de ${p.ficha}</span><span>Sem Taverna e Playlist</span></div><div class="on"><b>CAÇADOR ELITE</b><span>${p.C[1]} monta seu treino</span><span>Dungeon de 30 dias pronta</span><span>Taverna, Alquimia e Playlist</span></div></div>
+  <div class="pm-off"><small>ÚLTIMA OFERTA DO SISTEMA · SÓ NESTA TELA</small><div><s>R$ 29,90</s><b>R$ 18,90</b></div><span>Só R$ 9 a mais que o Recruta, pra ter o plano completo</span></div>
+  <a class="btn pulse" id="pmYes" href="${withQs(CHECKOUT_POP)}">👑 Quero o plano completo por R$ 18,90</a>
+  <a class="pm-no" id="pmNo" href="${ur}">Não, quero só o Recruta por R$ 9,90</a></div>`;
+ document.body.appendChild(m);requestAnimationFrame(()=>m.classList.add('on'));confetti(innerWidth/2,innerHeight*.35,40,['#ffd34d','#ff6a7a','#fff']);
+ const close=()=>{m.classList.remove('on');setTimeout(()=>m.remove(),250)};
+ m.querySelector('.pm-x').onclick=close;m.onclick=e=>{if(e.target===m)close()};
+ m.querySelector('#pmYes').onclick=()=>{track('InitiateCheckout',{value:18.9,currency:'BRL',content_name:'Quiz Pop-up Elite'});mlog('checkout','res',idx,'elite_popup_18_90')};
+ m.querySelector('#pmNo').onclick=()=>{track('InitiateCheckout',{value:9.9,currency:'BRL',content_name:'Quiz Recruta'});mlog('checkout','res',idx,'recruta_9_90')};
+}
+
+/* ---------- início (retoma se recarregar) ---------- */
+const sv=store.get();if(sv&&sv.idx>0&&sv.idx<S.length){window.__musicOn=1;A=sv.A||{};W=sv.W||0;idx=S[sv.idx].t==='load'?sv.idx+1:sv.idx;hist=sv.hist||[]}
+render();
+})();
+</script>
+<script>/* back redirect: quem tentar voltar/sair cai na oferta /quiz/back/ */
+(function(){var go=function(){location.replace('/quiz/back/'+location.search)};var armed=0;
+function arm(){if(armed>1)return;try{history.pushState({fhb:1},'',location.href);armed++}catch(e){}}
+arm();['pointerdown','keydown','touchstart'].forEach(function(e){addEventListener(e,arm,{once:true,passive:true})});
+addEventListener('popstate',function(){go()});})();</script>
+</body></html>
