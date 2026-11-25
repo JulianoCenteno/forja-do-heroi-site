@@ -280,7 +280,7 @@ const S=[
  {id:'sexo',t:'pic',intro:true,rw:250,cap:'[ SISTEMA ] · Teste do Despertar',q:()=>'Descubra sua <em>classe de herói</em>',sub:'Responda em 2 minutos, ganhe <b style="color:#ffd767">crédito em cada resposta</b> e receba um plano de treino feito pra você. <b>Pra começar, você é:</b>',opts:[['m','Homem',IMG+'sexo-m.webp'],['f','Mulher',IMG+'sexo-f.webp']]},
  {id:'nome',t:'input',rw:200,cap:'Registro do jogador',q:()=>'Como o Sistema deve te chamar?',sub:'Seu nome vai aparecer na sua ficha de '+(fem()?'heroína':'herói')+'.',ph:'Seu primeiro nome'},
  {id:'idade',img:'/app/img/ui/ban-keyart.webp',t:'one',rw:200,cap:'Ficha do jogador',q:()=>'Qual é a sua idade?',sub:'O Sistema ajusta a intensidade ao seu corpo.',opts:[['18','18 a 24 anos','🗡️'],['25','25 a 34 anos','🛡️'],['35','35 a 44 anos','⚔️'],['45','45 anos ou mais','👑']]},
- {id:'obj',img:'/img/v2/hero-art.webp',t:'one',rw:300,cap:'Missão principal',q:()=>'Qual é a sua missão principal, '+nm()+'?',opts:[['massa','Ganhar massa muscular','💪','Ficar maior e mais forte'],['emag','Perder gordura','🔥','Secar e ganhar disposição'],['forca','Ficar mais forte','🏋️','Levantar mais peso, ter mais força'],['def','Definir o corpo','⚡','Ficar com o shape marcado']]},
+ {id:'obj',img:'/img/v2/hero-art.webp',t:'one',rw:300,cap:'Missão principal',q:()=>'Qual é a sua missão principal, '+nm()+'?',get opts(){const b=[['massa','Ganhar massa muscular','💪','Ficar maior e mais forte'],['emag','Perder gordura','🔥','Secar e ganhar disposição'],['forca','Ficar mais forte','🏋️','Levantar mais peso, ter mais força'],['def','Definir o corpo','⚡','Ficar com o shape marcado']];return fem()?[['glu','Glúteos e pernas','🍑','Pernas fortes e glúteo empinado'],...b]:b}},
  {id:'i1',t:'inter',kind:'obj'},
  {id:'local',t:'pic',rw:250,cap:'Campo de batalha',q:()=>'Onde você vai treinar?',sub:'Isso define qual Mestre vai cuidar do seu treino.',opts:[['acad','Na academia',IMG+'local-academia.webp'],['casa','Em casa',IMG+'local-casa.webp'],['parque','No parque / ar livre',IMG+'local-parque.webp'],['misto','Um pouco de cada',IMG+'local-misto.webp']]},
  {id:'nivel',img:'/app/img/ui/dg-ban.webp',t:'one',rw:250,cap:'Nível de experiência',q:()=>'Como está o seu treino hoje?',opts:[['zero','Nunca treinei de verdade','🌱'],['parado','Já treinei, mas estou parado','⏸️'],['inic','Treino há pouco tempo','📈'],['inter','Treino há mais de 1 ano','🔥']]},
@@ -345,7 +345,7 @@ function maybeLevel(before){const after=1+Math.floor(answered()/4);if(after>befo
 
 /* ---------- render ---------- */
 const main=$('#main');
-function preload(){const nx=S.slice(idx+1,idx+3);nx.forEach(q=>{(q.opts||[]).forEach(o=>{if(String(o[2]).includes('/')){const im=new Image();im.src=o[2]}});if(q.img){const im=new Image();im.src=q.img}});if(S[idx+1]&&S[idx+1].kind==='obj'&&A.obj){const im=new Image();im.src=IMG+'obj-'+A.obj+'.webp'}}
+function preload(){const nx=S.slice(idx+1,idx+3);nx.forEach(q=>{(q.opts||[]).forEach(o=>{if(String(o[2]).includes('/')){const im=new Image();im.src=o[2]}});if(q.img){const im=new Image();im.src=q.img}});if(S[idx+1]&&S[idx+1].kind==='obj'&&A.obj){const im=new Image();im.src=IMG+'obj-'+(A.obj==='glu'?'def':A.obj)+'.webp'}}
 function go(i,push){if(push!==false)hist.push(idx);idx=i;save();render();scrollTo({top:0,behavior:'instant'in window?'instant':'auto'})}
 function next(){go(idx+1)}
 $('#back').onclick=()=>{if(!hist.length)return;const p=hist.pop();const s=S[idx];idx=p;
@@ -388,10 +388,10 @@ function vIntro(){return `<section class="scr on">
  <div class="chips"><span>⏱️ 2 minutos</span><span>🎯 ${QN} perguntas</span><span>🪙 até ${brl(TOTAL)} em crédito</span></div>
 </section>`}
 function vInter(k){
- if(k==='obj'){const o={massa:['ganhar massa','Mestre Brutus é especialista em hipertrofia'],emag:['perder gordura','o Sistema combina treino e cardio pra acelerar a queima'],forca:['ficar mais forte','a ficha de Força trabalha carga pesada e poucas repetições'],def:['definir o corpo','a ficha certa combina força e gasto calórico']}[A.obj]||['evoluir',''];
+ if(k==='obj'){const o={massa:['ganhar massa','Mestre Brutus é especialista em hipertrofia'],emag:['perder gordura','o Sistema combina treino e cardio pra acelerar a queima'],forca:['ficar mais forte','a ficha de Força trabalha carga pesada e poucas repetições'],def:['definir o corpo','a ficha certa combina força e gasto calórico'],glu:['fortalecer glúteos e pernas','os mestres criaram uma ficha só de glúteos, pernas e abdômen']}[A.obj]||['evoluir',''];
   return `<section class="scr on inter"><div class="cap g">Missão registrada</div><h2>Boa escolha, ${nm()}</h2>
   <div class="win"><p data-type>Missão de <b>${o[0]}</b> confirmada. Quem treina com um objetivo claro e um plano pronto deixa de improvisar na academia e passa a evoluir toda semana. Pra essa missão, ${o[1]}.</p></div>
-  <img class="pic" src="${IMG}obj-${A.obj||'massa'}.webp" alt="" style="aspect-ratio:16/9;object-fit:cover">
+  <img class="pic" src="${IMG}obj-${A.obj==='glu'?'def':(A.obj||'massa')}.webp" alt="" style="aspect-ratio:16/9;object-fit:cover">
   <button class="btn blue" id="ok">Continuar o teste →</button></section>`}
  const many=A.paradas==='3'||A.paradas==='9';
  return `<section class="scr on inter"><div class="cap g">O Sistema analisou</div><h2>${many?'O problema nunca foi você':'Agora vai ser diferente'}</h2>
@@ -409,7 +409,7 @@ function runLoad(){const st=[...document.querySelectorAll('#lsteps div')];let p=
 function profile(){
  const cls=A.local==='acad'?'guerreiro':(A.local==='casa'||A.local==='parque')?'monge':'paladino';
  const C={guerreiro:['Guerreiro','Mestre Brutus','Mestre do Ferro','musculação com um grupo muscular por dia'],monge:['Monge','Mestre Kaito','Mestre da Calistenia','treino com o peso do corpo, em casa ou no parque'],paladino:['Paladino','Mestra Aurora','Mestra Híbrida','barra e ferro no mesmo treino']}[cls];
- const ficha={massa:'Hipertrofia',def:'Hipertrofia',forca:'Força',emag:'Emagrecimento'}[A.obj]||'Hipertrofia';
+ const ficha={massa:'Hipertrofia',def:'Hipertrofia',forca:'Força',emag:'Emagrecimento',glu:'Glúteos e Pernas'}[A.obj]||'Hipertrofia';
  const fx=+A.flex||0;const rank=fx>=30?'C':fx>=20?'D':'E';
  const nv={zero:0,parado:1,inic:2,inter:3}[A.nivel]||0;
  const FOR=Math.min(40,8+nv*5+(fx>=20?8:fx>=8?4:0)),AGI=Math.min(40,10+(A.local!=='acad'?6:2)+nv*3),RES=Math.min(40,8+nv*4+({'2':0,'3':2,'4':4,'5':6}[A.dias]||0)),DIS=Math.max(6,22-({'0':0,'1':4,'3':8,'9':12}[A.paradas]||0));
@@ -430,18 +430,21 @@ function vRes(){const p=profile();const probs=A.prob||[];
  <div class="phone"><video id="demo" src="/quiz/tour.mp4?v=3" poster="/quiz/tour-poster.webp?v=2" muted loop playsinline preload="none"></video><span class="ph-badge">▶ O APP POR DENTRO</span></div>
  <div class="sec-h" style="margin-top:20px">ESCOLHA SUA JORNADA</div>
  <div class="offer2"><div class="o2h"><div><b>Recruta</b><small>O essencial para começar</small></div><div class="o2p"><s>R$ 39,90</s><b>R$ 9,90</b></div></div>
-  <div class="inc sm"><div><span>Acesso ao app com sistema de treino em RPG</span></div><div><span>Missões diárias, chefes e evolução de nível</span></div><div class="no"><span>Sem os Mestres, sem fichas prontas e sem a Dungeon</span></div><div class="no"><span>Sem Taverna, Alquimia e Playlist</span></div><div class="no"><span>Seu crédito do teste não vale neste plano</span></div></div>
+  <div class="inc sm"><div><span>Acesso ao app com sistema de treino em RPG</span></div><div><span>Mais de 90 exercícios, aeróbico por tempo e exercícios criados por você</span></div><div><span>Missões diárias e de emergência, chefes e evolução de nível</span></div><div><span>Loja com ícones, banners que evoluem e papéis de parede</span></div><div class="no"><span>Sem os Mestres, sem fichas prontas e sem a Dungeon</span></div><div class="no"><span>Sem Taverna, Alquimia e Playlist</span></div><div class="no"><span>Seu crédito do teste não vale neste plano</span></div></div>
   <a class="btn ghost" id="buyR" href="#">Começar como Recruta · R$ 9,90</a></div>
  <div class="offer" id="offer"><span class="tag">🪙 SEU CRÉDITO FOI APLICADO · RECOMENDADO</span>
   <h3>${hero()} Elite · plano completo</h3>
   <div class="inc">
    <div><span><b>${p.C[1]}</b> com a sua ficha de <b>${p.ficha}</b>: treino do dia pronto</span></div>
+   <div><span><b>4 fichas de treino</b>: Hipertrofia, Força, Emagrecimento e <b>Glúteos e Pernas</b></span></div>
    <div><span><b>Dungeon de 30 dias</b> com chefes semanais</span></div>
    <div><span><b>Peso de cada série e planilha de cargas</b>: veja sua força subir</span></div>
    <div><span><b>Taverna</b>: a comunidade dos caçadores, pra conversar, trocar dicas e mostrar sua evolução</span></div>
    <div><span><b>Alquimia</b>: receitas anabólicas e cálculo de proteína e água pro seu corpo</span></div>
    <div><span><b>Playlist do Herói</b>: músicas pra treinar no modo monstro</span></div>
-   <div><span><b>Missões, chefes, ranking, duelos e corrida com GPS</b></span></div>
+   <div><span><b>Mais de 90 exercícios</b>, aeróbico por tempo e exercícios criados por você</span></div>
+   <div><span><b>Missões de emergência, Zona de Penalidade, chefes, ranking, duelos e corrida com GPS</b></span></div>
+   <div><span><b>Banners de classe que evoluem com você</b>, ícones premium e papéis de parede HD</span></div>
   </div>
   <div class="calc"><div><span>Valor do plano</span><span class="s">${brl(FULL)}</span></div><div class="m"><span>🪙 Seu crédito do teste</span><span id="coinv">− R$ 0,00</span></div><div class="t"><span>Você paga</span><span id="payv">${brl(FULL)}</span></div></div>
   <div class="price"><small>R$</small><span id="bigp">${FULL},00</span></div><div class="once">pagamento único · acesso imediato no app</div>
@@ -455,6 +458,7 @@ function vRes(){const p=profile();const probs=A.prob||[];
   <div><img src="/app/img/ui/playlist.webp" alt=""><b>🎧 Playlist do Herói</b><span>Músicas escolhidas pra treinar com a energia lá em cima, direto no app.</span></div>
   <div><img src="/img/v2/alq-art.webp" alt=""><b>⚗️ Alquimia</b><span>Receitas anabólicas e o cálculo de proteína e água feitos pro seu corpo.</span></div>
   <div><img src="/app/img/ui/boss-ban.webp" alt=""><b>👹 Chefes e Dungeon</b><span>Desafios semanais que testam sua força e te dão recompensas raras.</span></div>
+  <div><img src="https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh/art/evo/${p.cls}_${fem()?'f':'m'}_30.webp" alt="" style="object-position:72% 25%"><b>⚔️ Seu herói evolui</b><span>Conforme você sobe de nível, libera formas mais fortes do seu herói: armadura, capa e até asas de energia no nível 50.</span></div>
  </div>
  <div class="guar"><img src="/img/v3/gar-badge.webp" alt="" onerror="this.src='/img/garantia.webp'"><p><b>Garantia de 7 dias.</b> Entrou, treinou e não curtiu? Pede o reembolso em até 7 dias e você recebe 100% de volta.</p></div>
  <div class="sec-h">COMO FUNCIONA</div>
@@ -469,6 +473,7 @@ function vRes(){const p=profile();const probs=A.prob||[];
   <details><summary>É mensalidade?</summary><p>Não. Os dois planos são pagamento único: Elite por R$ 29,90 com o seu crédito aplicado, ou Recruta por R$ 9,90.</p></details>
   <details><summary>Qual a diferença entre os planos?</summary><p>No Recruta você registra seus próprios treinos e o app transforma tudo em XP, missões e chefes. No Elite o ${p.C[1]} passa o treino do dia pronto na sua ficha de ${p.ficha}, e você ganha a Dungeon de 30 dias, a planilha de cargas, a Taverna e a Alquimia.</p></details>
   <details><summary>Como recebo o acesso?</summary><p>Assim que o pagamento é aprovado, você recebe o link do app no e-mail e na tela de confirmação. É só entrar com o e-mail da compra.</p></details>
+  <details><summary>Tem treino pra mulher?</summary><p>Tem. As heroínas têm arte própria e, no Elite, os mestres passam a ficha de <b>Glúteos e Pernas</b>, com dias de glúteo, quadríceps e superior leve, na academia ou em casa. Tem até chefe próprio: a Serpente do Hip Thrust.</p></details>
   <details><summary>Funciona pra iniciante?</summary><p>Sim. O Sistema começa do seu rank atual (${p.rank}) e aumenta a dificuldade conforme você evolui.</p></details>
  </div>
  <a class="btn" id="buy2" href="#" style="margin-top:18px">⚔️ Quero começar agora · R$ 29,90</a>

@@ -2528,6 +2528,15 @@ function render(){
    <p class="muted" style="margin:10px 0 6px">Os mestres criaram uma ficha com foco em <b>glúteos, pernas e abdômen</b>, com dias próprios de glúteo, quadríceps e superior leve. Vale na academia, em casa ou no híbrido.</p>
    <p class="muted" style="margin:0 0 16px">E tem chefe novo: a <b>Serpente do Hip Thrust</b>.</p>
    <button class="btn gold full" data-a="mtGo">🍑 Ver a ficha</button><button class="btn ghost full sm" style="margin-top:8px" data-a="close">Depois</button></div>`,true))}
+  if(S.nov5&&!S.nov7&&!S.cheat&&!nov4&&Date.now()-(+S.nov5||0)>3e4&&(sexOf()!=='f'||(S.nov6&&Date.now()-(+S.nov6||0)>3e4))){S.nov7=Date.now();save();queueModal(()=>openModal(`<div class="lvup"><img class="lv-art" src="${evoSrc(30)}" alt="" style="width:100%;max-height:170px;object-fit:cover;object-position:72% 25%;border-radius:12px"><div class="cap" style="margin-top:10px">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ffc65a">A LOJA FOI ABASTECIDA</div>
+   <h3 style="margin-top:8px">Suas moedas agora valem muito mais</h3>
+   <ul class="nv-list">
+    <li><span style="font-size:28px;width:44px;text-align:center">⚔️</span><span><b>Banners de classe evolutivos.</b> Seu herói evolui com você: Forma Desperta (Nv 10), Veterana (Nv 20), Lendária (Nv 30) e Ascendida (Nv 50), com armadura, capa e asas de energia.</span></li>
+    <li><span style="font-size:28px;width:44px;text-align:center">🛡️</span><span><b>Ícones de perfil premium.</b> 10 ícones neon, alguns liberados só por nível, e a moldura lendária com a <b>sua foto</b>.</span></li>
+    <li><span style="font-size:28px;width:44px;text-align:center">🖼️</span><span><b>Papéis de parede em HD.</b> Os heróis e as batalhas contra os 10 chefes, para o celular e para o computador.</span></li>
+   </ul>
+   <p class="muted" style="margin:6px 0 16px;font-style:italic">Treine, junte moedas e mostre a sua evolução.</p>
+   <button class="btn gold full" data-a="lojaGo">🪙 Abrir a loja</button><button class="btn ghost full sm" style="margin-top:8px" data-a="close">Depois</button></div>`,true))}
   if(S.cheat&&!S.cheat.seen){S.cheat.seen=Date.now();save();queueModal(()=>openModal(`<div class="lvup"><div style="font-size:60px">🛡️</div><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ff5a6e">TRAPAÇA DETECTADA</div>
    <h3 style="margin-top:10px;color:#ff8a9a">Você burlou o sistema</h3>
    <p class="muted" style="margin:10px 0 6px">O Sistema encontrou registros impossíveis no seu herói${S.cheat.why?' ('+esc(S.cheat.why)+')':''}. Para manter o ranking justo para todos os caçadores, seu progresso foi zerado e você voltou ao <b>nível 1</b>.</p>
@@ -2944,6 +2953,7 @@ document.addEventListener('click',ev=>{
     case 'mtSel': if(!S.mt||!S.mt.p)S.mt={p:{}};S.mt.sel=b.dataset.v;mtProg(b.dataset.v);save();sfx&&sfx('quest');render();window.scrollTo(0,0);break;
     case 'goSheet': tab='planilha';render();window.scrollTo(0,0);break;
     case 'mtGo': closeModal();tab='mestres';render();window.scrollTo(0,0);break;
+    case 'lojaGo': closeModal();tab='loja';render();setTimeout(()=>{const e=document.querySelector('.ev-grid');if(e)e.scrollIntoView({block:'center'})},200);break;
     case 'mtLog':{const id=b.dataset.id;const l=S.last[id]||{};exerciseSheet(id,{s:+b.dataset.s,r:+b.dataset.r,kg:+b.dataset.kg||l.kg||20});break}
     case 'mtObj':{const v=b.dataset.v;if(!MT_OBJ[v])break;const k=S.mt&&S.mt.sel;
       if(k&&S.mt.obj&&S.mt.obj!==v){const P=mtPlan(k);const pr=mtProg(k);const started=pr.done[pr.day-1]!==ymd()&&P.items.some(it=>todayEntries().some(e=>e.ex===it.ex));

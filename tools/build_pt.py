@@ -205,6 +205,9 @@ TU = [
     ('<span>Treino por sua conta</span>', '<span>Treinas por tua conta</span>'),
     ('monta seu treino</span>', 'monta o teu treino</span>'),
     ('ÚLTIMA OFERTA DO SISTEMA · SÓ NESTA TELA', 'ÚLTIMA OFERTA DO SISTEMA · SÓ NESTE ECRÃ'),
+    ('aeróbico por tempo e exercícios criados por você', 'aeróbico por tempo e exercícios criados por ti'),
+    ('Banners de classe que evoluem com você', 'Banners de classe que evoluem contigo'),
+    ('Conforme você sobe de nível, libera formas mais fortes do seu herói', 'À medida que sobes de nível, desbloqueias formas mais fortes do teu herói'),
 ]
 miss = [a for a, b in TU if a not in s]
 if miss:
