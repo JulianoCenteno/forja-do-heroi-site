@@ -47,14 +47,14 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 (()=>{
   const cv=document.getElementById('fx');if(!cv||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
   const cx=cv.getContext('2d');let W,H,DPR;const P=[],S=[];
-  const mob=innerWidth<760;const NP=110,NS=mob?10:14;
+  const mob=innerWidth<760;const NP=mob?70:110,NS=mob?6:10;
   function size(){DPR=Math.min(devicePixelRatio||1,2);W=cv.width=innerWidth*DPR;H=cv.height=innerHeight*DPR}
   size();addEventListener('resize',size);
   const COL=[[255,200,80],[255,170,40],[160,110,255],[90,210,255],[255,230,150]];
   function spark(init){const c=COL[Math.random()*COL.length|0];return{x:Math.random()*W,y:init?Math.random()*H:H+20*DPR,r:(Math.random()*1.8+.6)*DPR,vy:-(Math.random()*.55+.2)*DPR,vx:(Math.random()-.5)*.25*DPR,
     a:0,ma:Math.random()*.7+.3,life:0,ml:400+Math.random()*500,c,w:Math.random()*6.28,ws:Math.random()*.03+.008}}
   function smoke(init){return{x:Math.random()*W,y:init?Math.random()*H:H+200*DPR,r:(120+Math.random()*220)*DPR,vy:-(Math.random()*.18+.05)*DPR,vx:(Math.random()-.5)*.15*DPR,
-    a:0,ma:Math.random()*.07+.03,life:0,ml:1600+Math.random()*1400,hue:Math.random()<.6?268:205}}
+    a:0,ma:Math.random()*.035+.015,life:0,ml:1600+Math.random()*1400,hue:Math.random()<.6?268:205}}
   for(let i=0;i<NP;i++)P.push(spark(true));for(let i=0;i<NS;i++)S.push(smoke(true));
   let vis=true;document.addEventListener('visibilitychange',()=>vis=!document.hidden);
   function frame(){
@@ -71,6 +71,7 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
       if(p.life>p.ml||p.y<-20)Object.assign(p,spark(false))}
     cx.globalCompositeOperation='source-over';
   }
+  addEventListener('pointerdown',e=>{for(let i=0;i<14;i++){const p=spark(false);p.x=e.clientX*DPR;p.y=e.clientY*DPR;const a=Math.random()*6.283,v=(Math.random()*2.2+.8)*DPR;p.vx=Math.cos(a)*v;p.vy=Math.sin(a)*v-.6*DPR;p.ml=60+Math.random()*60;p.ma=1;P.push(p);setTimeout(()=>{const k=P.indexOf(p);if(k>-1)P.splice(k,1)},2200)}},{passive:true});
   frame();
 })();
 

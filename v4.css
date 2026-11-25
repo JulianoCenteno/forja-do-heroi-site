@@ -329,3 +329,6 @@ body{background:#05030f}
 }
 @media (prefers-reduced-motion:reduce){.squad img,.squad .badge,.squad:before{animation:none}}
 .gar>img{-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 72%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 72%,transparent 100%)}
+
+/* partículas por cima das seções (sem bloquear toques) */
+#fx{z-index:50!important;pointer-events:none!important}

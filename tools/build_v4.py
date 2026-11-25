@@ -4,7 +4,7 @@ def between(a,b,s=src):
     i=s.index(a);j=s.index(b,i);return s[i:j]
 head=src[:src.index('<link rel="stylesheet" href="site.css')]
 head=head.replace('<link rel="preload" as="image" href="img/v3/hero-d.webp" media="(min-width:761px)"><link rel="preload" as="image" href="img/v3/hero-m.webp" media="(max-width:760px)">','<link rel="preload" as="image" href="/img/v3/char-paladino.webp">')
-head+='<link rel="stylesheet" href="/v4-base.css?v=1">\n<link rel="stylesheet" href="/taverna.css?v=4">\n<link rel="stylesheet" href="/popup.css?v=1">\n<link rel="stylesheet" href="/v4.css?v=4">\n'
+head+='<link rel="stylesheet" href="/v4-base.css?v=1">\n<link rel="stylesheet" href="/taverna.css?v=4">\n<link rel="stylesheet" href="/popup.css?v=1">\n<link rel="stylesheet" href="/v4.css?v=5">\n'
 rest=src[src.index('<!-- Meta Pixel'):src.index('</head>')]
 nav=between('<svg width="0" height="0"','<!-- 1. HERO -->')
 mestres=between('<!-- 6a. MESTRES + CORRIDA -->','<!-- 6b. TAVERNA')
@@ -232,7 +232,7 @@ body=f'''<main class="v4">
 '''
 popup_and_tail=src[src.index('<!-- 10. RODAPÉ -->'):src.index('<script src="site.js')]
 JS=open('/home/claude/arqjs.html',encoding='utf-8').read()
-out=head+rest+'</head>\n<body>\n'+nav+body+popup_and_tail+'<script src="/v4.js?v=1"></script>\n<script src="/ab.js?v=1"></script>\n'+JS+'</body>\n</html>\n'
+out=head+rest+'</head>\n<body>\n'+nav+body+popup_and_tail+'<script src="/v4.js?v=2"></script>\n<script src="/ab.js?v=1"></script>\n'+JS+'</body>\n</html>\n'
 # absolute paths for any remaining relative img/ refs
 out=re.sub(r'(src|href|srcset)="img/',r'\1="/img/',out)
 dst=sys.argv[2] if len(sys.argv)>2 else 'site-v2/index.html'
