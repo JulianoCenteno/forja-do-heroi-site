@@ -1024,6 +1024,69 @@ body{background:url(img/ui/particles.png) 0 0/700px 700px,radial-gradient(60% 40
 .wl{display:flex;gap:12px;align-items:center}
 .wl-th{width:64px;height:114px;object-fit:cover;border-radius:10px;border:1px solid rgba(120,160,255,.3);flex:none}
 .wl-b{flex:1;min-width:0}.wl-dl{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.wl-dl .btn{text-decoration:none}
+
+/* ===== BETA visual manhwa (só admin) ===== */
+body.m2{--m2f:'Exo 2',Jost,sans-serif;background:
+ radial-gradient(rgba(0,0,0,.22) 1.1px,transparent 1.6px) 0 0/6px 6px,
+ repeating-conic-gradient(from 8deg at 50% 38%,rgba(120,200,255,.13) 0 3deg,transparent 3deg 11deg),
+ radial-gradient(120% 70% at 50% 35%,#2a6fe0 0,#1748b0 35%,#0c2a72 70%,#071a4a)!important;background-attachment:fixed!important}
+body.m2 #app{background:none!important}
+.m2X{font-family:var(--m2f);font-style:italic;font-weight:900}
+.m2w{position:relative;margin:12px 0 14px;filter:drop-shadow(4px 5px 0 #000)}
+.m2p{position:relative;background:#000;padding:3px;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,18px 100%,0 calc(100% - 18px))}
+.m2p>.in{position:relative;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));overflow:hidden;box-shadow:inset 0 0 0 2px #6fd6ff,inset 0 0 18px rgba(90,200,255,.45)}
+.m2tone{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(0,0,0,.5) 1.1px,transparent 1.6px);background-size:5px 5px;mix-blend-mode:multiply;opacity:.35}
+.m2hero{height:268px}.m2hero .in{height:100%;box-shadow:inset 0 0 0 2px #ffd36a;background:radial-gradient(70% 80% at 70% 45%,#ffe08a 0,#ff9a2e 22%,#e8461a 45%,#8f1208 72%,#2a0303)}
+.m2hero .speed{position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at 70% 45%,rgba(255,240,200,.28) 0 2.5deg,transparent 2.5deg 10deg);mix-blend-mode:overlay}
+.m2hero .art-in{position:absolute;right:-6%;bottom:0;height:100%;object-fit:cover;object-position:top}
+.m2out{position:absolute;right:-22px;bottom:2px;height:168%;max-width:92%;object-fit:contain;object-position:bottom right;pointer-events:none;z-index:3;filter:drop-shadow(3px 3px 0 #000) drop-shadow(0 0 12px rgba(255,140,40,.7));-webkit-mask-image:linear-gradient(to right,transparent 0,#000 14%);mask-image:linear-gradient(to right,transparent 0,#000 14%)}
+.m2out.fb{height:calc(100% - 6px);bottom:3px;right:3px;max-width:62%;object-fit:cover;object-position:top}
+.m2inf{position:absolute;left:12px;top:14px;z-index:4;display:flex;flex-direction:column;align-items:flex-start;gap:6px;max-width:56%}
+.m2tag{font:700 11px Rajdhani,sans-serif;letter-spacing:.1em;color:#fff;background:#000;border:2px solid #fff;padding:1px 7px}
+.m2nar{background:#fff6c8;color:#111;border:3px solid #000;padding:2px 12px;font:italic 900 24px/1.1 var(--m2f);transform:rotate(-3deg);box-shadow:3px 3px 0 #000}
+.m2cls{font:italic 900 32px/0.95 var(--m2f);color:#fff;-webkit-text-stroke:5px #000;paint-order:stroke fill;text-shadow:3px 4px 0 #000;transform:rotate(-3deg);margin:2px 0}
+.m2el{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(#ffe98a,#f4b51f);color:#2a1700;border:3px solid #000;font:italic 900 14px var(--m2f);padding:3px 12px;transform:skew(-10deg) rotate(-2deg);box-shadow:3px 3px 0 #000}.m2el svg{width:15px;height:15px}
+.m2sys .in{background:linear-gradient(160deg,#1758d6,#0b2f8a 55%,#071c5a);padding:12px 14px 12px}
+.m2sys h4{margin:-2px 0 10px;text-align:center;font:italic 900 19px/1 var(--m2f);letter-spacing:.04em;color:#fff;-webkit-text-stroke:3px #000;paint-order:stroke fill;text-shadow:0 0 12px #39b6ff}
+.m2st{display:flex;align-items:center;gap:12px}
+.m2st .av{width:78px;height:78px;border-radius:50%;border:3px solid #000;box-shadow:0 0 0 3px #6fd6ff,0 0 16px #39b6ff;overflow:hidden;flex:none;background:#0b2f8a}.m2st .av img{width:100%;height:100%;object-fit:cover}
+.m2st .lv{text-align:center;flex:none;padding-right:10px;border-right:2px solid rgba(255,255,255,.5)}.m2st .lv b{display:block;font:italic 900 62px/0.9 var(--m2f);color:#fff;-webkit-text-stroke:5px #000;paint-order:stroke fill;text-shadow:0 0 14px #39b6ff}.m2st .lv span{font:800 11px Jost;letter-spacing:.2em;color:#fff}
+.m2st .kv{font:700 15px/1.45 Jost,sans-serif;color:#fff;min-width:0}.m2st .kv small{color:#ffd84a;font-weight:800;font-size:12px}
+.m2bonus{display:block;width:max-content;margin:10px auto 0;background:linear-gradient(#5a2bd0,#3a1592);border:3px solid #000;box-shadow:0 0 0 2px #b693ff;color:#fff;font:800 13px Jost;padding:3px 14px;border-radius:999px}.m2bonus svg{width:13px;height:13px;vertical-align:-2px;margin-right:4px}
+.m2bars .in{background:linear-gradient(160deg,#1550c4,#0a2a7c);padding:12px 14px}
+body.m2 .m2bars .bar2 .lb{background:#0a1c55;border:2px solid #6fd6ff;color:#fff;font:italic 900 15px var(--m2f)}
+body.m2 .m2bars .bar2l{color:#fff;font-weight:700}
+.m2cards{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:8px 0 6px}
+.m2card{position:relative;height:118px;background:var(--c);border:3px solid #000;border-radius:7px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.85),4px 5px 0 #000;transform:skew(-5deg) rotate(var(--r));overflow:hidden;text-align:center;transition:transform .15s}
+.m2card:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.14) 0 6px,transparent 6px 14px),radial-gradient(90% 60% at 50% 30%,rgba(255,255,255,.45),transparent 70%)}
+.m2card:active{transform:skew(-5deg) rotate(0) scale(1.05)}
+.m2card .ill{position:absolute;left:0;right:0;top:4px;height:66px;display:flex;align-items:center;justify-content:center}.m2card .ill img{max-height:64px;max-width:92%;filter:drop-shadow(2px 3px 0 #000)}
+.m2card .ill .ph{font-size:34px}
+.m2card .box{position:absolute;left:0;right:0;bottom:6px}
+.m2card b{display:block;font:italic 900 31px/1 var(--m2f);color:#fff;-webkit-text-stroke:5px #000;paint-order:stroke fill;letter-spacing:-.01em}
+.m2card span{display:block;font:italic 900 13px var(--m2f);color:#fff;-webkit-text-stroke:3px #000;paint-order:stroke fill;letter-spacing:.04em}
+.m2cta{position:relative;display:block;width:100%;margin:22px auto 4px;border:0;background:none;padding:0;cursor:pointer;filter:drop-shadow(4px 5px 0 #000)}
+.m2cta .bg{display:flex;align-items:center;justify-content:flex-end;height:72px;padding:0 22px 0 32%;background:linear-gradient(180deg,#ffe36a,#ffb21e 55%,#f08a10);clip-path:polygon(3% 0,93% 0,100% 50%,93% 100%,3% 100%,0 50%);box-shadow:inset 0 0 0 4px #000,inset 0 0 0 7px #fff3b0}
+.m2cta .tx{font:italic 900 30px/1 var(--m2f);letter-spacing:.01em;color:#fff;-webkit-text-stroke:6px #000;paint-order:stroke fill;text-shadow:3px 3px 0 #000}
+.m2cta .sw{position:absolute;z-index:2;left:-10px;top:50%;transform:translateY(-50%) rotate(-10deg);width:42%;max-height:120px;object-fit:contain;pointer-events:none;filter:drop-shadow(0 0 10px #ffcf4a)}
+.m2cta .vush{position:absolute;left:0;top:-24px;font:italic 900 32px/1 var(--m2f);color:#ffe45c;-webkit-text-stroke:6px #000;paint-order:stroke fill;text-shadow:3px 3px 0 #000;transform:rotate(-14deg);z-index:3}
+@keyframes m2pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}.m2cta .bg{animation:m2pulse 2.2s ease-in-out infinite}
+.m2sub{text-align:center;font:italic 800 13px Jost;color:#fff;margin:2px auto 8px;background:#0a1c55;border:2px solid #000;width:max-content;padding:2px 14px;transform:skew(-8deg)}
+body.m2 .pv{border:3px solid #000!important;box-shadow:inset 0 0 0 2px #6fd6ff,4px 5px 0 #000!important;border-radius:4px;background:linear-gradient(160deg,#1550c4,#0a2a7c)!important}
+body.m2 .sechead{font:italic 900 22px var(--m2f);letter-spacing:.04em;color:#fff;-webkit-text-stroke:4px #000;paint-order:stroke fill}
+body.m2 .top .brand{background:none;clip-path:none;padding:4px 6px;font:italic 900 22px/1 var(--m2f);letter-spacing:0;color:#ffd84a;-webkit-text-stroke:5px #000;paint-order:stroke fill;text-shadow:3px 3px 0 #000}
+body.m2 .top .brand small{-webkit-text-stroke:0;color:#fff;font:800 9px Jost;letter-spacing:.35em;background:#000;padding:1px 8px;text-shadow:none}
+body.m2 .top .pill,body.m2 .top .iconbtn{border:3px solid #000!important;box-shadow:inset 0 0 0 2px #6fd6ff,2px 3px 0 #000}
+body.m2 .top .pill.elite{box-shadow:inset 0 0 0 2px #fff3b0,2px 3px 0 #000}
+body.m2 .top{background:linear-gradient(#0c2a72 70%,rgba(12,42,114,0))}
+body.m2 #nav .in{gap:4px;background:#000;border:3px solid #000;border-radius:6px;padding:4px;box-shadow:0 -2px 0 #6fd6ff,0 8px 20px rgba(0,0,0,.6)}
+body.m2 #nav button{background:linear-gradient(#1a5ad8,#0b2c86);border:2px solid #000;box-shadow:inset 0 0 0 2px #6fd6ff;border-radius:4px;color:#fff;font:800 11px Jost;padding:6px 0 4px;-webkit-text-stroke:0}
+body.m2 #nav button.on{background:linear-gradient(#ffe36a,#f0a112);box-shadow:inset 0 0 0 2px #fff3b0,0 0 12px #ffcf4a;color:#2a1700}
+body.m2 #nav button img{mix-blend-mode:normal!important;width:42px;height:42px;object-fit:contain;filter:drop-shadow(2px 2px 0 #000)}
+.m2bal{position:relative;padding-left:70px;margin:16px 0 14px}.m2bal .msg{position:absolute;left:-6px;bottom:-8px;width:84px;z-index:2;filter:drop-shadow(3px 3px 0 #000)}
+.m2b{background:#fff!important;border-radius:20px!important;position:relative;overflow:visible!important;box-shadow:4px 5px 0 #000!important}.m2b b{color:#0b2a6b!important}.m2b small{color:#333!important}.m2b .hp-ic{display:none}.m2b .hp-x{color:#333!important}
+.m2b:before{content:"";position:absolute;left:-16px;bottom:16px;border:9px solid transparent;border-right:16px solid #000}.m2b:after{content:"";position:absolute;left:-10px;bottom:19px;border:6px solid transparent;border-right:12px solid #fff}
+.m2beta{display:flex;align-items:center;gap:8px;justify-content:center;margin:2px 0 0;font:800 11px Jost;color:#ffe45c}
 </style>
 </head>
 <body>
@@ -2479,13 +2542,15 @@ function topBar(){
     <div class="topr">${isElite()?'<span class="pill elite">'+SVG_CROWN+'ELITE</span>':'<button class="pill up" data-a="elite">RECRUTA ↑</button>'}<span class="pill"><i class="coin"></i> ${fmt(gold())}</span><button class="iconbtn" data-a="sound" title="${SFX.on?'Desligar sons':'Ligar sons'}">${SFX.on?SVG_SOUND_ON:SVG_SOUND_OFF}</button><button class="iconbtn" data-a="settings" title="Ficha">${SVG_GEAR}</button></div></div>`;
 }
 function render(){
+  if(window.__FH_TEXP)return;
   if(!S.created){ $('#nav').hidden=true; $('#app').classList.remove('z'); $('#app').innerHTML=viewCreate(); return; }
   ensureQuests();
   $('#nav').hidden=false;
+  document.body.classList.toggle('m2',m2On());
   const views={mestres:viewMestres,corrida:viewCorrida,heroi:viewHero,treinar:viewTrain,dungeon:viewDungeon,missoes:viewQuests,chefes:viewBosses,taverna:viewTaverna,mais:viewMais,loja:viewShop,diario:viewLog,temporada:viewSeason,progressao:viewProgress,planilha:viewSheet,alquimia:viewAlquimia};
   $('#app').classList.toggle('z',['heroi','treinar','dungeon','missoes','chefes','taverna','mais'].includes(tab));
   emgTick();
-  $('#app').innerHTML=topBar()+(['heroi','treinar','missoes'].includes(tab)?sysAlerts():'')+(tab==='heroi'?installBanner():'')+(MUS.tracks[tab]?musicBtn():'')+views[tab]()+(tab==='mais'?'':`<div class="sync" id="sync">${syncLabel()}</div>`);
+  $('#app').innerHTML=topBar()+trialBar()+(['heroi','treinar','missoes'].includes(tab)?sysAlerts():'')+(tab==='heroi'?installBanner():'')+(MUS.tracks[tab]?musicBtn():'')+views[tab]()+(tab==='mais'?'':`<div class="sync" id="sync">${syncLabel()}</div>`);
   renderNav();
   if(!S.nov1&&!S.cheat){S.nov1=Date.now();save();queueModal(()=>openModal(`<div class="lvup"><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ffc65a">NOVA ATUALIZAÇÃO</div>
    <h3 style="margin-top:8px">Os Mestres chegaram à Forja</h3>
@@ -2552,13 +2617,44 @@ function renderNav(){
   const qReady=S.q.ids.some(id=>{const q=QUESTS.find(x=>x.id===id);return q&&!S.q.claimed.includes(id)&&q.f(es)>=q.goal});
   const items=[['heroi','Herói'],['treinar','Treinar'],['dungeon','Dungeon'],['missoes','Missões'],['chefes','Chefes'],['taverna','Taverna'],['mais','Mais']];
   const navTab=['loja','diario','temporada','progressao','planilha','alquimia'].includes(tab)?'mais':tab;
-  $('#nav').innerHTML='<div class="in">'+items.map(([k,n])=>`<button class="${navTab===k?'on':''}" data-tab="${k}"><img src="${UI}nav-${k}.webp" alt="">${n}${k==='missoes'&&qReady?'<span class="dot"></span>':''}${k==='dungeon'&&!isElite()?'<span class="lockdot">🔒</span>':''}</button>`).join('')+'</div>';
+  $('#nav').innerHTML='<div class="in">'+items.map(([k,n])=>`<button class="${navTab===k?'on':''}" data-tab="${k}"><img src="${m2On()?M2+'nav_'+k+'.webp':UI+'nav-'+k+'.webp'}" ${m2On()?`onerror="this.onerror=null;this.src='${UI}nav-${k}.webp'"`:''} alt="">${n}${k==='missoes'&&qReady?'<span class="dot"></span>':''}${k==='dungeon'&&!isElite()?'<span class="lockdot">🔒</span>':''}</button>`).join('')+'</div>';
 }
 
 /* ---------- HERÓI ---------- */
 const PLAYLIST='https://open.spotify.com/playlist/6OAbGqCVLckhjCGq1KevSU';
 function playlistCard(){return `<a class="spl" href="${PLAYLIST}" target="_blank" rel="noopener"><img src="${UI}playlist.webp" alt="" onerror="this.src='${UI}m-trio.webp'"><span><small>🎧 PLAYLIST OFICIAL</small><b>Treino Anime & RPG</b><em>Ouça no Spotify enquanto treina</em></span><i>▶</i></a>`}
+/* ===== BETA visual manhwa: só aparece para contas em fh_admins ===== */
+const M2=ART_SB+'v2/';
+function m2On(){return false} /* beta manhwa desligado (decisão: manter o visual atual) */
+function viewHeroV2(){
+  if(!document.getElementById('m2f'))document.head.insertAdjacentHTML('beforeend','<link id="m2f" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,900&display=swap">');
+  const li=levelInfo(),st=streakInfo(),c={...CLASSES[S.cls],n:cName(S.cls,sexOf())},col=CLS_COLOR[S.cls],x=sexOf()==='f'?'f':'m';
+  const bossN=Object.keys(S.bosses).length;
+  const own=evoOn()?evoSrc(evoOn()):S.avatar||'';
+  const fb=aCard(S.cls,sexOf())||'';
+  const art=own?`<img class="art-in" src="${own}" alt="">`:'';
+  const out=own?'':`<img class="m2out" src="${M2}hero_${S.cls}_${x}.webp" alt="${c.n}" onerror="this.onerror=null;this.classList.add('fb');this.src='${fb}'">`;
+  const card=(k,v,l,cl,r,ph)=>`<div class="m2card" style="--r:${r}deg;--c:${cl}"><div class="ill"><img src="${M2}card_${k}.webp" alt="" onerror="this.outerHTML='<span class=&quot;ph&quot;>${ph}</span>'"></div><div class="box"><b>${v}</b><span>${l}</span></div></div>`;
+  return `<div class="m2beta">🧪 Visual manhwa · beta (só você vê)</div>
+  <div class="m2w" style="--acc:${col.acc};--accg:${col.acc}aa"><div class="m2p m2hero"><div class="in">${art}<i class="speed"></i><i class="m2tone"></i></div></div>${out}
+   <div class="m2inf"><span class="m2tag">[ SISTEMA ] · JOGADOR</span><span class="m2nar">${esc(S.name)}</span><span class="m2cls">${c.n.replace(/ (d[oa]s?) /,"<br>$1 ")}</span>${isElite()?'<span class="m2el">'+SVG_CROWN+'CAÇADOR ELITE</span>':''}${S.title?`<span class="m2tag">« ${esc(S.title)} »</span>`:''}</div></div>
+  <div class="m2w m2sys"><div class="m2p p"><div class="in"><h4>[ SISTEMA ] STATUS</h4>
+   <div class="m2st"><div class="av"><img src="${myFace()||aFace(S.cls,sexOf())}" alt=""></div><div class="lv"><b>${li.L}</b><span>NÍVEL</span></div>
+    <div class="kv"><div><small>NOME: </small>${esc(S.name)}</div><div><small>CLASSE: </small>${c.n}</div><div><small>TÍTULO: </small>${S.title?esc(S.title):'Nenhum'}</div><div><small>PATENTE: </small>${rankOf(li.L)}</div></div></div>
+   <span class="m2bonus">${SVG_SHIELD}Bônus de classe${S.elixir===ymd()?' · 🧪 Elixir +50%':''}</span></div></div></div>
+  <div class="m2w m2bars"><div class="m2p"><div class="in">
+    <div class="bar2"><span class="lb">XP</span><div class="tr"><i style="width:${(li.into/li.need*100).toFixed(1)}%"></i></div></div>
+    <div class="bar2l"><span>${fmt(li.into)} / ${fmt(li.need)}</span><span>faltam ${fmt(li.need-li.into)}</span></div>
+    <div class="bar2"><span class="lb">SEQ</span><div class="tr v"><i style="width:${Math.min(st.cur,10)*10}%"></i></div></div>
+    <div class="bar2l"><span>${st.cur} ${st.cur===1?'dia seguido':'dias seguidos'}</span><span>bônus <b>+${Math.min(st.cur,10)*5}%</b> XP</span></div>
+  </div></div></div>
+  <div class="m2cards">${card('dias',st.days,'DIAS','#3f8cff',-4,'📅')}${card('chefes',bossN+'/'+BOSSES.length,'CHEFES','#8b4dff',3,'👹')}${card('xp',fmt(totalXP()),'XP TOTAL','#18b6e8',-2,'💎')}${card('ouro',fmt(gold()),'OURO','#f0a81c',4,'🪙')}</div>
+  <button class="m2cta" data-tab="treinar"><span class="vush">VUSH!</span><img class="sw" src="${M2}sword.webp" alt="" onerror="this.remove()"><span class="bg"><span class="tx">${st.trainedToday?'CONTINUAR TREINO':'INICIAR MISSÃO'} »</span></span></button>
+  <div class="m2sub">${st.trainedToday?`Hoje: +${fmt(sum(todayEntries(),e=>e.xp))} XP conquistados`:'Seu despertar começa agora.'}</div>
+  ${duelHeroCard()}${avPromo()}${(h=>h?`<div class="m2bal"><img class="msg" src="${M2}messenger.webp" alt="" onerror="this.remove()">${h.replace('pv horapromo','pv horapromo m2b')}</div>`:'')(horaPromo())}${elitePromo()}${playlistCard()}`;
+}
 function viewHero(){
+  if(m2On())return viewHeroV2();
   const li=levelInfo(),st=streakInfo(),at=attrs(),c={...CLASSES[S.cls],n:cName(S.cls,sexOf())};
   const bossN=Object.keys(S.bosses).length;
   const col=CLS_COLOR[S.cls];
@@ -3010,7 +3106,8 @@ const FH_URL='https://lpdicrpetxqnoxceozfa.supabase.co';
 const FH_KEY='sb_publishable_ceGy_dHSjG3cngC8mVAPLg_R4sxr5kA';
 const FH_SITE='https://forjadoheroi.com/#planos';
 const FH=window.supabase.createClient(FH_URL,FH_KEY,{auth:{persistSession:true,autoRefreshToken:true,storageKey:'fh-auth'}});
-let FH_TAB='login',FH_BUSY=false,FH_MSG='',FH_OK=false;
+const FH_TRY=(()=>{try{if(/[?&]teste=/.test(location.search)){localStorage.setItem('fh_teste',(new URLSearchParams(location.search).get('utm_campaign')||'link').slice(0,60));}return localStorage.getItem('fh_teste')}catch(e){return null}})();
+let FH_TAB=FH_TRY?'trial':'login',FH_BUSY=false,FH_MSG='',FH_OK=false;
 function fhShim(uid,admin){
   const tavSnap=async()=>{const {data,error}=await FH.from('fh_taverna').select('user_id,doc');if(error)throw error;
     return {docs:(data||[]).map(r=>({id:r.user_id,exists:true,data:()=>r.doc||{}})),metadata:{fromCache:false,hasPendingWrites:false}}};
@@ -3028,11 +3125,12 @@ function fhShim(uid,admin){
 }
 function fhView(){
   if(FH_TAB==='forgot'||FH_TAB==='newpass')return fhResetView();
+  if(FH_TAB==='trial'||FH_TAB==='trialcode')return fhTrialView();
   const btn=(t,k)=>`<button class="${FH_TAB===k?'on':''}" data-a="fhTab" data-v="${k}">${t}</button>`;
   return `<div style="margin:-4px -16px 0;position:relative"><img src="img/logo.webp" alt="Forja do Herói · Treino RPG" style="display:block;width:100%;-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)"></div>
   <div style="text-align:center;margin-top:-6px"><span class="tag">[ SISTEMA ] · IDENTIFIQUE-SE, JOGADOR</span><p class="muted" style="margin-top:8px">Entre para continuar a sua jornada de onde parou.</p></div>
   <div class="card" style="margin-top:12px">
-   <div class="seg" style="margin-bottom:6px">${btn('Entrar','login')}${btn('Primeiro acesso','signup')}</div>
+   <div class="seg" style="margin-bottom:6px">${btn('Entrar','login')}${btn('Primeiro acesso','signup')}${FH_TRY?btn('🎁 Teste grátis','trial'):''}</div>
    <p class="muted" style="font-size:13.5px;margin:8px 0 0">${FH_TAB==='signup'?'Comprou agora? Use o <b>mesmo e-mail da compra</b> e crie uma palavra-passe. Seu acesso é liberado na hora.':'Use o e-mail da compra e a palavra-passe que você criou no primeiro acesso.'}</p>
    <form id="fhForm">
     <div class="field"><label for="fh_e">E-mail da compra</label><input id="fh_e" type="email" autocomplete="email" required placeholder="voce@email.com" value="${esc(window.__fhE||'')}"></div>
@@ -3050,7 +3148,7 @@ function fhResetView(){
   return `<div style="margin:-4px -16px 0;position:relative"><img src="img/logo.webp" alt="Forja do Herói · Treino RPG" style="display:block;width:100%;-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)"></div>
   <div style="text-align:center;margin-top:-6px"><span class="tag">[ SISTEMA ] · ${nw?'NOVA SENHA':'RECUPERAR ACESSO'}</span></div>
   <div class="card" style="margin-top:12px">
-   <p class="muted" style="font-size:14px;margin:0">${nw?'Enviamos um <b>código de 6 dígitos</b> para <b>'+esc(window.__fhE||'')+'</b>. Digite o código e crie a sua nova palavra-passe.':'Digite o e-mail que você usou na compra. Vamos enviar um código para você trocar a palavra-passe.'}</p>
+   <p class="muted" style="font-size:14px;margin:0">${nw?'Enviamos um <b>código</b> para <b>'+esc(window.__fhE||'')+'</b>. Digite o código e crie a sua nova palavra-passe.':'Digite o e-mail que você usou na compra. Vamos enviar um código para você trocar a palavra-passe.'}</p>
    <form id="fhForm">
     ${nw?`<div class="field"><label for="fh_c">Código recebido no e-mail</label><input id="fh_c" inputmode="numeric" autocomplete="one-time-code" required minlength="6" maxlength="8" placeholder="00000000" style="letter-spacing:.3em;font-size:22px;text-align:center"></div><div class="field"><label for="fh_p">Nova palavra-passe (mínimo 6 caracteres)</label><input id="fh_p" type="password" autocomplete="new-password" required minlength="6"></div>`
        :`<div class="field"><label for="fh_e">E-mail da compra</label><input id="fh_e" type="email" autocomplete="email" required placeholder="voce@email.com" value="${esc(window.__fhE||'')}"></div>`}
@@ -3079,6 +3177,7 @@ async function fhResetSubmit(){
 function fhRenderLogin(){$('#nav').hidden=true;$('#app').innerHTML=fhView();const f=$('#fhForm');if(f)f.onsubmit=fhSubmit;duelLoginBanner();}
 async function fhSubmit(ev){
   ev.preventDefault();if(FH_BUSY)return;
+  if(FH_TAB==='trial'||FH_TAB==='trialcode'){FH_BUSY=true;FH_MSG='';FH_OK=false;fhRenderLogin();try{if(await fhTrialSubmit()){FH_BUSY=false;return}}catch(e){FH_OK=false;FH_MSG=esc(e.message||String(e))}FH_BUSY=false;fhRenderLogin();return}
   if(FH_TAB==='forgot'||FH_TAB==='newpass'){FH_BUSY=true;FH_MSG='';FH_OK=false;fhRenderLogin();try{if(await fhResetSubmit()){FH_BUSY=false;return}}catch(e){FH_OK=false;FH_MSG=esc(e.message||String(e))}FH_BUSY=false;fhRenderLogin();return}
   const email=$('#fh_e').value.trim().toLowerCase(),pass=$('#fh_p').value;window.__fhE=email;
   FH_BUSY=true;FH_MSG='';fhRenderLogin();
@@ -3093,12 +3192,89 @@ async function fhSubmit(ev){
     FH_BUSY=false;await fhAfterLogin();
   }catch(e){FH_BUSY=false;FH_MSG=esc(e.message||String(e));fhRenderLogin();}
 }
+/* ================== TESTE GRÁTIS 24H ================== */
+const TRIAL_CK={recruta:'https://appdigitalhub.com.br/c/43752C6D',elite:'https://pay.cakto.com.br/ujynffk_1345498',oferta:'https://appdigitalhub.com.br/c/E3082716'};
+const trialCk=k=>TRIAL_CK[k]+'?utm_source=app&utm_medium=teste24h&utm_campaign='+encodeURIComponent(FH_TRY||'teste24h');
+function fhTrialView(){
+  const cd=FH_TAB==='trialcode';
+  return `<div style="margin:-4px -16px 0;position:relative"><img src="img/logo.webp" alt="Forja do Herói · Treino RPG" style="display:block;width:100%;-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)"></div>
+  <div style="text-align:center;margin-top:-6px"><span class="tag">[ SISTEMA ] · ${cd?'CONFIRME SEU E-MAIL':'TESTE GRÁTIS 24 HORAS'}</span>
+   ${cd?'':'<p class="muted" style="margin-top:8px">Use o app completo (plano Elite) por <b>24 horas</b>, sem pagar nada e sem cartão.</p>'}</div>
+  <div class="card" style="margin-top:12px">
+   ${cd?`<p class="muted" style="font-size:14px;margin:0">Enviamos um <b>código</b> para <b>${esc(window.__fhE||'')}</b>. Digite aqui para liberar o seu teste.</p>`
+       :`<ul style="margin:0 0 4px;padding-left:18px;font-size:14px;line-height:1.7"><li>Dungeon de 30 dias, chefes e missões</li><li>Os 3 Mestres e todas as fichas de treino</li><li>Seu progresso fica salvo se assinar depois</li></ul>`}
+   <form id="fhForm">
+    ${cd?`<div class="field"><label for="fh_c">Código recebido no e-mail</label><input id="fh_c" inputmode="numeric" autocomplete="one-time-code" required minlength="6" maxlength="8" placeholder="00000000" style="letter-spacing:.3em;font-size:22px;text-align:center"></div>`
+        :`<div class="field"><label for="fh_e">Seu melhor e-mail</label><input id="fh_e" type="email" autocomplete="email" required placeholder="voce@email.com" value="${esc(window.__fhE||'')}"></div>
+          <div class="field"><label for="fh_p">Crie uma palavra-passe (mínimo 6 caracteres)</label><input id="fh_p" type="password" autocomplete="new-password" required minlength="6"></div>`}
+    ${FH_MSG?`<p class="${FH_OK?'good':'warn'} glow" style="margin-top:12px;font-size:14px">${FH_MSG}</p>`:''}
+    <button class="btn full" style="margin-top:14px" type="submit" ${FH_BUSY?'disabled':''}>${FH_BUSY?'Aguarde…':cd?'⚔️ Liberar meu teste':'🎁 Começar teste grátis'}</button>
+   </form>
+   ${cd?'<button class="btn ghost full sm" style="margin-top:10px" data-a="trialResend">Não chegou? Enviar de novo</button><button class="btn ghost full sm" style="margin-top:10px" data-a="fhTab" data-v="trial">← Trocar e-mail</button>'
+       :'<button class="btn ghost full sm" style="margin-top:10px" data-a="fhTab" data-v="login">Já tenho conta · Entrar</button>'}
+  </div>`;
+}
+async function fhTrialSubmit(){
+  if(FH_TAB==='trial'){
+    const email=$('#fh_e').value.trim().toLowerCase(),pass=$('#fh_p').value;window.__fhE=email;
+    const r=await fetch(FH_URL+'/functions/v1/fh-trial',{method:'POST',headers:{'Content-Type':'application/json',apikey:FH_KEY},body:JSON.stringify({email,password:pass})});
+    const j=await r.json().catch(()=>({}));
+    if(!r.ok){if(j.code==='exists'||j.code==='used')FH_TAB='login';throw new Error(j.error||'Não foi possível começar o teste')}
+    const {error}=await FH.auth.resend({type:'signup',email});
+    if(error&&!/security purposes|rate/i.test(error.message))throw new Error(error.message);
+    FH_TAB='trialcode';FH_OK=true;FH_MSG='Código enviado! Confira a caixa de entrada e o spam.';FH_BUSY=false;fhRenderLogin();return true;
+  }
+  const token=$('#fh_c').value.replace(/\D/g,'');
+  const {error}=await FH.auth.verifyOtp({email:window.__fhE,token,type:'signup'});
+  if(error)throw new Error(/expired|invalid/i.test(error.message)?'Código inválido ou expirado. Peça um novo.':error.message);
+  const {error:e2}=await FH.rpc('fh_trial_start',{p_src:FH_TRY||null});
+  if(e2)throw new Error(e2.message);
+  try{if(window.fbq)fbq('track','StartTrial',{value:0,currency:'BRL'});else{!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1141320428608400');fbq('track','StartTrial',{value:0,currency:'BRL'})}}catch(e){}
+  FH_BUSY=false;FH_MSG='';FH_TAB='login';await fhAfterLogin();toast('🎁','Teste grátis liberado','24 horas do plano Elite');return true;
+}
+function trialLeft(){return window.__FH_TRIAL?window.__FH_TRIAL-(Date.now()+(window.__FH_SKEW||0)):0}
+function trialBar(){
+  if(!window.__FH_TRIAL)return '';const ms=trialLeft();if(ms<=0)return '';
+  const h=Math.floor(ms/36e5),m=Math.floor(ms%36e5/6e4);
+  return `<button class="pv" data-a="trialPlans" style="display:flex;align-items:center;gap:10px;width:100%;margin:8px 0 4px;padding:10px 12px;text-align:left;color:#fff;border-color:#ffcf4a;background:linear-gradient(90deg,rgba(255,190,60,.18),rgba(255,190,60,.04))"><span style="font-size:22px">⏳</span><span style="flex:1;font:600 13px Jost"><b style="color:#ffd84a">Teste grátis Elite</b> · faltam <b>${h}h ${String(m).padStart(2,'0')}min</b><br><small style="opacity:.8">Toque para garantir o seu plano e não perder o progresso</small></span><span class="btn sm gold" style="pointer-events:none">Assinar</span></button>`;
+}
+let TRIAL_STEP=0;
+function trialPaywall(expired){
+  closeModal();const li=levelInfo();
+  const plan=(k,t,p,old,items,hot)=>`<div class="pv" style="padding:14px;margin:10px 0;${hot?'border-color:#ffcf4a;box-shadow:0 0 18px rgba(255,200,70,.35)':''}">${hot?'<span class="tag" style="background:#ffcf4a;color:#231400">⭐ MAIS ESCOLHIDO</span>':''}
+   <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:6px"><b style="font-size:18px">${t}</b><span>${old?`<s class="muted" style="font-size:13px">${old}</s> `:''}<b style="font-size:22px;color:#ffd84a">${p}</b></span></div>
+   <ul style="margin:8px 0 10px;padding-left:18px;font-size:13.5px;line-height:1.6">${items.map(i=>'<li>'+i+'</li>').join('')}</ul>
+   <a class="btn full ${hot?'gold':''}" href="${trialCk(k)}" target="_blank" rel="noopener">${hot?'👑 Quero o Elite':'Começar como Recruta'}</a></div>`;
+  const step0=`<div style="text-align:center"><span class="tag">[ SISTEMA ] · ${expired?'TESTE ENCERRADO':'TESTE GRÁTIS ATIVO'}</span>
+     <h2 style="margin:10px 0 4px">${expired?'Seu teste grátis acabou':'Garanta o seu plano'}</h2>
+     <p class="muted" style="font-size:14px;margin:0">Seu herói está salvo: <b>nível ${li.L}</b> e <b>${fmt(totalXP())} XP</b>. Escolha um plano para continuar de onde parou.</p></div>
+   ${plan('recruta','Recruta','R$ 9,90','',['Treinos e missões diárias','XP, níveis e conquistas','Acesso vitalício, pagamento único'],0)}
+   ${plan('elite','Caçador Elite','16,90 €','',['Tudo do Recruta','Dungeon de 30 dias e chefes','Os 3 Mestres e todas as fichas','Corrida com GPS, Alquimia e Temporada'],1)}
+   <p class="muted" style="font-size:12.5px;text-align:center;margin:4px 0 10px">Pague com o <b>mesmo e-mail</b> (${esc(window.__FH_EMAIL||'')}). Depois toque em “Já paguei”.</p>
+   <button class="btn ghost full sm" data-a="trialPaid">✅ Já paguei, atualizar</button>
+   <button class="btn ghost full sm" style="margin-top:8px" data-a="trialNo">${expired?'Agora não':'Continuar testando'}</button>`;
+  const step1=`<div style="text-align:center"><span class="tag" style="background:#ff4d4d;color:#fff">⚡ OFERTA ÚNICA</span>
+     <h2 style="margin:10px 0 4px">Espera, caçador!</h2>
+     <p class="muted" style="font-size:14px;margin:0 0 10px">Só agora, para quem testou: o <b>Elite completo</b> por um preço especial.</p>
+     <div style="font-size:15px"><s class="muted">16,90 €</s> <b style="font-size:34px;color:#ffd84a">R$ 18,90</b></div></div>
+   <a class="btn gold full" style="margin-top:14px" href="${trialCk('oferta')}" target="_blank" rel="noopener">👑 Sim, quero o Elite por R$ 18,90</a>
+   <a class="btn ghost full sm" style="margin-top:10px" href="${trialCk('recruta')}" target="_blank" rel="noopener">Não, quero só o Recruta por R$ 9,90</a>
+   <button class="btn ghost full sm" style="margin-top:8px" data-a="trialPaid">✅ Já paguei, atualizar</button>
+   ${expired?'<button class="btn ghost full sm" style="margin-top:8px" data-a="fhLogout">Sair</button>':'<button class="btn ghost full sm" style="margin-top:8px" data-a="close">Continuar testando</button>'}`;
+  openModal(`<div id="trialPw">${TRIAL_STEP?step1:step0}</div>`,true);
+}
+function trialExpiredScreen(){window.__FH_TEXP=1;$('#nav').hidden=true;$('#app').innerHTML='<div style="text-align:center;padding:30vh 16px 0"><span class="tag">[ SISTEMA ] · TESTE ENCERRADO</span><p class="muted" style="margin:12px 0">Seu progresso está salvo.</p><button class="btn gold" data-a="trialPlans">Ver planos</button><br><button class="btn ghost sm" style="margin-top:10px" data-a="fhLogout">Sair</button></div>';TRIAL_STEP=0;trialPaywall(true);}
+setInterval(()=>{if(window.__FH_TRIAL&&trialLeft()<=0&&!document.getElementById('trialPw')){window.__FH_TRIAL=0;window.__FH_PLAN=null;trialExpiredScreen()}else if(window.__FH_TRIAL&&!document.querySelector('.modal')){const b=document.querySelector('[data-a=trialPlans]');if(b)b.outerHTML=trialBar()}},60000);
 async function fhAfterLogin(){
   const {data:{session}}=await FH.auth.getSession();if(!session)return fhRenderLogin();
   const {data:me,error}=await FH.rpc('fh_me');
   if(error){FH_MSG='Não foi possível conferir o seu acesso. Verifique a internet e tente de novo.';return fhRenderLogin();}
+  window.__FH_SKEW=me&&me.now?Date.parse(me.now)-Date.now():0;window.__FH_EMAIL=session.user.email;
+  window.__FH_TRIAL=(me&&!me.paid&&me.trial_until&&me.plan)?Date.parse(me.trial_until):0;
+  if(me&&!me.plan&&!me.paid&&me.trial_until){window.__FH_PLAN=null;return trialExpiredScreen();}
   if(!me||!me.plan){await FH.auth.signOut();FH_MSG='Não encontramos uma compra aprovada com este e-mail. Se pagou por Pix agora, aguarde 1 ou 2 minutos e tente de novo.';return fhRenderLogin();}
-  const uid=session.user.id;window.__FH_EMAIL=session.user.email;window.__FH_PLAN=me.plan;window.__FH_AB=+me.abismo||0;
+  window.__FH_TEXP=0;
+  const uid=session.user.id;window.__FH_EMAIL=session.user.email;window.__FH_PLAN=me.plan;window.__FH_ADMIN=!!me.admin;window.__FH_AB=+me.abismo||0;
   if(S.ownerUid&&S.ownerUid!==uid){S=blank();}
   S.ownerUid=uid;
   fhShim(uid,!!me.admin);
@@ -3234,6 +3410,11 @@ async function duelLoginBanner(){
 const _fhRender=render;
 render=function(){if(!window.__FH_PLAN)return fhRenderLogin();if(S.plan!==window.__FH_PLAN){S.plan=window.__FH_PLAN;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}return _fhRender();};
 document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-a]');if(!b)return;const a=b.dataset.a;
+  if(a==='m2Toggle'){if(!window.__FH_ADMIN)return;try{localStorage.setItem('fh_m2',m2On()?'0':'1')}catch(e){}tab=m2On()?'heroi':'mais';render();scrollTo(0,0);toast('🧪',m2On()?'Visual manhwa ligado':'Visual manhwa desligado');return}
+  if(a==='trialPlans'){TRIAL_STEP=0;trialPaywall(!window.__FH_TRIAL||trialLeft()<=0);return}
+  if(a==='trialNo'){TRIAL_STEP=1;const ex=!window.__FH_TRIAL||trialLeft()<=0;trialPaywall(ex);return}
+  if(a==='trialPaid'){closeModal();toast('🔄','Conferindo o pagamento…');await fhAfterLogin();if(window.__FH_PLAN&&!window.__FH_TRIAL){toast('👑','Plano liberado!','Bom treino, caçador')}else if(!window.__FH_PLAN){toast('⏳','Ainda não encontramos o pagamento','Pix pode levar 1 ou 2 minutos')}return}
+  if(a==='trialResend'){const {error}=await FH.auth.resend({type:'signup',email:window.__fhE});FH_OK=!error;FH_MSG=error?(/security|rate/i.test(error.message)?'Aguarde 1 minuto para pedir outro código.':esc(error.message)):'Novo código enviado!';fhRenderLogin();return}
   if(a==='fhTab'){FH_TAB=b.dataset.v;FH_MSG='';fhRenderLogin();}
   if(a==='fhLogout'){closeModal();await FH.auth.signOut();try{localStorage.removeItem(KEY)}catch(e){}location.reload();}
   if(a==='fhRefresh'){const {data:me}=await FH.rpc('fh_me');if(me&&(+me.abismo||0)>(window.__FH_AB||0)){window.__FH_AB=+me.abismo;closeModal();abOpen=true;tab='dungeon';sfx('elite');render();toast('🕳️','O portal do Abismo se abriu!','A Dungeon do Abismo foi liberada');return}if(me&&me.plan){if(me.plan==='elite'&&window.__FH_PLAN!=='elite')sfx('elite');window.__FH_PLAN=me.plan;closeModal();render();toast(me.plan==='elite'?'👑':'⚔️',me.plan==='elite'?'Caçador Elite liberado!':'Ainda não encontramos a compra do Elite',me.plan==='elite'?'Todos os recursos foram desbloqueados':'Aguarde 1 ou 2 minutos e tente de novo')}}

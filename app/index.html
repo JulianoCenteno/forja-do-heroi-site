@@ -2541,6 +2541,7 @@ function topBar(){
     <div class="topr">${isElite()?'<span class="pill elite">'+SVG_CROWN+'ELITE</span>':'<button class="pill up" data-a="elite">RECRUTA ↑</button>'}<span class="pill"><i class="coin"></i> ${fmt(gold())}</span><button class="iconbtn" data-a="sound" title="${SFX.on?'Desligar sons':'Ligar sons'}">${SFX.on?SVG_SOUND_ON:SVG_SOUND_OFF}</button><button class="iconbtn" data-a="settings" title="Ficha">${SVG_GEAR}</button></div></div>`;
 }
 function render(){
+  if(window.__FH_TEXP)return;
   if(!S.created){ $('#nav').hidden=true; $('#app').classList.remove('z'); $('#app').innerHTML=viewCreate(); return; }
   ensureQuests();
   $('#nav').hidden=false;
@@ -2548,7 +2549,7 @@ function render(){
   const views={mestres:viewMestres,corrida:viewCorrida,heroi:viewHero,treinar:viewTrain,dungeon:viewDungeon,missoes:viewQuests,chefes:viewBosses,taverna:viewTaverna,mais:viewMais,loja:viewShop,diario:viewLog,temporada:viewSeason,progressao:viewProgress,planilha:viewSheet,alquimia:viewAlquimia};
   $('#app').classList.toggle('z',['heroi','treinar','dungeon','missoes','chefes','taverna','mais'].includes(tab));
   emgTick();
-  $('#app').innerHTML=topBar()+(['heroi','treinar','missoes'].includes(tab)?sysAlerts():'')+(tab==='heroi'?installBanner():'')+(MUS.tracks[tab]?musicBtn():'')+views[tab]()+(tab==='mais'?'':`<div class="sync" id="sync">${syncLabel()}</div>`);
+  $('#app').innerHTML=topBar()+trialBar()+(['heroi','treinar','missoes'].includes(tab)?sysAlerts():'')+(tab==='heroi'?installBanner():'')+(MUS.tracks[tab]?musicBtn():'')+views[tab]()+(tab==='mais'?'':`<div class="sync" id="sync">${syncLabel()}</div>`);
   renderNav();
   if(!S.nov1&&!S.cheat){S.nov1=Date.now();save();queueModal(()=>openModal(`<div class="lvup"><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ffc65a">NOVA ATUALIZAÇÃO</div>
    <h3 style="margin-top:8px">Os Mestres chegaram à Forja</h3>
@@ -3104,7 +3105,8 @@ const FH_URL='https://lpdicrpetxqnoxceozfa.supabase.co';
 const FH_KEY='sb_publishable_ceGy_dHSjG3cngC8mVAPLg_R4sxr5kA';
 const FH_SITE='https://forjadoheroi.com/#planos';
 const FH=window.supabase.createClient(FH_URL,FH_KEY,{auth:{persistSession:true,autoRefreshToken:true,storageKey:'fh-auth'}});
-let FH_TAB='login',FH_BUSY=false,FH_MSG='',FH_OK=false;
+const FH_TRY=(()=>{try{if(/[?&]teste=/.test(location.search)){localStorage.setItem('fh_teste',(new URLSearchParams(location.search).get('utm_campaign')||'link').slice(0,60));}return localStorage.getItem('fh_teste')}catch(e){return null}})();
+let FH_TAB=FH_TRY?'trial':'login',FH_BUSY=false,FH_MSG='',FH_OK=false;
 function fhShim(uid,admin){
   const tavSnap=async()=>{const {data,error}=await FH.from('fh_taverna').select('user_id,doc');if(error)throw error;
     return {docs:(data||[]).map(r=>({id:r.user_id,exists:true,data:()=>r.doc||{}})),metadata:{fromCache:false,hasPendingWrites:false}}};
@@ -3122,11 +3124,12 @@ function fhShim(uid,admin){
 }
 function fhView(){
   if(FH_TAB==='forgot'||FH_TAB==='newpass')return fhResetView();
+  if(FH_TAB==='trial'||FH_TAB==='trialcode')return fhTrialView();
   const btn=(t,k)=>`<button class="${FH_TAB===k?'on':''}" data-a="fhTab" data-v="${k}">${t}</button>`;
   return `<div style="margin:-4px -16px 0;position:relative"><img src="img/logo.webp" alt="Forja do Herói · Treino RPG" style="display:block;width:100%;-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)"></div>
   <div style="text-align:center;margin-top:-6px"><span class="tag">[ SISTEMA ] · IDENTIFIQUE-SE, JOGADOR</span><p class="muted" style="margin-top:8px">Entre para continuar a sua jornada de onde parou.</p></div>
   <div class="card" style="margin-top:12px">
-   <div class="seg" style="margin-bottom:6px">${btn('Entrar','login')}${btn('Primeiro acesso','signup')}</div>
+   <div class="seg" style="margin-bottom:6px">${btn('Entrar','login')}${btn('Primeiro acesso','signup')}${FH_TRY?btn('🎁 Teste grátis','trial'):''}</div>
    <p class="muted" style="font-size:13.5px;margin:8px 0 0">${FH_TAB==='signup'?'Comprou agora? Use o <b>mesmo e-mail da compra</b> e crie uma senha. Seu acesso é liberado na hora.':'Use o e-mail da compra e a senha que você criou no primeiro acesso.'}</p>
    <form id="fhForm">
     <div class="field"><label for="fh_e">E-mail da compra</label><input id="fh_e" type="email" autocomplete="email" required placeholder="voce@email.com" value="${esc(window.__fhE||'')}"></div>
@@ -3144,7 +3147,7 @@ function fhResetView(){
   return `<div style="margin:-4px -16px 0;position:relative"><img src="img/logo.webp" alt="Forja do Herói · Treino RPG" style="display:block;width:100%;-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)"></div>
   <div style="text-align:center;margin-top:-6px"><span class="tag">[ SISTEMA ] · ${nw?'NOVA SENHA':'RECUPERAR ACESSO'}</span></div>
   <div class="card" style="margin-top:12px">
-   <p class="muted" style="font-size:14px;margin:0">${nw?'Enviamos um <b>código de 6 dígitos</b> para <b>'+esc(window.__fhE||'')+'</b>. Digite o código e crie a sua nova senha.':'Digite o e-mail que você usou na compra. Vamos enviar um código para você trocar a senha.'}</p>
+   <p class="muted" style="font-size:14px;margin:0">${nw?'Enviamos um <b>código</b> para <b>'+esc(window.__fhE||'')+'</b>. Digite o código e crie a sua nova senha.':'Digite o e-mail que você usou na compra. Vamos enviar um código para você trocar a senha.'}</p>
    <form id="fhForm">
     ${nw?`<div class="field"><label for="fh_c">Código recebido no e-mail</label><input id="fh_c" inputmode="numeric" autocomplete="one-time-code" required minlength="6" maxlength="8" placeholder="00000000" style="letter-spacing:.3em;font-size:22px;text-align:center"></div><div class="field"><label for="fh_p">Nova senha (mínimo 6 caracteres)</label><input id="fh_p" type="password" autocomplete="new-password" required minlength="6"></div>`
        :`<div class="field"><label for="fh_e">E-mail da compra</label><input id="fh_e" type="email" autocomplete="email" required placeholder="voce@email.com" value="${esc(window.__fhE||'')}"></div>`}
@@ -3173,6 +3176,7 @@ async function fhResetSubmit(){
 function fhRenderLogin(){$('#nav').hidden=true;$('#app').innerHTML=fhView();const f=$('#fhForm');if(f)f.onsubmit=fhSubmit;duelLoginBanner();}
 async function fhSubmit(ev){
   ev.preventDefault();if(FH_BUSY)return;
+  if(FH_TAB==='trial'||FH_TAB==='trialcode'){FH_BUSY=true;FH_MSG='';FH_OK=false;fhRenderLogin();try{if(await fhTrialSubmit()){FH_BUSY=false;return}}catch(e){FH_OK=false;FH_MSG=esc(e.message||String(e))}FH_BUSY=false;fhRenderLogin();return}
   if(FH_TAB==='forgot'||FH_TAB==='newpass'){FH_BUSY=true;FH_MSG='';FH_OK=false;fhRenderLogin();try{if(await fhResetSubmit()){FH_BUSY=false;return}}catch(e){FH_OK=false;FH_MSG=esc(e.message||String(e))}FH_BUSY=false;fhRenderLogin();return}
   const email=$('#fh_e').value.trim().toLowerCase(),pass=$('#fh_p').value;window.__fhE=email;
   FH_BUSY=true;FH_MSG='';fhRenderLogin();
@@ -3187,11 +3191,88 @@ async function fhSubmit(ev){
     FH_BUSY=false;await fhAfterLogin();
   }catch(e){FH_BUSY=false;FH_MSG=esc(e.message||String(e));fhRenderLogin();}
 }
+/* ================== TESTE GRÁTIS 24H ================== */
+const TRIAL_CK={recruta:'https://appdigitalhub.com.br/c/43752C6D',elite:'https://appdigitalhub.com.br/c/1C7E51FE',oferta:'https://appdigitalhub.com.br/c/E3082716'};
+const trialCk=k=>TRIAL_CK[k]+'?utm_source=app&utm_medium=teste24h&utm_campaign='+encodeURIComponent(FH_TRY||'teste24h');
+function fhTrialView(){
+  const cd=FH_TAB==='trialcode';
+  return `<div style="margin:-4px -16px 0;position:relative"><img src="img/logo.webp" alt="Forja do Herói · Treino RPG" style="display:block;width:100%;-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)"></div>
+  <div style="text-align:center;margin-top:-6px"><span class="tag">[ SISTEMA ] · ${cd?'CONFIRME SEU E-MAIL':'TESTE GRÁTIS 24 HORAS'}</span>
+   ${cd?'':'<p class="muted" style="margin-top:8px">Use o app completo (plano Elite) por <b>24 horas</b>, sem pagar nada e sem cartão.</p>'}</div>
+  <div class="card" style="margin-top:12px">
+   ${cd?`<p class="muted" style="font-size:14px;margin:0">Enviamos um <b>código</b> para <b>${esc(window.__fhE||'')}</b>. Digite aqui para liberar o seu teste.</p>`
+       :`<ul style="margin:0 0 4px;padding-left:18px;font-size:14px;line-height:1.7"><li>Dungeon de 30 dias, chefes e missões</li><li>Os 3 Mestres e todas as fichas de treino</li><li>Seu progresso fica salvo se assinar depois</li></ul>`}
+   <form id="fhForm">
+    ${cd?`<div class="field"><label for="fh_c">Código recebido no e-mail</label><input id="fh_c" inputmode="numeric" autocomplete="one-time-code" required minlength="6" maxlength="8" placeholder="00000000" style="letter-spacing:.3em;font-size:22px;text-align:center"></div>`
+        :`<div class="field"><label for="fh_e">Seu melhor e-mail</label><input id="fh_e" type="email" autocomplete="email" required placeholder="voce@email.com" value="${esc(window.__fhE||'')}"></div>
+          <div class="field"><label for="fh_p">Crie uma senha (mínimo 6 caracteres)</label><input id="fh_p" type="password" autocomplete="new-password" required minlength="6"></div>`}
+    ${FH_MSG?`<p class="${FH_OK?'good':'warn'} glow" style="margin-top:12px;font-size:14px">${FH_MSG}</p>`:''}
+    <button class="btn full" style="margin-top:14px" type="submit" ${FH_BUSY?'disabled':''}>${FH_BUSY?'Aguarde…':cd?'⚔️ Liberar meu teste':'🎁 Começar teste grátis'}</button>
+   </form>
+   ${cd?'<button class="btn ghost full sm" style="margin-top:10px" data-a="trialResend">Não chegou? Enviar de novo</button><button class="btn ghost full sm" style="margin-top:10px" data-a="fhTab" data-v="trial">← Trocar e-mail</button>'
+       :'<button class="btn ghost full sm" style="margin-top:10px" data-a="fhTab" data-v="login">Já tenho conta · Entrar</button>'}
+  </div>`;
+}
+async function fhTrialSubmit(){
+  if(FH_TAB==='trial'){
+    const email=$('#fh_e').value.trim().toLowerCase(),pass=$('#fh_p').value;window.__fhE=email;
+    const r=await fetch(FH_URL+'/functions/v1/fh-trial',{method:'POST',headers:{'Content-Type':'application/json',apikey:FH_KEY},body:JSON.stringify({email,password:pass})});
+    const j=await r.json().catch(()=>({}));
+    if(!r.ok){if(j.code==='exists'||j.code==='used')FH_TAB='login';throw new Error(j.error||'Não foi possível começar o teste')}
+    const {error}=await FH.auth.resend({type:'signup',email});
+    if(error&&!/security purposes|rate/i.test(error.message))throw new Error(error.message);
+    FH_TAB='trialcode';FH_OK=true;FH_MSG='Código enviado! Confira a caixa de entrada e o spam.';FH_BUSY=false;fhRenderLogin();return true;
+  }
+  const token=$('#fh_c').value.replace(/\D/g,'');
+  const {error}=await FH.auth.verifyOtp({email:window.__fhE,token,type:'signup'});
+  if(error)throw new Error(/expired|invalid/i.test(error.message)?'Código inválido ou expirado. Peça um novo.':error.message);
+  const {error:e2}=await FH.rpc('fh_trial_start',{p_src:FH_TRY||null});
+  if(e2)throw new Error(e2.message);
+  try{if(window.fbq)fbq('track','StartTrial',{value:0,currency:'BRL'});else{!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1141320428608400');fbq('track','StartTrial',{value:0,currency:'BRL'})}}catch(e){}
+  FH_BUSY=false;FH_MSG='';FH_TAB='login';await fhAfterLogin();toast('🎁','Teste grátis liberado','24 horas do plano Elite');return true;
+}
+function trialLeft(){return window.__FH_TRIAL?window.__FH_TRIAL-(Date.now()+(window.__FH_SKEW||0)):0}
+function trialBar(){
+  if(!window.__FH_TRIAL)return '';const ms=trialLeft();if(ms<=0)return '';
+  const h=Math.floor(ms/36e5),m=Math.floor(ms%36e5/6e4);
+  return `<button class="pv" data-a="trialPlans" style="display:flex;align-items:center;gap:10px;width:100%;margin:8px 0 4px;padding:10px 12px;text-align:left;color:#fff;border-color:#ffcf4a;background:linear-gradient(90deg,rgba(255,190,60,.18),rgba(255,190,60,.04))"><span style="font-size:22px">⏳</span><span style="flex:1;font:600 13px Jost"><b style="color:#ffd84a">Teste grátis Elite</b> · faltam <b>${h}h ${String(m).padStart(2,'0')}min</b><br><small style="opacity:.8">Toque para garantir o seu plano e não perder o progresso</small></span><span class="btn sm gold" style="pointer-events:none">Assinar</span></button>`;
+}
+let TRIAL_STEP=0;
+function trialPaywall(expired){
+  closeModal();const li=levelInfo();
+  const plan=(k,t,p,old,items,hot)=>`<div class="pv" style="padding:14px;margin:10px 0;${hot?'border-color:#ffcf4a;box-shadow:0 0 18px rgba(255,200,70,.35)':''}">${hot?'<span class="tag" style="background:#ffcf4a;color:#231400">⭐ MAIS ESCOLHIDO</span>':''}
+   <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:6px"><b style="font-size:18px">${t}</b><span>${old?`<s class="muted" style="font-size:13px">${old}</s> `:''}<b style="font-size:22px;color:#ffd84a">${p}</b></span></div>
+   <ul style="margin:8px 0 10px;padding-left:18px;font-size:13.5px;line-height:1.6">${items.map(i=>'<li>'+i+'</li>').join('')}</ul>
+   <a class="btn full ${hot?'gold':''}" href="${trialCk(k)}" target="_blank" rel="noopener">${hot?'👑 Quero o Elite':'Começar como Recruta'}</a></div>`;
+  const step0=`<div style="text-align:center"><span class="tag">[ SISTEMA ] · ${expired?'TESTE ENCERRADO':'TESTE GRÁTIS ATIVO'}</span>
+     <h2 style="margin:10px 0 4px">${expired?'Seu teste grátis acabou':'Garanta o seu plano'}</h2>
+     <p class="muted" style="font-size:14px;margin:0">Seu herói está salvo: <b>nível ${li.L}</b> e <b>${fmt(totalXP())} XP</b>. Escolha um plano para continuar de onde parou.</p></div>
+   ${plan('recruta','Recruta','R$ 9,90','',['Treinos e missões diárias','XP, níveis e conquistas','Acesso vitalício, pagamento único'],0)}
+   ${plan('elite','Caçador Elite','R$ 26,90','',['Tudo do Recruta','Dungeon de 30 dias e chefes','Os 3 Mestres e todas as fichas','Corrida com GPS, Alquimia e Temporada'],1)}
+   <p class="muted" style="font-size:12.5px;text-align:center;margin:4px 0 10px">Pague com o <b>mesmo e-mail</b> (${esc(window.__FH_EMAIL||'')}). Depois toque em “Já paguei”.</p>
+   <button class="btn ghost full sm" data-a="trialPaid">✅ Já paguei, atualizar</button>
+   <button class="btn ghost full sm" style="margin-top:8px" data-a="trialNo">${expired?'Agora não':'Continuar testando'}</button>`;
+  const step1=`<div style="text-align:center"><span class="tag" style="background:#ff4d4d;color:#fff">⚡ OFERTA ÚNICA</span>
+     <h2 style="margin:10px 0 4px">Espera, caçador!</h2>
+     <p class="muted" style="font-size:14px;margin:0 0 10px">Só agora, para quem testou: o <b>Elite completo</b> por um preço especial.</p>
+     <div style="font-size:15px"><s class="muted">R$ 26,90</s> <b style="font-size:34px;color:#ffd84a">R$ 18,90</b></div></div>
+   <a class="btn gold full" style="margin-top:14px" href="${trialCk('oferta')}" target="_blank" rel="noopener">👑 Sim, quero o Elite por R$ 18,90</a>
+   <a class="btn ghost full sm" style="margin-top:10px" href="${trialCk('recruta')}" target="_blank" rel="noopener">Não, quero só o Recruta por R$ 9,90</a>
+   <button class="btn ghost full sm" style="margin-top:8px" data-a="trialPaid">✅ Já paguei, atualizar</button>
+   ${expired?'<button class="btn ghost full sm" style="margin-top:8px" data-a="fhLogout">Sair</button>':'<button class="btn ghost full sm" style="margin-top:8px" data-a="close">Continuar testando</button>'}`;
+  openModal(`<div id="trialPw">${TRIAL_STEP?step1:step0}</div>`,true);
+}
+function trialExpiredScreen(){window.__FH_TEXP=1;$('#nav').hidden=true;$('#app').innerHTML='<div style="text-align:center;padding:30vh 16px 0"><span class="tag">[ SISTEMA ] · TESTE ENCERRADO</span><p class="muted" style="margin:12px 0">Seu progresso está salvo.</p><button class="btn gold" data-a="trialPlans">Ver planos</button><br><button class="btn ghost sm" style="margin-top:10px" data-a="fhLogout">Sair</button></div>';TRIAL_STEP=0;trialPaywall(true);}
+setInterval(()=>{if(window.__FH_TRIAL&&trialLeft()<=0&&!document.getElementById('trialPw')){window.__FH_TRIAL=0;window.__FH_PLAN=null;trialExpiredScreen()}else if(window.__FH_TRIAL&&!document.querySelector('.modal')){const b=document.querySelector('[data-a=trialPlans]');if(b)b.outerHTML=trialBar()}},60000);
 async function fhAfterLogin(){
   const {data:{session}}=await FH.auth.getSession();if(!session)return fhRenderLogin();
   const {data:me,error}=await FH.rpc('fh_me');
   if(error){FH_MSG='Não foi possível conferir o seu acesso. Verifique a internet e tente de novo.';return fhRenderLogin();}
+  window.__FH_SKEW=me&&me.now?Date.parse(me.now)-Date.now():0;window.__FH_EMAIL=session.user.email;
+  window.__FH_TRIAL=(me&&!me.paid&&me.trial_until&&me.plan)?Date.parse(me.trial_until):0;
+  if(me&&!me.plan&&!me.paid&&me.trial_until){window.__FH_PLAN=null;return trialExpiredScreen();}
   if(!me||!me.plan){await FH.auth.signOut();FH_MSG='Não encontramos uma compra aprovada com este e-mail. Se pagou por Pix agora, aguarde 1 ou 2 minutos e tente de novo.';return fhRenderLogin();}
+  window.__FH_TEXP=0;
   const uid=session.user.id;window.__FH_EMAIL=session.user.email;window.__FH_PLAN=me.plan;window.__FH_ADMIN=!!me.admin;window.__FH_AB=+me.abismo||0;
   if(S.ownerUid&&S.ownerUid!==uid){S=blank();}
   S.ownerUid=uid;
@@ -3329,6 +3410,10 @@ const _fhRender=render;
 render=function(){if(!window.__FH_PLAN)return fhRenderLogin();if(S.plan!==window.__FH_PLAN){S.plan=window.__FH_PLAN;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}return _fhRender();};
 document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-a]');if(!b)return;const a=b.dataset.a;
   if(a==='m2Toggle'){if(!window.__FH_ADMIN)return;try{localStorage.setItem('fh_m2',m2On()?'0':'1')}catch(e){}tab=m2On()?'heroi':'mais';render();scrollTo(0,0);toast('🧪',m2On()?'Visual manhwa ligado':'Visual manhwa desligado');return}
+  if(a==='trialPlans'){TRIAL_STEP=0;trialPaywall(!window.__FH_TRIAL||trialLeft()<=0);return}
+  if(a==='trialNo'){TRIAL_STEP=1;const ex=!window.__FH_TRIAL||trialLeft()<=0;trialPaywall(ex);return}
+  if(a==='trialPaid'){closeModal();toast('🔄','Conferindo o pagamento…');await fhAfterLogin();if(window.__FH_PLAN&&!window.__FH_TRIAL){toast('👑','Plano liberado!','Bom treino, caçador')}else if(!window.__FH_PLAN){toast('⏳','Ainda não encontramos o pagamento','Pix pode levar 1 ou 2 minutos')}return}
+  if(a==='trialResend'){const {error}=await FH.auth.resend({type:'signup',email:window.__fhE});FH_OK=!error;FH_MSG=error?(/security|rate/i.test(error.message)?'Aguarde 1 minuto para pedir outro código.':esc(error.message)):'Novo código enviado!';fhRenderLogin();return}
   if(a==='fhTab'){FH_TAB=b.dataset.v;FH_MSG='';fhRenderLogin();}
   if(a==='fhLogout'){closeModal();await FH.auth.signOut();try{localStorage.removeItem(KEY)}catch(e){}location.reload();}
   if(a==='fhRefresh'){const {data:me}=await FH.rpc('fh_me');if(me&&(+me.abismo||0)>(window.__FH_AB||0)){window.__FH_AB=+me.abismo;closeModal();abOpen=true;tab='dungeon';sfx('elite');render();toast('🕳️','O portal do Abismo se abriu!','A Dungeon do Abismo foi liberada');return}if(me&&me.plan){if(me.plan==='elite'&&window.__FH_PLAN!=='elite')sfx('elite');window.__FH_PLAN=me.plan;closeModal();render();toast(me.plan==='elite'?'👑':'⚔️',me.plan==='elite'?'Caçador Elite liberado!':'Ainda não encontramos a compra do Elite',me.plan==='elite'?'Todos os recursos foram desbloqueados':'Aguarde 1 ou 2 minutos e tente de novo')}}
