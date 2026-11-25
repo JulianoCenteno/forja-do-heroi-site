@@ -3161,12 +3161,12 @@ function fhResetView(){
 }
 async function fhResetSubmit(){
   if(FH_TAB==='forgot'){
-    const email=$('#fh_e').value.trim().toLowerCase();window.__fhE=email;
+    const email=(window.__fhF.e||'').trim().toLowerCase();window.__fhE=email;
     const {error}=await FH.auth.resetPasswordForEmail(email);
     if(error)throw new Error(/rate|seconds|security/i.test(error.message)?'Aguarde 1 minuto antes de pedir outro código.':'Não foi possível enviar agora. Tente de novo em alguns minutos.');
     FH_TAB='newpass';FH_OK=true;FH_MSG='Código enviado! Confira a caixa de entrada e o spam.';
   }else{
-    const token=$('#fh_c').value.replace(/\D/g,''),pass=$('#fh_p').value;
+    const token=(window.__fhF.c||'').replace(/\D/g,''),pass=(window.__fhF.p||'');
     const v=await FH.auth.verifyOtp({email:window.__fhE,token,type:'recovery'});
     if(v.error)throw new Error('Código inválido ou expirado. Confira ou peça um novo.');
     const {error}=await FH.auth.updateUser({password:pass});
@@ -3176,6 +3176,7 @@ async function fhResetSubmit(){
 }
 function fhRenderLogin(){$('#nav').hidden=true;$('#app').innerHTML=fhView();const f=$('#fhForm');if(f)f.onsubmit=fhSubmit;duelLoginBanner();}
 async function fhSubmit(ev){
+  window.__fhF={e:($('#fh_e')||{}).value,p:($('#fh_p')||{}).value,c:($('#fh_c')||{}).value};
   ev.preventDefault();if(FH_BUSY)return;
   if(FH_TAB==='trial'||FH_TAB==='trialcode'){FH_BUSY=true;FH_MSG='';FH_OK=false;fhRenderLogin();try{if(await fhTrialSubmit()){FH_BUSY=false;return}}catch(e){FH_OK=false;FH_MSG=esc(e.message||String(e))}FH_BUSY=false;fhRenderLogin();return}
   if(FH_TAB==='forgot'||FH_TAB==='newpass'){FH_BUSY=true;FH_MSG='';FH_OK=false;fhRenderLogin();try{if(await fhResetSubmit()){FH_BUSY=false;return}}catch(e){FH_OK=false;FH_MSG=esc(e.message||String(e))}FH_BUSY=false;fhRenderLogin();return}
@@ -3216,7 +3217,7 @@ function fhTrialView(){
 }
 async function fhTrialSubmit(){
   if(FH_TAB==='trial'){
-    const email=$('#fh_e').value.trim().toLowerCase(),pass=$('#fh_p').value;window.__fhE=email;
+    const email=(window.__fhF.e||'').trim().toLowerCase(),pass=(window.__fhF.p||'');window.__fhE=email;
     const r=await fetch(FH_URL+'/functions/v1/fh-trial',{method:'POST',headers:{'Content-Type':'application/json',apikey:FH_KEY},body:JSON.stringify({email,password:pass})});
     const j=await r.json().catch(()=>({}));
     if(!r.ok){if(j.code==='exists'||j.code==='used')FH_TAB='login';throw new Error(j.error||'Não foi possível começar o teste')}
@@ -3224,7 +3225,7 @@ async function fhTrialSubmit(){
     if(error&&!/security purposes|rate/i.test(error.message))throw new Error(error.message);
     FH_TAB='trialcode';FH_OK=true;FH_MSG='Código enviado! Confira a caixa de entrada e o spam.';FH_BUSY=false;fhRenderLogin();return true;
   }
-  const token=$('#fh_c').value.replace(/\D/g,'');
+  const token=(window.__fhF.c||'').replace(/\D/g,'');
   const {error}=await FH.auth.verifyOtp({email:window.__fhE,token,type:'signup'});
   if(error)throw new Error(/expired|invalid/i.test(error.message)?'Código inválido ou expirado. Peça um novo.':error.message);
   const {error:e2}=await FH.rpc('fh_trial_start',{p_src:FH_TRY||null});
