@@ -3198,8 +3198,8 @@ const trialCk=k=>TRIAL_CK[k]+'?utm_source=app&utm_medium=teste24h&utm_campaign='
 function fhTrialView(){
   const cd=FH_TAB==='trialcode';
   return `<div style="margin:-4px -16px 0;position:relative"><img src="img/logo.webp" alt="Forja do Herói · Treino RPG" style="display:block;width:100%;-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)"></div>
-  <div style="text-align:center;margin-top:-6px"><span class="tag">[ SISTEMA ] · ${cd?'CONFIRME SEU E-MAIL':'TESTE GRÁTIS 24 HORAS'}</span>
-   ${cd?'':'<p class="muted" style="margin-top:8px">Use o app completo (plano Elite) por <b>24 horas</b>, sem pagar nada e sem cartão.</p>'}</div>
+  <div style="text-align:center;margin-top:-6px"><span class="tag">[ SISTEMA ] · ${cd?'CONFIRME SEU E-MAIL':'TESTE GRÁTIS'}</span>
+   ${cd?'':'<p class="muted" style="margin-top:8px">Use o app completo (plano Elite) sem pagar nada e sem cartão.</p>'}</div>
   <div class="card" style="margin-top:12px">
    ${cd?`<p class="muted" style="font-size:14px;margin:0">Enviamos um <b>código</b> para <b>${esc(window.__fhE||'')}</b>. Digite aqui para liberar o seu teste.</p>`
        :`<ul style="margin:0 0 4px;padding-left:18px;font-size:14px;line-height:1.7"><li>Dungeon de 30 dias, chefes e missões</li><li>Os 3 Mestres e todas as fichas de treino</li><li>Seu progresso fica salvo se assinar depois</li></ul>`}
@@ -3230,7 +3230,7 @@ async function fhTrialSubmit(){
   const {error:e2}=await FH.rpc('fh_trial_start',{p_src:FH_TRY||null});
   if(e2)throw new Error(e2.message);
   try{if(window.fbq)fbq('track','StartTrial',{value:0,currency:'BRL'});else{!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1141320428608400');fbq('track','StartTrial',{value:0,currency:'BRL'})}}catch(e){}
-  FH_BUSY=false;FH_MSG='';FH_TAB='login';await fhAfterLogin();toast('🎁','Teste grátis liberado','24 horas do plano Elite');return true;
+  FH_BUSY=false;FH_MSG='';FH_TAB='login';await fhAfterLogin();toast('🎁','Teste grátis liberado','Plano Elite completo');return true;
 }
 function trialLeft(){return window.__FH_TRIAL?window.__FH_TRIAL-(Date.now()+(window.__FH_SKEW||0)):0}
 function trialBar(){
