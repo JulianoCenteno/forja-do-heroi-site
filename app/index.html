@@ -1023,6 +1023,55 @@ body{background:url(img/ui/particles.png) 0 0/700px 700px,radial-gradient(60% 40
 .wl{display:flex;gap:12px;align-items:center}
 .wl-th{width:64px;height:114px;object-fit:cover;border-radius:10px;border:1px solid rgba(120,160,255,.3);flex:none}
 .wl-b{flex:1;min-width:0}.wl-dl{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.wl-dl .btn{text-decoration:none}
+
+/* ===== BETA visual manhwa (só admin) ===== */
+body.m2{background-image:radial-gradient(rgba(120,160,255,.10) 1px,transparent 1.4px),linear-gradient(#050a1c,#0a0f2a);background-size:7px 7px,100% 100%}
+.m2w{position:relative;margin:14px 2px 18px;filter:drop-shadow(5px 6px 0 #000)}
+.m2p{position:relative;background:#000;padding:4px;clip-path:polygon(0 0,calc(100% - 22px) 0,100% 22px,100% 100%,22px 100%,0 calc(100% - 22px))}
+.m2p>.in{position:relative;clip-path:inherit;overflow:hidden}
+.m2tone{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(0,0,0,.45) 1.1px,transparent 1.5px);background-size:6px 6px;mix-blend-mode:multiply;opacity:.55}
+.m2hero{height:250px}.m2hero .in{height:100%;background:radial-gradient(120% 90% at 75% 40%,var(--acc) 0,rgba(0,0,0,.2) 55%),linear-gradient(135deg,#1a0606,#000)}
+.m2hero .speed{position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at 72% 45%,rgba(255,255,255,.10) 0 2deg,transparent 2deg 9deg);mix-blend-mode:screen}
+.m2hero .art-in{position:absolute;right:-6%;bottom:0;height:100%;object-fit:cover;object-position:top}
+.m2out{position:absolute;right:-14px;bottom:4px;height:128%;max-width:72%;object-fit:contain;object-position:bottom right;pointer-events:none;z-index:3;filter:drop-shadow(0 0 10px var(--accg));-webkit-mask-image:linear-gradient(to right,transparent 0,#000 16%);mask-image:linear-gradient(to right,transparent 0,#000 16%)}
+.m2out.fb{height:calc(100% - 8px);bottom:4px;right:4px;max-width:62%;object-fit:cover;object-position:top}
+.m2inf{position:absolute;left:14px;top:16px;z-index:4;display:flex;flex-direction:column;align-items:flex-start;gap:6px;max-width:58%}
+.m2tag{font:700 11px Rajdhani,sans-serif;letter-spacing:.12em;color:#fff;background:#000;border:2px solid #fff;padding:2px 8px}
+.m2nar{background:#ffe45c;color:#111;border:3px solid #000;padding:4px 12px;font:400 26px/1 Bangers,Impact,sans-serif;letter-spacing:.04em;transform:rotate(-2deg);box-shadow:3px 3px 0 #000}
+.m2cls{font:400 30px/0.95 Bangers,Impact,sans-serif;letter-spacing:.03em;color:#fff;-webkit-text-stroke:1.5px #000;paint-order:stroke fill;text-shadow:3px 3px 0 #000,0 0 14px var(--acc);transform:rotate(-2deg)}
+.m2el{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(#ffe27a,#f2b224);color:#2a1700;border:3px solid #000;font:800 13px Jost,sans-serif;padding:4px 10px;transform:skew(-8deg);box-shadow:3px 3px 0 #000}.m2el svg{width:15px;height:15px}
+.m2sys .in{background:linear-gradient(160deg,#0d3a8f,#06163f 60%,#041030);padding:14px 14px 12px;box-shadow:inset 0 0 0 2px #5fd0ff,inset 0 0 24px rgba(80,190,255,.55)}
+.m2sys .p{background:#5fd0ff}
+.m2sys h4{margin:0 0 10px;text-align:center;font:400 22px/1 Bangers,Impact,sans-serif;letter-spacing:.08em;color:#dff6ff;text-shadow:0 0 10px #39b6ff}
+.m2st{display:flex;align-items:center;gap:12px}
+.m2st .av{width:74px;height:74px;border-radius:50%;border:3px solid #000;box-shadow:0 0 0 2px #5fd0ff,0 0 16px #39b6ff;overflow:hidden;flex:none}.m2st .av img{width:100%;height:100%;object-fit:cover}
+.m2st .lv{text-align:center;flex:none}.m2st .lv b{display:block;font:400 64px/0.85 Bangers,Impact,sans-serif;color:#fff;text-shadow:0 0 14px #39b6ff,3px 3px 0 #000}.m2st .lv span{font:700 11px Rajdhani;letter-spacing:.2em;color:#9fd8ff}
+.m2st .kv{font:600 13px/1.5 Jost,sans-serif;color:#fff;min-width:0}.m2st .kv small{color:#7fcfff;font-weight:700;font-size:11px}
+.m2bonus{display:block;width:max-content;margin:10px auto 0;background:#3a1d7a;border:2px solid #000;box-shadow:0 0 0 2px #a77bff;color:#fff;font:700 12px Jost;padding:3px 12px;border-radius:999px}.m2bonus svg{width:13px;height:13px;vertical-align:-2px;margin-right:4px}
+.m2bars .in{background:#0b1430;padding:12px 14px}
+.m2cards{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:6px 2px 4px}
+.m2card{position:relative;background:#fff6dc;border:3px solid #000;border-radius:8px;padding:4px 4px 6px;text-align:center;box-shadow:4px 4px 0 #000;transform:rotate(var(--r));transition:transform .15s}
+.m2card:active{transform:rotate(0) scale(1.06)}
+.m2card .ill{height:54px;margin:-14px auto 0;display:flex;align-items:flex-end;justify-content:center}.m2card .ill img{max-height:62px;max-width:100%;filter:drop-shadow(2px 2px 0 #000)}
+.m2card .ill .ph{font-size:30px}
+.m2card .box{background:var(--c);border:2px solid #000;border-radius:5px;margin-top:4px;padding:3px 0 2px}
+.m2card b{display:block;font:400 26px/1 Bangers,Impact,sans-serif;color:#fff;-webkit-text-stroke:1.2px #000;paint-order:stroke fill;text-shadow:2px 2px 0 #000;letter-spacing:.02em}
+.m2card span{font:800 10px Jost;color:#fff;letter-spacing:.08em;text-shadow:1px 1px 0 #000}
+.m2cta{position:relative;display:block;width:calc(100% - 20px);margin:26px auto 4px;border:0;background:none;padding:0;cursor:pointer;filter:drop-shadow(5px 6px 0 #000)}
+.m2cta .bg{display:flex;align-items:center;justify-content:flex-end;height:74px;padding:0 18px 0 30%;background:linear-gradient(100deg,#ff8a1c,#ffd43b 45%,#ffb01f);clip-path:polygon(4% 0,100% 0,96% 100%,0 100%);box-shadow:inset 0 0 0 4px #000}
+.m2cta .tx{font:400 31px/1 Bangers,Impact,sans-serif;letter-spacing:.04em;color:#fff;-webkit-text-stroke:2px #000;paint-order:stroke fill;text-shadow:3px 3px 0 #000}
+.m2cta .sw{position:absolute;left:-10px;top:50%;transform:translateY(-52%) rotate(-12deg);width:46%;max-height:120px;object-fit:contain;pointer-events:none;filter:drop-shadow(0 0 10px #ffcf4a)}
+.m2cta .vush{position:absolute;left:4px;top:-22px;font:400 30px/1 Bangers,Impact,sans-serif;color:#ffe45c;-webkit-text-stroke:2px #000;paint-order:stroke fill;text-shadow:3px 3px 0 #000;transform:rotate(-14deg);z-index:2}
+@keyframes m2pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}.m2cta .bg{animation:m2pulse 2.2s ease-in-out infinite}
+.m2sub{text-align:center;font:italic 700 13px Jost;color:#cfe0ff;margin:4px 0 6px}
+body.m2 .pv{border:3px solid #000!important;box-shadow:4px 5px 0 #000!important;border-radius:6px}
+body.m2 .sechead{font-family:Bangers,Impact,sans-serif;letter-spacing:.08em;font-size:22px}
+body.m2 #nav .in{border-top:3px solid #000;box-shadow:0 -3px 0 #2b3d7a}
+body.m2 #nav button img{filter:drop-shadow(2px 2px 0 #000)}
+.m2bal{position:relative;padding-left:70px;margin:16px 0 14px}.m2bal .msg{position:absolute;left:-6px;bottom:-8px;width:84px;z-index:2;filter:drop-shadow(3px 3px 0 #000)}
+.m2b{background:#fff!important;border-radius:20px!important;position:relative;overflow:visible!important}.m2b b{color:#0b2a6b!important}.m2b small{color:#333!important}.m2b .hp-ic{display:none}.m2b .hp-x{color:#333!important}
+.m2b:before{content:"";position:absolute;left:-16px;bottom:16px;border:9px solid transparent;border-right:16px solid #000}.m2b:after{content:"";position:absolute;left:-10px;bottom:19px;border:6px solid transparent;border-right:12px solid #fff}
+.m2beta{display:flex;align-items:center;gap:8px;justify-content:center;margin:6px 0 0;font:700 11px Jost;color:#ffe45c;opacity:.85}
 </style>
 </head>
 <body>
@@ -2481,6 +2530,7 @@ function render(){
   if(!S.created){ $('#nav').hidden=true; $('#app').classList.remove('z'); $('#app').innerHTML=viewCreate(); return; }
   ensureQuests();
   $('#nav').hidden=false;
+  document.body.classList.toggle('m2',m2On());
   const views={mestres:viewMestres,corrida:viewCorrida,heroi:viewHero,treinar:viewTrain,dungeon:viewDungeon,missoes:viewQuests,chefes:viewBosses,taverna:viewTaverna,mais:viewMais,loja:viewShop,diario:viewLog,temporada:viewSeason,progressao:viewProgress,planilha:viewSheet,alquimia:viewAlquimia};
   $('#app').classList.toggle('z',['heroi','treinar','dungeon','missoes','chefes','taverna','mais'].includes(tab));
   emgTick();
@@ -2551,13 +2601,44 @@ function renderNav(){
   const qReady=S.q.ids.some(id=>{const q=QUESTS.find(x=>x.id===id);return q&&!S.q.claimed.includes(id)&&q.f(es)>=q.goal});
   const items=[['heroi','Herói'],['treinar','Treinar'],['dungeon','Dungeon'],['missoes','Missões'],['chefes','Chefes'],['taverna','Taverna'],['mais','Mais']];
   const navTab=['loja','diario','temporada','progressao','planilha','alquimia'].includes(tab)?'mais':tab;
-  $('#nav').innerHTML='<div class="in">'+items.map(([k,n])=>`<button class="${navTab===k?'on':''}" data-tab="${k}"><img src="${UI}nav-${k}.webp" alt="">${n}${k==='missoes'&&qReady?'<span class="dot"></span>':''}${k==='dungeon'&&!isElite()?'<span class="lockdot">🔒</span>':''}</button>`).join('')+'</div>';
+  $('#nav').innerHTML='<div class="in">'+items.map(([k,n])=>`<button class="${navTab===k?'on':''}" data-tab="${k}"><img src="${m2On()?M2+'nav_'+k+'.webp':UI+'nav-'+k+'.webp'}" ${m2On()?`onerror="this.onerror=null;this.src='${UI}nav-${k}.webp'"`:''} alt="">${n}${k==='missoes'&&qReady?'<span class="dot"></span>':''}${k==='dungeon'&&!isElite()?'<span class="lockdot">🔒</span>':''}</button>`).join('')+'</div>';
 }
 
 /* ---------- HERÓI ---------- */
 const PLAYLIST='https://open.spotify.com/playlist/6OAbGqCVLckhjCGq1KevSU';
 function playlistCard(){return `<a class="spl" href="${PLAYLIST}" target="_blank" rel="noopener"><img src="${UI}playlist.webp" alt="" onerror="this.src='${UI}m-trio.webp'"><span><small>🎧 PLAYLIST OFICIAL</small><b>Treino Anime & RPG</b><em>Ouça no Spotify enquanto treina</em></span><i>▶</i></a>`}
+/* ===== BETA visual manhwa: só aparece para contas em fh_admins ===== */
+const M2=ART_SB+'v2/';
+function m2On(){try{return !!window.__FH_ADMIN&&localStorage.getItem('fh_m2')==='1'}catch(e){return false}}
+function viewHeroV2(){
+  if(!document.getElementById('m2f'))document.head.insertAdjacentHTML('beforeend','<link id="m2f" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&display=swap">');
+  const li=levelInfo(),st=streakInfo(),c={...CLASSES[S.cls],n:cName(S.cls,sexOf())},col=CLS_COLOR[S.cls],x=sexOf()==='f'?'f':'m';
+  const bossN=Object.keys(S.bosses).length;
+  const own=evoOn()?evoSrc(evoOn()):S.avatar||'';
+  const fb=aCard(S.cls,sexOf())||'';
+  const art=own?`<img class="art-in" src="${own}" alt="">`:'';
+  const out=own?'':`<img class="m2out" src="${M2}hero_${S.cls}_${x}.webp" alt="${c.n}" onerror="this.onerror=null;this.classList.add('fb');this.src='${fb}'">`;
+  const card=(k,v,l,cl,r,ph)=>`<div class="m2card" style="--r:${r}deg;--c:${cl}"><div class="ill"><img src="${M2}card_${k}.webp" alt="" onerror="this.outerHTML='<span class=&quot;ph&quot;>${ph}</span>'"></div><div class="box"><b>${v}</b><span>${l}</span></div></div>`;
+  return `<div class="m2beta">🧪 Visual manhwa · beta (só você vê)</div>
+  <div class="m2w" style="--acc:${col.acc};--accg:${col.acc}aa"><div class="m2p m2hero"><div class="in">${art}<i class="speed"></i><i class="m2tone"></i></div></div>${out}
+   <div class="m2inf"><span class="m2tag">[ SISTEMA ] · JOGADOR</span><span class="m2nar">${esc(S.name)}</span><span class="m2cls">${c.n}</span>${isElite()?'<span class="m2el">'+SVG_CROWN+'CAÇADOR ELITE</span>':''}${S.title?`<span class="m2tag">« ${esc(S.title)} »</span>`:''}</div></div>
+  <div class="m2w m2sys"><div class="m2p p"><div class="in"><h4>[ SISTEMA ] STATUS</h4>
+   <div class="m2st"><div class="av"><img src="${myFace()||aFace(S.cls,sexOf())}" alt=""></div><div class="lv"><b>${li.L}</b><span>NÍVEL</span></div>
+    <div class="kv"><div><small>NOME: </small>${esc(S.name)}</div><div><small>CLASSE: </small>${c.n}</div><div><small>TÍTULO: </small>${S.title?esc(S.title):'Nenhum'}</div><div><small>PATENTE: </small>${rankOf(li.L)}</div></div></div>
+   <span class="m2bonus">${SVG_SHIELD}Bônus de classe${S.elixir===ymd()?' · 🧪 Elixir +50%':''}</span></div></div></div>
+  <div class="m2w m2bars"><div class="m2p"><div class="in">
+    <div class="bar2"><span class="lb">XP</span><div class="tr"><i style="width:${(li.into/li.need*100).toFixed(1)}%"></i></div></div>
+    <div class="bar2l"><span>${fmt(li.into)} / ${fmt(li.need)}</span><span>faltam ${fmt(li.need-li.into)}</span></div>
+    <div class="bar2"><span class="lb">SEQ</span><div class="tr v"><i style="width:${Math.min(st.cur,10)*10}%"></i></div></div>
+    <div class="bar2l"><span>${st.cur} ${st.cur===1?'dia seguido':'dias seguidos'}</span><span>bônus <b>+${Math.min(st.cur,10)*5}%</b> XP</span></div>
+  </div></div></div>
+  <div class="m2cards">${card('dias',st.days,'DIAS','#3f8cff',-4,'📅')}${card('chefes',bossN+'/'+BOSSES.length,'CHEFES','#8b4dff',3,'👹')}${card('xp',fmt(totalXP()),'XP TOTAL','#18b6e8',-2,'💎')}${card('ouro',fmt(gold()),'OURO','#f0a81c',4,'🪙')}</div>
+  <button class="m2cta" data-tab="treinar"><span class="vush">VUSH!</span><img class="sw" src="${M2}sword.webp" alt="" onerror="this.remove()"><span class="bg"><span class="tx">${st.trainedToday?'CONTINUAR TREINO':'INICIAR MISSÃO'} »</span></span></button>
+  <div class="m2sub">${st.trainedToday?`Hoje: +${fmt(sum(todayEntries(),e=>e.xp))} XP conquistados`:'Seu despertar começa agora.'}</div>
+  ${duelHeroCard()}${avPromo()}${(h=>h?`<div class="m2bal"><img class="msg" src="${M2}messenger.webp" alt="" onerror="this.remove()">${h.replace('pv horapromo','pv horapromo m2b')}</div>`:'')(horaPromo())}${elitePromo()}${playlistCard()}`;
+}
 function viewHero(){
+  if(m2On())return viewHeroV2();
   const li=levelInfo(),st=streakInfo(),at=attrs(),c={...CLASSES[S.cls],n:cName(S.cls,sexOf())};
   const bossN=Object.keys(S.bosses).length;
   const col=CLS_COLOR[S.cls];
@@ -2851,6 +2932,7 @@ function viewMais(){
   return `<div class="banner fade"><img src="${UI}ban-keyart.webp" alt="Os três heróis"></div>
   <div class="hextitle" style="margin-top:-18px;position:relative"><span>MAIS</span></div>
   ${elitePromo()}
+  ${window.__FH_ADMIN?`<button class="pv" data-a="m2Toggle" style="display:flex;align-items:center;gap:10px;width:100%;margin:10px 0;padding:12px 14px;text-align:left;color:#fff;font:600 14px Jost"><span style="font-size:24px">🧪</span><span><b>Visual manhwa (beta)</b><br><small style="opacity:.75">Só admin vê · ${m2On()?'LIGADO':'desligado'}</small></span></button>`:''}
   <div class="mtiles">${T.map(([k,img,n,d,el,c,g])=>`<button class="mtile ${el&&!isElite()?'lk':''}" ${k[0]==='@'?`data-a="${k.slice(1)}"`:`data-tab="${k}"`} style="--tc:${c};--tg:${g}"><img src="${UI}${img}.webp" alt=""><span class="tx"><b>${n}</b><small>${d}</small></span>${el?'<span class="cr">👑</span>':''}</button>`).join('')}</div>
   <div class="savedline">☁️ ${syncState==='cloud'?'Progresso salvo na sua conta':'Progresso salvo neste aparelho'}</div>`;
 }
@@ -3097,7 +3179,7 @@ async function fhAfterLogin(){
   const {data:me,error}=await FH.rpc('fh_me');
   if(error){FH_MSG='Não foi possível conferir o seu acesso. Verifique a internet e tente de novo.';return fhRenderLogin();}
   if(!me||!me.plan){await FH.auth.signOut();FH_MSG='Não encontramos uma compra aprovada com este e-mail. Se pagou por Pix agora, aguarde 1 ou 2 minutos e tente de novo.';return fhRenderLogin();}
-  const uid=session.user.id;window.__FH_EMAIL=session.user.email;window.__FH_PLAN=me.plan;window.__FH_AB=+me.abismo||0;
+  const uid=session.user.id;window.__FH_EMAIL=session.user.email;window.__FH_PLAN=me.plan;window.__FH_ADMIN=!!me.admin;window.__FH_AB=+me.abismo||0;
   if(S.ownerUid&&S.ownerUid!==uid){S=blank();}
   S.ownerUid=uid;
   fhShim(uid,!!me.admin);
@@ -3233,6 +3315,7 @@ async function duelLoginBanner(){
 const _fhRender=render;
 render=function(){if(!window.__FH_PLAN)return fhRenderLogin();if(S.plan!==window.__FH_PLAN){S.plan=window.__FH_PLAN;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}return _fhRender();};
 document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-a]');if(!b)return;const a=b.dataset.a;
+  if(a==='m2Toggle'){if(!window.__FH_ADMIN)return;try{localStorage.setItem('fh_m2',m2On()?'0':'1')}catch(e){}tab=m2On()?'heroi':'mais';render();scrollTo(0,0);toast('🧪',m2On()?'Visual manhwa ligado':'Visual manhwa desligado');return}
   if(a==='fhTab'){FH_TAB=b.dataset.v;FH_MSG='';fhRenderLogin();}
   if(a==='fhLogout'){closeModal();await FH.auth.signOut();try{localStorage.removeItem(KEY)}catch(e){}location.reload();}
   if(a==='fhRefresh'){const {data:me}=await FH.rpc('fh_me');if(me&&(+me.abismo||0)>(window.__FH_AB||0)){window.__FH_AB=+me.abismo;closeModal();abOpen=true;tab='dungeon';sfx('elite');render();toast('🕳️','O portal do Abismo se abriu!','A Dungeon do Abismo foi liberada');return}if(me&&me.plan){if(me.plan==='elite'&&window.__FH_PLAN!=='elite')sfx('elite');window.__FH_PLAN=me.plan;closeModal();render();toast(me.plan==='elite'?'👑':'⚔️',me.plan==='elite'?'Caçador Elite liberado!':'Ainda não encontramos a compra do Elite',me.plan==='elite'?'Todos os recursos foram desbloqueados':'Aguarde 1 ou 2 minutos e tente de novo')}}
