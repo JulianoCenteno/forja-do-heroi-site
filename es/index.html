@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="es"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="utf-8"><script>/* teste A/B Brasil: anúncio -> 50% quiz / 50% página nova (site-v2). ?ab=off desliga */
+(function(){try{if(!/^\/quiz\/?$/.test(location.pathname))return;var q=new URLSearchParams(location.search),f=q.get('fh_ab');
+if(q.get('ab')==='off')return;if(f){window.FH_AB=f.slice(0,12);return}
+var v=null;try{v=localStorage.getItem('fh_ab')}catch(e){}
+if(v!=='pag'&&v!=='quiz'){if(!(q.get('utm_source')||q.get('fbclid')))return;v=Math.random()<.5?'pag':'quiz';try{localStorage.setItem('fh_ab',v)}catch(e){}}
+q.set('fh_ab',v);window.FH_AB=v;
+if(v==='pag'){window.__fhGo=1;location.replace('/site-v2/?'+q.toString()+location.hash)}
+else history.replaceState(null,'','?'+q.toString()+location.hash)}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Prueba del Despertar · Forja do Herói</title>
 <meta name="description" content="Responde la Prueba del Despertar, descubre tu clase de héroe y gana monedas que se convierten en crédito para tu plan de entrenamiento.">
 <meta name="theme-color" content="#050a1c">
@@ -10,7 +18,7 @@
 <meta property="og:image" content="https://forjadoheroi.com/img/v2/logo-full.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800;1,900&display=swap" rel="stylesheet">
-<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1141320428608400');fbq('track','PageView');</script>
+<script>if(!window.__fhGo)!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1141320428608400');fbq('track','PageView');</script>
 <script src="https://tracker.appdigitalhub.com.br/tracker.js" async data-endpoint="https://tracker.appdigitalhub.com.br" data-checkout="pay.cakto,cakto.com.br"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -266,9 +274,9 @@ const withQs=u=>{try{const q=location.search;if(!q)return u;const x=new URL(u);n
 const MK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxwZGljcnBldHhxbm94Y2VvemZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM4NDIxNDEsImV4cCI6MjEwOTQxODE0MX0.aUhV98QVe4ju8aklOErBYMX_6VbYejVQpvd-cR_RoAs';
 const SID=(()=>{try{let v=sessionStorage.getItem('fh_quiz_sid_es');if(!v){v=Date.now().toString(36)+Math.random().toString(36).slice(2,10);sessionStorage.setItem('fh_quiz_sid_es',v)}return v}catch(e){return 'x'+Math.random().toString(36).slice(2,12)}})();
 const QP=new URLSearchParams(location.search);const MOB=/Mobi|Android|iPhone/i.test(navigator.userAgent);const seenV={};
-function mlog(ev,step,idx,val){try{if(ev==='view'){if(seenV[step])return;seenV[step]=1}
+function mlog(ev,step,idx,val){try{if(window.__fhGo)return;if(ev==='view'){if(seenV[step])return;seenV[step]=1}
  fetch('https://lpdicrpetxqnoxceozfa.supabase.co/rest/v1/fh_quiz_events',{method:'POST',keepalive:true,headers:{apikey:MK,Authorization:'Bearer '+MK,'Content-Type':'application/json',Prefer:'return=minimal'},
-  body:JSON.stringify({sid:SID,ev,step:String(step).slice(0,40),idx:idx==null?null:idx,val:val==null?null:String(val).slice(0,120),utm_source:(QP.get('utm_source')||'').slice(0,120)||null,utm_campaign:(QP.get('utm_campaign')||'').slice(0,200)||null,utm_content:(QP.get('utm_content')||'').slice(0,200)||null,ua_mobile:MOB,mkt:'es'})}).catch(()=>{})}catch(e){}}
+  body:JSON.stringify({sid:SID,ev,step:String(step).slice(0,40),idx:idx==null?null:idx,val:val==null?null:String(val).slice(0,120),utm_source:(QP.get('utm_source')||'').slice(0,120)||null,utm_campaign:(QP.get('utm_campaign')||'').slice(0,200)||null,utm_content:(QP.get('utm_content')||'').slice(0,200)||null,ab:window.FH_AB||null,ua_mobile:MOB,mkt:'es'})}).catch(()=>{})}catch(e){}}
 const store={get(){try{return JSON.parse(sessionStorage.getItem('fh_quiz_es')||'null')}catch(e){return null}},set(v){try{sessionStorage.setItem('fh_quiz_es',JSON.stringify(v))}catch(e){}}};
 
 /* ---------- respostas e etapas ---------- */
