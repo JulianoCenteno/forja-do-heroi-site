@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Criativos manhwa · Forja do Herói (prévia)</title>
+<style>
+body{margin:0;background:#07090f;color:#eef2ff;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{padding:28px 5vw 8px}h1{margin:0;font-size:clamp(24px,4vw,38px)}p{color:#9aa6c4;margin:6px 0 0}
+main{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:18px;padding:20px 5vw 48px}
+figure{margin:0;background:#0e1322;border:1px solid #1f2a44;border-radius:14px;overflow:hidden}
+figure img{width:100%;display:block;aspect-ratio:4/5;object-fit:cover;cursor:zoom-in;background:#111827}
+figcaption{padding:10px 14px;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:center}
+figcaption a{color:#f5c542;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
+#z{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:9}#z img{max-width:96vw;max-height:94vh}
+</style></head><body>
+<header><h1>Criativos estilo manhwa — prévia</h1><p>4 quadrinhos verticais 4:5 para feed e stories. Toque numa imagem para ampliar.</p></header>
+<main id="g"></main><div id="z"><img alt=""></div>
+<script>{const B='https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh/art/manhwa/';
+const L=[['01_desperto','1 · Do fraco ao desperto'],['02_mestres','2 · Os 3 Mestres'],['03_boss','3 · Boss battle'],['04_feminina','4 · Versão feminina']];
+const g=document.getElementById('g'),z=document.getElementById('z'),zi=z.querySelector('img');
+g.innerHTML=L.map(([f,t])=>`<figure><img loading="lazy" src="${B+f}.jpg" alt="${t}"><figcaption>${t}<a href="${B+f}.jpg?download=${f}.jpg">Baixar</a></figcaption></figure>`).join('');
+g.addEventListener('click',e=>{if(e.target.tagName==='IMG'){zi.src=e.target.src;z.style.display='flex'}});z.onclick=()=>z.style.display='none';}</script>
+</body></html>
