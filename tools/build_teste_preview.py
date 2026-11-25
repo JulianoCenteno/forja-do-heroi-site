@@ -20,10 +20,11 @@ q=q.replace("const CHECKOUT=","window.TRY_URL=()=>%s;\nconst CHECKOUT="%TRY,1)
 q=q.replace('<title>','<title>[PRÉVIA] ',1)
 open('quiz-teste/index.html','w',encoding='utf-8').write(q)
 # ---------- SITE ----------
-s=open('index.html',encoding='utf-8').read()
+s=open('site-v2/index.html',encoding='utf-8').read()
 s=common(s,'/')
+s=s.replace('<base href="/">','',1)
 blk='''
-<section style="position:relative;z-index:2;max-width:640px;margin:-10px auto 34px;padding:0 16px">
+<section style="position:relative;z-index:2;max-width:640px;margin:26px auto 40px;padding:0 16px">
  <div style="background:linear-gradient(160deg,rgba(20,60,40,.92),rgba(6,20,16,.95));border:2px solid #5dffa0;border-radius:16px;box-shadow:0 0 26px rgba(93,255,160,.22);padding:22px 20px;text-align:center;font-family:Jost,system-ui,sans-serif;color:#eafff2">
   <div style="font-weight:800;letter-spacing:.14em;font-size:12px;color:#5dffa0">[ SISTEMA ] · AINDA EM DÚVIDA?</div>
   <h3 style="margin:8px 0 6px;font-size:28px;font-weight:900">🎁 Teste grátis</h3>
@@ -31,8 +32,9 @@ blk='''
   <a href="/teste/" onclick="this.href=%s" style="display:inline-block;background:#5dffa0;color:#04140c;font-weight:900;font-size:17px;padding:14px 30px;border-radius:999px;text-decoration:none;box-shadow:0 6px 0 #1f8a52">Quero testar grátis</a>
  </div>
 </section>'''%TRY
-a='</section>\n\n<!-- 9. FAQ -->'
-assert a in s; s=s.replace(a,'</section>\n'+blk+'\n\n<!-- 9. FAQ -->',1)
+a='</section>\n\n<!-- 13. FAQ -->'
+assert a in s; s=s.replace(a,'</section>\n'+blk+'\n\n<!-- 13. FAQ -->',1)
+s=s.replace('<script src="/ab.js?v=1"></script>','',1)
 s=s.replace('<title>','<title>[PRÉVIA] ',1)
 open('site-teste/index.html','w',encoding='utf-8').write(s)
 print('ok')
