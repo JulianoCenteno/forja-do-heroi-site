@@ -2066,8 +2066,11 @@ function modDelete(uid,pid){
     await TV.db.doc('taverna/'+uid).set(doc);
   }).catch(tvErr);
 }
+const TV_LINK=/(https?:\/\/|www\.|\b[a-z0-9-]{2,}(\.|\s*(\[\.\]|\(\.\)|\bponto\b)\s*)(com|net|org|br|io|me|ly|app|link|site|online|store|shop|xyz|info|co|gg|tv|bio|club|top|pro|vip|page|wa)\b|wa\.me|t\.me\/|bit\.ly)/i;
+function tvHasLink(t){return TV_LINK.test(String(t||''))}
 function tvPost(text,kind,data,replyTo,vip){
   text=String(text||'').trim().slice(0,500);
+  if(text&&tvHasLink(text)&&!TV.owner){toast('🚫','Links não são permitidos na Taverna','Apague o link e poste de novo');return false}
   if(!text&&!kind) return false;
   const p={id:uid(),ts:Date.now(),text,kind:kind||'text'};
   if(data)p.data=data;if(replyTo)p.replyTo=replyTo;if(vip||(!replyTo&&TV.chan==='vip'&&isElite()))p.vip=true;
@@ -2926,7 +2929,7 @@ function viewTaverna(){
   ${TV.canWrite&&(TV.chan!=='vip'||isElite())?`<div class="pv compose">
     <textarea id="tv_text" rows="3" maxlength="500" placeholder="Conte como foi o treino, peça dicas ou desafie a galera…">${esc(TV.draft)}</textarea>
     ${TV.photo?`<div class="tvprev"><img src="${TV.photo.url}" alt=""><button class="x" data-a="tvPhotoDel" aria-label="Remover foto">✕</button></div>`:''}
-    <div class="acts"><label class="gb tvpick">📷 Foto<input type="file" accept="image/*" id="tv_file" hidden></label><button class="gb" data-a="tvShare">⚔️ Treino de hoje</button><button class="gb" data-a="tvLevel">🏅 Meu nível</button><button class="post2" data-a="tvPost">➤ Postar</button></div></div>`
+    <div class="acts">${isElite()||TV.owner?`<label class="gb tvpick">📷 Foto<input type="file" accept="image/*" id="tv_file" hidden></label>`:`<button class="gb" data-a="tvPhotoLock">📷 Foto 👑</button>`}<button class="gb" data-a="tvShare">⚔️ Treino de hoje</button><button class="gb" data-a="tvLevel">🏅 Meu nível</button><button class="post2" data-a="tvPost">➤ Postar</button></div></div>`
   :(TV.chan==='vip'?'':`<div class="pv" style="padding:12px;margin-top:12px"><p>🔒 Você pode ler a Taverna, mas não postar.</p></div>`)}
   <div id="feed">${feedHTML()}</div>`;
 }
@@ -2937,11 +2940,11 @@ function tvShrink(file){return new Promise((ok,no)=>{const img=new Image(),u=URL
     const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);URL.revokeObjectURL(u);
     const tryQ=q=>c.toBlob(bl=>{if(!bl)return no(new Error('falha'));if(bl.size>1400000&&q>.45)return tryQ(q-.15);ok({blob:bl,w,h,url:URL.createObjectURL(bl)})},'image/jpeg',q);tryQ(.82)};
   img.onerror=()=>{URL.revokeObjectURL(u);no(new Error('imagem inválida'))};img.src=u})}
-document.addEventListener('change',async e=>{if(e.target.id!=='tv_file')return;const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
+document.addEventListener('change',async e=>{if(e.target.id!=='tv_file')return;if(!isElite()&&!TV.owner){e.target.value='';return}const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
   if(!/^image\//.test(f.type)){toast('📷','Escolha uma imagem');return}
   try{const ph=await tvShrink(f);if(TV.photo)try{URL.revokeObjectURL(TV.photo.url)}catch(_){}TV.photo=ph;const t=$('#tv_text');if(t)TV.draft=t.value;render()}catch(err){toast('📷','Não consegui abrir essa foto','Tente outra imagem')}});
 async function tvPostPhoto(text,btn){
-  if(TV.uploading)return;TV.uploading=true;if(btn){btn.disabled=true;btn.textContent='Enviando…'}
+  if(TV.uploading)return;if(tvHasLink(text)&&!TV.owner){toast('🚫','Links não são permitidos na Taverna','Apague o link e poste de novo');return}if(!isElite()&&!TV.owner){TV.photo=null;toast('👑','Foto na Taverna é exclusiva do VIP');render();return}TV.uploading=true;if(btn){btn.disabled=true;btn.textContent='Enviando…'}
   try{const id=uid(),path=TV.me+'/'+id+'.jpg';
     const {error}=await FH.storage.from('fh-tav').upload(path,TV.photo.blob,{contentType:'image/jpeg',cacheControl:'31536000'});
     if(error)throw error;
@@ -3136,12 +3139,13 @@ document.addEventListener('click',ev=>{
     case 'dgReset': confirmModal('Recomeçar a Dungeon do dia 1? Seu progresso de treinos continua salvo.',()=>{S.dg={done:{}};save();render()},'Recomeçar');break;
     case 'tvChan': TV.chan=b.dataset.v;render();break;
     case 'tvPost':{const t=$('#tv_text');if(TV.photo){tvPostPhoto(t.value,b);break}if(tvPost(t.value)){TV.draft='';t.value='';toast('🍺','Postado na Taverna')}else t.focus();break}
+    case 'tvPhotoLock':toast('👑','Foto na Taverna é exclusiva do VIP','Assinantes Elite podem postar fotos do treino');break
     case 'tvPhotoDel':{try{URL.revokeObjectURL(TV.photo.url)}catch(e){}TV.photo=null;const t=$('#tv_text');if(t)TV.draft=t.value;render();break}
     case 'tvZoom':{const u=b.dataset.src;if(tvSafe(u))openModal(`<div class="row between"><b>📸 Foto</b><button class="iconbtn" data-a="close">✕</button></div><img src="${esc(u)}" alt="" style="display:block;width:100%;margin-top:10px;border-radius:12px">`);break}
     case 'tvShare':{const d=workoutShare();if(!d){toast('⚔️','Nenhum treino hoje ainda','Registre uma série na aba Treinar');break}
-      const t=$('#tv_text');tvPost(t.value,'treino',d);TV.draft='';t.value='';toast('⚔️','Treino compartilhado!');break}
+      const t=$('#tv_text');if(!tvPost(t.value,'treino',d))break;TV.draft='';t.value='';toast('⚔️','Treino compartilhado!');break}
     case 'tvLevel':{const li=levelInfo(),st=streakInfo();const t=$('#tv_text');
-      tvPost(t.value,'nivel',{level:li.L,rank:rankOf(li.L),xp:totalXP(),streak:st.cur,bosses:Object.keys(S.bosses).length});TV.draft='';t.value='';toast('🏅','Nível compartilhado!');break}
+      if(!tvPost(t.value,'nivel',{level:li.L,rank:rankOf(li.L),xp:totalXP(),streak:st.cur,bosses:Object.keys(S.bosses).length}))break;TV.draft='';t.value='';toast('🏅','Nível compartilhado!');break}
     case 'tvLike':{const k=b.dataset.k;writeMine(doc=>{if(doc.likes[k])delete doc.likes[k];else doc.likes[k]=1});break}
     case 'tvReply': replySheet(b.dataset.k);break;
     case 'tvThread': threadSheet(b.dataset.k);break;
