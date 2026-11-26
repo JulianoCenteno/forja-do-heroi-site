@@ -1,13 +1,6 @@
 <!doctype html>
 <html lang="pt-BR"><head>
-<meta charset="utf-8"><script>/* teste A/B Brasil: anúncio -> 50% quiz / 50% página nova (site-v2). ?ab=off desliga */
-(function(){try{if(!/^\/quiz\/?$/.test(location.pathname))return;var q=new URLSearchParams(location.search),f=q.get('fh_ab');
-if(q.get('ab')==='off')return;if(f){window.FH_AB=f.slice(0,12);return}
-var v=null;try{v=localStorage.getItem('fh_ab')}catch(e){}
-if(v!=='pag'&&v!=='quiz'){if(!(q.get('utm_source')||q.get('fbclid')))return;v=Math.random()<.5?'pag':'quiz';try{localStorage.setItem('fh_ab',v)}catch(e){}}
-q.set('fh_ab',v);window.FH_AB=v;
-if(v==='pag'){window.__fhGo=1;location.replace('/site-v2/?'+q.toString()+location.hash)}
-else history.replaceState(null,'','?'+q.toString()+location.hash)}catch(e){}})();</script>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Teste do Despertar · Forja do Herói</title>
 <meta name="description" content="Responda o Teste do Despertar, descubra sua classe de herói e ganhe moedas que viram crédito no seu plano de treino.">
