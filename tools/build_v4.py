@@ -252,5 +252,5 @@ TRIAL_BLK="""<!--fh-trial-->
 <!--/fh-trial-->"""
 if 'site-v2' in dst:
     # bloco visível removido (26/11): o teste grátis aparece só no pop-up de saída
-    out=out.replace('</body>','<script src="/exit-trial.js?v=1"></script>\n</body>',1)
+    out=out.replace('</body>','<script src="/exit-trial.js?v=3"></script>\n</body>',1)
 open(dst,'w',encoding='utf-8').write(out);print('ok',dst,len(out))
