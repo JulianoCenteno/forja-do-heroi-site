@@ -251,8 +251,6 @@ TRIAL_BLK="""<!--fh-trial-->
 </section>
 <!--/fh-trial-->"""
 if 'site-v2' in dst:
-    _a='</section>\n\n<!-- 13. FAQ -->'
-    assert _a in out
-    out=out.replace(_a,'</section>\n'+TRIAL_BLK+'\n\n<!-- 13. FAQ -->',1)
+    # bloco visível removido (26/11): o teste grátis aparece só no pop-up de saída
     out=out.replace('</body>','<script src="/exit-trial.js?v=1"></script>\n</body>',1)
 open(dst,'w',encoding='utf-8').write(out);print('ok',dst,len(out))
