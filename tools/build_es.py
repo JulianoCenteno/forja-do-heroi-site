@@ -211,7 +211,7 @@ T = [
     ('<b>RECRUTA</b><span>Treino por sua conta</span><span>Sem plano de ${p.ficha}</span><span>Sem Taverna e Playlist</span>', '<b>RECLUTA</b><span>Entrenas por tu cuenta</span><span>Sin plan de ${p.ficha}</span><span>Sin Taberna ni Playlist</span>'),
     ('<b>CAÇADOR ELITE</b><span>${p.C[1]} monta seu treino</span><span>Dungeon de 30 dias pronta</span><span>Taverna, Alquimia e Playlist</span>', '<b>CAZADOR ÉLITE</b><span>${p.C[1]} arma tu entrenamiento</span><span>Mazmorra de 30 días lista</span><span>Taberna, Alquimia y Playlist</span>'),
     ('<small>ÚLTIMA OFERTA DO SISTEMA · SÓ NESTA TELA</small><div><s>R$ 29,90</s><b>R$ 18,90</b></div><span>Só R$ 9 a mais que o Recruta, pra ter o plano completo</span>', '<small>ÚLTIMA OFERTA DEL SISTEMA · SOLO EN ESTA PANTALLA</small><div><s>US$ 12.90</s><b>US$ 8.90</b></div><span>Solo US$ 4 más que Recluta, para tener el plan completo</span>'),
-    ('👑 Quero o plano completo por R$ 18,90', '👑 Quiero el plan completo por US$ 8.90'),
+    ('✅ Sim, quero o completo por R$ 18,90', '✅ Sí, quiero el completo por US$ 8.90'),
     ('Não, quero só o Recruta por R$ 9,90', 'No, solo quiero Recluta por US$ 4.90'),
 ]
 for a, b in T:

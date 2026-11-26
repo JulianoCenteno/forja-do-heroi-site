@@ -55,7 +55,7 @@ for a, b in [
     ('Começar como Recruta · R$ 9,90', 'Começar como Recruta · 5,90 €'),
     ('<s>R$ 29,90</s><b>R$ 18,90</b>', '<s>16,90 €</s><b>10,90 €</b>'),
     ('Só R$ 9 a mais que o Recruta, pra ter o plano completo', 'Só 5 € a mais que o Recruta, para ter o plano completo'),
-    ('👑 Quero o plano completo por R$ 18,90', '👑 Quero o plano completo por 10,90 €'),
+    ('✅ Sim, quero o completo por R$ 18,90', '✅ Sim, quero o completo por 10,90 €'),
     ('Não, quero só o Recruta por R$ 9,90', 'Não, quero só o Recruta por 5,90 €'),
     ('Elite por R$ 29,90 com o seu crédito aplicado, ou Recruta por R$ 9,90', 'Elite por 16,90 € com o seu crédito aplicado, ou Recruta por 5,90 €'),
     ('É pagamento único de R$ 29,90', 'É pagamento único de 16,90 €'),

@@ -205,7 +205,10 @@ h1 em,h2 em{font-style:normal;background:linear-gradient(180deg,#fffbe3,#ffd34d 
 .pm-off small{display:block;font:800 10.5px 'Exo 2';letter-spacing:.14em;color:#ffb3a6}
 .pm-off s{color:#8d97bd;margin-right:8px}.pm-off b{font:900 italic 34px 'Exo 2';color:#fff;text-shadow:0 0 18px rgba(255,190,40,.6)}
 .pm-off span{display:block;font-size:13px;color:#ffe9b0}
-.pm-no{display:block;text-align:center;margin-top:14px;color:#7e89b3;font-size:13.5px;text-decoration:underline}
+.pm-yes,.pm-no{display:block;text-align:center;border-radius:14px;font-weight:800;text-decoration:none;color:#fff}
+.pm-yes{margin-top:14px;padding:16px 12px;font-size:16.5px;background:linear-gradient(180deg,#2fd36b,#14a24a);border:2px solid #8dffb8;box-shadow:0 0 22px rgba(47,211,107,.55);text-shadow:0 1px 2px rgba(0,0,0,.35);animation:pmg 1.6s infinite}
+.pm-no{margin-top:10px;padding:12px;font-size:14px;background:linear-gradient(180deg,#e2414f,#b3202e);border:1px solid #ff9aa4;box-shadow:0 0 12px rgba(226,65,79,.35)}
+@keyframes pmg{50%{box-shadow:0 0 36px rgba(47,211,107,.9)}}
 .offer2{margin:14px 0 4px;padding:16px;border-radius:16px;background:var(--card);border:1px solid var(--line)}
 .o2h{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .o2h b{font:900 18px 'Exo 2';color:#fff;display:block}.o2h small{font-size:13px;color:var(--mut)}
@@ -490,7 +493,7 @@ function runRes(){const p=profile();
  track('ViewContent',{content_name:'Quiz Elite',value:FINAL,currency:'BRL'});track('QuizComplete',{classe:p.cls,ficha:p.ficha},true);
  setTimeout(()=>document.querySelectorAll('.attr .bar i').forEach(i=>i.style.width=i.dataset.w+'%'),200);
  sfx.win();confetti(innerWidth/2,innerHeight*.3,90,['#ffd34d','#4fd2ff','#ffffff','#ff6a7a','#5dffa0']);
- const url=withQs(CHECKOUT);const ur=withQs(CHECKOUT_R);$('#buyR').href=ur;$('#buyR').onclick=e=>{if(window.__popSeen){track('InitiateCheckout',{value:9.9,currency:'BRL',content_name:'Quiz Recruta'});mlog('checkout','res',idx,'recruta_9_90');return}e.preventDefault();window.__popSeen=1;popRecruta(p,ur)};['#buy','#buy2','#stickyBtn'].forEach(s=>{const a=$(s);a.href=url;a.onclick=()=>{track('InitiateCheckout',{value:FINAL,currency:'BRL',content_name:'Quiz Elite'});mlog('checkout','res',idx,'elite_29_90')}});
+ const url=withQs(CHECKOUT);const ur=withQs(CHECKOUT_R);$('#buyR').href=ur;$('#buyR').onclick=e=>{e.preventDefault();if(document.querySelector('.pm'))return;try{popRecruta(p,ur)}catch(err){location.href=ur}};['#buy','#buy2','#stickyBtn'].forEach(s=>{const a=$(s);a.href=url;a.onclick=()=>{track('InitiateCheckout',{value:FINAL,currency:'BRL',content_name:'Quiz Elite'});mlog('checkout','res',idx,'elite_29_90')}});
  // vídeo do app: toca só quando aparece na tela
  const dv=$('#demo');if(dv){const vo=new IntersectionObserver(es=>{if(es[0].isIntersecting){dv.preload='auto';dv.play().catch(()=>{})}else dv.pause()},{threshold:.35});vo.observe(dv)}
  // contagem das moedas quando a oferta aparece
@@ -513,8 +516,8 @@ function popRecruta(p,ur){track('RecrutaPopup',{},true);mlog('popup','res',idx,'
   <p class="sub" style="font-size:15px">No Recruta você treina <b>sem Mestre, sem ficha pronta e sem a Dungeon</b>. Sozinho, sem plano, é bem mais difícil de manter.</p>
   <div class="pm-vs"><div><b>RECRUTA</b><span>Treino por sua conta</span><span>Sem plano de ${p.ficha}</span><span>Sem Taverna e Playlist</span></div><div class="on"><b>CAÇADOR ELITE</b><span>${p.C[1]} monta seu treino</span><span>Dungeon de 30 dias pronta</span><span>Taverna, Alquimia e Playlist</span></div></div>
   <div class="pm-off"><small>ÚLTIMA OFERTA DO SISTEMA · SÓ NESTA TELA</small><div><s>R$ 29,90</s><b>R$ 18,90</b></div><span>Só R$ 9 a mais que o Recruta, pra ter o plano completo</span></div>
-  <a class="btn pulse" id="pmYes" href="${withQs(CHECKOUT_POP)}">👑 Quero o plano completo por R$ 18,90</a>
-  <a class="pm-no" id="pmNo" href="${ur}">Não, quero só o Recruta por R$ 9,90</a></div>`;
+  <a class="pm-yes" id="pmYes" href="${withQs(CHECKOUT_POP)}">✅ Sim, quero o completo por R$ 18,90</a>
+  <a class="pm-no" id="pmNo" href="${ur}">❌ Não, quero só o Recruta por R$ 9,90</a></div>`;
  document.body.appendChild(m);requestAnimationFrame(()=>m.classList.add('on'));confetti(innerWidth/2,innerHeight*.35,40,['#ffd34d','#ff6a7a','#fff']);
  const close=()=>{m.classList.remove('on');setTimeout(()=>m.remove(),250)};
  m.querySelector('.pm-x').onclick=close;m.onclick=e=>{if(e.target===m)close()};
