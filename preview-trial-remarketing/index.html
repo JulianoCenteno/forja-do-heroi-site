@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Prévia · Pop-up do teste grátis · Forja do Herói</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,700;1,800;1,900&family=Jost:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05070d;--text:#e6f1ff;--mute:#8ea3c4;--line:#1b2b4d;--line2:#24406f;--panel:#0b1222;--panelv:rgba(6,14,32,.86);--gd:#ffd84a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#020308;color:var(--text);font-family:Rajdhani,system-ui,sans-serif;font-size:16px;font-weight:500;padding:24px 12px 60px}
+.intro{max-width:1100px;margin:0 auto 22px;text-align:center}
+.intro h1{font:800 italic 26px 'Exo 2';letter-spacing:.02em}
+.intro p{color:var(--mute);margin-top:6px;font-size:15px}
+.grid{display:flex;flex-wrap:wrap;gap:28px;justify-content:center}
+.col{width:360px;max-width:100%}
+.lbl{font:700 12px Jost;letter-spacing:.18em;color:var(--gd);text-transform:uppercase}
+.when{font-size:14px;color:var(--mute);margin:4px 0 10px;min-height:38px}
+.phone{position:relative;height:720px;border-radius:34px;border:2px solid #1d2a44;overflow:hidden;background:url(/img/v2/app-treinar.webp) center top/cover;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.scrim{position:absolute;inset:0;background:rgba(3,4,8,.78);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:14px}
+.sheet{width:100%;max-height:100%;overflow:auto;background:linear-gradient(180deg,#0f1d3a,#0a1020);border:1px solid var(--line2);border-radius:6px 20px 6px 20px;padding:18px 15px 16px;position:relative}
+.tag{display:inline-block;padding:4px 10px;border:1px solid rgba(200,235,255,.6);background:rgba(4,10,22,.6);font:700 10.5px Jost;letter-spacing:.16em;color:#fff}
+.tag.red{background:#ff4d4d;border-color:#ff9a9a}
+.tag.gold{background:#ffcf4a;border-color:#ffe2a3;color:#231400}
+h3{font:800 italic 23px/1.1 'Exo 2';margin:10px 0 6px;text-shadow:0 0 14px rgba(150,215,255,.5)}
+.c{text-align:center}
+.muted{color:var(--mute)}
+.pv{position:relative;background:var(--panelv);border:1px solid rgba(110,200,255,.55);border-radius:14px;box-shadow:0 0 14px rgba(79,195,255,.28),inset 0 0 22px rgba(79,195,255,.08)}
+.hero{display:flex;gap:12px;align-items:center;padding:10px 12px;margin:12px 0}
+.hero img{width:58px;height:58px;object-fit:cover;object-position:top;border-radius:10px;border:1px solid #ffe2a3}
+.hero b{color:#fff}.hero small{display:block;color:var(--mute);font-size:13px}
+.bar{height:7px;background:#14223f;border-radius:4px;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;width:62%;background:linear-gradient(90deg,#4fd2ff,#a35cff)}
+.clock{display:flex;justify-content:center;gap:8px;margin:12px 0 4px}
+.clock div{min-width:62px;padding:8px 6px;border:1px solid #ffcf4a;background:rgba(255,190,60,.1);border-radius:10px}
+.clock b{display:block;font:800 italic 30px/1 'Exo 2';color:var(--gd)}
+.clock span{font:600 10px Jost;letter-spacing:.14em;color:var(--mute)}
+.clock.red div{border-color:#ff6b6b;background:rgba(255,80,80,.12)}.clock.red b{color:#ff8a8a}
+.list{list-style:none;margin:10px 0;font-size:14.5px;line-height:1.55}
+.list li{padding-left:22px;position:relative}.list li:before{content:'✔';position:absolute;left:0;color:#5be38a}
+.list.lose li:before{content:'✖';color:#ff6b6b}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0 4px}
+.plan{padding:12px 10px 10px;text-align:center}
+.plan.hot{border-color:#ffcf4a;box-shadow:0 0 18px rgba(255,200,70,.35)}
+.plan .tag{position:absolute;top:-10px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:9px;padding:3px 7px}
+.plan b{display:block;font:700 15px Jost;margin-top:4px}
+.plan .p{font:800 italic 26px 'Exo 2';color:var(--gd);margin:2px 0}
+.plan small{display:block;color:var(--mute);font-size:12px;line-height:1.3}
+.vit{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:10px 0 2px}
+.vit span{font:600 11.5px Jost;padding:4px 8px;border-radius:20px;background:rgba(91,227,138,.12);border:1px solid rgba(91,227,138,.5);color:#bff5d1}
+.btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:12px 14px;margin-top:10px;font:700 15px Rajdhani;letter-spacing:.04em;color:#fff;background:rgba(79,195,255,.2);border:1px solid #dff4ff;text-shadow:0 0 8px #9fdcff;box-shadow:0 0 16px rgba(79,195,255,.45),inset 0 0 12px rgba(79,195,255,.25);text-decoration:none}
+.btn.gold{background:linear-gradient(180deg,rgba(255,210,122,.35),rgba(255,178,56,.25));border-color:#ffe2a3;text-shadow:0 0 10px rgba(255,210,122,.9);box-shadow:0 0 22px rgba(255,198,90,.5),inset 0 0 14px rgba(255,198,90,.3)}
+.btn.ghost{background:transparent;border:0;box-shadow:none;color:var(--mute);text-shadow:none;font-size:14px;padding:6px;margin-top:6px}
+.x{position:absolute;top:8px;right:10px;color:var(--mute);font-size:20px}
+.pulse{animation:p 1.6s infinite}@keyframes p{50%{box-shadow:0 0 34px rgba(255,198,90,.85),inset 0 0 14px rgba(255,198,90,.3)}}
+.notes{max-width:1100px;margin:34px auto 0;background:#0a1020;border:1px solid var(--line2);border-radius:14px;padding:18px 20px;font-size:15px;line-height:1.6}
+.notes h2{font:700 15px Jost;letter-spacing:.14em;text-transform:uppercase;color:var(--gd);margin-bottom:8px}
+.notes li{margin-left:18px}
+</style></head><body>
+
+<div class="intro">
+  <h1>Pop-ups do teste grátis</h1>
+  <p>Prévia: ainda não está no app. São 3 momentos dentro das 24 horas, cada um aparece uma vez só.</p>
+</div>
+
+<div class="grid">
+
+<!-- 1. LEMBRETE -->
+<div class="col">
+  <div class="lbl">① Lembrete amigável</div>
+  <div class="when">Depois do 1º treino concluído ou ao abrir o app com 12h+ de teste</div>
+  <div class="phone"><div class="scrim"><div class="sheet">
+    <span class="x">×</span>
+    <div class="c"><span class="tag">[ SISTEMA ] · TESTE GRÁTIS ATIVO</span>
+    <h3>Mandou bem, caçador!</h3>
+    <p class="muted" style="font-size:14.5px">Seu herói já está evoluindo. Mas o teste grátis tem hora para acabar.</p></div>
+    <div class="pv hero"><img src="/img/cls-guerreiro.webp" alt=""><div style="flex:1"><b>Nível 4 · Guerreiro</b><small>1.240 XP · 3 treinos · 🔥 2 dias seguidos</small><div class="bar"><i></i></div></div></div>
+    <div class="c muted" style="font:600 12px Jost;letter-spacing:.14em">SEU TESTE TERMINA EM</div>
+    <div class="clock"><div><b>11</b><span>HORAS</span></div><div><b>42</b><span>MIN</span></div></div>
+    <div class="plans">
+      <div class="pv plan"><b>Recruta</b><div class="p">R$ 9,90</div><small>Treinos, missões, XP e níveis</small></div>
+      <div class="pv plan hot"><span class="tag gold">⭐ MAIS ESCOLHIDO</span><b>Caçador Elite</b><div class="p">R$ 26,90</div><small>Tudo + Dungeon, Mestres e GPS</small></div>
+    </div>
+    <div class="vit"><span>♾️ Acesso vitalício</span><span>💳 Pagamento único</span><span>🚫 Sem mensalidade</span></div>
+    <a class="btn gold">👑 Garantir meu acesso</a>
+    <a class="btn ghost">Continuar testando</a>
+  </div></div></div>
+</div>
+
+<!-- 2. ÚLTIMAS HORAS -->
+<div class="col">
+  <div class="lbl">② Últimas horas</div>
+  <div class="when">Ao abrir o app quando faltam menos de 3 horas</div>
+  <div class="phone"><div class="scrim"><div class="sheet">
+    <span class="x">×</span>
+    <div class="c"><span class="tag red">⏳ SEU TESTE ESTÁ ACABANDO</span>
+    <h3>Não deixe seu herói parar no nível 4</h3></div>
+    <div class="clock red"><div><b>02</b><span>HORAS</span></div><div><b>18</b><span>MIN</span></div></div>
+    <p class="c muted" style="font-size:14px;margin-top:6px">Quando o tempo zerar, o app trava. Garanta o acesso e continue exatamente de onde parou:</p>
+    <ul class="list">
+      <li>Seu nível, XP e conquistas ficam salvos</li>
+      <li>A sequência de 🔥 2 dias continua</li>
+      <li>Dungeon de 30 dias e chefes liberados no Elite</li>
+    </ul>
+    <div class="plans">
+      <div class="pv plan"><b>Recruta</b><div class="p">R$ 9,90</div><small>Essencial</small></div>
+      <div class="pv plan hot"><span class="tag gold">⭐ MAIS ESCOLHIDO</span><b>Caçador Elite</b><div class="p">R$ 26,90</div><small>Completo</small></div>
+    </div>
+    <div class="vit"><span>♾️ Paga uma vez, usa para sempre</span></div>
+    <a class="btn gold pulse">⚔️ Quero continuar evoluindo</a>
+    <a class="btn ghost">Agora não</a>
+  </div></div></div>
+</div>
+
+<!-- 3. ÚLTIMA CHANCE -->
+<div class="col">
+  <div class="lbl">③ Última chance</div>
+  <div class="when">Faltando menos de 30 minutos, ou quando a pessoa toca em “Agora não” no ②</div>
+  <div class="phone"><div class="scrim"><div class="sheet">
+    <div class="c"><span class="tag red">⚡ OFERTA SÓ PARA QUEM TESTOU</span>
+    <h3>Última chance, caçador</h3>
+    <div class="clock red"><div><b>00</b><span>HORAS</span></div><div><b>27</b><span>MIN</span></div></div>
+    <p class="muted" style="font-size:14.5px;margin:8px 0 4px">Leve o <b style="color:#fff">Elite completo</b> por um preço que não volta:</p>
+    <div style="font-size:15px"><s class="muted">R$ 26,90</s> <b style="font:800 italic 40px 'Exo 2';color:var(--gd)">R$ 18,90</b></div>
+    </div>
+    <ul class="list">
+      <li>Tudo do teste, liberado para sempre</li>
+      <li>Dungeon, chefes, os 3 Mestres e GPS</li>
+      <li>Seu progresso continua salvo</li>
+    </ul>
+    <div class="vit"><span>♾️ Acesso vitalício</span><span>💳 Pagamento único</span></div>
+    <a class="btn gold pulse">👑 Sim, quero o Elite por R$ 18,90</a>
+    <a class="btn" style="font-size:14px">Prefiro o Recruta por R$ 9,90</a>
+    <a class="btn ghost">Não, vou perder meu progresso</a>
+  </div></div></div>
+</div>
+
+</div>
+
+<div class="notes">
+  <h2>Como vai funcionar</h2>
+  <ul>
+    <li>Só aparece para quem está no teste grátis. Quem já comprou nunca vê.</li>
+    <li>Cada pop-up aparece no máximo uma vez. Nunca aparece no meio de um treino, só ao abrir o app ou ao terminar um treino.</li>
+    <li>Nível, XP, classe e sequência são os dados reais da pessoa. Os da prévia são exemplo.</li>
+    <li>Os botões levam para os mesmos checkouts de hoje (Recruta R$ 9,90, Elite R$ 26,90 e a oferta de R$ 18,90), com o e-mail do teste.</li>
+    <li>A barra “⏳ faltam Xh” que já fica no topo do app continua igual.</li>
+    <li>Cada pop-up registra no pixel e no admin quantos viram e quantos clicaram.</li>
+  </ul>
+</div>
+</body></html>
