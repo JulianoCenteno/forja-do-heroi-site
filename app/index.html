@@ -3194,7 +3194,8 @@ async function fhSubmit(ev){
 }
 /* ================== TESTE GRÁTIS 24H ================== */
 const TRIAL_CK={recruta:'https://appdigitalhub.com.br/c/43752C6D',elite:'https://appdigitalhub.com.br/c/1C7E51FE',oferta:'https://appdigitalhub.com.br/c/E3082716'};
-const trialCk=k=>TRIAL_CK[k]+'?utm_source=app&utm_medium=teste24h&utm_campaign='+encodeURIComponent(FH_TRY||'teste24h');
+const FH_AFI=(()=>{try{const v=new URLSearchParams(location.search).get('afi');if(v&&/^[A-Za-z0-9]{4,20}$/.test(v))localStorage.setItem('fh_afi',v.toUpperCase());return localStorage.getItem('fh_afi')}catch(e){return null}})();
+const trialCk=k=>TRIAL_CK[k]+'?utm_source=app&utm_medium=teste24h&utm_campaign='+encodeURIComponent(FH_TRY||'teste24h')+(FH_AFI?'&afi='+encodeURIComponent(FH_AFI):'');
 function fhTrialView(){
   const cd=FH_TAB==='trialcode';
   return `<div style="margin:-4px -16px 0;position:relative"><img src="img/logo.webp" alt="Forja do Herói · Treino RPG" style="display:block;width:100%;-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)"></div>
