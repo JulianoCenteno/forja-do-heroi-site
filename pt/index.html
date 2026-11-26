@@ -205,6 +205,15 @@ h1 em,h2 em{font-style:normal;background:linear-gradient(180deg,#fffbe3,#ffd34d 
 .pm-off small{display:block;font:800 10.5px 'Exo 2';letter-spacing:.14em;color:#ffb3a6}
 .pm-off s{color:#8d97bd;margin-right:8px}.pm-off b{font:900 italic 34px 'Exo 2';color:#fff;text-shadow:0 0 18px rgba(255,190,40,.6)}
 .pm-off span{display:block;font-size:13px;color:#ffe9b0}
+.dep{position:relative;margin:4px -16px 18px}
+.dep-track{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 16px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.dep-track::-webkit-scrollbar{display:none}
+.dep-it{flex:0 0 78%;max-width:320px;scroll-snap-align:center;border-radius:18px;overflow:hidden;border:1px solid rgba(255,200,58,.35);box-shadow:0 8px 28px rgba(0,0,0,.45)}
+.dep-it img{display:block;width:100%;height:auto}
+.dep-nav{position:absolute;top:44%;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,200,58,.6);background:rgba(5,10,28,.8);color:#ffd34d;font-size:22px;line-height:1;cursor:pointer;z-index:2}
+.dep-nav.l{left:6px}.dep-nav.r{right:6px}
+.dep-dots{display:flex;justify-content:center;gap:7px;margin-top:6px}
+.dep-dots i{width:8px;height:8px;border-radius:50%;background:#2a3768;transition:.2s}.dep-dots i.on{background:#ffd34d;width:20px;border-radius:4px}
 .pm-yes,.pm-no{display:block;text-align:center;border-radius:14px;font-weight:800;text-decoration:none;color:#fff}
 .pm-yes{margin-top:14px;padding:16px 12px;font-size:16.5px;background:linear-gradient(180deg,#2fd36b,#14a24a);border:2px solid #8dffb8;box-shadow:0 0 22px rgba(47,211,107,.55);text-shadow:0 1px 2px rgba(0,0,0,.35);animation:pmg 1.6s infinite}
 .pm-no{margin-top:10px;padding:12px;font-size:14px;background:linear-gradient(180deg,#e2414f,#b3202e);border:1px solid #ff9aa4;box-shadow:0 0 12px rgba(226,65,79,.35)}
@@ -469,7 +478,11 @@ function vRes(){const p=profile();const probs=A.prob||[];
   <div><img src="/app/img/ui/boss-ban.webp" alt=""><b>👹 Chefes e Dungeon</b><span>Desafios semanais que testam a tua força e te dão recompensas raras.</span></div>
   <div><img src="https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh/art/evo/${p.cls}_${fem()?'f':'m'}_30.webp" alt="" style="object-position:72% 25%"><b>⚔️ Seu herói evolui</b><span>À medida que sobes de nível, desbloqueias formas mais fortes do teu herói: armadura, capa e até asas de energia no nível 50.</span></div>
  </div>
- <div class="guar"><img src="/img/v3/gar-badge.webp" alt="" onerror="this.src='/img/garantia.webp'"><p><b>Garantia de 7 dias.</b> Entraste, treinaste e não gostaste? Pede o reembolso até 7 dias depois e recebes 100% de volta.</p></div>
+<!--fh-dep--> <div class="sec-h">O QUE OS CAÇADORES ESTÃO DIZENDO</div>
+ <div class="dep"><div class="dep-track" id="depT">${['matheus','gabriel','rafael'].map(n=>`<div class="dep-it"><img src="/img/depoimentos/dep-${n}.webp" alt="Depoimento de cliente no WhatsApp" loading="lazy" width="738" height="1312"></div>`).join('')}</div>
+  <button class="dep-nav l" data-dep="-1" aria-label="Anterior">‹</button><button class="dep-nav r" data-dep="1" aria-label="Próximo">›</button>
+  <div class="dep-dots" id="depD"><i class="on"></i><i></i><i></i></div></div>
+<!--/fh-dep--> <div class="guar"><img src="/img/v3/gar-badge.webp" alt="" onerror="this.src='/img/garantia.webp'"><p><b>Garantia de 7 dias.</b> Entraste, treinaste e não gostaste? Pede o reembolso até 7 dias depois e recebes 100% de volta.</p></div>
  <div class="sec-h">COMO FUNCIONA</div>
  <div class="how">
   <div><img src="/app/img/ui/m-trio.webp" alt=""><span><b>1. Entra na app</b>Acesso imediato, pelo telemóvel. Sem descarregar nada da loja.</span></div>
@@ -504,6 +517,13 @@ function runRes(){const p=profile();
  const tm=()=>{const el=$('#tmr');if(!el)return;const s=Math.max(0,Math.round((end-Date.now())/1000));el.textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};tm();clearInterval(window.__tm);window.__tm=setInterval(tm,1000);
  // botão fixo quando a oferta sai da tela
  const sb=new IntersectionObserver(es=>{$('#sticky').classList.toggle('on',!es[0].isIntersecting&&es[0].boundingClientRect.top<0)},{threshold:0});sb.observe($('#buy'));
+ const dT=$('#depT');if(dT){const its=[...dT.children],dots=[...$('#depD').children];let cur=0,auto;
+  const go=i=>{cur=(i+its.length)%its.length;dT.scrollTo({left:its[cur].offsetLeft-(dT.clientWidth-its[cur].clientWidth)/2,behavior:'smooth'})};
+  dT.addEventListener('scroll',()=>{const c=dT.scrollLeft+dT.clientWidth/2;let b=0,bd=1e9;its.forEach((it,i)=>{const d=Math.abs(it.offsetLeft+it.clientWidth/2-c);if(d<bd){bd=d;b=i}});cur=b;dots.forEach((d,i)=>d.classList.toggle('on',i===b))},{passive:true});
+  document.querySelectorAll('[data-dep]').forEach(b=>b.onclick=()=>{clearInterval(auto);go(cur+ +b.dataset.dep)});
+  dots.forEach((d,i)=>d.onclick=()=>{clearInterval(auto);go(i)});
+  ['touchstart','pointerdown'].forEach(e=>dT.addEventListener(e,()=>clearInterval(auto),{passive:true,once:true}));
+  auto=setInterval(()=>go(cur+1),5000)}
 }
 
 /* ---------- pop-up: quem escolhe o Recruta recebe o completo com desconto ---------- */
