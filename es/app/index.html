@@ -378,6 +378,34 @@ h2 .sub{font-family:Rajdhani;font-size:13px;color:var(--mute);letter-spacing:0;f
 .intro h1{font-family:Jost,sans-serif;font-weight:900;font-size:30px;color:var(--gold);letter-spacing:.06em;text-shadow:0 0 24px rgba(79,195,255,.3)}
 .intro p{color:var(--mute);margin-top:6px}
 .sync{font-size:11px;color:var(--dim);text-align:center;margin-top:24px}
+.tn{position:relative}.tn a.btn{text-decoration:none}.tn .tn-h{color:#fff!important;-webkit-text-fill-color:#fff;background:none}.tn-c{text-align:center}.tn .muted{font-size:14.5px}
+.tn-x{position:absolute;top:-6px;right:-4px;background:none;border:0;color:var(--mute);font-size:24px;padding:4px 8px}
+.tn-h{font:800 italic 23px/1.12 'Exo 2',Jost,sans-serif;margin:10px 0 6px;color:#fff;text-shadow:0 0 14px rgba(150,215,255,.5)}
+.tag.tn-red{background:#ff4d4d;border-color:#ff9a9a}
+.tn-hero{display:flex;gap:12px;align-items:center;padding:10px 12px;margin:12px 0;text-align:left}
+.tn-hero img{width:58px;height:58px;object-fit:cover;object-position:top;border-radius:10px;border:1px solid #ffe2a3}
+.tn-hero b{color:#fff}.tn-hero small{display:block;color:var(--mute);font-size:13px}
+.tn-bar{height:7px;background:#14223f;border-radius:4px;margin-top:6px;overflow:hidden}.tn-bar i{display:block;height:100%;background:linear-gradient(90deg,#4fd2ff,#a35cff)}
+.tn-lbl{font:600 12px Jost;letter-spacing:.14em;color:var(--mute)}
+.tn-clock{display:flex;justify-content:center;gap:8px;margin:10px 0 4px}
+.tn-clock div{min-width:62px;padding:8px 6px;border:1px solid #ffcf4a;background:rgba(255,190,60,.1);border-radius:10px;text-align:center}
+.tn-clock b{display:block;font:800 italic 30px/1 'Exo 2',Jost,sans-serif;color:#ffd84a}
+.tn-clock span{font:600 10px Jost;letter-spacing:.14em;color:var(--mute)}
+.tn-clock.red div{border-color:#ff6b6b;background:rgba(255,80,80,.12)}.tn-clock.red b{color:#ff8a8a}
+.tn-list{list-style:none;margin:10px 0;padding:0;font-size:14.5px;line-height:1.55;text-align:left}
+.tn-list li{padding-left:22px;position:relative}.tn-list li:before{content:'✔';position:absolute;left:0;color:#5be38a}
+.tn-plans{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0 4px}
+.tn-plan{display:block;padding:12px 8px 10px;text-align:center;color:#fff;text-decoration:none}
+.tn-plan.hot{border-color:#ffcf4a;box-shadow:0 0 18px rgba(255,200,70,.35)}
+.tn-plan .tag{position:absolute;top:-10px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:9px;padding:3px 7px;background:#ffcf4a;color:#231400;border-color:#ffe2a3}
+.tn-plan b{display:block;font:700 15px Jost;margin-top:4px}
+.tn-plan .p{font:800 italic 26px 'Exo 2',Jost,sans-serif;color:#ffd84a;margin:2px 0}
+.tn-plan small{display:block;color:var(--mute);font-size:12px;line-height:1.3}
+.tn-vit{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:10px 0 2px}
+.tn-vit span{font:600 11.5px Jost;padding:4px 8px;border-radius:20px;background:rgba(91,227,138,.12);border:1px solid rgba(91,227,138,.5);color:#bff5d1}
+.tn-big{font:800 italic 40px 'Exo 2',Jost,sans-serif;color:#ffd84a}
+.tn-ghost{background:transparent!important;border:0!important;color:var(--mute)!important;margin-top:6px}
+.tn-pulse{animation:emgp 1.6s infinite}
 @keyframes fade{from{opacity:0}}
 @keyframes up{from{transform:translateY(40px);opacity:0}}
 @keyframes pop{from{transform:scale(.7);opacity:0}}
@@ -1650,6 +1678,7 @@ function logExercise(exId,s,r,kg,kgs){
   S.last[exId]=kgs?{s,r,kg,kgs}:{s,r,kg};
   sfx('xp');toast('✨','+'+fmt(xp)+' XP · +'+Math.floor(xp/20)+' ouro',ex.n+' — '+(ex.t==='aer'?r+' min':s+'×'+r+(ex.u?'s':'')+(ex.t==='mus'?' · '+kgTxt(en):'')));
   afterProgress(prev);
+  setTimeout(()=>trialNudge('treino'),2600);
   return true;
 }
 /* ================== ANTITRAPAÇA ================== */
@@ -3311,6 +3340,64 @@ function trialPaywall(expired){
 }
 function trialExpiredScreen(){window.__FH_TEXP=1;$('#nav').hidden=true;$('#app').innerHTML='<div style="text-align:center;padding:30vh 16px 0"><span class="tag">[ SISTEMA ] · TESTE ENCERRADO</span><p class="muted" style="margin:12px 0">Seu progresso está salvo.</p><button class="btn gold" data-a="trialPlans">Ver planos</button><br><button class="btn ghost sm" style="margin-top:10px" data-a="fhLogout">Sair</button></div>';TRIAL_STEP=0;trialPaywall(true);}
 setInterval(()=>{if(window.__FH_TRIAL&&trialLeft()<=0&&!document.getElementById('trialPw')){window.__FH_TRIAL=0;window.__FH_PLAN=null;trialExpiredScreen()}else if(window.__FH_TRIAL&&!document.querySelector('.modal')){const b=document.querySelector('[data-a=trialPlans]');if(b)b.outerHTML=trialBar()}},60000);
+/* ===== Pop-ups de remarketing do teste grátis (3 momentos, cada um 1 vez) ===== */
+const TN_H=36e5,TN_TRIAL=24*TN_H;
+function tnKey(){return 'fh_tn_'+(window.__FH_EMAIL||'')+'_'+(window.__FH_TRIAL||0)}
+function tnSeen(){try{return JSON.parse(localStorage.getItem(tnKey())||'{}')}catch(e){return {}}}
+function tnMark(st){const s=tnSeen();s[st]=Date.now();try{localStorage.setItem(tnKey(),JSON.stringify(s))}catch(e){}}
+function tnLog(stage,ev){try{FH.from('fh_trial_nudges').insert({stage,ev}).then(()=>{},()=>{})}catch(e){}
+  try{if(window.fbq)fbq('trackCustom',ev==='view'?'TrialNudge':'TrialNudgeClick',{stage,ev})}catch(e){}}
+function tnClock(ms,red){const h=Math.max(0,Math.floor(ms/TN_H)),m=Math.max(0,Math.floor(ms%TN_H/6e4));
+  return `<div class="tn-clock${red?' red':''}"><div><b>${String(h).padStart(2,'0')}</b><span>HORAS</span></div><div><b>${String(m).padStart(2,'0')}</b><span>MIN</span></div></div>`}
+function tnPlans(stage,full){return `<div class="tn-plans">
+  <a class="pv tn-plan" href="${trialCk('recruta')}" target="_blank" rel="noopener" data-tn="${stage}:recruta"><b>Recruta</b><div class="p">R$ 9,90</div><small>${full?'Treinos, missões, XP e níveis':'Essencial'}</small></a>
+  <a class="pv tn-plan hot" href="${trialCk('elite')}" target="_blank" rel="noopener" data-tn="${stage}:elite"><span class="tag">⭐ MAIS ESCOLHIDO</span><b>Caçador Elite</b><div class="p">US$ 12.90</div><small>${full?'Tudo + Dungeon, Mestres e GPS':'Completo'}</small></a></div>`}
+function trialNudge(src){
+  if(!window.__FH_TRIAL||window.__FH_TEXP||!S.created||!S.cls||modalOpen||document.querySelector('#modal .scrim'))return;
+  const left=trialLeft();if(left<=0)return;
+  const el=TN_TRIAL-left,seen=tnSeen();
+  let st=0;
+  if(left<30*6e4){if(!seen[3])st=3}
+  else if(left<3*TN_H){if(!seen[2])st=2}
+  else if(!seen[1]&&!seen[2]&&(el>=12*TN_H||src==='treino'))st=1;
+  if(!st)return;
+  if(st>=2)tnMark(1);if(st===3)tnMark(2);
+  tnShow(st);
+}
+function tnShow(st){
+  tnMark(st);tnLog(st,'view');
+  const left=trialLeft(),li=levelInfo(),sk=streakInfo(),xp=totalXP(),pct=Math.min(100,Math.round(li.into/li.need*100));
+  const fire=sk.cur>=1?` · 🔥 ${sk.cur} ${sk.cur===1?'dia':'dias seguidos'}`:'';
+  const vit=a=>`<div class="tn-vit">${a.map(x=>'<span>'+x+'</span>').join('')}</div>`;
+  let h='';
+  if(st===1)h=`<button class="tn-x" data-a="close" aria-label="Fechar">×</button>
+   <div class="tn-c"><span class="tag">[ SISTEMA ] · TESTE GRÁTIS ATIVO</span><h3 class="tn-h">${sk.days?'Mandou bem, caçador!':'Seu herói está esperando'}</h3>
+   <p class="muted">${sk.days?'Seu herói já está evoluindo. Mas o teste grátis tem hora para acabar.':'Aproveite o teste: faça seu primeiro treino. Mas lembre que ele tem hora para acabar.'}</p></div>
+   <div class="pv tn-hero"><img src="${aFull(S.cls,sexOf())}" alt=""><div style="flex:1"><b>Nível ${li.L} · ${esc(cName(S.cls,sexOf()))}</b><small>${fmt(xp)} XP · ${sk.days} ${sk.days===1?'treino':'treinos'}${fire}</small><div class="tn-bar"><i style="width:${pct}%"></i></div></div></div>
+   <div class="tn-c tn-lbl">SEU TESTE TERMINA EM</div>${tnClock(left)}
+   ${tnPlans(1,1)}${vit(['♾️ Acesso vitalício','💳 Pagamento único','🚫 Sem mensalidade'])}
+   <button class="btn gold full" style="margin-top:10px" data-a="tnPlans" data-st="1">👑 Garantir meu acesso</button>
+   <button class="btn ghost full sm tn-ghost" data-a="close">Continuar testando</button>`;
+  if(st===2)h=`<button class="tn-x" data-a="tnNo" data-st="2" aria-label="Fechar">×</button>
+   <div class="tn-c"><span class="tag tn-red">⏳ SEU TESTE ESTÁ ACABANDO</span><h3 class="tn-h">Não deixe seu herói parar no nível ${li.L}</h3></div>
+   ${tnClock(left,1)}<p class="muted tn-c" style="font-size:14px;margin-top:6px">Quando o tempo zerar, o app trava. Garanta o acesso e continue exatamente de onde parou:</p>
+   <ul class="tn-list"><li>Seu nível, XP e conquistas ficam salvos</li>${sk.cur?`<li>A sequência de 🔥 ${sk.cur} ${sk.cur===1?'dia':'dias'} continua</li>`:'<li>Treinos e missões novas todos os dias</li>'}<li>Dungeon de 30 dias e chefes liberados no Elite</li></ul>
+   ${tnPlans(2,0)}${vit(['♾️ Paga uma vez, usa para sempre'])}
+   <button class="btn gold full tn-pulse" style="margin-top:10px" data-a="tnPlans" data-st="2">⚔️ Quero continuar evoluindo</button>
+   <button class="btn ghost full sm tn-ghost" data-a="tnNo" data-st="2">Agora não</button>`;
+  if(st===3)h=`<div class="tn-c"><span class="tag tn-red">⚡ OFERTA SÓ PARA QUEM TESTOU</span><h3 class="tn-h">Última chance, caçador</h3>${tnClock(left,1)}
+   <p class="muted" style="font-size:14.5px;margin:8px 0 4px">Leve o <b style="color:#fff">Elite completo</b> por um preço que não volta:</p>
+   <div style="font-size:15px"><s class="muted">US$ 12.90</s> <b class="tn-big">R$ 18,90</b></div></div>
+   <ul class="tn-list"><li>Tudo do teste, liberado para sempre</li><li>Dungeon, chefes, os 3 Mestres e GPS</li><li>Seu progresso continua salvo</li></ul>
+   ${vit(['♾️ Acesso vitalício','💳 Pagamento único'])}
+   <a class="btn gold full tn-pulse" style="margin-top:10px" href="${trialCk('oferta')}" target="_blank" rel="noopener" data-tn="3:oferta">👑 Sim, quero o Elite por R$ 18,90</a>
+   <a class="btn full" style="margin-top:10px;font-size:14px" href="${trialCk('recruta')}" target="_blank" rel="noopener" data-tn="3:recruta">Prefiro o Recruta por R$ 9,90</a>
+   <button class="btn ghost full sm tn-ghost" data-a="trialPaid">✅ Já paguei, atualizar</button>
+   <button class="btn ghost full sm tn-ghost" data-a="tnNo" data-st="3">Não, vou perder meu progresso</button>`;
+  modalOpen=true;openModal(`<div class="tn" id="tnPop">${h}</div>`,true);
+}
+document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('[data-tn]');if(!a)return;const [s,ev]=a.dataset.tn.split(':');tnLog(+s,ev)},true);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')setTimeout(()=>trialNudge('volta'),1200)});
 async function fhAfterLogin(){
   const {data:{session}}=await FH.auth.getSession();if(!session)return fhRenderLogin();
   const {data:me,error}=await FH.rpc('fh_me');
@@ -3325,6 +3412,7 @@ async function fhAfterLogin(){
   S.ownerUid=uid;
   fhShim(uid,!!me.admin);
   render();initCloud();
+  setTimeout(()=>trialNudge('abrir'),1800);
   const pc=duelPendingCode();if(pc&&S.created)setTimeout(()=>duelFromLink(pc),900);
 }
 
@@ -3457,6 +3545,8 @@ const _fhRender=render;
 render=function(){if(!window.__FH_PLAN)return fhRenderLogin();if(S.plan!==window.__FH_PLAN){S.plan=window.__FH_PLAN;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}return _fhRender();};
 document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-a]');if(!b)return;const a=b.dataset.a;
   if(a==='m2Toggle'){if(!window.__FH_ADMIN)return;try{localStorage.setItem('fh_m2',m2On()?'0':'1')}catch(e){}tab=m2On()?'heroi':'mais';render();scrollTo(0,0);toast('🧪',m2On()?'Visual manhwa ligado':'Visual manhwa desligado');return}
+  if(a==='tnPlans'){const st=+(b.dataset.st)||1;tnLog(st,'plans');closeModal();TRIAL_STEP=0;trialPaywall(false);return}
+  if(a==='tnNo'){const st=+(b.dataset.st)||2;tnLog(st,'no');closeModal();if(st===2&&!tnSeen()[3]&&trialLeft()>0)setTimeout(()=>tnShow(3),250);return}
   if(a==='trialPlans'){TRIAL_STEP=0;trialPaywall(!window.__FH_TRIAL||trialLeft()<=0);return}
   if(a==='trialNo'){TRIAL_STEP=1;const ex=!window.__FH_TRIAL||trialLeft()<=0;trialPaywall(ex);return}
   if(a==='trialPaid'){closeModal();toast('🔄','Conferindo o pagamento…');await fhAfterLogin();if(window.__FH_PLAN&&!window.__FH_TRIAL){toast('👑','Plano liberado!','Bom treino, caçador')}else if(!window.__FH_PLAN){toast('⏳','Ainda não encontramos o pagamento','Pix pode levar 1 ou 2 minutos')}return}
