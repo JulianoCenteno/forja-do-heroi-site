@@ -3431,6 +3431,24 @@ function tnShow(st){
 }
 document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('[data-tn]');if(!a)return;const [s,ev]=a.dataset.tn.split(':');tnLog(+s,ev)},true);
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')setTimeout(()=>trialNudge('volta'),1200)});
+/* ===== Aviso de novidade (aparece 1 vez por pessoa) ===== */
+const NEWS_ID='tav-foto-1';
+function newsShow(){try{
+  if(document.documentElement.lang==='es'||!S.created||window.__FH_TEXP||modalOpen||document.querySelector('#modal .scrim'))return;
+  const k='fh_news_'+NEWS_ID+'_'+(window.__FH_EMAIL||'');if(localStorage.getItem(k))return;localStorage.setItem(k,'1');
+  const vip=isElite();
+  modalOpen=true;openModal(`<div class="tn" style="text-align:center"><button class="tn-x" data-a="close" aria-label="Fechar">×</button>
+   <span class="tag">[ SISTEMA ] · NOVIDADE</span>
+   <div style="font-size:46px;margin:10px 0 2px">📸</div>
+   <h3 class="tn-h">Fotos na Taverna!</h3>
+   <p class="muted" style="font-size:15px">Agora os heróis <b style="color:#ffd84a">👑 VIP</b> podem postar <b style="color:#fff">fotos do treino</b> na Taverna. Mostre sua evolução para a galera!</p>
+   <ul class="tn-list" style="margin:12px auto;max-width:300px"><li>Toque em <b>📷 Foto</b> na hora de postar</li><li>Escreva um texto junto, se quiser</li></ul>
+   <p class="muted" style="font-size:13px">🚫 Links de fora não são permitidos na Taverna.</p>
+   ${vip?'':'<p class="muted" style="font-size:13.5px">Fotos são exclusivas do plano Elite. Você continua podendo ler, curtir e comentar.</p>'}
+   <button class="btn gold full" style="margin-top:12px" data-a="newsGo">${vip?'📸 Postar minha foto':'🍺 Ir para a Taverna'}</button>
+   <button class="btn ghost full sm tn-ghost" data-a="close">Depois</button></div>`,true);
+  try{if(window.fbq)fbq('trackCustom','NewsView',{id:NEWS_ID})}catch(e){}
+}catch(e){}}
 async function fhAfterLogin(){
   const {data:{session}}=await FH.auth.getSession();if(!session)return fhRenderLogin();
   const {data:me,error}=await FH.rpc('fh_me');
@@ -3446,6 +3464,7 @@ async function fhAfterLogin(){
   fhShim(uid,!!me.admin);
   render();initCloud();
   setTimeout(()=>trialNudge('abrir'),1800);
+  setTimeout(newsShow,4500);
   const pc=duelPendingCode();if(pc&&S.created)setTimeout(()=>duelFromLink(pc),900);
 }
 
@@ -3578,6 +3597,7 @@ const _fhRender=render;
 render=function(){if(!window.__FH_PLAN)return fhRenderLogin();if(S.plan!==window.__FH_PLAN){S.plan=window.__FH_PLAN;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}return _fhRender();};
 document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-a]');if(!b)return;const a=b.dataset.a;
   if(a==='m2Toggle'){if(!window.__FH_ADMIN)return;try{localStorage.setItem('fh_m2',m2On()?'0':'1')}catch(e){}tab=m2On()?'heroi':'mais';render();scrollTo(0,0);toast('🧪',m2On()?'Visual manhwa ligado':'Visual manhwa desligado');return}
+  if(a==='newsGo'){closeModal();tab='taverna';TV.chan='geral';render();window.scrollTo(0,0);return}
   if(a==='tnPlans'){const st=+(b.dataset.st)||1;tnLog(st,'plans');closeModal();TRIAL_STEP=0;trialPaywall(false);return}
   if(a==='tnNo'){const st=+(b.dataset.st)||2;tnLog(st,'no');closeModal();if(st===2&&!tnSeen()[3]&&trialLeft()>0)setTimeout(()=>tnShow(3),250);return}
   if(a==='trialPlans'){TRIAL_STEP=0;trialPaywall(!window.__FH_TRIAL||trialLeft()<=0);return}
