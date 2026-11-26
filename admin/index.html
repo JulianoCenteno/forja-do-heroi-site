@@ -79,6 +79,11 @@ tr.row{cursor:pointer}tr.row:hover td{background:rgba(40,90,170,.18)}
 .drawer{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.6);display:flex;justify-content:flex-end}
 .drawer .in{width:min(460px,100%);height:100%;overflow:auto;padding:16px;background:#071330;border-left:1.5px solid var(--line);box-shadow:0 0 30px rgba(79,210,255,.35)}
 .drawer h3{font-family:Jost;font-size:22px}
+.thr{max-height:320px;overflow:auto;display:flex;flex-direction:column;gap:8px;padding:10px;border:1px solid var(--line);border-radius:12px;background:rgba(0,0,0,.25)}
+.bub{max-width:85%;padding:8px 11px;border-radius:12px 12px 12px 3px;background:#12224a;border:1px solid #2a4580;white-space:pre-wrap;font-size:14px}
+.bub.me{align-self:flex-end;border-radius:12px 12px 3px 12px;background:#3a2c08;border-color:#8a6a1c}
+.bub small{display:block;margin-top:4px;font-size:11px;color:var(--dim)}
+.badge{display:inline-block;min-width:18px;padding:0 6px;border-radius:9px;background:#e2414f;color:#fff;font-size:11px;line-height:18px;text-align:center}
 .kv{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin:12px 0;font-size:15px}.kv small{color:var(--dim);letter-spacing:.06em}
 .ord{padding:10px 12px;margin-top:8px}
 .login{max-width:380px;margin:12vh auto 0;padding:22px}
@@ -128,6 +133,7 @@ tr.row{cursor:pointer}tr.row:hover td{background:rgba(40,90,170,.18)}
 <script>
 const URL_='https://lpdicrpetxqnoxceozfa.supabase.co', KEY='sb_publishable_ceGy_dHSjG3cngC8mVAPLg_R4sxr5kA';
 const FN=URL_+'/functions/v1/fh-push';
+let UNR=[];
 const sb=window.supabase.createClient(URL_,KEY,{auth:{persistSession:true,autoRefreshToken:true,storageKey:'fh-auth'}});
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -249,13 +255,16 @@ function drawer(email){
    </div>
    <div class="ttl" style="font-size:16px;margin-top:10px;display:flex;justify-content:space-between;align-items:center">Compras <button class="btn sm" data-grant>＋ Liberar item/plano</button></div>
    ${(p.orders||[]).map(o=>`<div class="ord ch" style="--bc:${o.plan==='elite'?'#ffe08a':'#8fe6ff'}"><b>${o.plan==='elite'?'Caçador Elite':'Recruta'}</b>${o.manual?' <span class="pill adm">MANUAL</span>':''} · ${brl(o.amount)} · <span class="st ${o.status==='pago'?'ok':'warn'}">${esc(o.status)}</span><br><small style="color:var(--dim)">${dt(o.paid_at)} · ${esc(o.method||'')}</small>${o.bumps&&o.bumps.length?`<br><small>➕ ${o.bumps.map(esc).join(', ')}</small>`:''}${o.upsells&&o.upsells.length?`<br><small>⬆️ ${o.upsells.map(esc).join(', ')}</small>`:''}${o.campaign?`<br><small style="color:var(--dim)">📣 ${esc(o.campaign)}${o.ad?' · '+esc(o.ad):''}</small>`:''}${o.note?`<br><small style="color:var(--dim)">📝 ${esc(o.note)}</small>`:''}<div style="margin-top:8px">${o.status==='pago'?`<button class="btn sm" data-st="cancelado" data-o="${esc(o.id)}">Cancelar acesso</button>`:`<button class="btn sm" data-st="pago" data-o="${esc(o.id)}">Reativar acesso</button>`}</div></div>`).join('')||'<p class="note">Sem compras registradas (conta de teste ou admin).</p>'}
-   ${p.push_on&&p.user_id?`<div class="ttl" style="font-size:16px">Mandar notificação só pra ele</div>
-   <div class="field"><input id="d_t" value="[SISTEMA] " maxlength="80"></div><div class="field"><textarea id="d_b" maxlength="240" placeholder="Mensagem"></textarea></div>
-   <button class="btn gold" data-send1="${p.user_id}">🔔 Enviar</button>`:''}
+   <div class="ttl" style="font-size:16px;margin-top:12px">💬 Mensagens com ${esc((p.hero||p.buyer||'o caçador').split(' ')[0])}</div>
+   ${p.user_id?`<div class="thr" id="thr"><p class="mut">Carregando…</p></div>
+   <div class="field" style="margin-top:8px"><textarea id="d_b" maxlength="2000" rows="3" placeholder="Escreva sua mensagem. Ela aparece dentro do app dele."></textarea></div>
+   ${p.push_on?'<label style="display:flex;gap:8px;align-items:center;font-size:13px;margin:-2px 0 8px"><input type="checkbox" id="d_push" checked> Também avisar no celular (notificação)</label>':'<p class="mut" style="font-size:12.5px;margin:-2px 0 8px">Ele está sem notificação ligada: vai ver a mensagem quando abrir o app.</p>'}
+   <button class="btn gold" data-msg1="${p.user_id}">📜 Enviar mensagem</button>`:'<p class="mut">Essa pessoa ainda não criou a conta no app, então ainda não dá para mandar mensagem.</p>'}
   </div>`;
   d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-x]'))d.remove();if(e.target.closest('[data-grant]')){d.remove();grantForm(p.email,p.buyer||p.hero||'');return}const st=e.target.closest('[data-st]');if(st){if(!confirm(st.dataset.st==='pago'?'Reativar este acesso?':'Cancelar este acesso? A pessoa perde o plano no app.'))return;sb.rpc('fh_admin_set_status',{p_order_id:st.dataset.o,p_status:st.dataset.st}).then(async r=>{if(r.error)return toast('❌ '+r.error.message);toast('✅ Atualizado');d.remove();await load();drawer(email)});return}
-  const s=e.target.closest('[data-send1]');if(s)send({target:'users',user_ids:[s.dataset.send1],title:$('#d_t').value,body:$('#d_b').value,url:'/app/'},s)});
+  const s=e.target.closest('[data-msg1]');if(s)msgSend(p,s)});
   document.body.appendChild(d);
+  if(p.user_id)loadThread(p.user_id);
 }
 
 const BUMPS=['Grimório da Alimentação do Herói','Missões Relâmpago','Pergaminho da Regeneração','Diário do Caçador · 90 dias','Arsenal Completo (todos os aceleradores + bônus)'];
@@ -294,7 +303,7 @@ async function send(payload,btn){
 function render(){
   $('#root').innerHTML=`<header><div class="brand">CENTRAL DO MESTRE<small>FORJA DO HERÓI · ADMIN</small></div><div class="hr"><button class="btn gold sm" id="add">＋ Cadastrar acesso</button><button class="btn sm" id="rl">↻ Atualizar</button><button class="btn sm" id="out">Sair</button></div></header>
   ${kpis()}
-  <div class="tabs">${[['jogadores','👥 Jogadores'],['ranking','🏆 Ranking'],['notif','🔔 Notificações'],['quiz','📊 Quiz'],['ab','🧪 Teste A/B'],['trial','🎁 Teste grátis'],['msgs','💬 Mensagens']].map(([k,n])=>`<button class="${TAB===k?'on':''}" data-tab="${k}">${n}</button>`).join('')}</div>
+  <div class="tabs">${[['jogadores','👥 Jogadores'],['ranking','🏆 Ranking'],['notif','🔔 Notificações'],['quiz','📊 Quiz'],['ab','🧪 Teste A/B'],['trial','🎁 Teste grátis'],['msgs',tabMsgsLabel()]].map(([k,n])=>`<button class="${TAB===k?'on':''}" data-tab="${k}">${n}</button>`).join('')}</div>
   <div id="view">${TAB==='jogadores'?viewPlayers():TAB==='ranking'?viewRank():TAB==='quiz'?viewQuiz():TAB==='ab'?viewAB():TAB==='trial'?viewTrials():TAB==='msgs'?viewMsgs():viewPush()}</div>`;
   bind();
 }
@@ -306,7 +315,7 @@ function bind(){
   document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{FILTER=b.dataset.f;render()});
   document.querySelectorAll('[data-e]').forEach(r=>r.onclick=()=>drawer(r.dataset.e));
   const q=$('#q');if(q)q.oninput=()=>{Q=q.value;const pos=q.selectionStart;render();const n=$('#q');n.focus();n.setSelectionRange(pos,pos)};
-  if(TAB==='msgs'){document.querySelectorAll('[data-fbf]').forEach(b=>b.onclick=()=>{FBF=b.dataset.fbf;render()});document.querySelectorAll('[data-fbs]').forEach(b=>b.onclick=async()=>{const [id,st]=b.dataset.fbs.split(':');const {error}=await sb.rpc('fh_admin_feedback_status',{p_id:+id,p_status:st});if(error)return toast('❌ '+error.message);const m=(FB||[]).find(x=>x.id==id);if(m)m.status=st;render()});document.querySelectorAll('[data-fbc]').forEach(b=>b.onclick=async()=>{const m=(FB||[]).find(x=>x.id==b.dataset.fbc);try{await navigator.clipboard.writeText('“'+m.msg+'” — '+(m.name||'Caçador')+(m.mkt==='pt'?' 🇵🇹':''));toast('Copiado')}catch(e){toast('Não deu para copiar')}})}
+  if(TAB==='msgs'){document.querySelectorAll('[data-openp]').forEach(b=>b.onclick=()=>drawer(b.dataset.openp));document.querySelectorAll('[data-fbf]').forEach(b=>b.onclick=()=>{FBF=b.dataset.fbf;render()});document.querySelectorAll('[data-fbs]').forEach(b=>b.onclick=async()=>{const [id,st]=b.dataset.fbs.split(':');const {error}=await sb.rpc('fh_admin_feedback_status',{p_id:+id,p_status:st});if(error)return toast('❌ '+error.message);const m=(FB||[]).find(x=>x.id==id);if(m)m.status=st;render()});document.querySelectorAll('[data-fbc]').forEach(b=>b.onclick=async()=>{const m=(FB||[]).find(x=>x.id==b.dataset.fbc);try{await navigator.clipboard.writeText('“'+m.msg+'” — '+(m.name||'Caçador')+(m.mkt==='pt'?' 🇵🇹':''));toast('Copiado')}catch(e){toast('Não deu para copiar')}})}
   if(TAB==='trial'){document.querySelectorAll('[data-trd]').forEach(b=>b.onclick=()=>{TRD=+b.dataset.trd;loadTrials()})}
   if(TAB==='quiz'){document.querySelectorAll('[data-qzm]').forEach(b=>b.onclick=()=>{QZM=b.dataset.qzm;QZC='';QZ=null;QZX=null;loadQuiz()});document.querySelectorAll('[data-qzd]').forEach(b=>b.onclick=()=>{QZD=+b.dataset.qzd;loadQuiz()});const c=$('#qzc');if(c)c.onchange=()=>{QZC=c.value;loadQuiz()}}
   if(TAB==='notif'){
@@ -412,15 +421,36 @@ function viewMsgs(){
    <p style="margin:8px 0;white-space:pre-wrap">${m.msg?esc(m.msg):'<i class="mut">(só deu a nota)</i>'}</p>
    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:12px"><span class="mut">${esc(m.email||'')}</span><span style="margin-left:auto">${m.consent?'<b style="color:#4cc38a">✓ autorizou usar como depoimento</b>':'<span class="mut">🔒 não autorizou mostrar</span>'}</span></div>
    <div style="display:flex;gap:6px;margin-top:8px">${m.consent&&m.msg?`<button class="btn sm ${m.status==='aprovado'?'gold':''}" data-fbs="${m.id}:${m.status==='aprovado'?'novo':'aprovado'}">${m.status==='aprovado'?'★ Aprovada':'☆ Marcar como boa'}</button><button class="btn sm" data-fbc="${m.id}">Copiar</button>`:''}<button class="btn sm" data-fbs="${m.id}:${m.status==='oculto'?'novo':'oculto'}">${m.status==='oculto'?'Mostrar':'Arquivar'}</button></div></div>`;
-  return `<div class="qzk"><div><small>RESPOSTAS</small><b>${n}</b></div><div><small>NOTA MÉDIA</small><b>${avg}</b><em>de 5</em></div><div><small>AUTORIZARAM DEPOIMENTO</small><b>${ok}</b></div></div>
+  const unr=UNR.map(u=>{const pl=P.find(x=>x.user_id===u.user_id);return pl?`<div class="qzbox" style="margin-bottom:8px;display:flex;gap:10px;align-items:center"><div style="flex:1"><b>📩 ${esc(pl.hero||pl.buyer||pl.email)}</b> <span class="badge">${u.n}</span><br><span class="mut" style="font-size:13px">${esc(String(u.preview||'').slice(0,120))}</span></div><button class="btn sm gold" data-openp="${esc(pl.email)}">Abrir conversa</button></div>`:''}).join('');
+  return `${unr?`<div class="ttl" style="font-size:16px;margin-bottom:8px">Respostas novas dos caçadores</div>${unr}<div style="height:14px"></div>`:''}<div class="qzk"><div><small>RESPOSTAS</small><b>${n}</b></div><div><small>NOTA MÉDIA</small><b>${avg}</b><em>de 5</em></div><div><small>AUTORIZARAM DEPOIMENTO</small><b>${ok}</b></div></div>
   <p class="mut" style="font-size:12.5px;margin:8px 0 12px">O Sistema manda uma mensagem particular no app para quem já treinou em 3 dias diferentes (a partir do 3º dia de uso). Ninguém mais vê. Só use como depoimento quem marcou a autorização, e só com o primeiro nome.</p>
   <div class="seg" style="margin-bottom:12px">${[['todas','Todas'],['autorizadas','Podem virar depoimento'],['aprovadas','★ Boas'],['ruins','😫 Reclamações']].map(([k,l])=>`<button class="${FBF===k?'on':''}" data-fbf="${k}">${l}</button>`).join('')}</div>${FBL?'<p class="mut">atualizando…</p>':''}
   ${list.length?list.map(card).join(''):'<p class="mut" style="padding:14px 0">Ainda nenhuma mensagem aqui. Elas chegam conforme os caçadores completam os primeiros dias de treino.</p>'}`;
 }
+async function loadThread(uid){
+  const el=$('#thr');if(!el)return;const r=await sb.rpc('fh_admin_inbox_thread',{p_user:uid});
+  if(r.error){el.innerHTML='<p class="err">'+esc(r.error.message)+'</p>';return}
+  const t=r.data||[];
+  el.innerHTML=t.length?t.map(m=>`<div class="bub ${m.from_admin?'me':''}"><div>${esc(m.body)}</div><small>${m.from_admin?'Você':'Caçador'} · ${dt(m.at)}${m.from_admin?(m.read_at?' · ✓✓ lida':' · ✓ enviada'):''}</small></div>`).join(''):'<p class="mut">Nenhuma mensagem ainda.</p>';
+  el.scrollTop=el.scrollHeight;
+  if(UNR.some(u=>u.user_id===uid)){UNR=UNR.filter(u=>u.user_id!==uid);const b=document.querySelector('[data-tab=msgs]');if(b)b.innerHTML=tabMsgsLabel()}
+}
+async function msgSend(p,btn){
+  const body=$('#d_b').value.trim();if(!body)return toast('Escreva a mensagem');
+  btn.disabled=true;
+  try{const r=await sb.rpc('fh_admin_inbox_send',{p_user:p.user_id,p_body:body});if(r.error)throw r.error;
+    let extra='';
+    if($('#d_push')&&$('#d_push').checked){try{const {data:{session}}=await sb.auth.getSession();
+      const pr=await fetch(FN,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+session.access_token,apikey:KEY},body:JSON.stringify({target:'users',user_ids:[p.user_id],title:'📜 Mensagem do Mestre',body:body.length>120?body.slice(0,117)+'…':body,url:'/app/?msg=1'})});
+      const j=await pr.json();extra=pr.ok&&j.sent?' e avisado no celular':' (o aviso no celular não foi entregue)'}catch(e){extra=' (o aviso no celular não foi entregue)'}}
+    $('#d_b').value='';toast('✅ Mensagem enviada'+extra);loadThread(p.user_id);
+  }catch(e){toast('❌ '+e.message)}finally{btn.disabled=false}
+}
+function tabMsgsLabel(){const n=UNR.reduce((a,u)=>a+u.n,0);return '💬 Mensagens'+(n?` <b class="badge">${n}</b>`:'')}
 function confirmSend(who){return window.confirm('Enviar esta notificação para: '+who+'?')}
 async function load(){
-  const [a,b]=await Promise.all([sb.rpc('fh_admin_players'),sb.rpc('fh_admin_push_log')]);
-  if(a.error)throw a.error;P=a.data||[];LOG=b.data||[];render();
+  const [a,b,u]=await Promise.all([sb.rpc('fh_admin_players'),sb.rpc('fh_admin_push_log'),sb.rpc('fh_admin_inbox_unread')]);
+  if(a.error)throw a.error;P=a.data||[];LOG=b.data||[];UNR=(u&&u.data)||[];render();
 }
 function login(msg=''){
   $('#root').innerHTML=`<form class="login ch glow" id="lf"><h1>CENTRAL DO MESTRE</h1><p>Acesso restrito ao administrador</p>
