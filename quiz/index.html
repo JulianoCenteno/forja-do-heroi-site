@@ -443,6 +443,11 @@ function vRes(){const p=profile();const probs=A.prob||[];
  <div class="sec-h" style="margin-top:22px">VEJA O APP POR DENTRO</div>
  <p class="sub" style="font-size:14.5px">É assim que fica o treino de ${nm()}: cada série vira XP, você sobe de nível e derrota chefes.</p>
  <div class="phone"><video id="demo" src="/quiz/tour.mp4?v=3" poster="/quiz/tour-poster.webp?v=2" muted loop playsinline preload="none"></video><span class="ph-badge">▶ O APP POR DENTRO</span></div>
+<!--fh-dep--> <div class="sec-h" style="margin-top:22px">O QUE OS CAÇADORES ESTÃO DIZENDO</div>
+ <div class="dep"><div class="dep-track" id="depT">${['matheus','gabriel','rafael'].map(n=>`<div class="dep-it"><img src="/img/depoimentos/dep-${n}.webp" alt="Depoimento de cliente no WhatsApp" loading="lazy" width="738" height="1312"></div>`).join('')}</div>
+  <button class="dep-nav l" data-dep="-1" aria-label="Anterior">‹</button><button class="dep-nav r" data-dep="1" aria-label="Próximo">›</button>
+  <div class="dep-dots" id="depD"><i class="on"></i><i></i><i></i></div></div>
+<!--/fh-dep-->
  <div class="sec-h" style="margin-top:20px">ESCOLHA SUA JORNADA</div>
  <div class="offer2"><div class="o2h"><div><b>Recruta</b><small>O essencial para começar</small></div><div class="o2p"><s>R$ 39,90</s><b>R$ 9,90</b></div></div>
   <div class="inc sm"><div><span>Acesso ao app com sistema de treino em RPG</span></div><div><span>Mais de 90 exercícios, aeróbico por tempo e exercícios criados por você</span></div><div><span>Missões diárias e de emergência, chefes e evolução de nível</span></div><div><span>Loja com ícones, banners que evoluem e papéis de parede</span></div><div class="no"><span>Sem os Mestres, sem fichas prontas e sem a Dungeon</span></div><div class="no"><span>Sem Taverna, Alquimia e Playlist</span></div><div class="no"><span>Seu crédito do teste não vale neste plano</span></div></div>
@@ -479,11 +484,7 @@ function vRes(){const p=profile();const probs=A.prob||[];
   <div><img src="/app/img/ui/boss-ban.webp" alt=""><b>👹 Chefes e Dungeon</b><span>Desafios semanais que testam sua força e te dão recompensas raras.</span></div>
   <div><img src="https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh/art/evo/${p.cls}_${fem()?'f':'m'}_30.webp" alt="" style="object-position:72% 25%"><b>⚔️ Seu herói evolui</b><span>Conforme você sobe de nível, libera formas mais fortes do seu herói: armadura, capa e até asas de energia no nível 50.</span></div>
  </div>
-<!--fh-dep--> <div class="sec-h">O QUE OS CAÇADORES ESTÃO DIZENDO</div>
- <div class="dep"><div class="dep-track" id="depT">${['matheus','gabriel','rafael'].map(n=>`<div class="dep-it"><img src="/img/depoimentos/dep-${n}.webp" alt="Depoimento de cliente no WhatsApp" loading="lazy" width="738" height="1312"></div>`).join('')}</div>
-  <button class="dep-nav l" data-dep="-1" aria-label="Anterior">‹</button><button class="dep-nav r" data-dep="1" aria-label="Próximo">›</button>
-  <div class="dep-dots" id="depD"><i class="on"></i><i></i><i></i></div></div>
-<!--/fh-dep--> <div class="guar"><img src="/img/v3/gar-badge.webp" alt="" onerror="this.src='/img/garantia.webp'"><p><b>Garantia de 7 dias.</b> Entrou, treinou e não curtiu? Pede o reembolso em até 7 dias e você recebe 100% de volta.</p></div>
+ <div class="guar"><img src="/img/v3/gar-badge.webp" alt="" onerror="this.src='/img/garantia.webp'"><p><b>Garantia de 7 dias.</b> Entrou, treinou e não curtiu? Pede o reembolso em até 7 dias e você recebe 100% de volta.</p></div>
  <div class="sec-h">COMO FUNCIONA</div>
  <div class="how">
   <div><img src="/app/img/ui/m-trio.webp" alt=""><span><b>1. Entre no app</b>Acesso na hora, pelo celular. Sem baixar nada da loja.</span></div>
