@@ -347,6 +347,5 @@ setInterval(()=>{const r=box.getBoundingClientRect();if(!user&&document.visibili
 if(matchMedia('(max-width:640px)').matches){const row=document.querySelector('.cls2');const io=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('on',e.isIntersecting)),{root:row,threshold:.7});document.querySelectorAll('.c2').forEach(c=>io.observe(c));
  addEventListener('load',()=>{const m=row.children[1];row.scrollLeft=m.offsetLeft-(row.clientWidth-m.offsetWidth)/2})}
 }</script>
-<script src="/exit-trial.js?v=3"></script>
 </body>
 </html>
