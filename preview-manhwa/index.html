@@ -11,10 +11,10 @@ figcaption{padding:10px 14px;font-weight:600;display:flex;justify-content:space-
 figcaption a{color:#f5c542;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 #z{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:9}#z img{max-width:96vw;max-height:94vh}
 </style></head><body>
-<header><h1>Criativos estilo manhwa — prévia</h1><p>12 quadrinhos verticais 4:5 para feed e stories. Toque numa imagem para ampliar.</p></header>
+<header><h1>Criativos estilo manhwa — prévia</h1><p>13 quadrinhos verticais 4:5 para feed e stories. Toque numa imagem para ampliar.</p></header>
 <main id="g"></main><div id="z"><img alt=""></div>
 <script>{const B='https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh/art/manhwa/';
-const L=[['01_desperto','1 · Do fraco ao desperto'],['02_mestres','2 · Os 3 Mestres'],['03_boss','3 · Boss battle'],['04_feminina','4 · Versão feminina'],['05_emergencia','5 · Missão de emergência'],['06_em_casa','6 · Sem academia, sem desculpa'],['07_dungeon','7 · A Dungeon'],['08_duelo','8 · Duelo entre amigos'],['09_app_por_dentro','9 · O app por dentro'],['10_teste_gratis','10 · Teste grátis 24h'],['11_guilda','11 · A Guilda'],['12_bencao_mestre','12 · A bênção do Mestre']];
+const L=[['01_desperto','1 · Do fraco ao desperto'],['02_mestres','2 · Os 3 Mestres'],['03_boss','3 · Boss battle'],['04_feminina','4 · Versão feminina'],['05_emergencia','5 · Missão de emergência'],['06_em_casa','6 · Sem academia, sem desculpa'],['07_dungeon','7 · A Dungeon'],['08_duelo','8 · Duelo entre amigos'],['09_app_por_dentro','9 · O app por dentro'],['10_teste_gratis','10 · Teste grátis 24h'],['11_guilda','11 · A Guilda'],['12_bencao_mestre','12 · A bênção do Mestre'],['13_desafio','13 · Aceita o desafio? (contratos da Guilda)']];
 const g=document.getElementById('g'),z=document.getElementById('z'),zi=z.querySelector('img');
 g.innerHTML=L.map(([f,t])=>`<figure><img loading="lazy" src="${B+f}.jpg" alt="${t}"><figcaption>${t}<a href="${B+f}.jpg?download=${f}.jpg">Baixar</a></figcaption></figure>`).join('');
 g.addEventListener('click',e=>{if(e.target.tagName==='IMG'){zi.src=e.target.src;z.style.display='flex'}});z.onclick=()=>z.style.display='none';}</script>
