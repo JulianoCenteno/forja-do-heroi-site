@@ -56,7 +56,7 @@ input[type=text],select{width:100%;padding:11px 12px;border-radius:10px;border:1
 .scrim{position:fixed;inset:0;background:rgba(2,3,8,.82);backdrop-filter:blur(3px);display:none;align-items:flex-end;justify-content:center;z-index:20}
 .scrim.on{display:flex}
 .sheet{width:100%;max-width:460px;max-height:88vh;overflow:auto;background:linear-gradient(180deg,#14213f,#0a1020);border:1px solid var(--line2);border-radius:20px 20px 0 0;padding:16px 14px 24px}
-.ms{display:flex;gap:10px;padding:12px;margin-top:10px;border-radius:12px;background:url(/app/img/ui/q-reward.webp) right -20px center/90px no-repeat,linear-gradient(180deg,#f3e6c4,#e0cc9a);color:#2a1c05;border:2px solid #8a6424;box-shadow:inset 0 0 18px rgba(120,80,20,.35)}
+.ms{display:flex;gap:10px;padding:12px;margin-top:10px;border-radius:12px;background:url(/app/img/ui/q-reward.webp) right 6px top 8px/46px no-repeat,linear-gradient(180deg,#f3e6c4,#e0cc9a);padding-right:58px;color:#2a1c05;border:2px solid #8a6424;box-shadow:inset 0 0 18px rgba(120,80,20,.35)}
 .ms.lock{filter:grayscale(1);opacity:.55}
 .ms .rk{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font:900 italic 22px 'Exo 2';color:#fff;border:2px solid #fff}
 .rkE{background:#6b7b90}.rkD{background:#3f9d5a}.rkC{background:#2d78c8}.rkB{background:#8a3fd1}.rkA{background:#d1442f}.rkS{background:linear-gradient(135deg,#ffcf4a,#e07a12)}
@@ -155,9 +155,9 @@ function roll(){const c=$('#ch');if(!c||c.dataset.o)return;c.dataset.o=1;c.class
 function boardHTML(){const r=rankOf(ST.selos);const mi=RKI(r[0]);const nAct=Object.keys(ST.active).length;
  return `<div style="display:flex;justify-content:space-between;align-items:center"><div><span class="tag">QUADRO DA GUILDA</span><div class="h2" style="margin-top:6px">Contratos da semana</div></div><button class="btn sm" onclick="closeS()">✕</button></div>
  <p class="mute" style="font-size:13.5px;margin-top:4px">Feitos para o seu nível (${H().L}) e sua média de treinos (${H().D}x/semana). Pegue até 2 por vez. Seu rank: <b style="color:#ffd84a">${r[0]}</b>. Você pode pegar contratos até 1 rank acima do seu.</p>
- ${missions().map(m=>{const lock=RKI(m.rk)>mi+1,act=ST.active[m.id],dn=ST.done[m.id];
+ ${missions().map(m=>{const lock=RKI(m.rk)>mi+1,act=ST.active[m.id],has=act!==undefined,dn=ST.done[m.id];
   return `<div class="ms ${lock?'lock':''}"><div class="rk rk${m.rk}">${m.rk}</div><div style="flex:1"><h4>${m.t}</h4><p>${m.d}</p><div class="rw">⚡ +${m.x} XP · 🏅 +${m.s} selos</div>
-   <div class="act">${lock?`🔒 Libera no rank ${RANKS[RKI(m.rk)-1][0]}`:dn?'✅ Cumprido!':act?`<div class="pbar"><i style="width:${act}%"></i></div><button class="btn${act>=100?'p ok':'p'}" onclick="prog('${m.id}')">${act>=100?'Entregar':'+ progresso (simular)'}</button>`:`<button class="btnp" ${nAct>=2?'disabled style="opacity:.5"':''} onclick="take('${m.id}')">📌 Aceitar contrato</button>`}</div></div></div>`}).join('')}`}
+   <div class="act">${lock?`🔒 Libera no rank ${RANKS[RKI(m.rk)-1][0]}`:dn?'✅ Cumprido!':has?`<div class="pbar"><i style="width:${act}%"></i></div><button class="btn${act>=100?'p ok':'p'}" onclick="prog('${m.id}')">${act>=100?'Entregar':'+ progresso (simular)'}</button>`:`<button class="btnp" ${nAct>=2?'disabled style="opacity:.5"':''} onclick="take('${m.id}')">📌 Aceitar contrato</button>`}</div></div></div>`}).join('')}`}
 function openBoard(){openS(boardHTML())}
 function take(id){if(Object.keys(ST.active).length>=2)return;ST.active[id]=0;$('#sheet').innerHTML=boardHTML();render();toast('📌 Contrato aceito')}
 function prog(id){const m=missions().find(x=>x.id===id);if(ST.active[id]>=100){delete ST.active[id];ST.done[id]=1;ST.selos+=m.s;render();$('#sheet').innerHTML=boardHTML();toast(`🏅 +${m.s} selos · ⚡ +${m.x} XP`);return}
