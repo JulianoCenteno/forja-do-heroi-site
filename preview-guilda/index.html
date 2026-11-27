@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Prévia · Guilda · Forja do Herói</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,700;1,800;1,900&family=Jost:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05070d;--text:#e6f1ff;--mute:#8ea3c4;--line2:#24406f;--gd:#ffd84a;--panelv:rgba(6,14,32,.86)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:#020308 url(/app/img/ui/particles.png) center/600px;color:var(--text);font-family:Rajdhani,system-ui,sans-serif;font-size:16px;font-weight:500}
+.top{max-width:460px;margin:0 auto;padding:14px 14px 0}
+.note{background:#0b1222;border:1px dashed #3b5a96;border-radius:12px;padding:10px 12px;font-size:13.5px;color:var(--mute);line-height:1.45}
+.note b{color:#fff}
+.sim{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.sim label{font:600 11px Jost;letter-spacing:.1em;color:var(--mute)}
+.sim input{width:100%}
+.sim output{color:var(--gd);font-weight:700}
+.app{max-width:460px;margin:12px auto 80px;padding:0 12px}
+.ban{position:relative;border-radius:16px;overflow:hidden;border:1.5px solid rgba(255,210,110,.6);box-shadow:0 0 22px rgba(255,190,60,.25)}
+.ban img{display:block;width:100%;height:170px;object-fit:cover}
+.ban .t{position:absolute;left:0;right:0;bottom:0;padding:26px 12px 10px;text-align:center;background:linear-gradient(transparent,rgba(3,5,12,.92))}
+.ban h1{font:900 italic 34px/1 'Exo 2';letter-spacing:.06em;background:linear-gradient(180deg,#fff3c4,#ffc843 60%,#c98a12);-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 2px 6px rgba(0,0,0,.8))}
+.ban p{font:600 13px Jost;color:#d9e6ff;margin-top:2px;letter-spacing:.06em}
+.pv{position:relative;background:var(--panelv);border:1px solid rgba(110,200,255,.55);border-radius:14px;box-shadow:0 0 14px rgba(79,195,255,.22),inset 0 0 22px rgba(79,195,255,.06);padding:14px}
+.gold{border-color:rgba(255,210,110,.7);box-shadow:0 0 16px rgba(255,190,60,.25),inset 0 0 22px rgba(255,190,60,.06)}
+.mt{margin-top:12px}
+.h2{font:800 italic 20px 'Exo 2';color:#fff}
+.mute{color:var(--mute)}
+.tag{display:inline-block;padding:3px 9px;border:1px solid rgba(200,235,255,.6);background:rgba(4,10,22,.6);font:700 10.5px Jost;letter-spacing:.16em;color:#fff}
+.btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:12px 14px;margin-top:10px;font:700 15px Rajdhani;letter-spacing:.04em;color:#fff;background:rgba(79,195,255,.18);border:1px solid #dff4ff;box-shadow:0 0 14px rgba(79,195,255,.4),inset 0 0 12px rgba(79,195,255,.2);cursor:pointer}
+.btn.g{background:linear-gradient(180deg,rgba(255,210,122,.35),rgba(255,178,56,.22));border-color:#ffe2a3;box-shadow:0 0 20px rgba(255,198,90,.45),inset 0 0 14px rgba(255,198,90,.3);text-shadow:0 0 10px rgba(255,210,122,.9)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.sm{width:auto;padding:8px 12px;font-size:14px;margin-top:0}
+input[type=text],select{width:100%;padding:11px 12px;border-radius:10px;border:1px solid #2c4a80;background:#08101f;color:#fff;font:600 15px Rajdhani;margin-top:5px}
+.fl{font:700 11px Jost;letter-spacing:.14em;color:var(--mute);margin-top:12px;display:block}
+.chips{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
+.chip{flex:1;min-width:90px;padding:10px 6px;border-radius:10px;border:1px solid #2c4a80;background:#08101f;text-align:center;cursor:pointer;font-weight:700}
+.chip small{display:block;font-weight:500;color:var(--mute);font-size:12px}
+.chip.on{border-color:#ffd84a;background:rgba(255,200,60,.12);box-shadow:0 0 12px rgba(255,200,60,.3)}
+.oath{display:flex;gap:10px;align-items:flex-start;margin-top:12px;font-size:14px;line-height:1.35;color:#d6e2f5}
+.oath input{width:20px;height:20px;margin-top:2px;accent-color:#ffd84a}
+.card{display:flex;gap:12px;align-items:center}
+.crest{width:64px;height:64px;border-radius:14px;object-fit:cover;border:1px solid #ffe2a3;flex:none}
+.rank{font:900 italic 30px/1 'Exo 2';color:var(--gd);text-shadow:0 0 12px rgba(255,200,60,.6)}
+.bar{height:8px;background:#14223f;border-radius:5px;overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;background:linear-gradient(90deg,#ffd84a,#ff9d2e)}
+.master{display:flex;gap:12px;align-items:flex-end}
+.master img{width:120px;height:160px;object-fit:cover;object-position:top;border-radius:12px;border:1px solid #ffe2a3;flex:none}
+.speech{position:relative;background:#f5ecd3;color:#2a1c05;border-radius:12px;padding:10px 12px;font-size:14.5px;font-weight:600;line-height:1.3}
+.speech:before{content:'';position:absolute;left:-8px;bottom:18px;border:8px solid transparent;border-right-color:#f5ecd3;border-left:0}
+.mural{position:relative;border-radius:14px;overflow:hidden;cursor:pointer;border:1.5px solid rgba(255,210,110,.6)}
+.mural img{display:block;width:100%;height:190px;object-fit:cover;transition:transform .4s}
+.mural:hover img{transform:scale(1.04)}
+.mural .t{position:absolute;inset:auto 0 0 0;padding:30px 12px 12px;background:linear-gradient(transparent,rgba(3,5,12,.92));display:flex;justify-content:space-between;align-items:flex-end}
+.mural b{font:800 italic 22px 'Exo 2'}
+.pulse{animation:pl 1.8s infinite}@keyframes pl{50%{box-shadow:0 0 30px rgba(255,198,90,.85)}}
+.scrim{position:fixed;inset:0;background:rgba(2,3,8,.82);backdrop-filter:blur(3px);display:none;align-items:flex-end;justify-content:center;z-index:20}
+.scrim.on{display:flex}
+.sheet{width:100%;max-width:460px;max-height:88vh;overflow:auto;background:linear-gradient(180deg,#14213f,#0a1020);border:1px solid var(--line2);border-radius:20px 20px 0 0;padding:16px 14px 24px}
+.ms{display:flex;gap:10px;padding:12px;margin-top:10px;border-radius:12px;background:url(/app/img/ui/q-reward.webp) right -20px center/90px no-repeat,linear-gradient(180deg,#f3e6c4,#e0cc9a);color:#2a1c05;border:2px solid #8a6424;box-shadow:inset 0 0 18px rgba(120,80,20,.35)}
+.ms.lock{filter:grayscale(1);opacity:.55}
+.ms .rk{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font:900 italic 22px 'Exo 2';color:#fff;border:2px solid #fff}
+.rkE{background:#6b7b90}.rkD{background:#3f9d5a}.rkC{background:#2d78c8}.rkB{background:#8a3fd1}.rkA{background:#d1442f}.rkS{background:linear-gradient(135deg,#ffcf4a,#e07a12)}
+.ms h4{font:800 16px Jost}.ms p{font-size:14px;line-height:1.3;margin-top:2px}
+.ms .rw{font:700 13px Jost;margin-top:6px;color:#5a3c06}
+.ms .act{margin-top:8px;display:flex;gap:8px;align-items:center}
+.ms .btnp{padding:7px 12px;border-radius:8px;border:1px solid #5a3c06;background:#5a3c06;color:#ffe9b0;font:700 13px Jost;cursor:pointer}
+.ms .btnp.ok{background:#2f7d43;border-color:#1d5a2d;color:#fff}
+.pbar{flex:1;height:7px;background:rgba(90,60,6,.25);border-radius:4px;overflow:hidden}.pbar i{display:block;height:100%;background:#2f7d43}
+.chest{width:150px;height:150px;margin:6px auto;display:block;cursor:pointer;filter:drop-shadow(0 0 18px rgba(255,200,60,.6));transition:transform .2s}
+.chest.shake{animation:sh .5s 2}@keyframes sh{25%{transform:rotate(-6deg)}75%{transform:rotate(6deg)}}
+.prize{text-align:center;font:800 italic 26px 'Exo 2';color:var(--gd);margin:6px 0}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:8px}.tbl td{padding:5px 4px;border-bottom:1px solid #1d2c4d}.tbl td:last-child{text-align:right;color:var(--gd);font-weight:700}
+.toast{position:fixed;left:50%;top:14px;transform:translateX(-50%);background:#0d1a35;border:1px solid #ffd84a;color:#fff;padding:10px 16px;border-radius:12px;font-weight:700;z-index:30;display:none}
+</style></head><body>
+
+<div class="top">
+ <div class="note">🔎 <b>Prévia da Guilda</b>, ainda não está no app. Os dados do herói são de exemplo: mexa nos controles abaixo para ver as missões do mural se adaptarem ao nível e aos treinos de cada caçador.
+  <div class="sim">
+   <div><label>NÍVEL DO HERÓI: <output id="oL">8</output></label><input type="range" id="sL" min="1" max="40" value="8"></div>
+   <div><label>TREINOS POR SEMANA: <output id="oD">3</output></label><input type="range" id="sD" min="1" max="7" value="3"></div>
+  </div>
+  <button class="btn sm" style="margin-top:8px" onclick="reset()">↺ Recomeçar (ver o cadastro de novo)</button>
+ </div>
+</div>
+
+<div class="app" id="app"></div>
+<div class="scrim" id="scrim" onclick="if(event.target===this)closeS()"><div class="sheet" id="sheet"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const IMG='https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh/art/guilda/';
+const ST={joined:false,name:'Brutão',spec:'forca',goal:4,selos:120,chest:false,active:{},done:{}};
+const RANKS=[['E',0],['D',150],['C',400],['B',900],['A',1800],['S',3500]];
+const $=s=>document.querySelector(s);
+const H=()=>({L:+$('#sL').value,D:+$('#sD').value});
+function rankOf(s){let r=RANKS[0];for(const x of RANKS)if(s>=x[1])r=x;return r}
+function nextRank(s){return RANKS.find(x=>x[1]>s)}
+function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',2200)}
+function missions(){const {L,D}=H();const sets=Math.round(D*14);const km=Math.max(3,Math.round(D*1.6));
+ return [
+  {id:'e',rk:'E',t:'Contrato de Ferro',d:`Treine ${Math.min(7,D+1)} dias nesta semana.`,x:60+L*4,s:25},
+  {id:'d',rk:'D',t:'Caçada de Volume',d:`Complete ${Math.round(sets*1.25)} séries até domingo (sua média é ${sets}).`,x:90+L*5,s:40},
+  {id:'c',rk:'C',t:'Sequência Inquebrável',d:`Treine ${Math.min(7,Math.max(3,D))} dias seguidos sem quebrar a chama 🔥.`,x:130+L*6,s:60},
+  {id:'b',rk:'B',t:'Prova do Recorde',d:`Bata seu recorde em ${L<10?1:2} exercício${L<10?'':'s'} da Planilha.`,x:180+L*7,s:90},
+  {id:'a',rk:'A',t:'Expedição da Guilda',d:`Corra ${km} km na semana com o GPS do app.`,x:240+L*8,s:130},
+  {id:'s',rk:'S',t:'Lenda do Ferro',d:`Faça ${100+L*10} repetições de um mesmo exercício em um único dia.`,x:400+L*10,s:220}
+ ]}
+const RKI=r=>RANKS.findIndex(x=>x[0]===r);
+function render(){
+ const a=$('#app');
+ const ban=`<div class="ban"><img src="${IMG}ban.webp" alt=""><div class="t"><h1>GUILDA</h1><p>SALÃO DOS CAÇADORES</p></div></div>`;
+ if(!ST.joined){a.innerHTML=ban+`
+  <div class="pv gold mt"><span class="tag">[ SISTEMA ] · INSCRIÇÃO</span>
+   <div class="h2" style="margin-top:8px">Cadastro na Guilda</div>
+   <p class="mute" style="font-size:14.5px;margin-top:4px">Aqui ficam os caçadores que querem ir além. Missões mais difíceis, feitas para o seu nível, e as bênçãos do Mestre da Guilda.</p>
+   <label class="fl">NOME DE CAÇADOR</label><input type="text" id="fn" value="${ST.name}" maxlength="18">
+   <label class="fl">ESPECIALIDADE</label>
+   <div class="chips">${[['forca','⚔️ Força','mais carga'],['resist','🔥 Resistência','mais volume'],['disc','🧘 Disciplina','mais constância']].map(([k,n,d])=>`<div class="chip ${ST.spec===k?'on':''}" onclick="ST.spec='${k}';ST.name=$('#fn').value;render()">${n}<small>${d}</small></div>`).join('')}</div>
+   <label class="fl">MEU COMPROMISSO</label>
+   <div class="chips">${[3,4,5,6].map(n=>`<div class="chip ${ST.goal===n?'on':''}" onclick="ST.goal=${n};ST.name=$('#fn').value;render()">${n}x<small>por semana</small></div>`).join('')}</div>
+   <label class="oath"><input type="checkbox" id="fo" onchange="$('#fj').disabled=!this.checked"> Juro treinar com honra, cumprir meus contratos e nunca abandonar a jornada.</label>
+   <button class="btn g" id="fj" disabled onclick="join()">📜 Assinar o pergaminho e entrar</button>
+   <p class="mute" style="font-size:12.5px;margin-top:8px;text-align:center">Requisito: nível 3 ou mais.</p>
+  </div>`;return}
+ const s=ST.selos,r=rankOf(s),n=nextRank(s),pct=n?Math.round((s-r[1])/(n[1]-r[1])*100):100;
+ const nAct=Object.keys(ST.active).length;
+ a.innerHTML=ban+`
+  <div class="pv gold mt card"><img class="crest" src="${IMG}icone.webp" alt=""><div style="flex:1">
+    <div class="mute" style="font:700 11px Jost;letter-spacing:.14em">CARTEIRA DA GUILDA · Nº 0142</div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end"><div><b style="font-size:18px">${esc(ST.name)}</b><div class="mute" style="font-size:13px">${{forca:'⚔️ Força',resist:'🔥 Resistência',disc:'🧘 Disciplina'}[ST.spec]} · ${ST.goal}x por semana</div></div><div class="rank">RANK ${r[0]}</div></div>
+    <div class="bar"><i style="width:${pct}%"></i></div><div class="mute" style="font-size:12.5px;margin-top:3px">🏅 ${s} selos${n?` · faltam ${n[1]-s} para o rank ${n[0]}`:' · rank máximo'}</div>
+  </div></div>
+
+  <div class="pv mt"><div class="master"><img src="${IMG}mestre.webp" alt="Mestre da Guilda"><div style="flex:1">
+    <span class="tag">MESTRE DA GUILDA · GARRICK</span>
+    <div class="speech" style="margin-top:8px">${ST.chest?'Volte amanhã, caçador. Treine hoje que eu vejo tudo.':'Treinou ontem? Então merece. Abra o baú e veja o que eu separei para você.'}</div>
+  </div></div>
+  <button class="btn g ${ST.chest?'':'pulse'}" ${ST.chest?'disabled':''} onclick="openChest()">${ST.chest?'✅ Bênção de hoje já recebida':'🎁 Receber a bênção do Mestre'}</button>
+  <p class="mute" style="font-size:12.5px;text-align:center;margin-top:6px">1 bênção por dia, só para quem treinou nas últimas 48h. Prêmio aleatório.</p></div>
+
+  <div class="mural mt" onclick="openBoard()"><img src="${IMG}mural.webp" alt="Quadro da Guilda"><div class="t"><div><span class="tag">QUADRO DA GUILDA</span><br><b>Contratos da semana</b></div><span class="btn sm g">Ver ›</span></div></div>
+  <p class="mute" style="font-size:13px;margin-top:6px;text-align:center">${nAct?`${nAct} contrato${nAct>1?'s':''} em andamento · `:''}Renova toda segunda-feira</p>`;
+}
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function join(){if(H().L<3){toast('Precisa ser nível 3 para entrar');return}ST.name=$('#fn').value||'Caçador';ST.joined=true;render();
+ openS(`<div style="text-align:center"><span class="tag">[ SISTEMA ]</span><div style="font-size:54px;margin:8px 0">📜</div><div class="h2">Bem-vindo à Guilda, ${esc(ST.name)}!</div><p class="mute" style="margin-top:6px">Seu rank inicial é <b style="color:#ffd84a">E</b>. Cumpra contratos do Quadro para ganhar selos e subir até o rank <b style="color:#ffd84a">S</b>.</p><button class="btn g" onclick="closeS()">⚔️ Ver o salão</button></div>`)}
+const PRIZES=[[40,()=>{const x=50+H().L*6;return['⚡','+'+x+' XP','Energia do Mestre']}],[25,()=>['🪙','+'+(40+Math.round(Math.random()*60))+' moedas','Para gastar na Loja']],[15,()=>{ST.selos+=20;return['🏅','+20 selos','Mais perto do próximo rank']}],[12,()=>['🧪','XP em dobro por 1h','Poção da Guilda']],[6,()=>['🖼️','Moldura rara','“Brasão da Guilda” para o avatar']],[2,()=>['👑','Título lendário','“Escolhido do Mestre”']]];
+function openChest(){if(ST.chest)return;
+ openS(`<div style="text-align:center"><span class="tag">BÊNÇÃO DO MESTRE</span><img class="chest" id="ch" src="/app/img/ui/dg-chest.webp" alt="" onclick="roll()"><p class="mute">Toque no baú para abrir</p></div>`)}
+function roll(){const c=$('#ch');if(!c||c.dataset.o)return;c.dataset.o=1;c.classList.add('shake');
+ setTimeout(()=>{let t=Math.random()*100,p;for(const [w,f] of PRIZES){if((t-=w)<0){p=f();break}}if(!p)p=PRIZES[0][1]();ST.chest=true;render();
+  $('#sheet').innerHTML=`<div style="text-align:center"><span class="tag">BÊNÇÃO DO MESTRE</span><div style="font-size:64px;margin:10px 0 0">${p[0]}</div><div class="prize">${p[1]}</div><p class="mute">${p[2]}</p>
+  <table class="tbl"><tr><td colspan=2 class="mute" style="text-align:left">Chances do baú</td></tr><tr><td>⚡ XP extra</td><td>40%</td></tr><tr><td>🪙 Moedas</td><td>25%</td></tr><tr><td>🏅 Selos da Guilda</td><td>15%</td></tr><tr><td>🧪 XP em dobro por 1h</td><td>12%</td></tr><tr><td>🖼️ Moldura rara</td><td>6%</td></tr><tr><td>👑 Título lendário</td><td>2%</td></tr></table>
+  <button class="btn g" onclick="closeS()">Valeu, Mestre!</button></div>`},1000)}
+function boardHTML(){const r=rankOf(ST.selos);const mi=RKI(r[0]);const nAct=Object.keys(ST.active).length;
+ return `<div style="display:flex;justify-content:space-between;align-items:center"><div><span class="tag">QUADRO DA GUILDA</span><div class="h2" style="margin-top:6px">Contratos da semana</div></div><button class="btn sm" onclick="closeS()">✕</button></div>
+ <p class="mute" style="font-size:13.5px;margin-top:4px">Feitos para o seu nível (${H().L}) e sua média de treinos (${H().D}x/semana). Pegue até 2 por vez. Seu rank: <b style="color:#ffd84a">${r[0]}</b>. Você pode pegar contratos até 1 rank acima do seu.</p>
+ ${missions().map(m=>{const lock=RKI(m.rk)>mi+1,act=ST.active[m.id],dn=ST.done[m.id];
+  return `<div class="ms ${lock?'lock':''}"><div class="rk rk${m.rk}">${m.rk}</div><div style="flex:1"><h4>${m.t}</h4><p>${m.d}</p><div class="rw">⚡ +${m.x} XP · 🏅 +${m.s} selos</div>
+   <div class="act">${lock?`🔒 Libera no rank ${RANKS[RKI(m.rk)-1][0]}`:dn?'✅ Cumprido!':act?`<div class="pbar"><i style="width:${act}%"></i></div><button class="btn${act>=100?'p ok':'p'}" onclick="prog('${m.id}')">${act>=100?'Entregar':'+ progresso (simular)'}</button>`:`<button class="btnp" ${nAct>=2?'disabled style="opacity:.5"':''} onclick="take('${m.id}')">📌 Aceitar contrato</button>`}</div></div></div>`}).join('')}`}
+function openBoard(){openS(boardHTML())}
+function take(id){if(Object.keys(ST.active).length>=2)return;ST.active[id]=0;$('#sheet').innerHTML=boardHTML();render();toast('📌 Contrato aceito')}
+function prog(id){const m=missions().find(x=>x.id===id);if(ST.active[id]>=100){delete ST.active[id];ST.done[id]=1;ST.selos+=m.s;render();$('#sheet').innerHTML=boardHTML();toast(`🏅 +${m.s} selos · ⚡ +${m.x} XP`);return}
+ ST.active[id]=Math.min(100,ST.active[id]+50);$('#sheet').innerHTML=boardHTML()}
+function openS(h){$('#sheet').innerHTML=h;$('#scrim').classList.add('on')}
+function closeS(){$('#scrim').classList.remove('on')}
+function reset(){Object.assign(ST,{joined:false,selos:120,chest:false,active:{},done:{}});closeS();render();scrollTo(0,0)}
+['sL','sD'].forEach(id=>$('#'+id).oninput=()=>{$('#oL').textContent=$('#sL').value;$('#oD').textContent=$('#sD').value;if($('#scrim').classList.contains('on')&&$('.ms'))$('#sheet').innerHTML=boardHTML()});
+render();
+</script>
+</body></html>
