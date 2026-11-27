@@ -2820,7 +2820,7 @@ function render(){
    <p class="muted" style="margin:6px 0 16px;font-style:italic">Qual vai ser a sua missão, caçador?</p>
    <button class="btn gold full" data-a="mtGo">⚔️ Escolher minha ficha</button><button class="btn ghost full sm" style="margin-top:8px" data-a="close">Depois</button></div>`,true))}
   if(!nov4&&!S.cheat&&window.__FH_PLAN==='recruta'){const u=S.upg||{n:0,at:0};if(u.n<3&&Date.now()-u.at>3*864e5){S.upg={n:u.n+1,at:Date.now()};save();queueModal(upgModal)}}
-  else if(!nov4&&!S.cheat&&isElite()&&!abMax()&&S.nov2&&!S.nov3){S.nov3=Date.now();save();queueModal(abBuyModal)}
+  else if(!nov4&&!S.cheat&&isElite()&&!window.__FH_TRIAL&&!abMax()&&S.nov2&&!S.nov3){S.nov3=Date.now();save();queueModal(abBuyModal)}
   if(S.pen&&!S.pen.seen&&!S.cheat){S.pen.seen=true;save();queueModal(penModal)}
   if(S.nov1&&S.nov2&&!S.nov5&&!S.cheat&&!nov4){S.nov5=Date.now();save();queueModal(()=>openModal(`<div class="lvup"><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#ffc65a">NOVA ATUALIZAÇÃO</div>
    <h3 style="margin-top:8px">Vocês pediram, o Sistema ouviu</h3>
@@ -3091,6 +3091,7 @@ function abCard(){
    </div></button>`;
 }
 function abBuyModal(){
+  if(window.__FH_TRIAL){toast('🕳️','Primeiro garanta seu plano','A Dungeon do Abismo é uma expansão para quem já tem o app');TRIAL_STEP=0;trialPaywall(false);return}
   openModal(`<div class="lvup"><div style="font-size:56px">🕳️</div><div class="cap">[ SISTEMA ]</div><div class="cap" style="margin-top:4px;color:#c9a2ff">UM NOVO PORTAL FOI DETECTADO</div>
    <h3 style="margin-top:8px">Dungeon do Abismo</h3>
    <p class="muted" style="margin:10px 0 6px">A primeira Dungeon foi só o começo, caçador. Lá embaixo existe uma fase que poucos aguentam: <b>60 dias de treino avançado</b>, mais séries, exercícios de nível alto e chefes que só os lendários derrotam.</p>
@@ -3345,7 +3346,7 @@ document.addEventListener('click',ev=>{
     case 'abEnter': abOpen=true;dgOpen=false;render();window.scrollTo(0,0);break;
     case 'abBack': abOpen=false;render();window.scrollTo(0,0);break;
     case 'abDone': abComplete();break;
-    case 'abBuy': if(window.__FH_TRIAL){toast('🕳️','Primeiro garanta seu plano','A Dungeon do Abismo é uma expansão para quem já tem o app');TRIAL_STEP=0;trialPaywall(false);break}abBuyModal();break;
+    case 'abBuy': abBuyModal();break;
     case 'upgBuy': upgModal();break;
     case 'dgReset': confirmModal('Recomeçar a Dungeon do dia 1? Seu progresso de treinos continua salvo.',()=>{S.dg={done:{}};save();render()},'Recomeçar');break;
     case 'tvChan': TV.chan=b.dataset.v;render();break;
