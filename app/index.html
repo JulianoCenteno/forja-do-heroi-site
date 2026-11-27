@@ -3300,7 +3300,7 @@ document.addEventListener('click',ev=>{
     case 'abEnter': abOpen=true;dgOpen=false;render();window.scrollTo(0,0);break;
     case 'abBack': abOpen=false;render();window.scrollTo(0,0);break;
     case 'abDone': abComplete();break;
-    case 'abBuy': abBuyModal();break;
+    case 'abBuy': if(window.__FH_TRIAL){toast('🕳️','Primeiro garanta seu plano','A Dungeon do Abismo é uma expansão para quem já tem o app');TRIAL_STEP=0;trialPaywall(false);break}abBuyModal();break;
     case 'upgBuy': upgModal();break;
     case 'dgReset': confirmModal('Recomeçar a Dungeon do dia 1? Seu progresso de treinos continua salvo.',()=>{S.dg={done:{}};save();render()},'Recomeçar');break;
     case 'tvChan': TV.chan=b.dataset.v;render();break;
