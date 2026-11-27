@@ -56,7 +56,7 @@ input[type=text],select{width:100%;padding:11px 12px;border-radius:10px;border:1
 .scrim{position:fixed;inset:0;background:rgba(2,3,8,.82);backdrop-filter:blur(3px);display:none;align-items:flex-end;justify-content:center;z-index:20}
 .scrim.on{display:flex}
 .sheet{width:100%;max-width:460px;max-height:88vh;overflow:auto;background:linear-gradient(180deg,#14213f,#0a1020);border:1px solid var(--line2);border-radius:20px 20px 0 0;padding:16px 14px 24px}
-.ms{display:flex;gap:10px;padding:12px;margin-top:10px;border-radius:12px;background:url(/app/img/ui/q-reward.webp) right 6px top 8px/46px no-repeat,linear-gradient(180deg,#f3e6c4,#e0cc9a);padding-right:58px;color:#2a1c05;border:2px solid #8a6424;box-shadow:inset 0 0 18px rgba(120,80,20,.35)}
+.ms{display:flex;gap:10px;padding:12px;margin-top:10px;border-radius:12px;background:url(https://lpdicrpetxqnoxceozfa.supabase.co/storage/v1/object/public/fh/art/guilda/bau.webp) right 4px top 6px/50px no-repeat,linear-gradient(180deg,#f3e6c4,#e0cc9a);padding-right:58px;color:#2a1c05;border:2px solid #8a6424;box-shadow:inset 0 0 18px rgba(120,80,20,.35)}
 .ms.lock{filter:grayscale(1);opacity:.55}
 .ms .rk{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font:900 italic 22px 'Exo 2';color:#fff;border:2px solid #fff}
 .rkE{background:#6b7b90}.rkD{background:#3f9d5a}.rkC{background:#2d78c8}.rkB{background:#8a3fd1}.rkA{background:#d1442f}.rkS{background:linear-gradient(135deg,#ffcf4a,#e07a12)}
@@ -96,13 +96,13 @@ const H=()=>({L:+$('#sL').value,D:+$('#sD').value});
 function rankOf(s){let r=RANKS[0];for(const x of RANKS)if(s>=x[1])r=x;return r}
 function nextRank(s){return RANKS.find(x=>x[1]>s)}
 function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',2200)}
-function missions(){const {L,D}=H();const sets=Math.round(D*14);const km=Math.max(3,Math.round(D*1.6));
+function missions(){const {L,D}=H();const sets=Math.round(D*14);
  return [
   {id:'e',rk:'E',t:'Contrato de Ferro',d:`Treine ${Math.min(7,D+1)} dias nesta semana.`,x:60+L*4,s:25},
   {id:'d',rk:'D',t:'Caçada de Volume',d:`Complete ${Math.round(sets*1.25)} séries até domingo (sua média é ${sets}).`,x:90+L*5,s:40},
   {id:'c',rk:'C',t:'Sequência Inquebrável',d:`Treine ${Math.min(7,Math.max(3,D))} dias seguidos sem quebrar a chama 🔥.`,x:130+L*6,s:60},
   {id:'b',rk:'B',t:'Prova do Recorde',d:`Bata seu recorde em ${L<10?1:2} exercício${L<10?'':'s'} da Planilha.`,x:180+L*7,s:90},
-  {id:'a',rk:'A',t:'Expedição da Guilda',d:`Corra ${km} km na semana com o GPS do app.`,x:240+L*8,s:130},
+  {id:'a',rk:'A',t:'Caçador de Chefes',d:`Derrote ${L<15?1:2} chefe${L<15?'':'s'} da aba Chefes nesta semana.`,x:240+L*8,s:130},
   {id:'s',rk:'S',t:'Lenda do Ferro',d:`Faça ${100+L*10} repetições de um mesmo exercício em um único dia.`,x:400+L*10,s:220}
  ]}
 const RKI=r=>RANKS.findIndex(x=>x[0]===r);
@@ -146,7 +146,7 @@ function join(){if(H().L<3){toast('Precisa ser nível 3 para entrar');return}ST.
  openS(`<div style="text-align:center"><span class="tag">[ SISTEMA ]</span><div style="font-size:54px;margin:8px 0">📜</div><div class="h2">Bem-vindo à Guilda, ${esc(ST.name)}!</div><p class="mute" style="margin-top:6px">Seu rank inicial é <b style="color:#ffd84a">E</b>. Cumpra contratos do Quadro para ganhar selos e subir até o rank <b style="color:#ffd84a">S</b>.</p><button class="btn g" onclick="closeS()">⚔️ Ver o salão</button></div>`)}
 const PRIZES=[[40,()=>{const x=50+H().L*6;return['⚡','+'+x+' XP','Energia do Mestre']}],[25,()=>['🪙','+'+(40+Math.round(Math.random()*60))+' moedas','Para gastar na Loja']],[15,()=>{ST.selos+=20;return['🏅','+20 selos','Mais perto do próximo rank']}],[12,()=>['🧪','XP em dobro por 1h','Poção da Guilda']],[6,()=>['🖼️','Moldura rara','“Brasão da Guilda” para o avatar']],[2,()=>['👑','Título lendário','“Escolhido do Mestre”']]];
 function openChest(){if(ST.chest)return;
- openS(`<div style="text-align:center"><span class="tag">BÊNÇÃO DO MESTRE</span><img class="chest" id="ch" src="/app/img/ui/dg-chest.webp" alt="" onclick="roll()"><p class="mute">Toque no baú para abrir</p></div>`)}
+ openS(`<div style="text-align:center"><span class="tag">BÊNÇÃO DO MESTRE</span><img class="chest" id="ch" src="${IMG}bau.webp" alt="" onclick="roll()"><p class="mute">Toque no baú para abrir</p></div>`)}
 function roll(){const c=$('#ch');if(!c||c.dataset.o)return;c.dataset.o=1;c.classList.add('shake');
  setTimeout(()=>{let t=Math.random()*100,p;for(const [w,f] of PRIZES){if((t-=w)<0){p=f();break}}if(!p)p=PRIZES[0][1]();ST.chest=true;render();
   $('#sheet').innerHTML=`<div style="text-align:center"><span class="tag">BÊNÇÃO DO MESTRE</span><div style="font-size:64px;margin:10px 0 0">${p[0]}</div><div class="prize">${p[1]}</div><p class="mute">${p[2]}</p>
